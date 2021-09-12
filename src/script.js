@@ -1,3 +1,4 @@
+// TODO: try to put this shit in separated files
 
 // _____ game constants _____ //
 
@@ -56,7 +57,7 @@ const logField = document.getElementById("terminal-log-field");
 function showNewLog(text) {
     var newLog = document.createElement("div");
     newLog.setAttribute('class', 'terminal-log');
-    newLog.innerHTML = text;
+    newLog.innerHTML = text; // TODO: make typing effect
 
     logField.appendChild(newLog);
 }
@@ -207,7 +208,7 @@ function startGame() {
 }
 
 function handleTurn() {
-
+    // TODO: handling turn logic for both ai and player (same logic for everyone, but for ai make random spell selection)
 }
 
 function finishGame(winner) {
