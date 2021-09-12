@@ -1,0 +1,60 @@
+body {
+    background-color: black;
+    font-family: monospace;
+    color: white;
+}
+
+/*---PLAYERS---*/
+
+#players-bar {
+    display: flex;
+    justify-content: space-between;
+    margin: auto;
+    width: 100%;
+}
+
+#player-left {
+
+}
+
+#player-right {
+    text-align: right;
+}
+
+.player-name {
+    font-size: 45px;
+}
+
+.player-portrait {
+    width: 100px;
+    height: 100px;
+    background-color: rgb(243, 243, 243);
+}
+
+#player-right > .player-portrait {
+    margin-left: auto;
+    margin-right: 0;
+}
+
+.player-hp-bar, .player-hp-amount {
+    color: rgb(255, 31, 31);
+    font-size: 30px;
+}
+
+.player-mana-bar, .player-mana-bar {
+    color: #74a0ff;
+    font-size: 28px;
+}
+
+/*---MAIN BATTLEFIELD---*/
+
+#terminal-log-field {
+    margin: auto;
+    margin-top: 50px;
+    width: 800px;
+    font-size: 26px;
+}
+
+.terminal-log {
+    
+}
