@@ -1,4 +1,8 @@
 
+// _____ game constants _____ //
+
+const TURNS_PER_PLAYER = 2;
+
 // ______ player objects ______ //
 
 const playerStats = {
@@ -163,12 +167,12 @@ function initBot() {
         skill3 = holyTouchSkill
     ]
     bot.playerStats = {
-        hitpoints: 78,
-        mana: 125,
-        intelligence: 26,
-        defense: 8,
-        strength: 3,
-        criticalStrike: 0.2
+        hitpoints: 80,
+        mana: 120,
+        intelligence: 20,
+        defense: 12,
+        strength: 4,
+        criticalStrike: 0.15
     };
 
     return bot;
@@ -179,13 +183,35 @@ players.bot = initBot();
 
 // ___ game logic ___ //
 
+function isGameOver() {
+    return players.human.hitpoints > 0 || players.bot.hitpoints > 0;
+}
+
 function startGame() {
     initHuman();
     initBot();
     initPlayersUI();
     showNewLog("Greetings, warriors! <br /> You, " + players.human.name + ", and you, " + players.bot.name + ", are here to fight in a glorious battle!");
     
+    var winner;
+    while(!isGameOver) {
+        for(let i = 0; i < TURNS_PER_PLAYER; i++) {
+            handleTurn(players.human);
+        }
+        for(let i = 0; i < TURNS_PER_PLAYER; i++) {
+            handleTurn(players.bot);
+        }
+    }
+    
+    finishGame(players.human);
 }
 
+function handleTurn() {
+
+}
+
+function finishGame(winner) {
+    showNewLog("Congratulations, " + winner.name + "!");
+}
 
 startGame();
