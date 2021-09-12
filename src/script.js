@@ -57,8 +57,24 @@ function showNewLog(text) {
     logField.appendChild(newLog);
 }
 
-function initUI() {
+function initPlayersUI() {
+    fillPlayersDisplay('player-left', players.human);
+    fillPlayersDisplay('player-right', players.bot);
+}
+
+function fillPlayersDisplay(playerId, playerInfo) {
+    var playerPanel = document.getElementById(playerId);
+
+    var playerName = playerPanel.getElementsByClassName("player-name")[0];
+    playerName.textContent  = playerInfo.name.toString();
     
+    var playerHPBar = playerPanel.getElementsByClassName("player-hp-bar")[0];
+    playerHPBarText = playerHPBar.getElementsByClassName("player-hp-amount")[0];
+    playerHPBarText.textContent  = playerInfo.playerStats.hitpoints.toString();
+
+    var playerManaBar = playerPanel.getElementsByClassName("player-mana-bar")[0];
+    playerManaBarText = playerManaBar.getElementsByClassName("player-mana-amount")[0];
+    playerManaBarText.textContent  = playerInfo.playerStats.mana.toString();
 }
 
 // ___ declarations ___ //
@@ -164,6 +180,9 @@ players.bot = initBot();
 // ___ game logic ___ //
 
 function startGame() {
+    initHuman();
+    initBot();
+    initPlayersUI();
     showNewLog("Greetings, warriors! <br /> You, " + players.human.name + ", and you, " + players.bot.name + ", are here to fight in a glorious battle!");
     
 }
