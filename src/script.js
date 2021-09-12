@@ -1,4 +1,20 @@
 
+// ______ player objects ______ //
+
+const playerStats = {
+    hitpoints: 100,
+    mana: 50,
+    intelligence: 10,
+    defense: 10,
+    criticalStrike: 0.5
+}
+
+const player = {
+    name: "default name",
+    playerSkills: [],
+    playerStats: {}
+}
+
 // _____ skills objects _____ //
 
 const skillType = {
@@ -11,36 +27,27 @@ const skill = {
     duration: 0, // 0 - permanent 
     skillType: skillType.SELF,
     effect : 0,
-    applyEffect: function(player) {
-        // this skill does something
+    manaRequired: 5,
+    targetStat: playerStats.hitpoints,
+    applyEffect: function(player, effect) {
+        player.playerStats.targetStat += effect;
     },
-    removeEffect: function(player) {
-        // if skill is not permanent, we can remove effect in the future
+    removeEffect: function(player, effect) {
+        player.playerStats.targetStat -= effect;
     }
 }
 
-// ______ player objects ______ //
+// ___ static game function ___ //
 
-const playerStats = {
-    hitpoints: 100,
-    mana: 50,
-    intelligence: 10,
-    defense: 10,
-    strength: 10,
-    criticalStrike: 0.5
-}
-
-const player = {
-    name: "default name",
-    playerSkills: [],
-    playerStats: {}
+function getMagicalEffectMultiplayed(baseEffect, intelligence) {
+    return baseEffect * intelligence / 10;
 }
 
 // ___ html consts ___ //
 
 const logField = document.getElementById("terminal-log-field");
 
-// ___ misc functions ___ //
+// ___ html functions ___ //
 
 function showNewLog(text) {
     var newLog = document.createElement("div");
@@ -50,39 +57,73 @@ function showNewLog(text) {
     logField.appendChild(newLog);
 }
 
+function initUI() {
+    
+}
+
 // ___ declarations ___ //
 // ___ skills declarations ___ //
 
-var magicAttackSkill = Object.create(skill);
-magicAttackSkill.name = "Magic attack";
-magicAttackSkill.duration = 0;  
-magicAttackSkill.skillType = skillType.NONSELF;
-magicAttackSkill.effect = 10;
-magicAttackSkill.applyEffect = function(player) {
-    player.hitpoints -= magicAttackSkill.effect;
-};
+var magicalPulseSkill = Object.create(skill);
+magicalPulseSkill.name = "Magical Pulse";
+magicalPulseSkill.duration = 0;  
+magicalPulseSkill.skillType = skillType.NONSELF;
+magicalPulseSkill.effect = 2;
+magicalPulseSkill.targetStat = playerStats.hitpoints;
+magicalPulseSkill.manaRequired = 0;
 
 var holyRageSkill = Object.create(skill);
-magicAttackSkill.name = "Magic attack";
-magicAttackSkill.duration = 0;  
-magicAttackSkill.skillType = skillType.NONSELF;
-magicAttackSkill.effect = 10;
-magicAttackSkill.applyEffect = function(player) {
-    player.hitpoints -= magicAttackSkill.effect;
-};
+holyRageSkill.name = "Holy Rage";
+holyRageSkill.duration = 1;  
+holyRageSkill.skillType = skillType.SELF;
+holyRageSkill.effect = 5;
+holyRageSkill.targetStat = playerStats.intelligence;
+holyRageSkill.manaRequired = 15;
 
+var ancestorsWrathSkill = Object.create(skill);
+ancestorsWrathSkill.name = "Ancestors Wrath";
+ancestorsWrathSkill.duration = 0;  
+ancestorsWrathSkill.skillType = skillType.NONSELF;
+ancestorsWrathSkill.effect = 30;
+ancestorsWrathSkill.targetStat = playerStats.hitpoints;
+ancestorsWrathSkill.manaRequired = 25;
+
+var skyRevengeSkill = Object.create(skill);
+skyRevengeSkill.name = "Sky Revenge";
+skyRevengeSkill.duration = 0;  
+skyRevengeSkill.skillType = skillType.NONSELF;
+skyRevengeSkill.effect = 25;
+skyRevengeSkill.targetStat = playerStats.hitpoints;
+skyRevengeSkill.manaRequired = 20;
+
+var holyTouchSkill = Object.create(skill);
+holyTouchSkill.name = "Holy Touch";
+holyTouchSkill.duration = 0;  
+holyTouchSkill.skillType = skillType.SELF;
+holyTouchSkill.effect = 5;
+holyTouchSkill.targetStat = playerStats.hitpoints;
+holyTouchSkill.manaRequired = 5;
+
+var brainStormSkill = Object.create(skill);
+brainStormSkill.name = "Brain Storm";
+brainStormSkill.duration = 2;  
+brainStormSkill.skillType = skillType.NONSELF;
+brainStormSkill.effect = 1;
+brainStormSkill.targetStat = playerStats.intelligence;
+brainStormSkill.manaRequired = 10;
 
 // ___ player declarations ___ //
 
-var players = [];
+var players = {human: null, bot: null};
 
 function initHuman() {
     var human = Object.create(player);
     human.name = "Tassadar";
     human.playerSkills = [
-        {
-
-        }
+        skill1 = magicalPulseSkill, 
+        skill2 = holyRageSkill, 
+        skill3 = skyRevengeSkill, 
+        skill3 = holyTouchSkill
     ]
     human.playerStats = {
         hitpoints: 78,
@@ -96,19 +137,36 @@ function initHuman() {
     return human;
 }
 
+function initBot() {
+    var bot = Object.create(player);
+    bot.name = "Zeratul";
+    bot.playerSkills = [
+        skill1 = magicalPulseSkill, 
+        skill2 = holyRageSkill, 
+        skill3 = skyRevengeSkill, 
+        skill3 = holyTouchSkill
+    ]
+    bot.playerStats = {
+        hitpoints: 78,
+        mana: 125,
+        intelligence: 26,
+        defense: 8,
+        strength: 3,
+        criticalStrike: 0.2
+    };
+
+    return bot;
+}
+
+players.human = initHuman();
+players.bot = initBot();
 
 // ___ game logic ___ //
 
 function startGame() {
-    
-    //showNewLog("Greetings! <br /> You," + +" are here to fight with your opponent");
+    showNewLog("Greetings, warriors! <br /> You, " + players.human.name + ", and you, " + players.bot.name + ", are here to fight in a glorious battle!");
     
 }
 
-
-
-function initBot() {
-
-}
 
 startGame();
