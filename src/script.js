@@ -7,11 +7,11 @@ const TURNS_PER_PLAYER = 2;
 // ______ player objects ______ //
 
 const playerStats = {
-    hitpoints: 100,
-    mana: 50,
-    intelligence: 10,
-    defense: 10,
-    criticalStrike: 0.5
+    hitpoints: "Hitpoints",
+    mana: "Mana",
+    intelligence: "Intelligence",
+    defense: "Defense",
+    criticalStrike: "Critical strike" // float (0-1)
 }
 
 const player = {
@@ -260,10 +260,9 @@ function displayPlayerSkills(player) {
 }
 
 function getSkillDescription(skill) {
-    let skillEffect = skill.effect;
-    let skillVerb = skillEffect >= 0 ? "increase " : "reduce ";
-    return skill.name + " - costs " + skill.manaRequired + " mana" + ", " + skillVerb + skill.targetStat + " by " + skill.effect;
-}
+    let skillVerb = skill.skillType == skillType.SELF ? "increase your " : "decrease enemy's ";
+    return skill.name + " - costs " + skill.manaRequired + " mana" + ", " + skillVerb + skill.targetStat.toString() + " by " + skill.effect;
+} 
 
 async function handleTurnOpponent(currentPlayer) {
 
