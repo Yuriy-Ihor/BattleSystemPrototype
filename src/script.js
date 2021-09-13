@@ -14,10 +14,10 @@ const playerStats = {
     criticalStrike: "Critical strike" // float (0-1)
 }
 
-const player = {
-    name: "default name",
-    playerSkills: [],
-    playerStats: {}
+class Player {
+    name = "default name";
+    playerSkills = [];
+    playerStats = {};
 }
 
 // _____ skills objects _____ //
@@ -27,20 +27,19 @@ const skillType = {
     NONSELF: 'Nonself'
 }
 
-const skill = {
-    name: "default skill name",
-    duration: 0, // 0 - permanent 
-    skillType: skillType.SELF,
-    effect : 0,
-    manaRequired: 5,
-    targetStat: playerStats.hitpoints,
-    applyEffect: function(player, effect) {
-        console.log(123);
+class Skill {
+    name = "default skill name";
+    duration = 0; // 0 - permanent 
+    skillType = skillType.SELF;
+    effect = 0;
+    manaRequired = 5;
+    targetStat = playerStats.hitpoints;
+    applyEffect = function(targetStat, player, effect) {
         player.playerStats[targetStat] += effect;
-    },
-    removeEffect: function(player, effect) {
+    };
+    removeEffect = function(targetStat, player, effect) {
         player.playerStats[targetStat] -= effect;
-    }
+    };
 }
 
 // ___ static game functions ___ //
@@ -118,7 +117,7 @@ function updatePlayerStatUI(playerId, barClassName, textAmountClassName, amount)
 // ___ declarations ___ //
 // ___ skills declarations ___ //
 
-var magicalPulseSkill = Object.create(skill);
+var magicalPulseSkill = new Skill();
 magicalPulseSkill.name = "Magical Pulse";
 magicalPulseSkill.duration = 0;  
 magicalPulseSkill.skillType = skillType.NONSELF;
@@ -126,7 +125,7 @@ magicalPulseSkill.effect = 2;
 magicalPulseSkill.targetStat = playerStats.hitpoints;
 magicalPulseSkill.manaRequired = 0;
 
-var holyRageSkill = Object.create(skill);
+var holyRageSkill = new Skill();
 holyRageSkill.name = "Holy Rage";
 holyRageSkill.duration = 1;  
 holyRageSkill.skillType = skillType.SELF;
@@ -134,7 +133,7 @@ holyRageSkill.effect = 5;
 holyRageSkill.targetStat = playerStats.intelligence;
 holyRageSkill.manaRequired = 15;
 
-var ancestorsWrathSkill = Object.create(skill);
+var ancestorsWrathSkill = new Skill();
 ancestorsWrathSkill.name = "Ancestors Wrath";
 ancestorsWrathSkill.duration = 0;  
 ancestorsWrathSkill.skillType = skillType.NONSELF;
@@ -142,7 +141,7 @@ ancestorsWrathSkill.effect = 30;
 ancestorsWrathSkill.targetStat = playerStats.hitpoints;
 ancestorsWrathSkill.manaRequired = 25;
 
-var skyRevengeSkill = Object.create(skill);
+var skyRevengeSkill = new Skill();
 skyRevengeSkill.name = "Sky Revenge";
 skyRevengeSkill.duration = 0;  
 skyRevengeSkill.skillType = skillType.NONSELF;
@@ -150,7 +149,7 @@ skyRevengeSkill.effect = 25;
 skyRevengeSkill.targetStat = playerStats.hitpoints;
 skyRevengeSkill.manaRequired = 20;
 
-var holyTouchSkill = Object.create(skill);
+var holyTouchSkill = new Skill();
 holyTouchSkill.name = "Holy Touch";
 holyTouchSkill.duration = 0;  
 holyTouchSkill.skillType = skillType.SELF;
@@ -158,7 +157,7 @@ holyTouchSkill.effect = 5;
 holyTouchSkill.targetStat = playerStats.hitpoints;
 holyTouchSkill.manaRequired = 5;
 
-var brainStormSkill = Object.create(skill);
+var brainStormSkill = new Skill();
 brainStormSkill.name = "Brain Storm";
 brainStormSkill.duration = 2;  
 brainStormSkill.skillType = skillType.NONSELF;
@@ -171,7 +170,7 @@ brainStormSkill.manaRequired = 10;
 var players = {mainPlayer: null, opponent: null};
 
 function initMainPlayer() {
-    var mainPlayer = Object.create(player);
+    var mainPlayer = new Player();
     mainPlayer.name = "Tassadar";
     mainPlayer.playerSkills = [
         magicalPulseSkill, 
@@ -182,7 +181,7 @@ function initMainPlayer() {
     mainPlayer.playerStats[playerStats.hitpoints] = 78;
     mainPlayer.playerStats[playerStats.mana] = 125;
     mainPlayer.playerStats[playerStats.intelligence] = 26;
-    mainPlayer.playerStats[playerStats.defense] = 8;
+    mainPlayer.playerStats[playerStats.defense] = 18;
     mainPlayer.playerStats[playerStats.strength] = 3;
     mainPlayer.playerStats[playerStats.criticalStrike] = 0.2;
 
@@ -190,17 +189,16 @@ function initMainPlayer() {
 }
 
 function initOpponent() {
-    var opponent = Object.create(player);
+    var opponent = new Player();
     opponent.name = "Zeratul";
     opponent.playerSkills = [
         magicalPulseSkill, 
         holyRageSkill, 
-        skyRevengeSkill, 
-        holyTouchSkill
+        skyRevengeSkill
     ];
     opponent.playerStats[playerStats.hitpoints] = 80;
-    opponent.playerStats[playerStats.mana] = 120;
-    opponent.playerStats[playerStats.intelligence] = 26;
+    opponent.playerStats[playerStats.mana] = 110;
+    opponent.playerStats[playerStats.intelligence] = 19;
     opponent.playerStats[playerStats.defense] = 8;
     opponent.playerStats[playerStats.strength] = 3;
     opponent.playerStats[playerStats.criticalStrike] = 0.2;
@@ -217,7 +215,8 @@ function isGameOver() {
 async function startGame() {
     players.mainPlayer = initMainPlayer();
     players.opponent = initOpponent();
-
+    console.log(players.mainPlayer.playerStats);
+    console.log(players.opponent.playerStats);
     initPlayersUI();
     showNewLog("Greetings, warriors! <br /> You, " + players.mainPlayer.name + ", and you, " + players.opponent.name + ", are here to fight in a glorious battle!");
     
@@ -243,12 +242,11 @@ async function handleTurnMainPlayer() {
     showNewLog("You selected " + selectedSkill.name);
 
     if(selectedSkill.skillType == skillType.SELF) {
-        selectedSkill.applyEffect(currentPlayer);
+        selectedSkill.applyEffect(selectedSkill.targetStat, currentPlayer, selectedSkill.effect);
     }
     else {
-        selectedSkill.applyEffect(players.opponent);
+        selectedSkill.applyEffect(selectedSkill.targetStat, players.opponent, selectedSkill.effect);
     }
-    
 }
 
 function displayPlayerSkills(player) {
