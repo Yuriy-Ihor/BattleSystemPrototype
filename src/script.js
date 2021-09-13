@@ -92,7 +92,6 @@ function initPlayersUI() {
     updatePlayersDisplay('player-right', players.opponent);
 }
 
-
 function updatePlayersDisplay(playerId, playerInfo) {
     var playerPanel = document.getElementById(playerId);
 
@@ -222,18 +221,17 @@ async function startGame() {
     
     while(!isGameOver()) {
         for(let i = 0; i < TURNS_PER_PLAYER; i++) {
-            await handleTurnMainPlayer();
+            await handleTurnHumanPlayer(players.mainPlayer);
         }
         for(let i = 0; i < TURNS_PER_PLAYER; i++) {
-            await handleTurnOpponent();
+            await handleAIPlayer(players.opponent);
         }
     }
     
     finishGame(players.mainPlayer);
 }
 
-async function handleTurnMainPlayer() {
-    let currentPlayer = players.mainPlayer;
+async function handleTurnHumanPlayer(currentPlayer) {
     displayPlayerSkills(currentPlayer);
 
     showNewLog("Which skill you want to select? (type number)");
@@ -258,8 +256,8 @@ function displayPlayerSkills(player) {
     }
 }
 
-async function handleTurnOpponent(currentPlayer) {
-
+async function handleAIPlayer(currentPlayer) {
+    // TODO: do some shit
     showNewLog(currentPlayer.name + " does nothing...");
 }
 
