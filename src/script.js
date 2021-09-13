@@ -61,7 +61,6 @@ function getSkillDescription(skill) {
 } 
 
 function getSkillVerb(skillType) {
-    console.log(skillType);
     return skillType == SkillType.SELF ? "increase " : "decrease ";
 }
 
@@ -191,7 +190,7 @@ function initOpponent() {
 // ___ game logic ___ //
 
 function isGameOver() {
-    return players.mainPlayer.hitpoints > 0 || players.opponent.hitpoints > 0;
+    return players.mainPlayer.playerStats[playerStats.hitpoints] < 0 || players.opponent.playerStats[playerStats.hitpoints] < 0;
 }
 
 async function startGame() {
@@ -205,6 +204,7 @@ async function startGame() {
         for(let i = 0; i < TURNS_PER_PLAYER; i++) {
             await handleTurnHumanPlayer(players.mainPlayer, players.opponent);
         }
+
         for(let i = 0; i < TURNS_PER_PLAYER; i++) {
             await handleTurnAIPlayer(players.opponent, players.mainPlayer);
         }
@@ -225,7 +225,7 @@ async function handleTurnHumanPlayer(currentPlayer, opponent) {
 }
 
 async function handleTurnAIPlayer(currentPlayer, opponent) {
-    let selectedSkill = currentPlayer.playerSkills[Range(0, currentPlayer.playerSkills.length)];
+    let selectedSkill = currentPlayer.playerSkills[Math.floor(Math.random()*currentPlayer.playerSkills.length)];
     showNewLog(currentPlayer.name + " selected " + selectedSkill.name);
 
     castSkill(selectedSkill, currentPlayer, opponent);
