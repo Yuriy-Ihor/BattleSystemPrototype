@@ -42,7 +42,10 @@ const skill = {
     }
 }
 
-// ___ static game function ___ //
+// ___ game objects ___ //
+
+
+// ___ static game functions ___ //
 
 function getMagicalEffectMultiplayed(baseEffect, intelligence) {
     return baseEffect * intelligence / 10;
@@ -54,6 +57,29 @@ const logField = document.getElementById("terminal-log-field");
 
 // ___ html functions ___ //
 
+
+async function readPlayerInput() {
+    return new Promise(resolve => {
+        const onKeyDown = event => {
+            if (event.keyCode === 13) {
+                event.preventDefault();
+                let result = event.target.textContent;
+                resolve(result);
+            }
+        };
+
+        var newInput = document.createElement("div");
+        newInput.setAttribute('class', 'terminal-input');
+        newInput.setAttribute('contenteditable', 'true');
+        newInput.innerHTML = '> ';
+        newInput.addEventListener("keydown", onKeyDown);
+        logField.appendChild(newInput);
+        
+        newInput.focus();
+    });
+}
+
+
 function showNewLog(text) {
     var newLog = document.createElement("div");
     newLog.setAttribute('class', 'terminal-log');
@@ -63,8 +89,8 @@ function showNewLog(text) {
 }
 
 function initPlayersUI() {
-    fillPlayersDisplay('player-left', players.human);
-    fillPlayersDisplay('player-right', players.bot);
+    fillPlayersDisplay('player-left', players.mainPlayer);
+    fillPlayersDisplay('player-right', players.opponent);
 }
 
 function fillPlayersDisplay(playerId, playerInfo) {
@@ -73,13 +99,24 @@ function fillPlayersDisplay(playerId, playerInfo) {
     var playerName = playerPanel.getElementsByClassName("player-name")[0];
     playerName.textContent  = playerInfo.name.toString();
     
+    updatePlayersHPUI(playerId, playerInfo.playerStats.hitpoints);
+    updatePlayersManaUI(playerId, playerInfo.playerStats.mana);
+}
+
+function updatePlayersHPUI(playerId, hpAmount) {
+    var playerPanel = document.getElementById(playerId);
+
     var playerHPBar = playerPanel.getElementsByClassName("player-hp-bar")[0];
     playerHPBarText = playerHPBar.getElementsByClassName("player-hp-amount")[0];
-    playerHPBarText.textContent  = playerInfo.playerStats.hitpoints.toString();
+    playerHPBarText.textContent  = hpAmount;
+}
+
+function updatePlayersManaUI(playerId, manaAmount) {
+    var playerPanel = document.getElementById(playerId);
 
     var playerManaBar = playerPanel.getElementsByClassName("player-mana-bar")[0];
     playerManaBarText = playerManaBar.getElementsByClassName("player-mana-amount")[0];
-    playerManaBarText.textContent  = playerInfo.playerStats.mana.toString();
+    playerManaBarText.textContent  = manaAmount;
 }
 
 // ___ declarations ___ //
@@ -135,18 +172,18 @@ brainStormSkill.manaRequired = 10;
 
 // ___ player declarations ___ //
 
-var players = {human: null, bot: null};
+var players = {mainPlayer: null, opponent: null};
 
-function initHuman() {
-    var human = Object.create(player);
-    human.name = "Tassadar";
-    human.playerSkills = [
-        skill1 = magicalPulseSkill, 
-        skill2 = holyRageSkill, 
-        skill3 = skyRevengeSkill, 
-        skill3 = holyTouchSkill
+function initMainPlayer() {
+    var mainPlayer = Object.create(player);
+    mainPlayer.name = "Tassadar";
+    mainPlayer.playerSkills = [
+        magicalPulseSkill, 
+        holyRageSkill, 
+        skyRevengeSkill, 
+        holyTouchSkill
     ]
-    human.playerStats = {
+    mainPlayer.playerStats = {
         hitpoints: 78,
         mana: 125,
         intelligence: 26,
@@ -155,19 +192,19 @@ function initHuman() {
         criticalStrike: 0.2
     };
 
-    return human;
+    return mainPlayer;
 }
 
-function initBot() {
-    var bot = Object.create(player);
-    bot.name = "Zeratul";
-    bot.playerSkills = [
-        skill1 = magicalPulseSkill, 
-        skill2 = holyRageSkill, 
-        skill3 = skyRevengeSkill, 
-        skill3 = holyTouchSkill
+function initOpponent() {
+    var opponent = Object.create(player);
+    opponent.name = "Zeratul";
+    opponent.playerSkills = [
+        magicalPulseSkill, 
+        holyRageSkill, 
+        skyRevengeSkill, 
+        holyTouchSkill
     ]
-    bot.playerStats = {
+    opponent.playerStats = {
         hitpoints: 80,
         mana: 120,
         intelligence: 20,
@@ -176,38 +213,43 @@ function initBot() {
         criticalStrike: 0.15
     };
 
-    return bot;
+    return opponent;
 }
 
-players.human = initHuman();
-players.bot = initBot();
+players.mainPlayer = initMainPlayer();
+players.opponent = initOpponent();
 
 // ___ game logic ___ //
 
 function isGameOver() {
-    return players.human.hitpoints > 0 || players.bot.hitpoints > 0;
+    return players.mainPlayer.hitpoints > 0 || players.opponent.hitpoints > 0;
 }
 
-function startGame() {
-    initHuman();
-    initBot();
+async function startGame() {
     initPlayersUI();
-    showNewLog("Greetings, warriors! <br /> You, " + players.human.name + ", and you, " + players.bot.name + ", are here to fight in a glorious battle!");
+    showNewLog("Greetings, warriors! <br /> You, " + players.mainPlayer.name + ", and you, " + players.opponent.name + ", are here to fight in a glorious battle!");
     
-    var winner;
     while(!isGameOver) {
+        console.log(123);
         for(let i = 0; i < TURNS_PER_PLAYER; i++) {
-            handleTurn(players.human);
+            let rez = await handleTurnMainPlayer(players.mainPlayer);
         }
         for(let i = 0; i < TURNS_PER_PLAYER; i++) {
-            handleTurn(players.bot);
+            await handleTurnOpponent(players.opponent);
         }
     }
     
-    finishGame(players.human);
+    finishGame(players.mainPlayer);
 }
 
-function handleTurn() {
+async function handleTurnMainPlayer(currentPlayer) {
+    // TODO: handling turn logic for both ai and player (same logic for everyone, but for ai make random spell selection)
+
+    let input = await readPlayerInput();
+    showNewLog(input);
+}
+
+async function handleTurnOpponent(currentPlayer) {
     // TODO: handling turn logic for both ai and player (same logic for everyone, but for ai make random spell selection)
 }
 
