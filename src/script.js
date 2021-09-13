@@ -35,15 +35,13 @@ const skill = {
     manaRequired: 5,
     targetStat: playerStats.hitpoints,
     applyEffect: function(player, effect) {
-        player.playerStats.targetStat += effect;
+        
+        player.playerStats[targetStat] += effect;
     },
     removeEffect: function(player, effect) {
-        player.playerStats.targetStat -= effect;
+        player.playerStats[targetStat] -= effect;
     }
 }
-
-// ___ game objects ___ //
-
 
 // ___ static game functions ___ //
 
@@ -51,12 +49,16 @@ function getMagicalEffectMultiplayed(baseEffect, intelligence) {
     return baseEffect * intelligence / 10;
 }
 
+function getSkillDescription(skill) {
+    let skillVerb = skill.skillType == skillType.SELF ? "increase your " : "decrease enemy's ";
+    return skill.name + " - costs " + skill.manaRequired + " mana" + ", " + skillVerb + skill.targetStat.toString() + " by " + skill.effect;
+} 
+
 // ___ html consts ___ //
 
 const logField = document.getElementById("terminal-log-field");
 
 // ___ html functions ___ //
-
 
 async function readPlayerInput() {
     return new Promise(resolve => {
@@ -78,7 +80,6 @@ async function readPlayerInput() {
     });
 }
 
-
 function showNewLog(text) {
     var newLog = document.createElement("div");
     newLog.setAttribute('class', 'terminal-log');
@@ -88,26 +89,24 @@ function showNewLog(text) {
 }
 
 function initPlayersUI() {
-    fillPlayersDisplay('player-left', players.mainPlayer);
-    fillPlayersDisplay('player-right', players.opponent);
+    updatePlayersDisplay('player-left', players.mainPlayer);
+    updatePlayersDisplay('player-right', players.opponent);
 }
 
-function fillPlayersDisplay(playerId, playerInfo) {
+
+function updatePlayersDisplay(playerId, playerInfo) {
     var playerPanel = document.getElementById(playerId);
 
     var playerName = playerPanel.getElementsByClassName("player-name")[0];
     playerName.textContent  = playerInfo.name.toString();
     
-    updatePlayersHPUI(playerId, playerInfo.playerStats.hitpoints);
     updatePlayersManaUI(playerId, playerInfo.playerStats.mana);
-}
 
-function updatePlayersHPUI(playerId, hpAmount) {
-    var playerPanel = document.getElementById(playerId);
-
-    var playerHPBar = playerPanel.getElementsByClassName("player-hp-bar")[0];
-    playerHPBarText = playerHPBar.getElementsByClassName("player-hp-amount")[0];
-    playerHPBarText.textContent  = hpAmount;
+    updatePlayerStatUI(playerId, 'player-hp-bar', 'player-hp-amount', playerInfo.playerStats.hitpoints);
+    updatePlayerStatUI(playerId, 'player-hp-bar', 'player-hp-amount', playerInfo.playerStats.mana);
+    updatePlayerStatUI(playerId, 'player-intelligence-bar', 'player-intelligence-amount', playerInfo.playerStats.intelligence);
+    updatePlayerStatUI(playerId, 'player-defense-bar', 'player-defense-amount', playerInfo.playerStats.defense);
+    updatePlayerStatUI(playerId, 'player-criticalStrike-bar', 'player-criticalStrike-amount', playerInfo.playerStats.criticalStrike);
 }
 
 function updatePlayersManaUI(playerId, manaAmount) {
@@ -116,6 +115,14 @@ function updatePlayersManaUI(playerId, manaAmount) {
     var playerManaBar = playerPanel.getElementsByClassName("player-mana-bar")[0];
     playerManaBarText = playerManaBar.getElementsByClassName("player-mana-amount")[0];
     playerManaBarText.textContent  = manaAmount;
+}
+
+function updatePlayerStatUI(playerId, barClassName, textAmountClassName, amount) {
+    var playerPanel = document.getElementById(playerId);
+
+    var playerBar = playerPanel.getElementsByClassName(barClassName)[0];
+    playerStatAmount = playerBar.getElementsByClassName(textAmountClassName)[0];
+    playerStatAmount.textContent  = amount;
 }
 
 // ___ declarations ___ //
@@ -230,23 +237,32 @@ async function startGame() {
     
     while(!isGameOver()) {
         for(let i = 0; i < TURNS_PER_PLAYER; i++) {
-            await handleTurnMainPlayer(players.mainPlayer);
+            await handleTurnMainPlayer();
         }
         for(let i = 0; i < TURNS_PER_PLAYER; i++) {
-            await handleTurnOpponent(players.opponent);
+            await handleTurnOpponent();
         }
     }
     
     finishGame(players.mainPlayer);
 }
 
-async function handleTurnMainPlayer(currentPlayer) {
+async function handleTurnMainPlayer() {
+    let currentPlayer = players.mainPlayer;
     displayPlayerSkills(currentPlayer);
 
     showNewLog("Which skill you want to select? (type number)");
     let input = await readPlayerInput();
+    let selectedSkill = currentPlayer.playerSkills[input - 1];
+    showNewLog("You selected " + selectedSkill.name);
 
-    showNewLog("You selected " + currentPlayer.playerSkills[input - 1].name);
+    if(selectedSkill.skillType == skillType.SELF) {
+        selectedSkill.applyEffect(currentPlayer);
+    }
+    else {
+        selectedSkill.applyEffect(players.opponent);
+    }
+    
 }
 
 function displayPlayerSkills(player) {
@@ -254,15 +270,9 @@ function displayPlayerSkills(player) {
     
     for(let i = 0; i < player.playerSkills.length; i++) {
         let currentSkill = player.playerSkills[i];
-        
         showNewLog((i + 1) + " - " + getSkillDescription(currentSkill));
     }
 }
-
-function getSkillDescription(skill) {
-    let skillVerb = skill.skillType == skillType.SELF ? "increase your " : "decrease enemy's ";
-    return skill.name + " - costs " + skill.manaRequired + " mana" + ", " + skillVerb + skill.targetStat.toString() + " by " + skill.effect;
-} 
 
 async function handleTurnOpponent(currentPlayer) {
 

@@ -46,6 +46,30 @@ body {
     font-size: 28px;
 }
 
+.player-intelligence-bar {
+
+}
+
+.player-intelligence-amount {
+    
+}
+
+.player-defense-bar {
+
+}
+
+.player-defense-amount {
+
+}
+
+.player-criticalStrike-bar {
+
+}
+
+.player-criticalStrike-amount {
+    
+}
+
 /*---MAIN BATTLEFIELD---*/
 
 #terminal-log-field {
@@ -60,5 +84,5 @@ body {
 }
 
 .terminal-input {
-    
+
 }
