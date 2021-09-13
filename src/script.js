@@ -28,8 +28,13 @@ class SkillType {
 }
 
 class Skill {
-    constructor () {
-        // DO SOMETHING
+    constructor (name, duration, skillType, effect, manaRequired, targetStat) {
+        this.name = name;
+        this.duration = duration;
+        this.skillType = skillType;
+        this.effect = effect;
+        this.manaRequired = manaRequired;
+        this.targetStat = targetStat;
     }
     name = "default skill name";
     duration = 0; // 0 - permanent 
@@ -38,9 +43,6 @@ class Skill {
     manaRequired = 5;
     targetStat = playerStats.hitpoints;
     applyEffect = function(targetStat, player, effect) {
-        if(this.skillType == SkillType.NONSELF){
-            effect = -effect;
-        }
         player.playerStats[targetStat] += effect;
     };
     removeEffect = function(targetStat, player, effect) {
@@ -135,53 +137,17 @@ function updatePlayerStatUI(playerId, barClassName, textAmountClassName, amount)
 // ___ declarations ___ //
 // ___ skills declarations ___ //
 
-var magicalPulseSkill = new Skill();
-magicalPulseSkill.name = "Magical Pulse";
-magicalPulseSkill.duration = 0;  
-magicalPulseSkill.skillType = SkillType.NONSELF;
-magicalPulseSkill.effect = 2;
-magicalPulseSkill.targetStat = playerStats.hitpoints;
-magicalPulseSkill.manaRequired = 0;
+var magicalPulseSkill = new Skill("Magical Pulse", 0, SkillType.NONSELF, 2, 0, playerStats.hitpoints, );
 
-var holyRageSkill = new Skill();
-holyRageSkill.name = "Holy Rage";
-holyRageSkill.duration = 1;  
-holyRageSkill.skillType = SkillType.SELF;
-holyRageSkill.effect = 5;
-holyRageSkill.targetStat = playerStats.intelligence;
-holyRageSkill.manaRequired = 15;
+var holyRageSkill = new Skill("Holy Rage", 1, SkillType.SELF, 5, 25, playerStats.intelligence);
 
-var ancestorsWrathSkill = new Skill();
-ancestorsWrathSkill.name = "Ancestors Wrath";
-ancestorsWrathSkill.duration = 0;  
-ancestorsWrathSkill.skillType = SkillType.NONSELF;
-ancestorsWrathSkill.effect = 30;
-ancestorsWrathSkill.targetStat = playerStats.hitpoints;
-ancestorsWrathSkill.manaRequired = 25;
+var ancestorsWrathSkill = new Skill("Ancestors Wrath", 0, SkillType.NONSELF, 30, 25, playerStats.hitpoints);
 
-var skyRevengeSkill = new Skill();
-skyRevengeSkill.name = "Sky Revenge";
-skyRevengeSkill.duration = 0;  
-skyRevengeSkill.skillType = SkillType.NONSELF;
-skyRevengeSkill.effect = 25;
-skyRevengeSkill.targetStat = playerStats.hitpoints;
-skyRevengeSkill.manaRequired = 20;
+var skyRevengeSkill = new Skill("Sky Revenge", 0, SkillType.NONSELF, 25, 20, playerStats.hitpoints);
 
-var holyTouchSkill = new Skill();
-holyTouchSkill.name = "Holy Touch";
-holyTouchSkill.duration = 0;  
-holyTouchSkill.skillType = SkillType.SELF;
-holyTouchSkill.effect = 5;
-holyTouchSkill.targetStat = playerStats.hitpoints;
-holyTouchSkill.manaRequired = 5;
+var holyTouchSkill = new Skill("Holy Touch", 0, SkillType.SELF, 5, 5, playerStats.hitpoints);
 
-var brainStormSkill = new Skill();
-brainStormSkill.name = "Brain Storm";
-brainStormSkill.duration = 2;  
-brainStormSkill.skillType = SkillType.NONSELF;
-brainStormSkill.effect = 1;
-brainStormSkill.targetStat = playerStats.intelligence;
-brainStormSkill.manaRequired = 10;
+var brainStormSkill = new Skill("Brain Storm", 2, SkillType.NONSELF, 1, 10, playerStats.intelligence);
 
 // ___ player declarations ___ //
 
@@ -271,7 +237,7 @@ function castSkill(skill, player, opponent) {
         skill.applyEffect(skill.targetStat, player, skill.effect);
     }
     else {
-        skill.applyEffect(skill.targetStat, opponent, skill.effect);
+        skill.applyEffect(skill.targetStat, opponent, -skill.effect);
     }
 
     showNewLog(player.name + " " + getSkillVerb(skill.skillType) + skill.targetStat + " of " + opponent.name + " by " + skill.effect);
