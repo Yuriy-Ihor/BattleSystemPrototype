@@ -35,7 +35,7 @@ const skill = {
     manaRequired: 5,
     targetStat: playerStats.hitpoints,
     applyEffect: function(player, effect) {
-        
+        console.log(123);
         player.playerStats[targetStat] += effect;
     },
     removeEffect: function(player, effect) {
@@ -99,22 +99,12 @@ function updatePlayersDisplay(playerId, playerInfo) {
 
     var playerName = playerPanel.getElementsByClassName("player-name")[0];
     playerName.textContent  = playerInfo.name.toString();
-    
-    updatePlayersManaUI(playerId, playerInfo.playerStats.mana);
 
-    updatePlayerStatUI(playerId, 'player-hp-bar', 'player-hp-amount', playerInfo.playerStats.hitpoints);
-    updatePlayerStatUI(playerId, 'player-hp-bar', 'player-hp-amount', playerInfo.playerStats.mana);
-    updatePlayerStatUI(playerId, 'player-intelligence-bar', 'player-intelligence-amount', playerInfo.playerStats.intelligence);
-    updatePlayerStatUI(playerId, 'player-defense-bar', 'player-defense-amount', playerInfo.playerStats.defense);
-    updatePlayerStatUI(playerId, 'player-criticalStrike-bar', 'player-criticalStrike-amount', playerInfo.playerStats.criticalStrike);
-}
-
-function updatePlayersManaUI(playerId, manaAmount) {
-    var playerPanel = document.getElementById(playerId);
-
-    var playerManaBar = playerPanel.getElementsByClassName("player-mana-bar")[0];
-    playerManaBarText = playerManaBar.getElementsByClassName("player-mana-amount")[0];
-    playerManaBarText.textContent  = manaAmount;
+    updatePlayerStatUI(playerId, 'player-hp-bar', 'player-hp-amount', playerInfo.playerStats[playerStats.hitpoints]);
+    updatePlayerStatUI(playerId, 'player-hp-bar', 'player-hp-amount', playerInfo.playerStats[playerStats.mana]);
+    updatePlayerStatUI(playerId, 'player-intelligence-bar', 'player-intelligence-amount', playerInfo.playerStats[playerStats.intelligence]);
+    updatePlayerStatUI(playerId, 'player-defense-bar', 'player-defense-amount', playerInfo.playerStats[playerStats.defense]);
+    updatePlayerStatUI(playerId, 'player-criticalStrike-bar', 'player-criticalStrike-amount', playerInfo.playerStats[playerStats.criticalStrike]);
 }
 
 function updatePlayerStatUI(playerId, barClassName, textAmountClassName, amount) {
@@ -188,15 +178,13 @@ function initMainPlayer() {
         holyRageSkill, 
         skyRevengeSkill, 
         holyTouchSkill
-    ]
-    mainPlayer.playerStats = {
-        hitpoints: 78,
-        mana: 125,
-        intelligence: 26,
-        defense: 8,
-        strength: 3,
-        criticalStrike: 0.2
-    };
+    ];
+    mainPlayer.playerStats[playerStats.hitpoints] = 78;
+    mainPlayer.playerStats[playerStats.mana] = 125;
+    mainPlayer.playerStats[playerStats.intelligence] = 26;
+    mainPlayer.playerStats[playerStats.defense] = 8;
+    mainPlayer.playerStats[playerStats.strength] = 3;
+    mainPlayer.playerStats[playerStats.criticalStrike] = 0.2;
 
     return mainPlayer;
 }
@@ -209,16 +197,14 @@ function initOpponent() {
         holyRageSkill, 
         skyRevengeSkill, 
         holyTouchSkill
-    ]
-    opponent.playerStats = {
-        hitpoints: 80,
-        mana: 120,
-        intelligence: 20,
-        defense: 12,
-        strength: 4,
-        criticalStrike: 0.15
-    };
-
+    ];
+    opponent.playerStats[playerStats.hitpoints] = 80;
+    opponent.playerStats[playerStats.mana] = 120;
+    opponent.playerStats[playerStats.intelligence] = 26;
+    opponent.playerStats[playerStats.defense] = 8;
+    opponent.playerStats[playerStats.strength] = 3;
+    opponent.playerStats[playerStats.criticalStrike] = 0.2;
+    
     return opponent;
 }
 
