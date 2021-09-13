@@ -28,6 +28,9 @@ const skillType = {
 }
 
 class Skill {
+    constructor () {
+        // DO SOMETHING
+    }
     name = "default skill name";
     duration = 0; // 0 - permanent 
     skillType = skillType.SELF;
@@ -35,7 +38,13 @@ class Skill {
     manaRequired = 5;
     targetStat = playerStats.hitpoints;
     applyEffect = function(targetStat, player, effect) {
+        if(this.skillType == skillType.NONSELF){
+            effect = -effect;
+        }
+        console.log(player);
+        console.log(effect);
         player.playerStats[targetStat] += effect;
+        console.log(player);
     };
     removeEffect = function(targetStat, player, effect) {
         player.playerStats[targetStat] -= effect;
@@ -99,7 +108,7 @@ function updatePlayersDisplay(playerId, playerInfo) {
     playerName.textContent  = playerInfo.name.toString();
 
     updatePlayerStatUI(playerId, 'player-hp-bar', 'player-hp-amount', playerInfo.playerStats[playerStats.hitpoints]);
-    updatePlayerStatUI(playerId, 'player-hp-bar', 'player-hp-amount', playerInfo.playerStats[playerStats.mana]);
+    updatePlayerStatUI(playerId, 'player-mana-bar', 'player-mana-amount', playerInfo.playerStats[playerStats.mana]);
     updatePlayerStatUI(playerId, 'player-intelligence-bar', 'player-intelligence-amount', playerInfo.playerStats[playerStats.intelligence]);
     updatePlayerStatUI(playerId, 'player-defense-bar', 'player-defense-amount', playerInfo.playerStats[playerStats.defense]);
     updatePlayerStatUI(playerId, 'player-criticalStrike-bar', 'player-criticalStrike-amount', playerInfo.playerStats[playerStats.criticalStrike]);
@@ -177,11 +186,10 @@ function initMainPlayer() {
         skyRevengeSkill, 
         holyTouchSkill
     ];
-    mainPlayer.playerStats[playerStats.hitpoints] = 78;
-    mainPlayer.playerStats[playerStats.mana] = 125;
+    mainPlayer.playerStats[playerStats.hitpoints] = 100;
+    mainPlayer.playerStats[playerStats.mana] = 222;
     mainPlayer.playerStats[playerStats.intelligence] = 26;
     mainPlayer.playerStats[playerStats.defense] = 18;
-    mainPlayer.playerStats[playerStats.strength] = 3;
     mainPlayer.playerStats[playerStats.criticalStrike] = 0.2;
 
     return mainPlayer;
@@ -199,7 +207,6 @@ function initOpponent() {
     opponent.playerStats[playerStats.mana] = 110;
     opponent.playerStats[playerStats.intelligence] = 19;
     opponent.playerStats[playerStats.defense] = 8;
-    opponent.playerStats[playerStats.strength] = 3;
     opponent.playerStats[playerStats.criticalStrike] = 0.2;
     
     return opponent;
@@ -214,8 +221,7 @@ function isGameOver() {
 async function startGame() {
     players.mainPlayer = initMainPlayer();
     players.opponent = initOpponent();
-    console.log(players.mainPlayer.playerStats);
-    console.log(players.opponent.playerStats);
+    
     initPlayersUI();
     showNewLog("Greetings, warriors! <br /> You, " + players.mainPlayer.name + ", and you, " + players.opponent.name + ", are here to fight in a glorious battle!");
     
