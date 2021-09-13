@@ -22,9 +22,9 @@ class Player {
 
 // _____ skills objects _____ //
 
-const skillType = {
-    SELF: 'Self',
-    NONSELF: 'Nonself'
+class SkillType {
+    static SELF = 'Self';
+    static NONSELF = 'Nonself';
 }
 
 class Skill {
@@ -33,12 +33,12 @@ class Skill {
     }
     name = "default skill name";
     duration = 0; // 0 - permanent 
-    skillType = skillType.SELF;
+    skillType = SkillType.SELF;
     effect = 0;
     manaRequired = 5;
     targetStat = playerStats.hitpoints;
     applyEffect = function(targetStat, player, effect) {
-        if(this.skillType == skillType.NONSELF){
+        if(this.skillType == SkillType.NONSELF){
             effect = -effect;
         }
         player.playerStats[targetStat] += effect;
@@ -55,9 +55,13 @@ function getMagicalEffectMultiplayed(baseEffect, intelligence) {
 }
 
 function getSkillDescription(skill) {
-    let skillVerb = skill.skillType == skillType.SELF ? "increase your " : "decrease enemy's ";
-    return skill.name + " - costs " + skill.manaRequired + " mana" + ", " + skillVerb + skill.targetStat.toString() + " by " + skill.effect;
+    return skill.name + " - costs " + skill.manaRequired + " mana" + ", " + getSkillVerb(skill.skillType) + skill.targetStat.toString() + " by " + skill.effect;
 } 
+
+function getSkillVerb(skillType) {
+    console.log(skillType);
+    return skillType == SkillType.SELF ? "increase " : "decrease ";
+}
 
 // ___ html consts ___ //
 
@@ -93,6 +97,15 @@ function showNewLog(text) {
     logField.appendChild(newLog);
 }
 
+function displayPlayerSkills(player) {
+    showNewLog(player.name + ", you have these abilities available:");
+    
+    for(let i = 0; i < player.playerSkills.length; i++) {
+        let currentSkill = player.playerSkills[i];
+        showNewLog((i + 1) + " - " + getSkillDescription(currentSkill));
+    }
+}
+
 function updatePlayersUI() {
     updatePlayersDisplay('player-left', players.mainPlayer);
     updatePlayersDisplay('player-right', players.opponent);
@@ -125,7 +138,7 @@ function updatePlayerStatUI(playerId, barClassName, textAmountClassName, amount)
 var magicalPulseSkill = new Skill();
 magicalPulseSkill.name = "Magical Pulse";
 magicalPulseSkill.duration = 0;  
-magicalPulseSkill.skillType = skillType.NONSELF;
+magicalPulseSkill.skillType = SkillType.NONSELF;
 magicalPulseSkill.effect = 2;
 magicalPulseSkill.targetStat = playerStats.hitpoints;
 magicalPulseSkill.manaRequired = 0;
@@ -133,7 +146,7 @@ magicalPulseSkill.manaRequired = 0;
 var holyRageSkill = new Skill();
 holyRageSkill.name = "Holy Rage";
 holyRageSkill.duration = 1;  
-holyRageSkill.skillType = skillType.SELF;
+holyRageSkill.skillType = SkillType.SELF;
 holyRageSkill.effect = 5;
 holyRageSkill.targetStat = playerStats.intelligence;
 holyRageSkill.manaRequired = 15;
@@ -141,7 +154,7 @@ holyRageSkill.manaRequired = 15;
 var ancestorsWrathSkill = new Skill();
 ancestorsWrathSkill.name = "Ancestors Wrath";
 ancestorsWrathSkill.duration = 0;  
-ancestorsWrathSkill.skillType = skillType.NONSELF;
+ancestorsWrathSkill.skillType = SkillType.NONSELF;
 ancestorsWrathSkill.effect = 30;
 ancestorsWrathSkill.targetStat = playerStats.hitpoints;
 ancestorsWrathSkill.manaRequired = 25;
@@ -149,7 +162,7 @@ ancestorsWrathSkill.manaRequired = 25;
 var skyRevengeSkill = new Skill();
 skyRevengeSkill.name = "Sky Revenge";
 skyRevengeSkill.duration = 0;  
-skyRevengeSkill.skillType = skillType.NONSELF;
+skyRevengeSkill.skillType = SkillType.NONSELF;
 skyRevengeSkill.effect = 25;
 skyRevengeSkill.targetStat = playerStats.hitpoints;
 skyRevengeSkill.manaRequired = 20;
@@ -157,7 +170,7 @@ skyRevengeSkill.manaRequired = 20;
 var holyTouchSkill = new Skill();
 holyTouchSkill.name = "Holy Touch";
 holyTouchSkill.duration = 0;  
-holyTouchSkill.skillType = skillType.SELF;
+holyTouchSkill.skillType = SkillType.SELF;
 holyTouchSkill.effect = 5;
 holyTouchSkill.targetStat = playerStats.hitpoints;
 holyTouchSkill.manaRequired = 5;
@@ -165,7 +178,7 @@ holyTouchSkill.manaRequired = 5;
 var brainStormSkill = new Skill();
 brainStormSkill.name = "Brain Storm";
 brainStormSkill.duration = 2;  
-brainStormSkill.skillType = skillType.NONSELF;
+brainStormSkill.skillType = SkillType.NONSELF;
 brainStormSkill.effect = 1;
 brainStormSkill.targetStat = playerStats.intelligence;
 brainStormSkill.manaRequired = 10;
@@ -224,47 +237,45 @@ async function startGame() {
     
     while(!isGameOver()) {
         for(let i = 0; i < TURNS_PER_PLAYER; i++) {
-            await handleTurnHumanPlayer(players.mainPlayer);
+            await handleTurnHumanPlayer(players.mainPlayer, players.opponent);
         }
         for(let i = 0; i < TURNS_PER_PLAYER; i++) {
-            await handleAIPlayer(players.opponent);
+            await handleTurnAIPlayer(players.opponent, players.mainPlayer);
         }
     }
     
     finishGame(players.mainPlayer);
 }
 
-async function handleTurnHumanPlayer(currentPlayer) {
+async function handleTurnHumanPlayer(currentPlayer, opponent) {
     displayPlayerSkills(currentPlayer);
-
     showNewLog("Which skill you want to select? (type number)");
     let input = await readPlayerInput();
-    let selectedSkill = currentPlayer.playerSkills[input - 1];
-    showNewLog("You selected " + selectedSkill.name);
 
-    currentPlayer.playerStats[playerStats.mana] -= selectedSkill.manaRequired;
-    if(selectedSkill.skillType == skillType.SELF) {
-        selectedSkill.applyEffect(selectedSkill.targetStat, currentPlayer, selectedSkill.effect);
+    let selectedSkill = currentPlayer.playerSkills[input - 1];
+    showNewLog(currentPlayer.name + " selected " + selectedSkill.name);
+
+    castSkill(selectedSkill, currentPlayer, opponent);
+}
+
+async function handleTurnAIPlayer(currentPlayer, opponent) {
+    let selectedSkill = currentPlayer.playerSkills[Range(0, currentPlayer.playerSkills.length)];
+    showNewLog(currentPlayer.name + " selected " + selectedSkill.name);
+
+    castSkill(selectedSkill, currentPlayer, opponent);
+}
+
+function castSkill(skill, player, opponent) {
+    player.playerStats[playerStats.mana] -= skill.manaRequired;
+    if(skill.skillType == SkillType.SELF) {
+        skill.applyEffect(skill.targetStat, player, skill.effect);
     }
     else {
-        selectedSkill.applyEffect(selectedSkill.targetStat, players.opponent, selectedSkill.effect);
+        skill.applyEffect(skill.targetStat, opponent, skill.effect);
     }
 
+    showNewLog(player.name + " " + getSkillVerb(skill.skillType) + skill.targetStat + " of " + opponent.name + " by " + skill.effect);
     updatePlayersUI();
-}
-
-function displayPlayerSkills(player) {
-    showNewLog(player.name + ", you have these abilities available:");
-    
-    for(let i = 0; i < player.playerSkills.length; i++) {
-        let currentSkill = player.playerSkills[i];
-        showNewLog((i + 1) + " - " + getSkillDescription(currentSkill));
-    }
-}
-
-async function handleAIPlayer(currentPlayer) {
-    // TODO: do some shit
-    showNewLog(currentPlayer.name + " does nothing...");
 }
 
 function finishGame(winner) {
