@@ -41,10 +41,7 @@ class Skill {
         if(this.skillType == skillType.NONSELF){
             effect = -effect;
         }
-        console.log(player);
-        console.log(effect);
         player.playerStats[targetStat] += effect;
-        console.log(player);
     };
     removeEffect = function(targetStat, player, effect) {
         player.playerStats[targetStat] -= effect;
@@ -96,7 +93,7 @@ function showNewLog(text) {
     logField.appendChild(newLog);
 }
 
-function initPlayersUI() {
+function updatePlayersUI() {
     updatePlayersDisplay('player-left', players.mainPlayer);
     updatePlayersDisplay('player-right', players.opponent);
 }
@@ -222,7 +219,7 @@ async function startGame() {
     players.mainPlayer = initMainPlayer();
     players.opponent = initOpponent();
     
-    initPlayersUI();
+    updatePlayersUI();
     showNewLog("Greetings, warriors! <br /> You, " + players.mainPlayer.name + ", and you, " + players.opponent.name + ", are here to fight in a glorious battle!");
     
     while(!isGameOver()) {
@@ -245,12 +242,15 @@ async function handleTurnHumanPlayer(currentPlayer) {
     let selectedSkill = currentPlayer.playerSkills[input - 1];
     showNewLog("You selected " + selectedSkill.name);
 
+    currentPlayer.playerStats[playerStats.mana] -= selectedSkill.manaRequired;
     if(selectedSkill.skillType == skillType.SELF) {
         selectedSkill.applyEffect(selectedSkill.targetStat, currentPlayer, selectedSkill.effect);
     }
     else {
         selectedSkill.applyEffect(selectedSkill.targetStat, players.opponent, selectedSkill.effect);
     }
+
+    updatePlayersUI();
 }
 
 function displayPlayerSkills(player) {
