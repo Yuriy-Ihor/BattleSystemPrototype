@@ -71,7 +71,6 @@ async function readPlayerInput() {
         var newInput = document.createElement("div");
         newInput.setAttribute('class', 'terminal-input');
         newInput.setAttribute('contenteditable', 'true');
-        newInput.innerHTML = '> ';
         newInput.addEventListener("keydown", onKeyDown);
         logField.appendChild(newInput);
         
@@ -216,9 +215,6 @@ function initOpponent() {
     return opponent;
 }
 
-players.mainPlayer = initMainPlayer();
-players.opponent = initOpponent();
-
 // ___ game logic ___ //
 
 function isGameOver() {
@@ -226,13 +222,15 @@ function isGameOver() {
 }
 
 async function startGame() {
+    players.mainPlayer = initMainPlayer();
+    players.opponent = initOpponent();
+
     initPlayersUI();
     showNewLog("Greetings, warriors! <br /> You, " + players.mainPlayer.name + ", and you, " + players.opponent.name + ", are here to fight in a glorious battle!");
     
-    while(!isGameOver) {
-        console.log(123);
+    while(!isGameOver()) {
         for(let i = 0; i < TURNS_PER_PLAYER; i++) {
-            let rez = await handleTurnMainPlayer(players.mainPlayer);
+            await handleTurnMainPlayer(players.mainPlayer);
         }
         for(let i = 0; i < TURNS_PER_PLAYER; i++) {
             await handleTurnOpponent(players.opponent);
@@ -243,14 +241,33 @@ async function startGame() {
 }
 
 async function handleTurnMainPlayer(currentPlayer) {
-    // TODO: handling turn logic for both ai and player (same logic for everyone, but for ai make random spell selection)
+    displayPlayerSkills(currentPlayer);
 
+    showNewLog("Which skill you want to select? (type number)");
     let input = await readPlayerInput();
-    showNewLog(input);
+
+    showNewLog("You selected " + currentPlayer.playerSkills[input - 1].name);
+}
+
+function displayPlayerSkills(player) {
+    showNewLog(player.name + ", you have these abilities available:");
+    
+    for(let i = 0; i < player.playerSkills.length; i++) {
+        let currentSkill = player.playerSkills[i];
+        
+        showNewLog((i + 1) + " - " + getSkillDescription(currentSkill));
+    }
+}
+
+function getSkillDescription(skill) {
+    let skillEffect = skill.effect;
+    let skillVerb = skillEffect >= 0 ? "increase " : "reduce ";
+    return skill.name + " - costs " + skill.manaRequired + " mana" + ", " + skillVerb + skill.targetStat + " by " + skill.effect;
 }
 
 async function handleTurnOpponent(currentPlayer) {
-    // TODO: handling turn logic for both ai and player (same logic for everyone, but for ai make random spell selection)
+
+    showNewLog(currentPlayer.name + " does nothing...");
 }
 
 function finishGame(winner) {
