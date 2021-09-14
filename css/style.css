@@ -1,7 +1,12 @@
 body {
     background-color: black;
-    font-family: monospace;
-    color: white;
+    font-family: 'Courier New', Courier, monospace;
+    color: rgb(42, 165, 42);
+}
+
+[contenteditable] {
+	caret-color: transparent; /** This hides the default browser caret */
+	outline: none;
 }
 
 /*---PLAYERS---*/
@@ -11,10 +16,11 @@ body {
     justify-content: space-between;
     margin: auto;
     width: 100%;
+    font-size: 24px;
 }
 
-#player-left {
-
+#player-left, #player-right {
+    display: flex;
 }
 
 #player-right {
@@ -25,10 +31,22 @@ body {
     font-size: 45px;
 }
 
+.player-stats {
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
 .player-portrait {
-    width: 100px;
-    height: 100px;
+    width: 200px;
+    height: 200px;
     background-color: rgb(243, 243, 243);
+    border-width: 3px;
+    border-color: rgb(42, 165, 42);
+}
+
+.player-portrait-image {
+    max-height:100%; 
+    max-width:100%;
 }
 
 #player-right > .player-portrait {
@@ -37,13 +55,11 @@ body {
 }
 
 .player-hp-bar, .player-hp-amount {
-    color: rgb(255, 31, 31);
-    font-size: 30px;
+    /*color: rgb(255, 31, 31);*/
 }
 
 .player-mana-bar, .player-mana-bar {
-    color: #74a0ff;
-    font-size: 28px;
+    /*color: #74a0ff;*/
 }
 
 .player-intelligence-bar {
@@ -75,7 +91,8 @@ body {
 #terminal-log-field {
     margin: auto;
     margin-top: 50px;
-    width: 800px;
+    width: 100%;
+    max-width: 950px;
     font-size: 26px;
 }
 
@@ -85,4 +102,8 @@ body {
 
 .terminal-input {
 
+}
+
+.terminal-input:before {
+    content: "> ";
 }

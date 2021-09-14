@@ -3,6 +3,9 @@
 // _____ game constants _____ //
 
 const TURNS_PER_PLAYER = 2;
+const DEFAULT_TYPE_TIME = 0.05;
+const NEXT_TURN_DELAY = 2;
+const CLEAR_LOGS = true;
 
 // ______ player objects ______ //
 
@@ -70,6 +73,22 @@ const logField = document.getElementById("terminal-log-field");
 
 // ___ html functions ___ //
 
+function clearAllLogs() {
+    if(!CLEAR_LOGS) {
+        return;
+    }
+
+    let logs = logField.getElementsByClassName('terminal-log');
+    let inputs = logField.getElementsByClassName('terminal-input');
+    for(let i = 0; i < logs.length; i++) {
+        logs[i].remove();
+    }
+
+    for(let i = 0; i < inputs.length; i++) {
+        inputs[i].remove();
+    }
+}
+
 async function readPlayerInput() {
     return new Promise(resolve => {
         const onKeyDown = event => {
@@ -90,17 +109,25 @@ async function readPlayerInput() {
     });
 }
 
-function showNewLog(text) {
+async function showNewLog(text) {
     var newLog = document.createElement("div");
     newLog.setAttribute('class', 'terminal-log');
-    newLog.innerHTML = text; // TODO: make typing effect
 
     logField.appendChild(newLog);
+
+    for(let i = 0; i < text.length; i++) {
+        newLog.innerHTML += text.charAt(i);
+        await waitForSeconds(DEFAULT_TYPE_TIME);
+    }
+}
+
+function waitForSeconds(time) {
+    return new Promise(resolve => {
+        setTimeout(() => { resolve('') }, time * 1000);
+    })
 }
 
 function displayPlayerSkills(player) {
-    showNewLog(player.name + ", you have these abilities available:");
-    
     for(let i = 0; i < player.playerSkills.length; i++) {
         let currentSkill = player.playerSkills[i];
         showNewLog((i + 1) + " - " + getSkillDescription(currentSkill));
@@ -137,15 +164,10 @@ function updatePlayerStatUI(playerId, barClassName, textAmountClassName, amount)
 // ___ skills declarations ___ //
 
 var magicalPulseSkill = new Skill("Magical Pulse", 0, SkillType.NONSELF, 2, 0, playerStats.hitpoints, );
-
 var holyRageSkill = new Skill("Holy Rage", 1, SkillType.SELF, 5, 25, playerStats.intelligence);
-
 var ancestorsWrathSkill = new Skill("Ancestors Wrath", 0, SkillType.NONSELF, 30, 25, playerStats.hitpoints);
-
 var skyRevengeSkill = new Skill("Sky Revenge", 0, SkillType.NONSELF, 25, 20, playerStats.hitpoints);
-
 var holyTouchSkill = new Skill("Holy Touch", 0, SkillType.SELF, 5, 5, playerStats.hitpoints);
-
 var brainStormSkill = new Skill("Brain Storm", 2, SkillType.NONSELF, 1, 10, playerStats.intelligence);
 
 // ___ player declarations ___ //
@@ -172,7 +194,7 @@ function initMainPlayer() {
 
 function initOpponent() {
     var opponent = new Player();
-    opponent.name = "Zeratul";
+    opponent.name = "K'Rashnar";
     opponent.playerSkills = [
         magicalPulseSkill, 
         holyRageSkill, 
@@ -198,15 +220,20 @@ async function startGame() {
     players.opponent = initOpponent();
     
     updatePlayersUI();
-    showNewLog("Greetings, warriors! <br /> You, " + players.mainPlayer.name + ", and you, " + players.opponent.name + ", are here to fight in a glorious battle!");
+    await showNewLog("Greetings, warriors!");
+    await waitForSeconds(2);
+    await showNewLog("You, " + players.mainPlayer.name + ", and you, " + players.opponent.name + ", are here to fight in a glorious battle!");
     
     while(!isGameOver()) {
         for(let i = 0; i < TURNS_PER_PLAYER; i++) {
             await handleTurnHumanPlayer(players.mainPlayer, players.opponent);
+            await waitForSeconds(NEXT_TURN_DELAY);
+            clearAllLogs();
         }
 
         for(let i = 0; i < TURNS_PER_PLAYER; i++) {
             await handleTurnAIPlayer(players.opponent, players.mainPlayer);
+            clearAllLogs();
         }
     }
     
@@ -214,33 +241,36 @@ async function startGame() {
 }
 
 async function handleTurnHumanPlayer(currentPlayer, opponent) {
+    await showNewLog("Your move, " + currentPlayer.name);
     displayPlayerSkills(currentPlayer);
     showNewLog("Which skill you want to select? (type number)");
     let input = await readPlayerInput();
 
     let selectedSkill = currentPlayer.playerSkills[input - 1];
-    showNewLog(currentPlayer.name + " selected " + selectedSkill.name);
 
-    castSkill(selectedSkill, currentPlayer, opponent);
+    await castSkill(selectedSkill, currentPlayer, opponent);
 }
 
 async function handleTurnAIPlayer(currentPlayer, opponent) {
     let selectedSkill = currentPlayer.playerSkills[Math.floor(Math.random()*currentPlayer.playerSkills.length)];
-    showNewLog(currentPlayer.name + " selected " + selectedSkill.name);
-
-    castSkill(selectedSkill, currentPlayer, opponent);
+    
+    await castSkill(selectedSkill, currentPlayer, opponent);
 }
 
-function castSkill(skill, player, opponent) {
+async function castSkill(skill, player, opponent) {
+    await showNewLog(player.name + " casting " + skill.name + "...");
+
     player.playerStats[playerStats.mana] -= skill.manaRequired;
+
     if(skill.skillType == SkillType.SELF) {
         skill.applyEffect(skill.targetStat, player, skill.effect);
+        await showNewLog(player.name + " " + getSkillVerb(skill.skillType) + " his " + skill.targetStat + " by " + skill.effect);
     }
     else {
         skill.applyEffect(skill.targetStat, opponent, -skill.effect);
+        await showNewLog(player.name + " " + getSkillVerb(skill.skillType) + skill.targetStat + " of " + opponent.name + " by " + skill.effect);
     }
 
-    showNewLog(player.name + " " + getSkillVerb(skill.skillType) + skill.targetStat + " of " + opponent.name + " by " + skill.effect);
     updatePlayersUI();
 }
 
