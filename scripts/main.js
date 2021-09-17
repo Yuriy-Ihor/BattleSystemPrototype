@@ -49,7 +49,9 @@ function isGameOver() {
 }
 
 function startGame() {
-    hideScreen(battleScreen);
+    //hideScreen(battleScreen);
+
+    drawAttackScreen();
 }
 
 function hideScreen(screen) {
@@ -58,6 +60,22 @@ function hideScreen(screen) {
 
 function showScreen(screen) {
     screen.removeAttribute('hidden');
+}
+
+function drawAttackScreen() {
+    _x = 0;
+    _y = 0;
+    _width = 100;
+    _height = 100;
+    let sil = new Silhouette(
+        _x + silhouette_padding,
+        _y + silhouette_padding,
+        Math.min(
+            _width - 2 * silhouette_padding,
+            _height - 2 * silhouette_padding
+        ),
+        silhouette_coordinate_map_main
+    )
 }
 
 
