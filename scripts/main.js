@@ -9,12 +9,21 @@ function getSkillDescription(skill) {
 
 // ___ html functions ___ //
 
-function displayPlayerSkills(player) {
+function fillPlayerAbilitiesList(player) {
+    
     for(let i = 0; i < player.playerSkills.length; i++) {
         let currentSkill = player.playerSkills[i];
-        
-        // TODO: display skill
+        createPlayerAbilityListElement(currentSkill, i);
     }
+
+}
+
+function createPlayerAbilityListElement(skillInfo, text) {
+    let newAbility = document.createElement('button');
+    newAbility.setAttribute('class', 'player-ability');
+    newAbility.innerText = 'Ability ' + text;
+    
+    battleScreenAbilitiesList.appendChild(newAbility);
 }
 
 function updatePlayersUI() {
@@ -49,6 +58,7 @@ function isGameOver() {
 }
 
 function startGame() {
+    fillPlayerAbilitiesList(players.mainPlayer);
     hideElement(versusScreen);
     hideElement(battleScreen);
 

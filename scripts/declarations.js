@@ -9,6 +9,8 @@ const battleScreen = document.getElementById("battle-screen");
 const battleScreenSelection = document.getElementById('battle-screen-selection');
 
 const battleScreenSelectionAbility = document.getElementById('battle-screen-selection-ability');
+const battleScreenAbilitiesList = document.getElementById('battle-screen-selection-abilities-list');
+
 const battleScreenSelectionAttack = document.getElementById('battle-screen-selection-body-attack');
 const battleScreenSelectionDefense = document.getElementById('battle-screen-selection-body-defense');
 
@@ -96,8 +98,7 @@ function initMainPlayer() {
     mainPlayer.playerSkills = [
         magicalPulseSkill, 
         holyRageSkill, 
-        skyRevengeSkill, 
-        holyTouchSkill
+        skyRevengeSkill 
     ];
     mainPlayer.playerStats[playerStats.hitpoints] = 100;
     mainPlayer.playerStats[playerStats.mana] = 222;
