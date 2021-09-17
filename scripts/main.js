@@ -138,7 +138,7 @@ function drawAttackScreen() {
 }
 
 function drawDefenseScreen() {
-    bodyPartSelectionScreen.renderScreen(defenseCanvasContext, 1);
+    bodyPartSelectionScreen.renderScreen(defenseCanvasContext, BodyScreenType.DefenseTargetSelection);
 
     requestAnimationFrame(drawDefenseScreen)
 }

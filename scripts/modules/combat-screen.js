@@ -1,7 +1,6 @@
 const BodyScreenType = {
-    ActionSelection: 0,
-    AttackTargetSelection: 1,
-    DefenseTargetSelection: 2,
+    AttackTargetSelection: 0,
+    DefenseTargetSelection: 1
 }
 
 class BodyScreen {
