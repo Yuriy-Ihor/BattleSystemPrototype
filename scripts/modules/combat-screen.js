@@ -92,16 +92,9 @@ class BodyScreenController {
                 true
             )
         ]
-        this.active = BodyScreenType.AttackTargetSelection
     }
 
-    render(_context) {
-        if (this.layered) {
-            this.screens[this.active].render(_context)
-        } else {
-            for (var screen_name in this.screens) {
-                this.screens[screen_name].render(_context)
-            }
-        }
+    renderScreen(_context, bodyScreenType) {
+        this.screens[bodyScreenType].render(_context)
     }
 }

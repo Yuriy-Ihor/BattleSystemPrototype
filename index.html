@@ -5,6 +5,7 @@
     <link rel="stylesheet" type="text/css" href="css/startScreenStyle.css"/>
     <link rel="stylesheet" type="text/css" href="css/versusScreenStyle.css"/>
     <link rel="stylesheet" type="text/css" href="css/battleScreen.css"/>
+    <link rel="stylesheet" type="text/css" href="css/battleSummaryScreen.css"/>
 
     <meta charset="utf-8">
 
@@ -128,20 +129,6 @@
             </div>
 
             <div id="battle-screen-selection-body-attack" class="hidden">
-                <img src="silhouette-parts/main/hollow/arm-left-hollow.png" id="arm-left-hollow-main" class="imported-data">
-                <img src="silhouette-parts/main/hollow/arm-right-hollow.png" id="arm-right-hollow-main" class="imported-data">
-                <img src="silhouette-parts/main/hollow/leg-left-hollow.png" id="leg-left-hollow-main" class="imported-data">
-                <img src="silhouette-parts/main/hollow/leg-right-hollow.png" id="leg-right-hollow-main" class="imported-data">
-                <img src="silhouette-parts/main/hollow/torso-hollow.png" id="torso-hollow-main" class="imported-data">
-                <img src="silhouette-parts/main/hollow/head-hollow.png" id="head-hollow-main" class="imported-data">
-    
-                <img src="silhouette-parts/main/filled/arm-left-filled.png" id="arm-left-filled-main" class="imported-data">
-                <img src="silhouette-parts/main/filled/arm-right-filled.png" id="arm-right-filled-main" class="imported-data">
-                <img src="silhouette-parts/main/filled/leg-left-filled.png" id="leg-left-filled-main" class="imported-data">
-                <img src="silhouette-parts/main/filled/leg-right-filled.png" id="leg-right-filled-main" class="imported-data">
-                <img src="silhouette-parts/main/filled/torso-filled.png" id="torso-filled-main" class="imported-data">
-                <img src="silhouette-parts/main/filled/head-filled.png" id="head-filled-main" class="imported-data">
-    
                 <img src="silhouette-parts/side/hollow/arm-left-hollow.png" id="arm-left-hollow-side" class="imported-data">
                 <img src="silhouette-parts/side/hollow/arm-right-hollow.png" id="arm-right-hollow-side" class="imported-data">
                 <img src="silhouette-parts/side/hollow/leg-left-hollow.png" id="leg-left-hollow-side" class="imported-data">
@@ -156,7 +143,7 @@
                 <img src="silhouette-parts/side/filled/torso-filled.png" id="torso-filled-side" class="imported-data">
                 <img src="silhouette-parts/side/filled/head-filled.png" id="head-filled-side" class="imported-data">
     
-                <canvas id='canvas'>
+                <canvas id='body-attack-canvas'>
     
                 </canvas>
             </div>
@@ -176,21 +163,7 @@
                 <img src="silhouette-parts/main/filled/torso-filled.png" id="torso-filled-main" class="imported-data">
                 <img src="silhouette-parts/main/filled/head-filled.png" id="head-filled-main" class="imported-data">
     
-                <img src="silhouette-parts/side/hollow/arm-left-hollow.png" id="arm-left-hollow-side" class="imported-data">
-                <img src="silhouette-parts/side/hollow/arm-right-hollow.png" id="arm-right-hollow-side" class="imported-data">
-                <img src="silhouette-parts/side/hollow/leg-left-hollow.png" id="leg-left-hollow-side" class="imported-data">
-                <img src="silhouette-parts/side/hollow/leg-right-hollow.png" id="leg-right-hollow-side" class="imported-data">
-                <img src="silhouette-parts/side/hollow/torso-hollow.png" id="torso-hollow-side" class="imported-data">
-                <img src="silhouette-parts/side/hollow/head-hollow.png" id="head-hollow-side" class="imported-data">
-    
-                <img src="silhouette-parts/side/filled/arm-left-filled.png" id="arm-left-filled-side" class="imported-data">
-                <img src="silhouette-parts/side/filled/arm-right-filled.png" id="arm-right-filled-side" class="imported-data">
-                <img src="silhouette-parts/side/filled/leg-left-filled.png" id="leg-left-filled-side" class="imported-data">
-                <img src="silhouette-parts/side/filled/leg-right-filled.png" id="leg-right-filled-side" class="imported-data">
-                <img src="silhouette-parts/side/filled/torso-filled.png" id="torso-filled-side" class="imported-data">
-                <img src="silhouette-parts/side/filled/head-filled.png" id="head-filled-side" class="imported-data">
-    
-                <canvas id='canvas'>
+                <canvas id='body-defense-canvas'>
     
                 </canvas>
             </div>
@@ -204,7 +177,13 @@
         </div>
 
         <div id="battle-screen-summary" class="hidden">
-            Summary
+            <div id="summary-text">
+                Summary
+            </div>
+
+            <div id="battle-screen-summary-first-player-summary" class="battle-scrren-player-summary">
+                
+            </div>
 
             <button class='switch-button' id="battle-screen-next-turn">Next turn</button> 
         </div>

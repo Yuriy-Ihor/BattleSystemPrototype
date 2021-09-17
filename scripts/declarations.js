@@ -137,21 +137,14 @@ function get_total_width() {
     return character_avatar_size + Math.max(health_bar_width, mana_bar_width) + 3 * character_avatar_padding
 }
 
-const bodyPartSelectionScreen = is_mobile ? 
+const bodyPartSelectionScreen =  
     new BodyScreenController(
         (width - screen_height) / 2,
-        get_total_height() + (height - get_total_height() - get_total_height() - screen_height) / 2,
+        0,
         screen_width,
         screen_height,
         true
-    ) : 
-    new BodyScreenController(
-        (width - 3 * screen_width - 2 * screen_padding) / 2,
-        get_total_height() + (height - get_total_height() - screen_height) / 2,
-        screen_width,
-        screen_height,
-        false
-    )
+    );
 
 class BattleScreenManager {
     selections = [];

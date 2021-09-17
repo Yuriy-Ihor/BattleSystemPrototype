@@ -1,0 +1,9 @@
+#battle-screen-summary {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#summary-text {
+    font-size: 30px;
+}

@@ -85,7 +85,9 @@ function startGame() {
     startTurnButton.onclick = () => {
         hideElement(versusScreen);
         showElement(battleScreen);
-        
+
+        drawAttackScreen();
+        drawDefenseScreen();
         startTurn(currentTurn);
     }
 
@@ -130,9 +132,15 @@ function calculateTotalMainPlayerDamage() {
 }
 
 function drawAttackScreen() {
-    bodyPartSelectionScreen.render(context);
+    bodyPartSelectionScreen.renderScreen(attackCanvasContext, BodyScreenType.AttackTargetSelection);
+    
+    //requestAnimationFrame(drawAttackScreen)
+}
 
-    requestAnimationFrame(drawAttackScreen)
+function drawDefenseScreen() {
+    bodyPartSelectionScreen.renderScreen(defenseCanvasContext, 1);
+
+    //requestAnimationFrame(drawDefenseScreen)
 }
 
 startGame();
