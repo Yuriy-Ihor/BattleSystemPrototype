@@ -42,6 +42,23 @@ function getSelectedPlayerAbilities() {
     return rezult;
 }
 
+function disSelectBodyParts() {
+    for(let i = 0; i < bodyPartSelectionScreen.screens.length; i++) {
+        let content = bodyPartSelectionScreen.screens[i].content; 
+
+        for (var element_name in content) {
+            switch (element_name) {
+                case "attack-silhouette":
+                    content[element_name].selected_body_part = null;
+                    break
+                case "defence-silhouette":
+                    content[element_name].selected_body_part = null;
+                    break
+            }
+        }
+    }
+}
+
 function updatePlayersUI() {
     updatePlayersDisplay('player-left', players.mainPlayer);
     updatePlayersDisplay('player-right', players.opponent);
@@ -117,6 +134,7 @@ battleScreenManager.finishTurnButton.onclick = finishTurn;
 
 function finishTurn() {
     battleScreenManager.hideAllSelections();
+    disSelectBodyParts();
     hideElement(battleScreenSelection);
     showElement(battleSummaryScreen);
 

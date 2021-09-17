@@ -23,10 +23,8 @@ class Silhouette {
             (event) => {
                 if(this._context != null) {
                     if(isElementParentVisible(this._context.canvas)) {
-                        console.log("is visible");
                         this.check_mouseover(event.offsetX, event.offsetY)
                     }
-                    console.log("not visible");
                 }
             }
         )
@@ -35,7 +33,6 @@ class Silhouette {
             (event) => {
                 if(this.hovering != null) {
                     this.selected_body_part = this.hovering;
-                    console.log('selected body part = ' + this.selected_body_part);
                 }
             }
         )
