@@ -140,9 +140,9 @@ function updatePlayersUI() {
 }
 
 function updatePlayersDisplay(playerId, playerInfo) {
-    var playerPanel = document.getElementById(playerId);
+    let playerPanel = document.getElementById(playerId);
 
-    var playerName = playerPanel.getElementsByClassName("player-name")[0];
+    let playerName = playerPanel.getElementsByClassName("player-name")[0];
     playerName.textContent  = playerInfo.name.toString();
 
     updatePlayerStatUI(playerId, 'player-hp-bar', 'player-hp-amount', playerInfo.playerStats[playerStats.hitpoints]);
@@ -153,10 +153,10 @@ function updatePlayersDisplay(playerId, playerInfo) {
 }
 
 function updatePlayerStatUI(playerId, barClassName, textAmountClassName, amount) {
-    var playerPanel = document.getElementById(playerId);
+    let playerPanel = document.getElementById(playerId);
 
-    var playerBar = playerPanel.getElementsByClassName(barClassName)[0];
-    playerStatAmount = playerBar.getElementsByClassName(textAmountClassName)[0];
+    let playerBar = playerPanel.getElementsByClassName(barClassName)[0];
+    let playerStatAmount = playerBar.getElementsByClassName(textAmountClassName)[0];
     playerStatAmount.textContent  = amount;
 }
 
