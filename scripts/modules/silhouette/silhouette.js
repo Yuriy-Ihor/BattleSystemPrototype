@@ -39,6 +39,10 @@ class Silhouette {
         
         for (var body_part_name in this.coordinate_map) {
             
+            if(body_part_name == this.selected_body_part) {
+                continue;
+            }
+
             let body_part_X = this.get_silhouette_coordinate(body_part_name, this.x, 'left');
             let body_part_Y = this.get_silhouette_coordinate(body_part_name, this.y, 'top');
 
@@ -64,8 +68,14 @@ class Silhouette {
 
     render(_context) {
         for (var body_part_name in this.coordinate_map) {
+            let body_part_image_type;
             
-            let body_part_image_type = this.hovering == body_part_name ? 'filled' : 'hollow';
+            if(body_part_name == this.hovering || body_part_name == this.selected_body_part) {
+                body_part_image_type = 'filled';
+            }
+            else {
+                body_part_image_type = 'hollow';
+            }
             
             _context.drawImage(
                 this.body_parts_sprites[`${body_part_name}-${body_part_image_type}`],
