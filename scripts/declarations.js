@@ -153,7 +153,6 @@ const bodyPartSelectionScreen = is_mobile ?
     )
 
 class BattleScreenManager {
-
     selections = [];
     previousSelectionButton;
     nextSelectionButton;
