@@ -17,14 +17,6 @@
     width: 100%;
 }
 
-#versus-screen-player-display-top {
-
-}
-
-#versus-screen-player-display-bottom {
-
-}
-
 .versus-screen-player-stats {
     display: flex;
 }
@@ -45,22 +37,4 @@
 #player-right > .player-portrait {
     margin-left: auto;
     margin-right: 0;
-}
-
-#start-turn-button {
-    margin-top: 60px;
-    height: 80px;
-    width: 220px;
-    font-size: 25px;
-    font-family: 'Courier New', Courier, monospace;
-    display: block;
-    text-transform: uppercase;
-    background-color: green;
-    border: none;
-    transition-duration: 0.5s;
-}
-
-#start-turn-button:hover {
-    background-color: greenyellow; 
-    transition-duration: 0.5s;
 }

@@ -41,11 +41,3 @@
     margin-left: auto;
     margin-right: 0;
 }
-
-.player-hp-bar, .player-hp-amount {
-    /*color: rgb(255, 31, 31);*/
-}
-
-.player-mana-bar, .player-mana-bar {
-    /*color: #74a0ff;*/
-}

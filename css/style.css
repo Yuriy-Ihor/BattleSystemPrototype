@@ -8,3 +8,21 @@ body {
 .imported-data, .hidden {
     display: none !important;
 }
+
+button {
+    margin-top: 60px;
+    height: 80px;
+    width: 220px;
+    font-size: 25px;
+    font-family: 'Courier New', Courier, monospace;
+    display: block;
+    text-transform: uppercase;
+    background-color: green;
+    border: none;
+    transition-duration: 0.5s;
+}
+
+button:hover {
+    background-color: greenyellow; 
+    transition-duration: 0.5s;
+}
