@@ -1,4 +1,13 @@
 
+const TURNS_PER_PLAYER = 2;
+const DEFAULT_TYPE_TIME = 0.05;
+const NEXT_TURN_DELAY = 2;
+const CLEAR_LOGS = true;
+
+const logField = document.getElementById("terminal-log-field");
+const battleScreen = document.getElementById("players-battle-screen");
+const startScreen = document.getElementById('start-screen');
+
 const playerStats = {
     hitpoints: "Hitpoints",
     mana: "Mana",

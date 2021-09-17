@@ -86,24 +86,3 @@ body {
     
 }
 
-/*---MAIN BATTLEFIELD---*/
-
-#terminal-log-field {
-    margin: auto;
-    margin-top: 50px;
-    width: 100%;
-    max-width: 950px;
-    font-size: 26px;
-}
-
-.terminal-log {
-    
-}
-
-.terminal-input {
-
-}
-
-.terminal-input:before {
-    content: "> ";
-}
