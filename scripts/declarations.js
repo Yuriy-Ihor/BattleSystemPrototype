@@ -194,7 +194,7 @@ class BattleScreenManager {
 }
 
 const battleScreenManager = new BattleScreenManager(
-    [battleScreenSelectionAbility, battleScreenSelectionAttack],
+    [battleScreenSelectionAbility, battleScreenSelectionAttack, battleScreenSelectionDefense],
     battleScreenBackButton,
     battleScreenNextButton
 );

@@ -2,7 +2,7 @@ const canvas = document.getElementById("canvas")
 const width = $(window).width()
 const height = $(window).height()
 canvas.width = window.innerWidth
-canvas.height = window.innerHeight
+canvas.height = window.innerHeight / 2
 const context = canvas.getContext("2d")
 
 const is_mobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
