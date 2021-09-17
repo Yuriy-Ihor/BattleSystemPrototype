@@ -9,6 +9,9 @@ const battleScreen = document.getElementById("battle-screen");
 const battleScreenSelection = document.getElementById('battle-screen-selection');
 const battleScreenSelectionAbility = document.getElementById('battle-screen-selection-ability');
 
+const battleScreenBackButton = document.getElementById("battle-screen-button-back");
+const battleScreenNextButton = document.getElementById("battle-screen-button-next");
+
 const playerStats = {
     hitpoints: "Hitpoints",
     mana: "Mana",
@@ -127,3 +130,33 @@ const bodyPartSelectionScreen = is_mobile ?
         screen_height,
         false
     )
+
+class BattleScreenManager {
+    constructor(battleScreen, selections, previousSelectionButton, nextSelectionButton) {
+        this.battleScreen = battleScreen;
+        this.selections = selections;
+        this.previousSelectionButton = previousSelectionButton;
+        this.nextSelectionButton = nextSelectionButton;
+        this.currentScreen = 0;
+    }
+
+    showPreviousScreen() {
+        hideElement(this.selections[this.currentScreen]);
+        this.currentScreen -= 1;
+        showElement(this.selections[this.currentScreen]);
+
+        if(this.currentScreen == 0) {
+            hideElement(this.previousSelectionButton);
+        }
+    }
+
+    showNextScreen() {
+        hideElement(this.selections[this.currentScreen]);
+        this.currentScreen += 1;
+        showElement(this.selections[this.currentScreen]);
+
+        if(this.currentScreen == this.selections.length) {
+            hideElement(this.nextSelectionButton);
+        }
+    }
+}
