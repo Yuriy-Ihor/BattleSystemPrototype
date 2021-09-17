@@ -49,9 +49,7 @@ function isGameOver() {
 }
 
 function startGame() {
-    //hideScreen(battleScreen);
-
-    drawAttackScreen();
+    hideScreen(battleScreen)
 }
 
 function hideScreen(screen) {

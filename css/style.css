@@ -2,15 +2,54 @@ body {
     background-color: black;
     font-family: 'Courier New', Courier, monospace;
     color: rgb(42, 165, 42);
-}
-
-[contenteditable] {
-	caret-color: transparent; /** This hides the default browser caret */
-	outline: none;
+    margin: auto;
 }
 
 .imported-data {
     display: none;
+}
+
+/*---START SCREEN --- */
+#start-screen {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+#player-description {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-self: center;
+}
+
+#player-description-name {
+
+}
+
+#player-description-portrait {
+
+}
+
+#player-description-image {
+    max-width: 300px;
+    max-height: 300px;
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.player-description-rating {
+
+}
+
+.player-description-rating-name {
+
+}
+
+#start-battle-button {
+
 }
 
 /*---PLAYERS---*/

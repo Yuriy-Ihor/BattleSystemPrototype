@@ -16,13 +16,27 @@
 <body>
 
     <div id="start-screen">
-        <div>
-            <!-- <img class="player-portrait-image" src='images/protoss.jpg' /> -->
+        <div id="player-description">
+            <div id="player-description-name">
+                Tassadar
+            </div>
+            <div id="player-description-portrait">
+                <img id="player-description-image" src='images/protoss.jpg' />
+            </div>
+            <div class="player-description-rating">
+                <span class="player-description-rating-name">Hero rank: </span>
+                <span id="player-rating-rank" class="player-description-rating-value">10</span>
+            </div>
+            <div class="player-description-rating">
+                <span class="player-description-rating-name">Battles won: </span>
+                <span id="player-rating-wins" class="player-description-rating-value">23</span>
+            </div>
+            
         </div>
-        
+        <input type="button" id="start-battle-button" value="START BATTLE" />
     </div>
 
-    <div id = "players-battle-screen">
+    <div id = "players-battle-screen" hidden>
         <div id="players-bar">
             <div id="player-left" class="player-display">
                 <div class="player-portrait">
@@ -112,7 +126,6 @@
         </div>
 
     </div>
-
 
     <script type="text/javascript" src="silhouette-parts/main/silhouette-coordinate-map.js"></script>
     <script type="text/javascript" src="silhouette-parts/side/silhouette-coordinate-map.js"></script>

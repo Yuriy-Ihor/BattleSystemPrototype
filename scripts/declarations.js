@@ -4,7 +4,6 @@ const DEFAULT_TYPE_TIME = 0.05;
 const NEXT_TURN_DELAY = 2;
 const CLEAR_LOGS = true;
 
-const logField = document.getElementById("terminal-log-field");
 const battleScreen = document.getElementById("players-battle-screen");
 const startScreen = document.getElementById('start-screen');
 
@@ -17,10 +16,14 @@ const playerStats = {
 }
 class Player {
     name = "default name";
+    playerRating = Object.create(playerRating);
     playerSkills = [];
-    playerStats = {};
+    playerStats = Object.create(playerStats);
 }
-
+const playerRating = {
+    rank: 10,
+    wonBattles: 10
+}
 class SkillType {
     static SELF = 'Self';
     static NONSELF = 'Nonself';
@@ -63,6 +66,7 @@ players.opponent = initOpponent();
 function initMainPlayer() {
     var mainPlayer = new Player();
     mainPlayer.name = "Tassadar";
+    mainPlayer.playerRating.b
     mainPlayer.playerSkills = [
         magicalPulseSkill, 
         holyRageSkill, 
