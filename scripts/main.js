@@ -35,7 +35,7 @@ function createPlayerAbilityListElement(skillInfo, text) {
 
 function getSelectedPlayerAbilities() {
     let selectedAbilitiesTags = battleScreenAbilitiesList.getElementsByClassName('player-ability');
-
+    console.log(selectedAbilitiesTags);
     let rezult = [];
 
     for(let i = 0; i < selectedAbilitiesTags.length; i++) {
@@ -140,17 +140,22 @@ battleScreenManager.finishTurnButton.onclick = finishTurn;
 function finishTurn() {
     battleScreenManager.hideAllSelections();
     disSelectBodyParts();
-    battleScreenAbilitiesList.innerHTML = '';
 
     let totalDamage = calculateTotalMainPlayerDamage();
+    let totalMana = calculateTotalMainPlayerMana();
+    players.mainPlayer.playerStats[playerStats.hitpoints] -= Math.floor(Math.random() * 10);
+    players.mainPlayer.playerStats[playerStats.mana] -= totalMana;
+
     players.opponent.playerStats[playerStats.hitpoints] -= totalDamage;
-    players.mainPlayer.playerStats[playerStats.hitpoints] -= 5;
+    players.opponent.playerStats[playerStats.mana] -= Math.floor(Math.random() * 10);
 
     updateSummary(players.mainPlayer.name, totalDamage, players.opponent.name, 5);
+    battleScreenAbilitiesList.innerHTML = '';
 
     hideElement(battleScreenSelection);
     showElement(battleSummaryScreen);
 
+    updatePlayersUI();
 
     currentTurn++;
 }
@@ -164,6 +169,17 @@ function calculateTotalMainPlayerDamage() {
     }
 
     return totalDamage;
+}
+
+function calculateTotalMainPlayerMana() {
+    let abilities = getSelectedPlayerAbilities();
+
+    let totalMana = 0;
+    for(let i = 0; i < abilities.length; i++) {
+        totalMana += players.mainPlayer.playerSkills[abilities[i]].manaRequired;
+    }
+
+    return totalMana;
 }
 
 function drawAttackScreen() {
