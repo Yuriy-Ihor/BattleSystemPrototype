@@ -49,7 +49,9 @@ function isGameOver() {
 }
 
 function startGame() {
-    hideScreen(battleScreen)
+
+    startBattleButton.onclick = () => showScreen(battleScreen);
+    
 }
 
 function hideScreen(screen) {
@@ -77,7 +79,7 @@ const bodyPartSelectionScreen = is_mobile ?
     )
 
 function drawAttackScreen() {
-    //terminal.render(context);
+    terminal.render(context);
 
     requestAnimationFrame(drawAttackScreen)
 }

@@ -6,6 +6,7 @@ const CLEAR_LOGS = true;
 
 const battleScreen = document.getElementById("players-battle-screen");
 const startScreen = document.getElementById('start-screen');
+const startBattleButton = document.getElementById('start-battle-button');
 
 const playerStats = {
     hitpoints: "Hitpoints",

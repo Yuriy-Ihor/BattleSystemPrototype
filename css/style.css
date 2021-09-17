@@ -9,60 +9,6 @@ body {
     display: none;
 }
 
-/*---START SCREEN --- */
-#start-screen {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-}
-
-#player-description {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-#player-description-name {
-    font-size: 40px;
-}
-
-#player-description-image {
-    max-width: 300px;
-    max-height: 300px;
-    width: 100%;
-    height: 100%;
-    display: block;
-}
-
-.player-description-rating {
-    font-size: 30px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
-
-.player-description-rating-name {
-    font-size: 30px;
-}
-
-#start-battle-button {
-    margin-top: 40px;
-    height: 50px;
-    font-size: 25px;
-    font-family: 'Courier New', Courier, monospace;
-    display: block;
-    text-transform: uppercase;
-    background-color: green;
-    border: none;
-    transition-duration: 0.5s;
-}
-
-#start-battle-button:hover {
-    background-color: greenyellow; 
-    transition-duration: 0.5s;
-}
-
 /*---PLAYERS---*/
 
 #players-bar {
