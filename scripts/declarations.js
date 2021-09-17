@@ -19,6 +19,9 @@ const battleScreenNextButton = document.getElementById("battle-screen-button-nex
 const battleScreenFinishTurnButton = document.getElementById("battle-screen-button-finish-turn");
 
 const battleSummaryScreen = document.getElementById('battle-screen-summary');
+const battleSummaryScreenFirstPlayer = document.getElementById('battle-screen-summary-first-player');
+const battleSummaryScreenSecondPlayer = document.getElementById('battle-screen-summary-second-player');
+
 const battleScreenNextTurnButton = document.getElementById('battle-screen-next-turn');
 
 const winScreen = document.getElementById('win-screen');

@@ -16,6 +16,11 @@ function fillPlayerAbilitiesList(player) {
     }
 }
 
+function updateSummary(firstPlayerName, firstPlayerDamage, secondPlayerName, secondPlayerDamage) {
+    battleSummaryScreenFirstPlayer.innerHTML = firstPlayerName + ', you dealt ' + firstPlayerDamage + ' damage to ' + secondPlayerName;
+    battleSummaryScreenSecondPlayer.innerHTML = secondPlayerName + ', dealt ' + secondPlayerDamage + ' damage to you';
+}
+
 function createPlayerAbilityListElement(skillInfo, text) {
     let newAbility = document.createElement('button');
     newAbility.setAttribute('class', 'player-ability');
@@ -135,14 +140,17 @@ battleScreenManager.finishTurnButton.onclick = finishTurn;
 function finishTurn() {
     battleScreenManager.hideAllSelections();
     disSelectBodyParts();
-    hideElement(battleScreenSelection);
-    showElement(battleSummaryScreen);
+    battleScreenAbilitiesList.innerHTML = '';
 
     let totalDamage = calculateTotalMainPlayerDamage();
     players.opponent.playerStats[playerStats.hitpoints] -= totalDamage;
     players.mainPlayer.playerStats[playerStats.hitpoints] -= 5;
 
-    battleScreenAbilitiesList.innerHTML = '';
+    updateSummary(players.mainPlayer.name, totalDamage, players.opponent.name, 5);
+
+    hideElement(battleScreenSelection);
+    showElement(battleSummaryScreen);
+
 
     currentTurn++;
 }
