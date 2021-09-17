@@ -21,7 +21,9 @@ class Silhouette {
         document.addEventListener(
             "mousemove",
             (event) => {
-                this.check_mouseover(event.offsetX, event.offsetY)
+                if(battleScreenManager.currentScreen) {
+                    this.check_mouseover(event.offsetX, event.offsetY)
+                }
             }
         )
         document.addEventListener(
@@ -36,7 +38,6 @@ class Silhouette {
     }
 
     check_mouseover(_x, _y) {
-        
         for (var body_part_name in this.coordinate_map) {
             
             if(body_part_name == this.selected_body_part) {

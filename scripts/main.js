@@ -93,7 +93,15 @@ function startGame() {
 
     battleScreenNextTurnButton.onclick = () => {
         hideElement(battleSummaryScreen);
-        startTurn(currentTurn);
+
+        if(isGameOver()) {
+            hideElement(battleScreen);
+            showElement(winScreen);
+        }
+        else {
+            hideElement(battleSummaryScreen);
+            startTurn(currentTurn);
+        }
     };
 }
 
@@ -113,7 +121,8 @@ function finishTurn() {
     showElement(battleSummaryScreen);
 
     let totalDamage = calculateTotalMainPlayerDamage();
-    console.log(totalDamage);
+    players.opponent.playerStats[playerStats.hitpoints] -= totalDamage;
+    players.mainPlayer.playerStats[playerStats.hitpoints] -= 5;
 
     battleScreenAbilitiesList.innerHTML = '';
 

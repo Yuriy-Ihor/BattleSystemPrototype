@@ -21,6 +21,8 @@ const battleScreenFinishTurnButton = document.getElementById("battle-screen-butt
 const battleSummaryScreen = document.getElementById('battle-screen-summary');
 const battleScreenNextTurnButton = document.getElementById('battle-screen-next-turn');
 
+const winScreen = document.getElementById('win-screen');
+
 function hideElement(element) {
     if(!hasClass(element, 'hidden')) { 
         element.classList.add('hidden');
@@ -38,9 +40,8 @@ function showElement(element) {
 const playerStats = {
     hitpoints: "Hitpoints",
     mana: "Mana",
-    intelligence: "Intelligence",
     defense: "Defense",
-    criticalStrike: "Critical strike" // float (0-1)
+    criticalStrike: "Critical strike"
 }
 class Player {
     name = "default name";
@@ -94,7 +95,6 @@ players.opponent = initOpponent();
 function initMainPlayer() {
     var mainPlayer = new Player();
     mainPlayer.name = "Tassadar";
-    mainPlayer.playerRating.b
     mainPlayer.playerSkills = [
         magicalPulseSkill, 
         holyRageSkill, 
@@ -102,7 +102,6 @@ function initMainPlayer() {
     ];
     mainPlayer.playerStats[playerStats.hitpoints] = 100;
     mainPlayer.playerStats[playerStats.mana] = 222;
-    mainPlayer.playerStats[playerStats.intelligence] = 26;
     mainPlayer.playerStats[playerStats.defense] = 18;
     mainPlayer.playerStats[playerStats.criticalStrike] = 0.2;
 
@@ -119,7 +118,6 @@ function initOpponent() {
     ];
     opponent.playerStats[playerStats.hitpoints] = 80;
     opponent.playerStats[playerStats.mana] = 110;
-    opponent.playerStats[playerStats.intelligence] = 19;
     opponent.playerStats[playerStats.defense] = 8;
     opponent.playerStats[playerStats.criticalStrike] = 0.2;
     
