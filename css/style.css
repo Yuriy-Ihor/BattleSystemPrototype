@@ -5,8 +5,8 @@ body {
     margin: auto;
 }
 
-.imported-data {
-    display: none;
+.imported-data, .hidden {
+    display: none !important;
 }
 
 /*---PLAYERS---*/

@@ -49,17 +49,22 @@ function isGameOver() {
 }
 
 function startGame() {
+    hideScreen(versusScreen);
+    hideScreen(battleScreen);
 
-    startBattleButton.onclick = () => showScreen(battleScreen);
+    startBattleButton.onclick = () => {
+        hideScreen(startScreen);
+        showScreen(versusScreen);
+    };
     
 }
 
 function hideScreen(screen) {
-    screen.setAttribute('hidden', 'true');
+    screen.classList.add('hidden');
 }
 
 function showScreen(screen) {
-    screen.removeAttribute('hidden');
+    screen.classList.remove('hidden');
 }
 
 const bodyPartSelectionScreen = is_mobile ? 
