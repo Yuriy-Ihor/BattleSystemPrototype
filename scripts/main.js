@@ -19,7 +19,7 @@ function fillPlayerAbilitiesList(player) {
 function createPlayerAbilityListElement(skillInfo, text) {
     let newAbility = document.createElement('button');
     newAbility.setAttribute('class', 'player-ability');
-    newAbility.innerText = 'Ability ' + text;
+    newAbility.innerText = skillInfo.name + " — " + skillInfo.manaRequired + " mana";
 
     newAbility.onclick = () => {
         newAbility.classList.toggle('selected');
@@ -39,7 +39,7 @@ function getSelectedPlayerAbilities() {
         }
     }
 
-    console.log(rezult);
+    return rezult;
 }
 
 function updatePlayersUI() {
@@ -74,8 +74,6 @@ function isGameOver() {
 }
 
 function startGame() {
-    updatePlayersUI();
-    fillPlayerAbilitiesList(players.mainPlayer);
     hideElement(versusScreen);
     hideElement(battleScreen);
 
@@ -98,6 +96,8 @@ function startGame() {
 }
 
 function startTurn(currentTurn) {
+    updatePlayersUI();
+    fillPlayerAbilitiesList(players.mainPlayer);
     battleScreenManager.showFirstSelection();
     showElement(battleScreenSelection);
     showElement(battleScreenSelectionAbility);
@@ -109,8 +109,24 @@ function finishTurn() {
     battleScreenManager.hideAllSelections();
     hideElement(battleScreenSelection);
     showElement(battleSummaryScreen);
-    getSelectedPlayerAbilities();
+
+    let totalDamage = calculateTotalMainPlayerDamage();
+    console.log(totalDamage);
+
+    battleScreenAbilitiesList.innerHTML = '';
+
     currentTurn++;
+}
+
+function calculateTotalMainPlayerDamage() {
+    let abilities = getSelectedPlayerAbilities();
+
+    let totalDamage = 0;
+    for(let i = 0; i < abilities.length; i++) {
+        totalDamage += players.mainPlayer.playerSkills[abilities[i]].effect;
+    }
+
+    return totalDamage;
 }
 
 function drawAttackScreen() {
