@@ -10,20 +10,36 @@ function getSkillDescription(skill) {
 // ___ html functions ___ //
 
 function fillPlayerAbilitiesList(player) {
-    
     for(let i = 0; i < player.playerSkills.length; i++) {
         let currentSkill = player.playerSkills[i];
         createPlayerAbilityListElement(currentSkill, i);
     }
-
 }
 
 function createPlayerAbilityListElement(skillInfo, text) {
     let newAbility = document.createElement('button');
     newAbility.setAttribute('class', 'player-ability');
     newAbility.innerText = 'Ability ' + text;
+
+    newAbility.onclick = () => {
+        newAbility.classList.toggle('selected');
+    };
     
     battleScreenAbilitiesList.appendChild(newAbility);
+}
+
+function getSelectedPlayerAbilities() {
+    let selectedAbilitiesTags = battleScreenAbilitiesList.getElementsByClassName('player-ability');
+
+    let rezult = [];
+
+    for(let i = 0; i < selectedAbilitiesTags.length; i++) {
+        if(selectedAbilitiesTags[i].classList.contains('selected')) {
+            rezult.push(i);
+        }
+    }
+
+    console.log(rezult);
 }
 
 function updatePlayersUI() {
@@ -58,6 +74,7 @@ function isGameOver() {
 }
 
 function startGame() {
+    updatePlayersUI();
     fillPlayerAbilitiesList(players.mainPlayer);
     hideElement(versusScreen);
     hideElement(battleScreen);
@@ -92,6 +109,7 @@ function finishTurn() {
     battleScreenManager.hideAllSelections();
     hideElement(battleScreenSelection);
     showElement(battleSummaryScreen);
+    getSelectedPlayerAbilities();
     currentTurn++;
 }
 
