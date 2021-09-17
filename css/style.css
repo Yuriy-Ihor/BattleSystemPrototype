@@ -14,6 +14,7 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
     min-height: 100vh;
 }
 
@@ -21,15 +22,10 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    align-self: center;
 }
 
 #player-description-name {
-
-}
-
-#player-description-portrait {
-
+    font-size: 40px;
 }
 
 #player-description-image {
@@ -41,15 +37,30 @@ body {
 }
 
 .player-description-rating {
-
+    font-size: 30px;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .player-description-rating-name {
-
+    font-size: 30px;
 }
 
 #start-battle-button {
+    margin-top: 40px;
+    height: 50px;
+    font-size: 25px;
+    font-family: 'Courier New', Courier, monospace;
+    display: block;
+    text-transform: uppercase;
+    background-color: green;
+    border: none;
+    transition-duration: 0.5s;
+}
 
+#start-battle-button:hover {
+    background-color: greenyellow; 
+    transition-duration: 0.5s;
 }
 
 /*---PLAYERS---*/
