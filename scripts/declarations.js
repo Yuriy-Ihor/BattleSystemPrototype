@@ -14,13 +14,20 @@ const battleScreenSelectionDefense = document.getElementById('battle-screen-sele
 
 const battleScreenBackButton = document.getElementById("battle-screen-button-back");
 const battleScreenNextButton = document.getElementById("battle-screen-button-next");
+const battleScreenFinishTurnButton = document.getElementById("battle-screen-button-finish-turn");
 
-function hideElement(screen) {
-    screen.classList.add('hidden');
+function hideElement(element) {
+    if(!hasClass(element, 'hidden')) { 
+        element.classList.add('hidden');
+    }
 }
 
-function showElement(screen) {
-    screen.classList.remove('hidden');
+function hasClass(element, clsName) {
+    return(' ' + element.className + ' ').indexOf(' ' + clsName + ' ') > -1;
+  }
+
+function showElement(element) {
+    element.classList.remove('hidden');
 }
 
 const playerStats = {
@@ -149,18 +156,20 @@ class BattleScreenManager {
     nextSelectionButton;
     currentScreen = 0;
 
-    constructor(selections, previousSelectionButton, nextSelectionButton) {
+    constructor(selections, previousSelectionButton, nextSelectionButton, battleScreenFinishTurnButton) {
         this.selections = selections;
         this.previousSelectionButton = previousSelectionButton;
         this.nextSelectionButton = nextSelectionButton;
+        this.finishTurnButton = battleScreenFinishTurnButton;
 
-        this.previousSelectionButton.onclick = () => this.showPreviousScreen();
-        this.nextSelectionButton.onclick = () => this.showNextScreen();
+        this.previousSelectionButton.onclick = () => this.showPreviousSelection();
+        this.nextSelectionButton.onclick = () => this.showNextSelection();
 
         hideElement(this.previousSelectionButton);
+        hideElement(this.finishTurnButton);
     }
 
-    showPreviousScreen() {
+    showPreviousSelection() {
         
         console.log(this.selections[this.currentScreen]);
         console.log(this.previousSelectionButton);
@@ -170,13 +179,14 @@ class BattleScreenManager {
         showElement(this.selections[this.currentScreen]);
 
         showElement(this.nextSelectionButton);
+        hideElement(this.finishTurnButton);
 
         if(this.currentScreen == 0) {
             hideElement(this.previousSelectionButton);
         }
     }
 
-    showNextScreen() {
+    showNextSelection() {
 
         console.log(this.selections[this.currentScreen]);
         console.log(this.previousSelectionButton);
@@ -189,12 +199,18 @@ class BattleScreenManager {
 
         if(this.currentScreen == this.selections.length - 1) {
             hideElement(this.nextSelectionButton);
+            showElement(this.finishTurnButton);
         }
     }
+    
 }
 
 const battleScreenManager = new BattleScreenManager(
     [battleScreenSelectionAbility, battleScreenSelectionAttack, battleScreenSelectionDefense],
     battleScreenBackButton,
-    battleScreenNextButton
+    battleScreenNextButton,
+    battleScreenFinishTurnButton
 );
+
+
+battleScreenManager.finishTurnButton.onclick = () => hideElement(battleScreen);
