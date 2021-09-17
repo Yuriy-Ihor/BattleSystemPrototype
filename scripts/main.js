@@ -57,6 +57,10 @@ function startGame() {
         showScreen(versusScreen);
     };
     
+    startTurnButton.onclick = () => {
+        hideScreen(versusScreen);
+        showScreen(battleScreen);
+    }
 }
 
 function hideScreen(screen) {

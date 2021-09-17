@@ -8,6 +8,7 @@ const battleScreen = document.getElementById("players-battle-screen");
 const startScreen = document.getElementById('start-screen');
 const versusScreen = document.getElementById('versus-screen');
 const startBattleButton = document.getElementById('start-battle-button');
+const startTurnButton = document.getElementById('start-turn-button');
 
 const playerStats = {
     hitpoints: "Hitpoints",

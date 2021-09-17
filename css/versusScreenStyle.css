@@ -1,3 +1,61 @@
 #versus-screen {
-    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+#versus-text {
+    font-size: 50px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+#versus-screen-player-display-top {
+
+}
+
+#versus-screen-player-display-bottom {
+
+}
+
+.versus-screen-player-stats {
+    display: flex;
+}
+
+.versus-screen-player-display-name {
+    font-size: 45px;
+}
+
+.versus-screen-player-portrait {
+    display: block;
+    width: 150px;
+    height: 150px;
+    background-color: rgb(243, 243, 243);
+    border-width: 3px;
+    border-color: rgb(42, 165, 42);
+}
+
+#player-right > .player-portrait {
+    margin-left: auto;
+    margin-right: 0;
+}
+
+#start-turn-button {
+    margin-top: 60px;
+    height: 80px;
+    width: 220px;
+    font-size: 25px;
+    font-family: 'Courier New', Courier, monospace;
+    display: block;
+    text-transform: uppercase;
+    background-color: green;
+    border: none;
+    transition-duration: 0.5s;
+}
+
+#start-turn-button:hover {
+    background-color: greenyellow; 
+    transition-duration: 0.5s;
 }
