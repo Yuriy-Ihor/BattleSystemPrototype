@@ -9,6 +9,10 @@ body {
 	outline: none;
 }
 
+.imported-data {
+    display: none;
+}
+
 /*---PLAYERS---*/
 
 #players-bar {

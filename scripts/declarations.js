@@ -4,10 +4,6 @@ const DEFAULT_TYPE_TIME = 0.05;
 const NEXT_TURN_DELAY = 2;
 const CLEAR_LOGS = true;
 
-const current_ui_scale = 1;
-const silhouette_size = current_ui_scale * 300;
-const silhouette_padding = current_ui_scale * 60;
-
 const logField = document.getElementById("terminal-log-field");
 const battleScreen = document.getElementById("players-battle-screen");
 const startScreen = document.getElementById('start-screen');

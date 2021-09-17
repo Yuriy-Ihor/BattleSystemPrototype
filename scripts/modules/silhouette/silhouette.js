@@ -56,7 +56,7 @@ class Silhouette {
         for (var body_part_name in this.coordinate_map) {
             
             let body_part_image_type = this.hovering == body_part_name ? 'filled' : 'hollow';
-
+            
             _context.drawImage(
                 this.body_parts_sprites[`${body_part_name}-${body_part_image_type}`],
                 this.x + this.coordinate_map[body_part_name]["left"] * this.scale,

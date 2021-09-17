@@ -2,14 +2,22 @@
 <html>
 <head>
     <link rel="stylesheet" type="text/css" href="css/style.css"/>
+    <meta charset="utf-8">
 
-    <title>CyberGothic Battle</title>
+    <title>CyberGothic</title>
+
+    <script
+    src="https://code.jquery.com/jquery-3.6.0.js"
+    integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+    crossorigin="anonymous">
+    </script>
+
 </head>
 <body>
 
     <div id="start-screen">
         <div>
-            <img class="player-portrait-image" src='imgs/protoss.jpg' />
+            <img class="player-portrait-image" src='images/protoss.jpg' />
         </div>
         
     </div>
@@ -18,7 +26,7 @@
         <div id="players-bar">
             <div id="player-left" class="player-display">
                 <div class="player-portrait">
-                    <img class="player-portrait-image" src='imgs/protoss.jpg' />
+                    <img class="player-portrait-image" src='images/protoss.jpg' />
                 </div>
                 <div class="player-stats">
                     <div class="player-name">
@@ -64,13 +72,43 @@
                     </div>
                 </div>
                 <div class="player-portrait" style="background-color: #9fbdff;">
-                    <img class="player-portrait-image" src='imgs/undead.jpg' />
+                    <img class="player-portrait-image" src='images/undead.jpg' />
                 </div>
             </div>
         </div>
 
         <div id="body-selection">
+            <img src="silhouette-parts/main/hollow/arm-left-hollow.png" id="arm-left-hollow-main" class="imported-data">
+            <img src="silhouette-parts/main/hollow/arm-right-hollow.png" id="arm-right-hollow-main" class="imported-data">
+            <img src="silhouette-parts/main/hollow/leg-left-hollow.png" id="leg-left-hollow-main" class="imported-data">
+            <img src="silhouette-parts/main/hollow/leg-right-hollow.png" id="leg-right-hollow-main" class="imported-data">
+            <img src="silhouette-parts/main/hollow/torso-hollow.png" id="torso-hollow-main" class="imported-data">
+            <img src="silhouette-parts/main/hollow/head-hollow.png" id="head-hollow-main" class="imported-data">
 
+            <img src="silhouette-parts/main/filled/arm-left-filled.png" id="arm-left-filled-main" class="imported-data">
+            <img src="silhouette-parts/main/filled/arm-right-filled.png" id="arm-right-filled-main" class="imported-data">
+            <img src="silhouette-parts/main/filled/leg-left-filled.png" id="leg-left-filled-main" class="imported-data">
+            <img src="silhouette-parts/main/filled/leg-right-filled.png" id="leg-right-filled-main" class="imported-data">
+            <img src="silhouette-parts/main/filled/torso-filled.png" id="torso-filled-main" class="imported-data">
+            <img src="silhouette-parts/main/filled/head-filled.png" id="head-filled-main" class="imported-data">
+
+            <img src="silhouette-parts/side/hollow/arm-left-hollow.png" id="arm-left-hollow-side" class="imported-data">
+            <img src="silhouette-parts/side/hollow/arm-right-hollow.png" id="arm-right-hollow-side" class="imported-data">
+            <img src="silhouette-parts/side/hollow/leg-left-hollow.png" id="leg-left-hollow-side" class="imported-data">
+            <img src="silhouette-parts/side/hollow/leg-right-hollow.png" id="leg-right-hollow-side" class="imported-data">
+            <img src="silhouette-parts/side/hollow/torso-hollow.png" id="torso-hollow-side" class="imported-data">
+            <img src="silhouette-parts/side/hollow/head-hollow.png" id="head-hollow-side" class="imported-data">
+
+            <img src="silhouette-parts/side/filled/arm-left-filled.png" id="arm-left-filled-side" class="imported-data">
+            <img src="silhouette-parts/side/filled/arm-right-filled.png" id="arm-right-filled-side" class="imported-data">
+            <img src="silhouette-parts/side/filled/leg-left-filled.png" id="leg-left-filled-side" class="imported-data">
+            <img src="silhouette-parts/side/filled/leg-right-filled.png" id="leg-right-filled-side" class="imported-data">
+            <img src="silhouette-parts/side/filled/torso-filled.png" id="torso-filled-side" class="imported-data">
+            <img src="silhouette-parts/side/filled/head-filled.png" id="head-filled-side" class="imported-data">
+
+            <canvas id='canvas'>
+
+            </canvas>
         </div>
 
     </div>
@@ -78,8 +116,10 @@
 
     <script type="text/javascript" src="silhouette-parts/main/silhouette-coordinate-map.js"></script>
     <script type="text/javascript" src="silhouette-parts/side/silhouette-coordinate-map.js"></script>
-
-    <script src="scripts/silhouette/silhouette.js" type="text/javascript"></script> 
+    
+    <script src="scripts/modules/config.js" type="text/javascript"></script> 
+    <script src="scripts/modules/combat-screen.js" type="text/javascript"></script> 
+    <script src="scripts/modules/silhouette/silhouette.js" type="text/javascript"></script> 
     <script src="scripts/declarations.js" type="text/javascript"></script> 
 
     <script src="scripts/main.js" type="text/javascript"></script> 

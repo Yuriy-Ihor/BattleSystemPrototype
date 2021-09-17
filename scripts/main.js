@@ -65,17 +65,20 @@ function showScreen(screen) {
 function drawAttackScreen() {
     _x = 0;
     _y = 0;
-    _width = 100;
-    _height = 100;
-    let sil = new Silhouette(
-        _x + silhouette_padding,
-        _y + silhouette_padding,
-        Math.min(
-            _width - 2 * silhouette_padding,
-            _height - 2 * silhouette_padding
-        ),
-        silhouette_coordinate_map_main
-    )
+    _width = 1000;
+    _height = 220;
+
+    let terminal = new CombatScreenController(
+        600,
+        100,
+        600,
+        600,
+        true
+    );
+
+    terminal.render(context);
+    
+    console.log(terminal.screens.length);
 }
 
 
