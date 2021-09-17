@@ -40,7 +40,17 @@ function updatePlayerStatUI(playerId, barClassName, textAmountClassName, amount)
     playerStatAmount.textContent  = amount;
 }
 
+function hideElement(screen) {
+    screen.classList.add('hidden');
+}
+
+function showElement(screen) {
+    screen.classList.remove('hidden');
+}
+
 // ___ game logic ___ //
+
+var currentTurn = 1;
 
 function isGameOver() {
     return players.mainPlayer.playerStats[playerStats.hitpoints] < 0 || players.opponent.playerStats[playerStats.hitpoints] < 0;
@@ -52,57 +62,30 @@ function startGame() {
 
     startBattleButton.onclick = () => {
         hideElement(startScreen);
-        showScreen(versusScreen);
+        showElement(versusScreen);
     };
     
     startTurnButton.onclick = () => {
         hideElement(versusScreen);
-        showScreen(battleScreen);
-
-        drawAttackScreen();
+        showElement(battleScreen);
+        
+        startTurn(currentTurn);
     }
 }
 
-function hideElement(screen) {
-    screen.classList.add('hidden');
+function startTurn(currentTurn) {
+    showElement(battleScreenSelection);
+    showElement(battleScreenSelectionAbility);
 }
 
-function showScreen(screen) {
-    screen.classList.remove('hidden');
+function finishTurn() {
+    currentTurn++;
 }
-
-const bodyPartSelectionScreen = is_mobile ? 
-    new CombatScreenController(
-        (width - screen_height) / 2,
-        get_total_height() + (height - get_total_height() - get_total_height() - screen_height) / 2,
-        screen_width,
-        screen_height,
-        true
-    ) : 
-    new CombatScreenController(
-        (width - 3 * screen_width - 2 * screen_padding) / 2,
-        get_total_height() + (height - get_total_height() - screen_height) / 2,
-        screen_width,
-        screen_height,
-        false
-    )
 
 function drawAttackScreen() {
     bodyPartSelectionScreen.render(context);
 
     requestAnimationFrame(drawAttackScreen)
 }
-
-function get_total_height() {
-    return Math.max(
-        character_avatar_size + 2 * character_avatar_padding,
-        health_bar_height + mana_bar_height + character_name_size + 2 * default_text_size + 6 * character_avatar_padding
-    )
-}
-
-function get_total_width() {
-    return character_avatar_size + Math.max(health_bar_width, mana_bar_width) + 3 * character_avatar_padding
-}
-
 
 startGame();

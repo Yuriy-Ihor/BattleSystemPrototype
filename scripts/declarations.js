@@ -1,14 +1,13 @@
 
-const TURNS_PER_PLAYER = 2;
-const DEFAULT_TYPE_TIME = 0.05;
-const NEXT_TURN_DELAY = 2;
-const CLEAR_LOGS = true;
+const startScreen = document.getElementById('start-screen');
+const startBattleButton = document.getElementById('start-battle-button');
+
+const versusScreen = document.getElementById('versus-screen');
+const startTurnButton = document.getElementById('start-turn-button');
 
 const battleScreen = document.getElementById("battle-screen");
-const startScreen = document.getElementById('start-screen');
-const versusScreen = document.getElementById('versus-screen');
-const startBattleButton = document.getElementById('start-battle-button');
-const startTurnButton = document.getElementById('start-turn-button');
+const battleScreenSelection = document.getElementById('battle-screen-selection');
+const battleScreenSelectionAbility = document.getElementById('battle-screen-selection-ability');
 
 const playerStats = {
     hitpoints: "Hitpoints",
@@ -101,3 +100,30 @@ function initOpponent() {
     
     return opponent;
 }
+
+function get_total_height() {
+    return Math.max(
+        character_avatar_size + 2 * character_avatar_padding,
+        health_bar_height + mana_bar_height + character_name_size + 2 * default_text_size + 6 * character_avatar_padding
+    )
+}
+
+function get_total_width() {
+    return character_avatar_size + Math.max(health_bar_width, mana_bar_width) + 3 * character_avatar_padding
+}
+
+const bodyPartSelectionScreen = is_mobile ? 
+    new CombatScreenController(
+        (width - screen_height) / 2,
+        get_total_height() + (height - get_total_height() - get_total_height() - screen_height) / 2,
+        screen_width,
+        screen_height,
+        true
+    ) : 
+    new CombatScreenController(
+        (width - 3 * screen_width - 2 * screen_padding) / 2,
+        get_total_height() + (height - get_total_height() - screen_height) / 2,
+        screen_width,
+        screen_height,
+        false
+    )
