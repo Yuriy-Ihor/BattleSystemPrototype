@@ -1,10 +1,10 @@
-const CombatScreenType = {
+const BodyScreenType = {
     ActionSelection: 0,
     AttackTargetSelection: 1,
     DefenseTargetSelection: 2,
 }
 
-class CombatScreen {
+class BodyScreen {
     constructor(_x, _y, _width, _height, _type, _border_width, _border_color, _is_stacked) {
         this.x = _x
         this.y = _y
@@ -16,10 +16,10 @@ class CombatScreen {
         this.is_stacked = _is_stacked
         this.content = {}
         switch (_type) {
-            case CombatScreenType.ActionSelection:
+            case BodyScreenType.ActionSelection:
                 this.content["cascading-text"] = []
                 break
-            case CombatScreenType.AttackTargetSelection:
+            case BodyScreenType.AttackTargetSelection:
                 this.content["attack-silhouette"] = new Silhouette(
                     _x + silhouette_padding,
                     _y + silhouette_padding,
@@ -30,7 +30,7 @@ class CombatScreen {
                     silhouette_coordinate_map_main
                 )
                 break
-            case CombatScreenType.DefenseTargetSelection:
+            case BodyScreenType.DefenseTargetSelection:
                 this.content["defence-silhouette"] = new Silhouette(
                     _x + silhouette_padding,
                     _y + silhouette_padding,
@@ -70,7 +70,7 @@ class CombatScreen {
     }
 }
 
-class CombatScreenController {
+class BodyScreenController {
     constructor(_x, _y, _width, _height, _layered) {
         this.x = _x
         this.y = _y
@@ -79,20 +79,20 @@ class CombatScreenController {
         this.layered = _layered
 
         this.screens = [
-            new CombatScreen(
+            new BodyScreen(
                 _x, _y, _width, _height,
-                CombatScreenType.AttackTargetSelection,
+                BodyScreenType.AttackTargetSelection,
                 screen_border_width, screen_border_color,
                 true
             ),
-            new CombatScreen(
+            new BodyScreen(
                 _x, _y, _width, _height,
-                CombatScreenType.DefenseTargetSelection,
+                BodyScreenType.DefenseTargetSelection,
                 screen_border_width, screen_border_color,
                 true
             )
         ]
-        this.active = CombatScreenType.AttackTargetSelection
+        this.active = BodyScreenType.AttackTargetSelection
     }
 
     render(_context) {

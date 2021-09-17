@@ -7,10 +7,21 @@ const startTurnButton = document.getElementById('start-turn-button');
 
 const battleScreen = document.getElementById("battle-screen");
 const battleScreenSelection = document.getElementById('battle-screen-selection');
+
 const battleScreenSelectionAbility = document.getElementById('battle-screen-selection-ability');
+const battleScreenSelectionAttack = document.getElementById('battle-screen-selection-body-attack');
+const battleScreenSelectionDefense = document.getElementById('battle-screen-selection-body-defense');
 
 const battleScreenBackButton = document.getElementById("battle-screen-button-back");
 const battleScreenNextButton = document.getElementById("battle-screen-button-next");
+
+function hideElement(screen) {
+    screen.classList.add('hidden');
+}
+
+function showElement(screen) {
+    screen.classList.remove('hidden');
+}
 
 const playerStats = {
     hitpoints: "Hitpoints",
@@ -116,14 +127,14 @@ function get_total_width() {
 }
 
 const bodyPartSelectionScreen = is_mobile ? 
-    new CombatScreenController(
+    new BodyScreenController(
         (width - screen_height) / 2,
         get_total_height() + (height - get_total_height() - get_total_height() - screen_height) / 2,
         screen_width,
         screen_height,
         true
     ) : 
-    new CombatScreenController(
+    new BodyScreenController(
         (width - 3 * screen_width - 2 * screen_padding) / 2,
         get_total_height() + (height - get_total_height() - screen_height) / 2,
         screen_width,
@@ -132,31 +143,52 @@ const bodyPartSelectionScreen = is_mobile ?
     )
 
 class BattleScreenManager {
-    constructor(battleScreen, selections, previousSelectionButton, nextSelectionButton) {
-        this.battleScreen = battleScreen;
+
+    selections = [];
+    previousSelectionButton;
+    nextSelectionButton;
+    currentScreen = 0;
+
+    constructor(selections, previousSelectionButton, nextSelectionButton) {
         this.selections = selections;
         this.previousSelectionButton = previousSelectionButton;
         this.nextSelectionButton = nextSelectionButton;
-        this.currentScreen = 0;
+
+        this.previousSelectionButton.onclick = () => this.showPreviousScreen(selections);
+        this.nextSelectionButton.onclick = () => this.showNextScreen(selections);
+
+        hideElement(this.previousSelectionButton);
     }
 
-    showPreviousScreen() {
-        hideElement(this.selections[this.currentScreen]);
+    showPreviousScreen(selections) {
+        
+        hideElement(selections[this.currentScreen]);
         this.currentScreen -= 1;
-        showElement(this.selections[this.currentScreen]);
+        showElement(selections[this.currentScreen]);
+
+        showElement(this.nextSelectionButton);
 
         if(this.currentScreen == 0) {
             hideElement(this.previousSelectionButton);
         }
     }
 
-    showNextScreen() {
-        hideElement(this.selections[this.currentScreen]);
-        this.currentScreen += 1;
-        showElement(this.selections[this.currentScreen]);
+    showNextScreen(selections) {
 
-        if(this.currentScreen == this.selections.length) {
+        hideElement(selections[this.currentScreen]);
+        this.currentScreen += 1;
+        showElement(selections[this.currentScreen]);
+
+        showElement(this.previousSelectionButton);
+
+        if(this.currentScreen == selections.length) {
             hideElement(this.nextSelectionButton);
         }
     }
 }
+
+const battleScreenManager = new BattleScreenManager(
+    [battleScreenSelectionAbility, battleScreenSelectionAttack],
+    battleScreenBackButton,
+    battleScreenNextButton
+);

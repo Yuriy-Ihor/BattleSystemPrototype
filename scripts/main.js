@@ -40,14 +40,6 @@ function updatePlayerStatUI(playerId, barClassName, textAmountClassName, amount)
     playerStatAmount.textContent  = amount;
 }
 
-function hideElement(screen) {
-    screen.classList.add('hidden');
-}
-
-function showElement(screen) {
-    screen.classList.remove('hidden');
-}
-
 // ___ game logic ___ //
 
 var currentTurn = 1;
