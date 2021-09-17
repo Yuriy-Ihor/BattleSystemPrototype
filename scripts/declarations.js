@@ -29,6 +29,10 @@ function hideElement(element) {
     }
 }
 
+function isElementParentVisible(element) {
+    return !element.parentNode.classList.contains('hidden')
+}
+
 function hasClass(element, clsName) {
     return(' ' + element.className + ' ').indexOf(' ' + clsName + ' ') > -1;
   }

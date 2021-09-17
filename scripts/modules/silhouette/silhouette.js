@@ -21,8 +21,12 @@ class Silhouette {
         document.addEventListener(
             "mousemove",
             (event) => {
-                if(battleScreenManager.currentScreen) {
-                    this.check_mouseover(event.offsetX, event.offsetY)
+                if(this._context != null) {
+                    if(isElementParentVisible(this._context.canvas)) {
+                        console.log("is visible");
+                        this.check_mouseover(event.offsetX, event.offsetY)
+                    }
+                    console.log("not visible");
                 }
             }
         )
@@ -68,6 +72,7 @@ class Silhouette {
     }
 
     render(_context) {
+        this._context = _context;
         for (var body_part_name in this.coordinate_map) {
             let body_part_image_type;
             

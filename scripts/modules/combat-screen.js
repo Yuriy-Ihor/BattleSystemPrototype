@@ -91,6 +91,8 @@ class BodyScreenController {
     }
 
     renderScreen(_context, bodyScreenType) {
-        this.screens[bodyScreenType].render(_context)
+        if(!_context.canvas.parentNode.classList.contains('hidden')) {
+            this.screens[bodyScreenType].render(_context);
+        } 
     }
 }
