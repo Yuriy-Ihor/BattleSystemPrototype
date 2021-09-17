@@ -27,6 +27,7 @@ class Silhouette {
     }
 
     check_mouseover(_x, _y) {
+        
         for (var body_part_name in this.coordinate_map) {
             
             let body_part_X = this.get_silhouette_coordinate(body_part_name, this.x, 'left');
@@ -41,6 +42,7 @@ class Silhouette {
             ) {
                 // document.body.style.cursor = "pointer"
                 this.hovering = body_part_name
+                
                 break
             } else {
                 this.hovering = null

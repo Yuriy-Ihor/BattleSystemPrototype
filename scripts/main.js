@@ -62,23 +62,38 @@ function showScreen(screen) {
     screen.removeAttribute('hidden');
 }
 
-function drawAttackScreen() {
-    _x = 0;
-    _y = 0;
-    _width = 1000;
-    _height = 220;
-
-    let terminal = new CombatScreenController(
-        600,
-        100,
-        600,
-        600,
+const terminal = is_mobile ? 
+    new CombatScreenController(
+        (width - screen_height) / 2,
+        get_total_height() + (height - get_total_height() - get_total_height() - screen_height) / 2,
+        screen_width,
+        screen_height,
         true
-    );
+    ) : 
+    new CombatScreenController(
+        (width - 3 * screen_width - 2 * screen_padding) / 2,
+        get_total_height() + (height - get_total_height() - screen_height) / 2,
+        screen_width,
+        screen_height,
+        false
+    )
+
+function drawAttackScreen() {
 
     terminal.render(context);
-    
-    console.log(terminal.screens.length);
+
+    requestAnimationFrame(drawAttackScreen)
+}
+
+function get_total_height() {
+    return Math.max(
+        character_avatar_size + 2 * character_avatar_padding,
+        health_bar_height + mana_bar_height + character_name_size + 2 * default_text_size + 6 * character_avatar_padding
+    )
+}
+
+function get_total_width() {
+    return character_avatar_size + Math.max(health_bar_width, mana_bar_width) + 3 * character_avatar_padding
 }
 
 
