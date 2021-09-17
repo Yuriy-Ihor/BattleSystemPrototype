@@ -134,13 +134,13 @@ function calculateTotalMainPlayerDamage() {
 function drawAttackScreen() {
     bodyPartSelectionScreen.renderScreen(attackCanvasContext, BodyScreenType.AttackTargetSelection);
     
-    //requestAnimationFrame(drawAttackScreen)
+    requestAnimationFrame(drawAttackScreen)
 }
 
 function drawDefenseScreen() {
     bodyPartSelectionScreen.renderScreen(defenseCanvasContext, 1);
 
-    //requestAnimationFrame(drawDefenseScreen)
+    requestAnimationFrame(drawDefenseScreen)
 }
 
 startGame();

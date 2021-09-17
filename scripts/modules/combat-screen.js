@@ -16,9 +16,6 @@ class BodyScreen {
         this.is_stacked = _is_stacked
         this.content = {}
         switch (_type) {
-            case BodyScreenType.ActionSelection:
-                this.content["cascading-text"] = []
-                break
             case BodyScreenType.AttackTargetSelection:
                 this.content["attack-silhouette"] = new Silhouette(
                     _x + silhouette_padding,
