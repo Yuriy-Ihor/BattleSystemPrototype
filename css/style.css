@@ -9,7 +9,7 @@ body {
     display: none !important;
 }
 
-button {
+.switch-button {
     margin: 20px 60px;
     height: 80px;
     width: 220px;
@@ -22,7 +22,7 @@ button {
     transition-duration: 0.5s;
 }
 
-button:hover {
+.switch-button:hover {
     background-color: greenyellow; 
     transition-duration: 0.5s;
 }

@@ -154,17 +154,20 @@ class BattleScreenManager {
         this.previousSelectionButton = previousSelectionButton;
         this.nextSelectionButton = nextSelectionButton;
 
-        this.previousSelectionButton.onclick = () => this.showPreviousScreen(selections);
-        this.nextSelectionButton.onclick = () => this.showNextScreen(selections);
+        this.previousSelectionButton.onclick = () => this.showPreviousScreen();
+        this.nextSelectionButton.onclick = () => this.showNextScreen();
 
         hideElement(this.previousSelectionButton);
     }
 
-    showPreviousScreen(selections) {
+    showPreviousScreen() {
         
-        hideElement(selections[this.currentScreen]);
+        console.log(this.selections[this.currentScreen]);
+        console.log(this.previousSelectionButton);
+
+        hideElement(this.selections[this.currentScreen]);
         this.currentScreen -= 1;
-        showElement(selections[this.currentScreen]);
+        showElement(this.selections[this.currentScreen]);
 
         showElement(this.nextSelectionButton);
 
@@ -173,15 +176,18 @@ class BattleScreenManager {
         }
     }
 
-    showNextScreen(selections) {
+    showNextScreen() {
 
-        hideElement(selections[this.currentScreen]);
+        console.log(this.selections[this.currentScreen]);
+        console.log(this.previousSelectionButton);
+
+        hideElement(this.selections[this.currentScreen]);
         this.currentScreen += 1;
-        showElement(selections[this.currentScreen]);
+        showElement(this.selections[this.currentScreen]);
 
         showElement(this.previousSelectionButton);
 
-        if(this.currentScreen == selections.length) {
+        if(this.currentScreen == this.selections.length - 1) {
             hideElement(this.nextSelectionButton);
         }
     }
