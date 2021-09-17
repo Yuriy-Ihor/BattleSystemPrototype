@@ -16,6 +16,9 @@ const battleScreenBackButton = document.getElementById("battle-screen-button-bac
 const battleScreenNextButton = document.getElementById("battle-screen-button-next");
 const battleScreenFinishTurnButton = document.getElementById("battle-screen-button-finish-turn");
 
+const battleSummaryScreen = document.getElementById('battle-screen-summary');
+const battleScreenNextTurnButton = document.getElementById('battle-screen-next-turn');
+
 function hideElement(element) {
     if(!hasClass(element, 'hidden')) { 
         element.classList.add('hidden');
@@ -165,14 +168,27 @@ class BattleScreenManager {
         this.previousSelectionButton.onclick = () => this.showPreviousSelection();
         this.nextSelectionButton.onclick = () => this.showNextSelection();
 
+        this.showFirstSelection();
+    }
+
+    showFirstSelection() {
+        this.hideAllSelections();
+
+        this.currentScreen = 0;
+        showElement(this.selections[this.currentScreen]);
+        showElement(this.nextSelectionButton);
+
         hideElement(this.previousSelectionButton);
         hideElement(this.finishTurnButton);
     }
 
+    hideAllSelections() {
+        for(let i = 1; i < this.selections.length; i++) {
+            hideElement(this.selections[i]);
+        }
+    }
+
     showPreviousSelection() {
-        
-        console.log(this.selections[this.currentScreen]);
-        console.log(this.previousSelectionButton);
 
         hideElement(this.selections[this.currentScreen]);
         this.currentScreen -= 1;
@@ -188,9 +204,6 @@ class BattleScreenManager {
 
     showNextSelection() {
 
-        console.log(this.selections[this.currentScreen]);
-        console.log(this.previousSelectionButton);
-
         hideElement(this.selections[this.currentScreen]);
         this.currentScreen += 1;
         showElement(this.selections[this.currentScreen]);
@@ -202,7 +215,6 @@ class BattleScreenManager {
             showElement(this.finishTurnButton);
         }
     }
-    
 }
 
 const battleScreenManager = new BattleScreenManager(
@@ -211,6 +223,3 @@ const battleScreenManager = new BattleScreenManager(
     battleScreenNextButton,
     battleScreenFinishTurnButton
 );
-
-
-battleScreenManager.finishTurnButton.onclick = () => hideElement(battleScreen);

@@ -63,14 +63,25 @@ function startGame() {
         
         startTurn(currentTurn);
     }
+
+    battleScreenNextTurnButton.onclick = () => {
+        hideElement(battleSummaryScreen);
+        startTurn(currentTurn);
+    };
 }
 
 function startTurn(currentTurn) {
+    battleScreenManager.showFirstSelection();
     showElement(battleScreenSelection);
     showElement(battleScreenSelectionAbility);
 }
 
+battleScreenManager.finishTurnButton.onclick = finishTurn;
+
 function finishTurn() {
+    battleScreenManager.hideAllSelections();
+    hideElement(battleScreenSelection);
+    showElement(battleSummaryScreen);
     currentTurn++;
 }
 
