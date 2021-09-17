@@ -12,6 +12,11 @@
     margin-bottom: 50px;
 }
 
+.versus-screen-player-display {
+    max-width: 400px;
+    width: 100%;
+}
+
 #versus-screen-player-display-top {
 
 }

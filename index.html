@@ -37,12 +37,10 @@
     </div>
 
     <div id="versus-screen" class='hidden'>
-        <div id="versus-screen-player-display-top">
-
+        <div id="versus-screen-player-display-top" class="versus-screen-player-display">
             <div class="versus-screen-player-display-name">
                 Tassadar
             </div>
-
             <div class="versus-screen-player-stats">
                 <img class="versus-screen-player-portrait" src='images/protoss.jpg' />   
                 <div>
@@ -58,7 +56,7 @@
         <div id="versus-text">
             VS
         </div>
-        <div id="versus-screen-player-display-bottom">
+        <div id="versus-screen-player-display-bottom" class="versus-screen-player-display">
             <div class="versus-screen-player-display-name">
                 K'Rashnar
             </div>
@@ -79,7 +77,7 @@
         <button id="start-turn-button">Start turn 1</button> 
     </div>
 
-    <div id="players-battle-screen" class="hidden">
+    <div id="battle-screen" class="hidden">
         <div id="players-bar">
             <div id="player-left" class="player-display">
                 <div class="player-portrait">
@@ -116,38 +114,42 @@
             </div>
         </div>
 
-        <div id="body-selection">
-            <img src="silhouette-parts/main/hollow/arm-left-hollow.png" id="arm-left-hollow-main" class="imported-data">
-            <img src="silhouette-parts/main/hollow/arm-right-hollow.png" id="arm-right-hollow-main" class="imported-data">
-            <img src="silhouette-parts/main/hollow/leg-left-hollow.png" id="leg-left-hollow-main" class="imported-data">
-            <img src="silhouette-parts/main/hollow/leg-right-hollow.png" id="leg-right-hollow-main" class="imported-data">
-            <img src="silhouette-parts/main/hollow/torso-hollow.png" id="torso-hollow-main" class="imported-data">
-            <img src="silhouette-parts/main/hollow/head-hollow.png" id="head-hollow-main" class="imported-data">
+        <div id="battle-screen-field">
 
-            <img src="silhouette-parts/main/filled/arm-left-filled.png" id="arm-left-filled-main" class="imported-data">
-            <img src="silhouette-parts/main/filled/arm-right-filled.png" id="arm-right-filled-main" class="imported-data">
-            <img src="silhouette-parts/main/filled/leg-left-filled.png" id="leg-left-filled-main" class="imported-data">
-            <img src="silhouette-parts/main/filled/leg-right-filled.png" id="leg-right-filled-main" class="imported-data">
-            <img src="silhouette-parts/main/filled/torso-filled.png" id="torso-filled-main" class="imported-data">
-            <img src="silhouette-parts/main/filled/head-filled.png" id="head-filled-main" class="imported-data">
+            <div id="battle-screen-body-selection" class="hidden">
+                <img src="silhouette-parts/main/hollow/arm-left-hollow.png" id="arm-left-hollow-main" class="imported-data">
+                <img src="silhouette-parts/main/hollow/arm-right-hollow.png" id="arm-right-hollow-main" class="imported-data">
+                <img src="silhouette-parts/main/hollow/leg-left-hollow.png" id="leg-left-hollow-main" class="imported-data">
+                <img src="silhouette-parts/main/hollow/leg-right-hollow.png" id="leg-right-hollow-main" class="imported-data">
+                <img src="silhouette-parts/main/hollow/torso-hollow.png" id="torso-hollow-main" class="imported-data">
+                <img src="silhouette-parts/main/hollow/head-hollow.png" id="head-hollow-main" class="imported-data">
+    
+                <img src="silhouette-parts/main/filled/arm-left-filled.png" id="arm-left-filled-main" class="imported-data">
+                <img src="silhouette-parts/main/filled/arm-right-filled.png" id="arm-right-filled-main" class="imported-data">
+                <img src="silhouette-parts/main/filled/leg-left-filled.png" id="leg-left-filled-main" class="imported-data">
+                <img src="silhouette-parts/main/filled/leg-right-filled.png" id="leg-right-filled-main" class="imported-data">
+                <img src="silhouette-parts/main/filled/torso-filled.png" id="torso-filled-main" class="imported-data">
+                <img src="silhouette-parts/main/filled/head-filled.png" id="head-filled-main" class="imported-data">
+    
+                <img src="silhouette-parts/side/hollow/arm-left-hollow.png" id="arm-left-hollow-side" class="imported-data">
+                <img src="silhouette-parts/side/hollow/arm-right-hollow.png" id="arm-right-hollow-side" class="imported-data">
+                <img src="silhouette-parts/side/hollow/leg-left-hollow.png" id="leg-left-hollow-side" class="imported-data">
+                <img src="silhouette-parts/side/hollow/leg-right-hollow.png" id="leg-right-hollow-side" class="imported-data">
+                <img src="silhouette-parts/side/hollow/torso-hollow.png" id="torso-hollow-side" class="imported-data">
+                <img src="silhouette-parts/side/hollow/head-hollow.png" id="head-hollow-side" class="imported-data">
+    
+                <img src="silhouette-parts/side/filled/arm-left-filled.png" id="arm-left-filled-side" class="imported-data">
+                <img src="silhouette-parts/side/filled/arm-right-filled.png" id="arm-right-filled-side" class="imported-data">
+                <img src="silhouette-parts/side/filled/leg-left-filled.png" id="leg-left-filled-side" class="imported-data">
+                <img src="silhouette-parts/side/filled/leg-right-filled.png" id="leg-right-filled-side" class="imported-data">
+                <img src="silhouette-parts/side/filled/torso-filled.png" id="torso-filled-side" class="imported-data">
+                <img src="silhouette-parts/side/filled/head-filled.png" id="head-filled-side" class="imported-data">
+    
+                <canvas id='canvas'>
+    
+                </canvas>
+            </div>
 
-            <img src="silhouette-parts/side/hollow/arm-left-hollow.png" id="arm-left-hollow-side" class="imported-data">
-            <img src="silhouette-parts/side/hollow/arm-right-hollow.png" id="arm-right-hollow-side" class="imported-data">
-            <img src="silhouette-parts/side/hollow/leg-left-hollow.png" id="leg-left-hollow-side" class="imported-data">
-            <img src="silhouette-parts/side/hollow/leg-right-hollow.png" id="leg-right-hollow-side" class="imported-data">
-            <img src="silhouette-parts/side/hollow/torso-hollow.png" id="torso-hollow-side" class="imported-data">
-            <img src="silhouette-parts/side/hollow/head-hollow.png" id="head-hollow-side" class="imported-data">
-
-            <img src="silhouette-parts/side/filled/arm-left-filled.png" id="arm-left-filled-side" class="imported-data">
-            <img src="silhouette-parts/side/filled/arm-right-filled.png" id="arm-right-filled-side" class="imported-data">
-            <img src="silhouette-parts/side/filled/leg-left-filled.png" id="leg-left-filled-side" class="imported-data">
-            <img src="silhouette-parts/side/filled/leg-right-filled.png" id="leg-right-filled-side" class="imported-data">
-            <img src="silhouette-parts/side/filled/torso-filled.png" id="torso-filled-side" class="imported-data">
-            <img src="silhouette-parts/side/filled/head-filled.png" id="head-filled-side" class="imported-data">
-
-            <canvas id='canvas'>
-
-            </canvas>
         </div>
 
     </div>

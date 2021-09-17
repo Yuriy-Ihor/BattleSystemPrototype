@@ -4,7 +4,7 @@ const DEFAULT_TYPE_TIME = 0.05;
 const NEXT_TURN_DELAY = 2;
 const CLEAR_LOGS = true;
 
-const battleScreen = document.getElementById("players-battle-screen");
+const battleScreen = document.getElementById("battle-screen");
 const startScreen = document.getElementById('start-screen');
 const versusScreen = document.getElementById('versus-screen');
 const startBattleButton = document.getElementById('start-battle-button');

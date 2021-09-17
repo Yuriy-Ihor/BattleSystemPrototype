@@ -47,23 +47,23 @@ function isGameOver() {
 }
 
 function startGame() {
-    hideScreen(versusScreen);
-    hideScreen(battleScreen);
+    hideElement(versusScreen);
+    hideElement(battleScreen);
 
     startBattleButton.onclick = () => {
-        hideScreen(startScreen);
+        hideElement(startScreen);
         showScreen(versusScreen);
     };
     
     startTurnButton.onclick = () => {
-        hideScreen(versusScreen);
+        hideElement(versusScreen);
         showScreen(battleScreen);
 
         drawAttackScreen();
     }
 }
 
-function hideScreen(screen) {
+function hideElement(screen) {
     screen.classList.add('hidden');
 }
 
