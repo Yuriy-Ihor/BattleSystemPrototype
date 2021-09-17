@@ -62,7 +62,7 @@ function showScreen(screen) {
     screen.removeAttribute('hidden');
 }
 
-const terminal = is_mobile ? 
+const bodyPartSelectionScreen = is_mobile ? 
     new CombatScreenController(
         (width - screen_height) / 2,
         get_total_height() + (height - get_total_height() - get_total_height() - screen_height) / 2,
@@ -79,8 +79,7 @@ const terminal = is_mobile ?
     )
 
 function drawAttackScreen() {
-
-    terminal.render(context);
+    //terminal.render(context);
 
     requestAnimationFrame(drawAttackScreen)
 }

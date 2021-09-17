@@ -4,11 +4,6 @@ const CombatScreenType = {
     DefenseTargetSelection: 2,
 }
 
-const SwitchButtonName = {
-    Left: "$left",
-    Right: "$right"
-}
-
 class CombatScreen {
     constructor(_x, _y, _width, _height, _type, _border_width, _border_color, _is_stacked) {
         this.x = _x
@@ -49,27 +44,6 @@ class CombatScreen {
         }
     }
 
-    render_screen_switch_button(_context, _button_name) {
-        _context.fillStyle = text_color
-        _context.font = `bold ${default_text_style}`
-        switch (_button_name) {
-            case SwitchButtonName.Left:
-                _context.fillText(
-                    "<_",
-                    this.x + screen_terminal_padding,
-                    this.y + this.height - 1.5 * screen_terminal_padding
-                )
-                break
-            case SwitchButtonName.Right:
-                _context.fillText(
-                    "_>",
-                    this.x + this.width - screen_terminal_padding - "<_".length * default_text_size * approximate_size_width_ratio,
-                    this.y + this.height - 1.5 * screen_terminal_padding
-                )
-                break
-        }
-    }
-
     render(_context) {
         _context.fillStyle = background_color
         _context.fillRect(
@@ -87,16 +61,9 @@ class CombatScreen {
             switch (element_name) {
                 case "attack-silhouette":
                     this.content[element_name].render(_context)
-                    if (this.is_stacked) {
-                        this.render_screen_switch_button(_context, SwitchButtonName.Left)
-                        this.render_screen_switch_button(_context, SwitchButtonName.Right)
-                    }
                     break
                 case "defence-silhouette":
                     this.content[element_name].render(_context)
-                    if (this.is_stacked) {
-                        this.render_screen_switch_button(_context, SwitchButtonName.Left)
-                    }
                     break
             }
         }
@@ -126,40 +93,6 @@ class CombatScreenController {
             )
         ]
         this.active = CombatScreenType.AttackTargetSelection
-
-        if (_layered) {
-            document.addEventListener(
-                "mousedown",
-                (event) => {
-                    this.check_switch_button_click(event.offsetX, event.offsetY)
-                }
-            )
-        }
-    }
-
-    check_switch_button_click(_x, _y) {
-        if (
-            this.x + screen_terminal_padding - terminal_button_margin <= _x &&
-            _x <= this.x + screen_terminal_padding + "<_".length * default_text_size * approximate_size_width_ratio + terminal_button_margin &&
-
-            this.y + this.height - 1.5 * screen_terminal_padding - default_text_size - terminal_button_margin <= _y &&
-            _y <= this.y + this.height - 1.5 * screen_terminal_padding + terminal_button_margin
-        ) {
-            if (this.active != 0) {
-                this.active -= 1
-            }
-        }
-        if (
-            this.x + this.width - screen_terminal_padding - "<_".length * default_text_size * approximate_size_width_ratio - terminal_button_margin <= _x &&
-            _x <= this.x + this.width - screen_terminal_padding + terminal_button_margin &&
-
-            this.y + this.height - 1.5 * screen_terminal_padding - terminal_button_margin <= _y &&
-            _y <= this.y + this.height - 1.5 * screen_terminal_padding + default_text_size + terminal_button_margin
-        ) {
-            if (this.active != 2) {
-                this.active += 1
-            }
-        }
     }
 
     render(_context) {

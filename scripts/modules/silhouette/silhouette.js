@@ -24,6 +24,15 @@ class Silhouette {
                 this.check_mouseover(event.offsetX, event.offsetY)
             }
         )
+        document.addEventListener(
+            "mousedown",
+            (event) => {
+                if(this.hovering != null) {
+                    this.selected_body_part = this.hovering;
+                    console.log('selected body part = ' + this.selected_body_part);
+                }
+            }
+        )
     }
 
     check_mouseover(_x, _y) {
@@ -42,7 +51,6 @@ class Silhouette {
             ) {
                 // document.body.style.cursor = "pointer"
                 this.hovering = body_part_name
-                
                 break
             } else {
                 this.hovering = null
