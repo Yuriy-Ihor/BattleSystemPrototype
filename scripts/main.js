@@ -12,7 +12,8 @@ function getSkillDescription(skill) {
 function displayPlayerSkills(player) {
     for(let i = 0; i < player.playerSkills.length; i++) {
         let currentSkill = player.playerSkills[i];
-        showNewLog((i + 1) + " - " + getSkillDescription(currentSkill));
+        
+        // TODO: display skill
     }
 }
 
@@ -29,9 +30,6 @@ function updatePlayersDisplay(playerId, playerInfo) {
 
     updatePlayerStatUI(playerId, 'player-hp-bar', 'player-hp-amount', playerInfo.playerStats[playerStats.hitpoints]);
     updatePlayerStatUI(playerId, 'player-mana-bar', 'player-mana-amount', playerInfo.playerStats[playerStats.mana]);
-    updatePlayerStatUI(playerId, 'player-intelligence-bar', 'player-intelligence-amount', playerInfo.playerStats[playerStats.intelligence]);
-    updatePlayerStatUI(playerId, 'player-defense-bar', 'player-defense-amount', playerInfo.playerStats[playerStats.defense]);
-    updatePlayerStatUI(playerId, 'player-criticalStrike-bar', 'player-criticalStrike-amount', playerInfo.playerStats[playerStats.criticalStrike]);
 }
 
 function updatePlayerStatUI(playerId, barClassName, textAmountClassName, amount) {
@@ -60,6 +58,8 @@ function startGame() {
     startTurnButton.onclick = () => {
         hideScreen(versusScreen);
         showScreen(battleScreen);
+
+        drawAttackScreen();
     }
 }
 
@@ -88,7 +88,7 @@ const bodyPartSelectionScreen = is_mobile ?
     )
 
 function drawAttackScreen() {
-    terminal.render(context);
+    bodyPartSelectionScreen.render(context);
 
     requestAnimationFrame(drawAttackScreen)
 }
