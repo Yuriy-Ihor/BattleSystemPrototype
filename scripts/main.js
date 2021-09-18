@@ -195,6 +195,7 @@ function finishTurn() {
     showElement(battleSummaryScreenHTML);
 
     updatePlayersUI();
+    clearErrorMessage();
 
     currentTurn++;
 }

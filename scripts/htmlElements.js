@@ -64,6 +64,10 @@ function showErrorMessage(message, time) {
     showElementForTime(battleScreenErrorHTML, time);
 }
 
+function clearErrorMessage() {
+    battleScreenErrorHTML.innerHTML = '';
+}
+
 function showElementForTime(element, seconds) {
     showElement(element);
     setTimeout(function() {
