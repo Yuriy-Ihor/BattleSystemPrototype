@@ -41,7 +41,6 @@ class BodyScreen {
     }
 
     render(_context) {
-        _context.fillStyle = background_color
         _context.fillRect(
             this.x,
             this.y,

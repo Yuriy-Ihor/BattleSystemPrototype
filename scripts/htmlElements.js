@@ -36,3 +36,24 @@ const battleScreenNextTurnButton = document.getElementById('battle-screen-next-t
 
 const winScreen = document.getElementById('win-screen');
 const winScreenMessage = document.getElementById('win-screen-message');
+
+
+/*--- Functions */
+
+const hideElement = function(element) {
+    if(!hasClass(element, 'hidden')) { 
+        element.classList.add('hidden');
+    }
+}
+
+function isElementParentVisible(element) {
+    return !element.parentNode.classList.contains('hidden')
+}
+
+function hasClass(element, clsName) {
+    return(' ' + element.className + ' ').indexOf(' ' + clsName + ' ') > -1;
+  }
+
+function showElement(element) {
+    element.classList.remove('hidden');
+}

@@ -79,6 +79,22 @@ function updatePlayerStatUI(playerId, barClassName, textAmountClassName, amount)
 
 // ___ game logic ___ //
 
+const bodyPartSelectionScreen =  
+    new BodyScreenController(
+        (width - screen_height) / 2,
+        0,
+        screen_width,
+        screen_height,
+        true
+    );
+
+const battleScreenManager = new BattleScreenManager(
+    [battleScreenSelectionAbility, battleScreenSelectionAttack, battleScreenSelectionDefense],
+    battleScreenBackButton,
+    battleScreenNextButton,
+    battleScreenFinishTurnButton
+);
+
 var currentTurn = 1;
 
 function calculateTotalMainPlayerDamage() {

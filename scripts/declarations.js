@@ -1,22 +1,4 @@
 
-function hideElement(element) {
-    if(!hasClass(element, 'hidden')) { 
-        element.classList.add('hidden');
-    }
-}
-
-function isElementParentVisible(element) {
-    return !element.parentNode.classList.contains('hidden')
-}
-
-function hasClass(element, clsName) {
-    return(' ' + element.className + ' ').indexOf(' ' + clsName + ' ') > -1;
-  }
-
-function showElement(element) {
-    element.classList.remove('hidden');
-}
-
 const playerStats = {
     hitpoints: "Hitpoints",
     mana: "Mana",
@@ -98,19 +80,3 @@ function initOpponent() {
     
     return opponent;
 }
-
-const bodyPartSelectionScreen =  
-    new BodyScreenController(
-        (width - screen_height) / 2,
-        0,
-        screen_width,
-        screen_height,
-        true
-    );
-
-const battleScreenManager = new BattleScreenManager(
-    [battleScreenSelectionAbility, battleScreenSelectionAttack, battleScreenSelectionDefense],
-    battleScreenBackButton,
-    battleScreenNextButton,
-    battleScreenFinishTurnButton
-);

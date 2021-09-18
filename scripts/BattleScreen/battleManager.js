@@ -9,7 +9,4 @@ class BattleManager {
         this.onTurnFinished.addListener(onTurnFinished);
     }
 
-    finishTurn = function() {
-
-    }
 }

@@ -1,19 +1,27 @@
 class Delegate {
-    #listeners = [];
+    listeners = [];
 
-    addListener = function (newListener){
-        listeners.push(newListener);
+    constructor() {
+        this.listeners = [];
     }
 
-    removeListener = function (listener){
-        if(listeners.contains(listener)) {
-            listeners.remove(listener);
+    addListener = function(newListener) {
+        this.listeners.push(newListener);
+    }
+
+    removeListener = function(listener) {
+        if(this.listeners.contains(listener)) {
+            this.listeners.remove(listener);
         }
     }
 
-    invoke = function (arguments) {
-        for(let i = 0; i < listeners.length; i++) {
-            listeners[i](arguments);
+    invoke = function(argument) {
+        if(this.listeners.length == 0) {
+            return;
+        }
+
+        for(let i = 0; i < this.listeners.length; i++) {
+            this.listeners[i](argument);
         }
     }
 }

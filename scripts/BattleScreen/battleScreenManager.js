@@ -10,7 +10,7 @@ class BattleScreenManager {
         this.previousSelectionButton = previousSelectionButton;
         this.nextSelectionButton = nextSelectionButton;
         this.finishTurnButton = battleScreenFinishTurnButton;
-        this.onSelectionChanged = new Delegate(this.selections[this.currentSelection]);
+        this.onSelectionChanged = new Delegate();
 
         this.previousSelectionButton.onclick = () => this.showPreviousSelection();
         this.nextSelectionButton.onclick = () => this.showNextSelection();
@@ -28,7 +28,7 @@ class BattleScreenManager {
         hideElement(this.previousSelectionButton);
         hideElement(this.finishTurnButton);
 
-        onSelectionChanged(this.selections[this.currentSelection]);
+        this.onSelectionChanged.invoke(this.selections[this.currentSelection]);
     }
 
     hideAllSelections() {
@@ -50,7 +50,7 @@ class BattleScreenManager {
             hideElement(this.previousSelectionButton);
         }
 
-        onSelectionChanged(this.selections[this.currentSelection]);
+        this.onSelectionChanged.invoke(this.selections[this.currentSelection]);
     }
 
     showNextSelection() {
@@ -66,7 +66,7 @@ class BattleScreenManager {
             showElement(this.finishTurnButton);
         }
 
-        onSelectionChanged(this.selections[this.currentSelection]);
+        this.onSelectionChanged.invoke(this.selections[this.currentSelection]);
     }
 }
 
