@@ -85,7 +85,7 @@ const selectDefenseBody =
 const abilitySelection = new BattleSelection(battleScreenSelectionAbilityHTML);
 abilitySelection.getSelected = getSelectedPlayerAbilities;
 const attackSelection = new BattleSelection(battleScreenSelectionAttackHTML);
-attackSelection.getSelected = selectAttackBody.getSelectedBodyPart;
+attackSelection.getSelected = () => { return selectAttackBody.getSelectedBodyPart() };
 const defenseSelection = new BattleSelection(battleScreenSelectionDefenseHTML);
 defenseSelection.getSelected = selectDefenseBody.getSelectedBodyPart;
 
@@ -169,12 +169,15 @@ function startTurn(currentTurn) {
 }
 
 function finishTurn() {
-    battleSelectionsPanel.hideAllSelections();
-    disSelectBodyParts(selectDefenseBody);
-    disSelectBodyParts(selectAttackBody);
     
     console.log(attackSelection.getSelected());
-    battleManager.proceedBattleRezults();
+    //battleManager.proceedBattleRezults();
+    return;
+
+    battleSelectionsPanel.hideAllSelections();
+    
+    disSelectBodyParts(selectDefenseBody);
+    disSelectBodyParts(selectAttackBody);
 
     let totalDamage = calculateTotalMainPlayerDamage();
     let totalMana = calculateTotalMainPlayerMana();

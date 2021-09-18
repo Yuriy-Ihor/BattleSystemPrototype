@@ -38,8 +38,6 @@ class BodyScreen {
     }
 
     getSelectedBodyPart() {
-        console.log(this.silhouette);
-
         return this.silhouette.selected_body_part;
     }
 
