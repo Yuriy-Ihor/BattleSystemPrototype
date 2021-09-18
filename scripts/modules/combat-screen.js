@@ -12,30 +12,27 @@ class BodyScreen {
         this.type = _type
         this.border_width = _border_width
         this.border_color = _border_color
+
+        let silhouette_coordinate_map;
+
         switch (_type) {
             case BodyScreenType.AttackTargetSelection:
-                this.content = new Silhouette(
-                    _x + silhouette_padding,
-                    _y + silhouette_padding,
-                    Math.min(
-                        _width - 2 * silhouette_padding,
-                        _height - 2 * silhouette_padding
-                    ),
-                    silhouette_coordinate_map_main
-                )
+                silhouette_coordinate_map = silhouette_coordinate_map_main
                 break
             case BodyScreenType.DefenseTargetSelection:
-                this.content = new Silhouette(
-                    _x + silhouette_padding,
-                    _y + silhouette_padding,
-                    Math.min(
-                        _width - 2 * silhouette_padding,
-                        _height - 2 * silhouette_padding
-                    ),
-                    silhouette_coordinate_map_side
-                )
+                silhouette_coordinate_map = silhouette_coordinate_map_side
                 break
         }
+
+        this.content = new Silhouette(
+            _x + silhouette_padding,
+            _y + silhouette_padding,
+            Math.min(
+                _width - 2 * silhouette_padding,
+                _height - 2 * silhouette_padding
+            ),
+            silhouette_coordinate_map
+        )
     }
 
     render(_context) {
