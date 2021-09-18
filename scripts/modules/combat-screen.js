@@ -33,10 +33,14 @@ class BodyScreen {
             ),
             silhouette_coordinate_map
         )
+
+        console.log(this.silhouette);
     }
 
     getSelectedBodyPart() {
-        return silhouette.selected_body_part;
+        console.log(this.silhouette);
+
+        return this.silhouette.selected_body_part;
     }
 
     render(_context) {

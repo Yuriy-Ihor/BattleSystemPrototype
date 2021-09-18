@@ -80,11 +80,19 @@ const selectDefenseBody =
         (width - screen_height) / 2, 0, screen_width, screen_height,
         BodyScreenType.DefenseTargetSelection,
         screen_border_width, screen_border_color
-    )
+    );
 
+const abilitySelection = new BattleSelection(battleScreenSelectionAbilityHTML);
+abilitySelection.getSelected = getSelectedPlayerAbilities;
+const attackSelection = new BattleSelection(battleScreenSelectionAttackHTML);
+attackSelection.getSelected = selectAttackBody.getSelectedBodyPart;
+const defenseSelection = new BattleSelection(battleScreenSelectionDefenseHTML);
+defenseSelection.getSelected = selectDefenseBody.getSelectedBodyPart;
 
+const battleManager = new BattleManager(abilitySelection, attackSelection, defenseSelection);
+    
 const battleSelectionsPanel = new BattleSelectionsPanel(
-    [battleScreenSelectionAbilityHTML, battleScreenSelectionAttackHTML, battleScreenSelectionDefenseHTML],
+    [abilitySelection, attackSelection, defenseSelection],
     battleScreenBackButtonHTML,
     battleScreenNextButtonHTML,
     battleScreenFinishTurnButtonHTML
@@ -164,6 +172,9 @@ function finishTurn() {
     battleSelectionsPanel.hideAllSelections();
     disSelectBodyParts(selectDefenseBody);
     disSelectBodyParts(selectAttackBody);
+    
+    console.log(attackSelection.getSelected());
+    battleManager.proceedBattleRezults();
 
     let totalDamage = calculateTotalMainPlayerDamage();
     let totalMana = calculateTotalMainPlayerMana();

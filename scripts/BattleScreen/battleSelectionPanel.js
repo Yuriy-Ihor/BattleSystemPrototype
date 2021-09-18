@@ -22,7 +22,8 @@ class BattleSelectionsPanel {
         this.hideAllSelections();
 
         this.currentSelection = 0;
-        showElement(this.selections[this.currentSelection]);
+        this.showSelection(this.selections[this.currentSelection]);
+
         showElement(this.nextSelectionButton);
 
         hideElement(this.previousSelectionButton);
@@ -33,15 +34,15 @@ class BattleSelectionsPanel {
 
     hideAllSelections() {
         for(let i = 1; i < this.selections.length; i++) {
-            hideElement(this.selections[i]);
+            this.hideSelection(this.selections[i]);
         }
     }
 
     showPreviousSelection() {
 
-        hideElement(this.selections[this.currentSelection]);
+        this.hideSelection(this.selections[this.currentSelection]);
         this.currentSelection -= 1;
-        showElement(this.selections[this.currentSelection]);
+        this.showSelection(this.selections[this.currentSelection]);
 
         showElement(this.nextSelectionButton);
         hideElement(this.finishTurnButton);
@@ -55,9 +56,9 @@ class BattleSelectionsPanel {
 
     showNextSelection() {
 
-        hideElement(this.selections[this.currentSelection]);
+        this.hideSelection(this.selections[this.currentSelection]);
         this.currentSelection += 1;
-        showElement(this.selections[this.currentSelection]);
+        this.showSelection(this.selections[this.currentSelection]);
 
         showElement(this.previousSelectionButton);
 
@@ -69,7 +70,11 @@ class BattleSelectionsPanel {
         this.onSelectionChanged.invoke(this.selections[this.currentSelection]);
     }
 
-    showElement(selection) {
+    hideSelection(selection) {
         hideElement(selection.selectionHTML);
+    }
+
+    showSelection(selection) {
+        showElement(selection.selectionHTML);
     }
 }
