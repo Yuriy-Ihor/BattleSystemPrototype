@@ -86,8 +86,16 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    text-align: center;
 }
 
 .selection-body-title {
     font-size: 25px;
+}
+
+#battle-screen-error-message {
+    font-size: 20px;
+    margin-top: 20px;
+    color:orangered;
+    text-align: center;
 }
