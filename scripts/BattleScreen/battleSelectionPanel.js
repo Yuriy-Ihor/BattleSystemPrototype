@@ -1,4 +1,4 @@
-class BattleScreenManager {
+class BattleSelectionsPanel {
     selections = [];
     previousSelectionButton;
     nextSelectionButton;

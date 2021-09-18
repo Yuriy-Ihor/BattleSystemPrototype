@@ -88,7 +88,7 @@ const bodyPartSelectionScreen =
         true
     );
 
-const battleScreenManager = new BattleScreenManager(
+const battleSelectionsPanel = new BattleSelectionsPanel(
     [battleScreenSelectionAbility, battleScreenSelectionAttack, battleScreenSelectionDefense],
     battleScreenBackButton,
     battleScreenNextButton,
@@ -141,7 +141,7 @@ function startGame() {
         startTurn(currentTurn);
     }
 
-    battleScreenManager.finishTurnButton.onclick = finishTurn;
+    battleSelectionsPanel.finishTurnButton.onclick = finishTurn;
 
     battleScreenNextTurnButton.onclick = () => {
         hideElement(battleSummaryScreen);
@@ -160,13 +160,13 @@ function startGame() {
 function startTurn(currentTurn) {
     updatePlayersUI();
     fillPlayerAbilitiesList(players.mainPlayer);
-    battleScreenManager.showFirstSelection();
+    battleSelectionsPanel.showFirstSelection();
     showElement(battleScreenSelection);
     showElement(battleScreenSelectionAbility);
 }
 
 function finishTurn() {
-    battleScreenManager.hideAllSelections();
+    battleSelectionsPanel.hideAllSelections();
     disSelectBodyParts();
 
     let totalDamage = calculateTotalMainPlayerDamage();
