@@ -69,12 +69,12 @@
     text-transform: uppercase;
     background-color: green;
     border: none;
-    transition-duration: 0.5s;
+    transition-duration: 0.1s;
 }
 
 .player-ability:hover {
     background-color: greenyellow; 
-    transition-duration: 0.5s;
+    transition-duration: 0.1s;
 }
 
 .selected {

@@ -79,14 +79,21 @@ function updatePlayerStatUI(playerId, barClassName, textAmountClassName, amount)
 
 // ___ game logic ___ //
 
-const bodyPartSelectionScreen =  
-    new BodyScreenController(
-        (width - screen_height) / 2,
-        0,
-        screen_width,
-        screen_height,
+const selectAttackBody = 
+    new BodyScreen(
+        (width - screen_height) / 2, 0, screen_width, screen_height,
+        BodyScreenType.AttackTargetSelection,
+        screen_border_width, screen_border_color,
         true
     );
+const selectDefenseBody = 
+    new BodyScreen(
+        (width - screen_height) / 2, 0, screen_width, screen_height,
+        BodyScreenType.DefenseTargetSelection,
+        screen_border_width, screen_border_color,
+        true
+    )
+
 
 const battleSelectionsPanel = new BattleSelectionsPanel(
     [battleScreenSelectionAbility, battleScreenSelectionAttack, battleScreenSelectionDefense],
@@ -189,13 +196,13 @@ function finishTurn() {
 }
 
 function drawAttackScreen() {
-    bodyPartSelectionScreen.renderScreen(attackCanvasContext, BodyScreenType.AttackTargetSelection);
+    selectAttackBody.render(attackCanvasContext);
     
     requestAnimationFrame(drawAttackScreen)
 }
 
 function drawDefenseScreen() {
-    bodyPartSelectionScreen.renderScreen(defenseCanvasContext, BodyScreenType.DefenseTargetSelection);
+    selectDefenseBody.render(defenseCanvasContext);
 
     requestAnimationFrame(drawDefenseScreen)
 }

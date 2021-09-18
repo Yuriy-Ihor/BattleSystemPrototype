@@ -8,5 +8,4 @@ class BattleManager {
         this.onTurnFinished = new Delegate();
         this.onTurnFinished.addListener(onTurnFinished);
     }
-
 }
