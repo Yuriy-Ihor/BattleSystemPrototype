@@ -33,8 +33,6 @@ class BodyScreen {
             ),
             silhouette_coordinate_map
         )
-
-        console.log(this.silhouette);
     }
 
     getSelectedBodyPart() {

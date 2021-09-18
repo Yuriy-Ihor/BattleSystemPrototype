@@ -26,6 +26,6 @@ const playerTurnInfo = {
     turnNumber: 0,
     damageDealt: 0,
     abilitiesUsed: [],
-    protectedBodyPart,
-    attackedBodyPart
+    protectedBodyPart: undefined,
+    attackedBodyPart: undefined
 }
