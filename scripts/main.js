@@ -7,8 +7,8 @@ function fillPlayerAbilitiesList(player) {
 }
 
 function updateSummary(firstPlayerName, firstPlayerDamage, secondPlayerName, secondPlayerDamage) {
-    battleSummaryScreenFirstPlayer.innerHTML = firstPlayerName + ', you dealt ' + firstPlayerDamage + ' damage to ' + secondPlayerName;
-    battleSummaryScreenSecondPlayer.innerHTML = secondPlayerName + ', dealt ' + secondPlayerDamage + ' damage to you';
+    battleSummaryScreenFirstPlayerHTML.innerHTML = firstPlayerName + ', you dealt ' + firstPlayerDamage + ' damage to ' + secondPlayerName;
+    battleSummaryScreenSecondPlayerHTML.innerHTML = secondPlayerName + ', dealt ' + secondPlayerDamage + ' damage to you';
 }
 
 function createPlayerAbilityListElement(skillInfo) {
@@ -20,11 +20,11 @@ function createPlayerAbilityListElement(skillInfo) {
         newAbility.classList.toggle('selected');
     };
     
-    battleScreenAbilitiesList.appendChild(newAbility);
+    battleScreenAbilitiesListHTML.appendChild(newAbility);
 }
 
 function getSelectedPlayerAbilities() {
-    let selectedAbilitiesTags = battleScreenAbilitiesList.getElementsByClassName('player-ability');
+    let selectedAbilitiesTags = battleScreenAbilitiesListHTML.getElementsByClassName('player-ability');
 
     let rezult = [];
 
@@ -81,23 +81,21 @@ const selectAttackBody =
     new BodyScreen(
         (width - screen_height) / 2, 0, screen_width, screen_height,
         BodyScreenType.AttackTargetSelection,
-        screen_border_width, screen_border_color,
-        true
+        screen_border_width, screen_border_color
     );
 const selectDefenseBody = 
     new BodyScreen(
         (width - screen_height) / 2, 0, screen_width, screen_height,
         BodyScreenType.DefenseTargetSelection,
-        screen_border_width, screen_border_color,
-        true
+        screen_border_width, screen_border_color
     )
 
 
 const battleSelectionsPanel = new BattleSelectionsPanel(
-    [battleScreenSelectionAbility, battleScreenSelectionAttack, battleScreenSelectionDefense],
-    battleScreenBackButton,
-    battleScreenNextButton,
-    battleScreenFinishTurnButton
+    [battleScreenSelectionAbilityHTML, battleScreenSelectionAttackHTML, battleScreenSelectionDefenseHTML],
+    battleScreenBackButtonHTML,
+    battleScreenNextButtonHTML,
+    battleScreenFinishTurnButtonHTML
 );
 
 var currentTurn = 1;
@@ -129,17 +127,17 @@ function isGameOver() {
 }
 
 function startGame() {
-    hideElement(versusScreen);
-    hideElement(battleScreen);
+    hideElement(versusScreenHTML);
+    hideElement(battleScreenHTML);
 
-    startBattleButton.onclick = () => {
-        hideElement(startScreen);
-        showElement(versusScreen);
+    startBattleButtonHTML.onclick = () => {
+        hideElement(startScreenHTML);
+        showElement(versusScreenHTML);
     };
     
-    startTurnButton.onclick = () => {
-        hideElement(versusScreen);
-        showElement(battleScreen);
+    startTurnButtonHTML.onclick = () => {
+        hideElement(versusScreenHTML);
+        showElement(battleScreenHTML);
 
         drawAttackScreen();
         drawDefenseScreen();
@@ -148,15 +146,15 @@ function startGame() {
 
     battleSelectionsPanel.finishTurnButton.onclick = finishTurn;
 
-    battleScreenNextTurnButton.onclick = () => {
-        hideElement(battleSummaryScreen);
+    battleScreenNextTurnButtonHTML.onclick = () => {
+        hideElement(battleSummaryScreenHTML);
 
         if(isGameOver()) {
-            hideElement(battleScreen);
-            showElement(winScreen);
+            hideElement(battleScreenHTML);
+            showElement(winScreenHTML);
         }
         else {
-            hideElement(battleSummaryScreen);
+            hideElement(battleSummaryScreenHTML);
             startTurn(currentTurn);
         }
     };
@@ -166,8 +164,8 @@ function startTurn(currentTurn) {
     updatePlayersUI();
     fillPlayerAbilitiesList(players.mainPlayer);
     battleSelectionsPanel.showFirstSelection();
-    showElement(battleScreenSelection);
-    showElement(battleScreenSelectionAbility);
+    showElement(battleScreenSelectionHTML);
+    showElement(battleScreenSelectionAbilityHTML);
 }
 
 function finishTurn() {
@@ -184,10 +182,10 @@ function finishTurn() {
     players.opponent.playerStats[playerStats.mana] -= Math.floor(Math.random() * 10);
 
     updateSummary(players.mainPlayer.name, totalDamage, players.opponent.name, 5);
-    battleScreenAbilitiesList.innerHTML = '';
+    battleScreenAbilitiesListHTML.innerHTML = '';
 
-    hideElement(battleScreenSelection);
-    showElement(battleSummaryScreen);
+    hideElement(battleScreenSelectionHTML);
+    showElement(battleSummaryScreenHTML);
 
     updatePlayersUI();
 

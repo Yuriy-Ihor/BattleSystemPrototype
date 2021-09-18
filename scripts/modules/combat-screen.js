@@ -4,7 +4,7 @@ const BodyScreenType = {
 }
 
 class BodyScreen {
-    constructor(_x, _y, _width, _height, _type, _border_width, _border_color, _is_stacked) {
+    constructor(_x, _y, _width, _height, _type, _border_width, _border_color) {
         this.x = _x
         this.y = _y
         this.width = _width
@@ -12,7 +12,6 @@ class BodyScreen {
         this.type = _type
         this.border_width = _border_width
         this.border_color = _border_color
-        this.is_stacked = _is_stacked
         this.content = {}
         switch (_type) {
             case BodyScreenType.AttackTargetSelection:
