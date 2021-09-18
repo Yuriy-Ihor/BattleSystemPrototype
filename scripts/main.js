@@ -169,7 +169,7 @@ function startTurn(currentTurn) {
 
 function finishTurn() {
     if(getSelectedPlayerAbilities().length == 0 || !attackBodySilhouette.isBodyPartSelected() || !defenseBodySilhouette.isBodyPartSelected()) {
-        showErrorMessage("You dumb idiot did something wrong!");
+        showErrorMessage("You dumb idiot did something wrong!", 5);
         return;
     }
 

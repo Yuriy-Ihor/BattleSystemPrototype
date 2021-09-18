@@ -59,11 +59,14 @@ function showElement(element) {
     element.classList.remove('hidden');
 }
 
-function showErrorMessage(message) {
+function showErrorMessage(message, time) {
     battleScreenErrorHTML.innerHTML = message;
-    showElement(battleScreenErrorHTML);
+    showElementForTime(battleScreenErrorHTML, time);
 }
 
-function showElementForTime(element, time) {
-    //setTimeout()
+function showElementForTime(element, seconds) {
+    showElement(element);
+    setTimeout(function() {
+        hideElement(element);
+    }, seconds * 1000);
 }
