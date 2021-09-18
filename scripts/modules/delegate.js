@@ -1,6 +1,5 @@
 // Github pages does not load this script wtf :| 
 
-/*
 class Delegate {
     listeners = [];
 
@@ -27,4 +26,4 @@ class Delegate {
             this.listeners[i](argument);
         }
     }
-}*/
+}
