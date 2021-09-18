@@ -1,14 +1,4 @@
 
-function getMagicalEffectMultiplayed(baseEffect, intelligence) {
-    return baseEffect * intelligence / 10;
-}
-
-function getSkillDescription(skill) {
-    return skill.name + " - costs " + skill.manaRequired + " mana" + ", " + getSkillVerb(skill.skillType) + skill.targetStat.toString() + " by " + skill.effect;
-} 
-
-// ___ html functions ___ //
-
 function fillPlayerAbilitiesList(player) {
     for(let i = 0; i < player.playerSkills.length; i++) {
         let currentSkill = player.playerSkills[i];
@@ -21,7 +11,7 @@ function updateSummary(firstPlayerName, firstPlayerDamage, secondPlayerName, sec
     battleSummaryScreenSecondPlayer.innerHTML = secondPlayerName + ', dealt ' + secondPlayerDamage + ' damage to you';
 }
 
-function createPlayerAbilityListElement(skillInfo, text) {
+function createPlayerAbilityListElement(skillInfo) {
     let newAbility = document.createElement('button');
     newAbility.setAttribute('class', 'player-ability');
     newAbility.innerText = skillInfo.name + " — " + skillInfo.manaRequired + " mana";
@@ -91,6 +81,28 @@ function updatePlayerStatUI(playerId, barClassName, textAmountClassName, amount)
 
 var currentTurn = 1;
 
+function calculateTotalMainPlayerDamage() {
+    let abilities = getSelectedPlayerAbilities();
+
+    let totalDamage = 0;
+    for(let i = 0; i < abilities.length; i++) {
+        totalDamage += players.mainPlayer.playerSkills[abilities[i]].effect;
+    }
+
+    return totalDamage;
+}
+
+function calculateTotalMainPlayerMana() {
+    let abilities = getSelectedPlayerAbilities();
+
+    let totalMana = 0;
+    for(let i = 0; i < abilities.length; i++) {
+        totalMana += players.mainPlayer.playerSkills[abilities[i]].manaRequired;
+    }
+
+    return totalMana;
+}
+
 function isGameOver() {
     return players.mainPlayer.playerStats[playerStats.hitpoints] < 0 || players.opponent.playerStats[playerStats.hitpoints] < 0;
 }
@@ -112,6 +124,8 @@ function startGame() {
         drawDefenseScreen();
         startTurn(currentTurn);
     }
+
+    battleScreenManager.finishTurnButton.onclick = finishTurn;
 
     battleScreenNextTurnButton.onclick = () => {
         hideElement(battleSummaryScreen);
@@ -135,8 +149,6 @@ function startTurn(currentTurn) {
     showElement(battleScreenSelectionAbility);
 }
 
-battleScreenManager.finishTurnButton.onclick = finishTurn;
-
 function finishTurn() {
     battleScreenManager.hideAllSelections();
     disSelectBodyParts();
@@ -158,28 +170,6 @@ function finishTurn() {
     updatePlayersUI();
 
     currentTurn++;
-}
-
-function calculateTotalMainPlayerDamage() {
-    let abilities = getSelectedPlayerAbilities();
-
-    let totalDamage = 0;
-    for(let i = 0; i < abilities.length; i++) {
-        totalDamage += players.mainPlayer.playerSkills[abilities[i]].effect;
-    }
-
-    return totalDamage;
-}
-
-function calculateTotalMainPlayerMana() {
-    let abilities = getSelectedPlayerAbilities();
-
-    let totalMana = 0;
-    for(let i = 0; i < abilities.length; i++) {
-        totalMana += players.mainPlayer.playerSkills[abilities[i]].manaRequired;
-    }
-
-    return totalMana;
 }
 
 function drawAttackScreen() {
