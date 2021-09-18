@@ -17,10 +17,10 @@ class BodyScreen {
 
         switch (_type) {
             case BodyScreenType.AttackTargetSelection:
-                silhouette_coordinate_map = silhouette_coordinate_map_main
+                silhouette_coordinate_map = silhouette_coordinate_map_side
                 break
             case BodyScreenType.DefenseTargetSelection:
-                silhouette_coordinate_map = silhouette_coordinate_map_side
+                silhouette_coordinate_map = silhouette_coordinate_map_main
                 break
         }
 
@@ -37,6 +37,10 @@ class BodyScreen {
 
     getSelectedBodyPart() {
         return this.silhouette.selected_body_part;
+    }
+
+    disselectBodyPart() {
+        this.silhouette.selected_body_part = null;
     }
 
     render(_context) {

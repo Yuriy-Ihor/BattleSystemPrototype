@@ -44,11 +44,11 @@ function disSelectBodyParts(screen) {
 }
 
 function updatePlayersUI() {
-    updatePlayersDisplay('player-left', players.mainPlayer);
-    updatePlayersDisplay('player-right', players.opponent);
+    updatePlayerUI('player-left', players.mainPlayer);
+    updatePlayerUI('player-right', players.opponent);
 }
 
-function updatePlayersDisplay(playerId, playerInfo) {
+function updatePlayerUI(playerId, playerInfo) {
     let playerPanel = document.getElementById(playerId);
 
     let playerName = playerPanel.getElementsByClassName("player-name")[0];
@@ -68,26 +68,30 @@ function updatePlayerStatUI(playerId, barClassName, textAmountClassName, amount)
 
 // ___ game logic ___ //
 
-const selectAttackBody = 
+var currentTurn = 1;
+
+const attackBodySilhouette = 
     new BodyScreen(
         (width - screen_height) / 2, 0, screen_width, screen_height,
         BodyScreenType.AttackTargetSelection,
         screen_border_width, screen_border_color
     );
 
-const selectDefenseBody = 
+const defenseBodySilhouette = 
     new BodyScreen(
         (width - screen_height) / 2, 0, screen_width, screen_height,
         BodyScreenType.DefenseTargetSelection,
         screen_border_width, screen_border_color
     );
-
+    
 const abilitySelection = new BattleSelection(battleScreenSelectionAbilityHTML);
 abilitySelection.getSelected = getSelectedPlayerAbilities;
+
 const attackSelection = new BattleSelection(battleScreenSelectionAttackHTML);
-attackSelection.getSelected = () => { return selectAttackBody.getSelectedBodyPart() };
+attackSelection.getSelected = () => { return attackBodySilhouette.getSelectedBodyPart() };
+
 const defenseSelection = new BattleSelection(battleScreenSelectionDefenseHTML);
-defenseSelection.getSelected = () => { return selectDefenseBody.getSelectedBodyPart() };
+defenseSelection.getSelected = () => { return defenseBodySilhouette.getSelectedBodyPart() };
 
 const battleManager = new BattleManager(abilitySelection, attackSelection, defenseSelection);
     
@@ -97,8 +101,6 @@ const battleSelectionsPanel = new BattleSelectionsPanel(
     battleScreenNextButtonHTML,
     battleScreenFinishTurnButtonHTML
 );
-
-var currentTurn = 1;
 
 function calculateTotalMainPlayerDamage() {
     let abilities = getSelectedPlayerAbilities();
@@ -173,8 +175,8 @@ function finishTurn() {
 
     battleManager.proceedBattleRezults();
     
-    disSelectBodyParts(selectDefenseBody);
-    disSelectBodyParts(selectAttackBody);
+    attackBodySilhouette.disselectBodyPart();
+    defenseBodySilhouette.disselectBodyPart();
 
     let totalDamage = calculateTotalMainPlayerDamage();
     let totalMana = calculateTotalMainPlayerMana();
@@ -196,13 +198,13 @@ function finishTurn() {
 }
 
 function drawAttackScreen() {
-    selectAttackBody.render(attackCanvasContext);
+    attackBodySilhouette.render(attackCanvasContext);
     
     requestAnimationFrame(drawAttackScreen)
 }
 
 function drawDefenseScreen() {
-    selectDefenseBody.render(defenseCanvasContext);
+    defenseBodySilhouette.render(defenseCanvasContext);
 
     requestAnimationFrame(drawDefenseScreen)
 }
