@@ -40,12 +40,6 @@ function getSelectedPlayerAbilities() {
     return rezult;
 }
 
-function disSelectBodyParts(screen) {
-    let silhouette = screen.silhouette; 
-    
-    silhouette.selected_body_part = null;
-}
-
 function updatePlayersUI() {
     updatePlayerUI('player-left', players.mainPlayer);
     updatePlayerUI('player-right', players.opponent);
@@ -174,6 +168,11 @@ function startTurn(currentTurn) {
 }
 
 function finishTurn() {
+    if(getSelectedPlayerAbilities().length == 0 || !attackBodySilhouette.isBodyPartSelected() || !defenseBodySilhouette.isBodyPartSelected()) {
+        showErrorMessage("You dumb idiot did something wrong!");
+        return;
+    }
+
     battleSelectionsPanel.hideAllSelections();
 
     battleManager.proceedBattleRezults();

@@ -30,6 +30,8 @@ const battleSummaryScreenHTML = document.getElementById('battle-screen-summary')
 
 const battleScreenNextTurnButtonHTML = document.getElementById('battle-screen-next-turn');
 
+const battleScreenErrorHTML = document.getElementById("battle-screen-error-message");
+
 
 /*--- Win screen ---*/
 
@@ -55,4 +57,13 @@ function hasClass(element, clsName) {
 
 function showElement(element) {
     element.classList.remove('hidden');
+}
+
+function showErrorMessage(message) {
+    battleScreenErrorHTML.innerHTML = message;
+    showElement(battleScreenErrorHTML);
+}
+
+function showElementForTime(element, time) {
+    //setTimeout()
 }

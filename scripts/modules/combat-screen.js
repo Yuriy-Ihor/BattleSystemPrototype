@@ -35,6 +35,10 @@ class BodyScreen {
         )
     }
 
+    isBodyPartSelected() {
+        return this.silhouette.selected_body_part != null;
+    }
+
     getSelectedBodyPart() {
         return this.silhouette.selected_body_part;
     }
