@@ -1,11 +1,15 @@
 class BattleManager {
-    battleSelections = [];
     onTurnFinished;
+    battleSelectionsPanel;
 
-    constructor(battleSelections) {
-        this.battleSelections = battleSelections;
+    constructor(battleSelectionsPanel) {
+        this.battleSelectionsPanel = battleSelectionsPanel;
 
         this.onTurnFinished = new Delegate();
         this.onTurnFinished.addListener(onTurnFinished);
+    }
+
+    proceedBattleRezults() {
+        
     }
 }
