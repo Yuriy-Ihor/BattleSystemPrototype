@@ -27,25 +27,3 @@ class BattleSelection {
         return 123;
     }
 }
-/*
-
-const AbilitySelection = new BattleSelection( 
-    BattleSelectionType.AbilitySelection,
-    battleScreenSelectionAbility, 
-    battleScreenManager
-)
-
-console.log(AbilitySelection.getSelected());
-
-
-class AttackSelection extends BattleSelection {
-    constructor() {
-        this.init(BattleSelectionType.AttackBodySelection);
-    }
-}
-
-class DefenseSelection extends BattleSelection {
-    constructor() {
-        this.init(BattleSelectionType.AttackBodySelection);
-    }
-}*/
