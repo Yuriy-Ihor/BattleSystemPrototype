@@ -1,31 +1,4 @@
 
-const startScreen = document.getElementById('start-screen');
-const startBattleButton = document.getElementById('start-battle-button');
-
-const versusScreen = document.getElementById('versus-screen');
-const startTurnButton = document.getElementById('start-turn-button');
-
-const battleScreen = document.getElementById("battle-screen");
-const battleScreenSelection = document.getElementById('battle-screen-selection');
-
-const battleScreenSelectionAbility = document.getElementById('battle-screen-selection-ability');
-const battleScreenAbilitiesList = document.getElementById('battle-screen-selection-abilities-list');
-
-const battleScreenSelectionAttack = document.getElementById('battle-screen-selection-body-attack');
-const battleScreenSelectionDefense = document.getElementById('battle-screen-selection-body-defense');
-
-const battleScreenBackButton = document.getElementById("battle-screen-button-back");
-const battleScreenNextButton = document.getElementById("battle-screen-button-next");
-const battleScreenFinishTurnButton = document.getElementById("battle-screen-button-finish-turn");
-
-const battleSummaryScreen = document.getElementById('battle-screen-summary');
-const battleSummaryScreenFirstPlayer = document.getElementById('battle-screen-summary-first-player');
-const battleSummaryScreenSecondPlayer = document.getElementById('battle-screen-summary-second-player');
-
-const battleScreenNextTurnButton = document.getElementById('battle-screen-next-turn');
-
-const winScreen = document.getElementById('win-screen');
-
 function hideElement(element) {
     if(!hasClass(element, 'hidden')) { 
         element.classList.add('hidden');
@@ -60,22 +33,17 @@ const playerRating = {
     rank: 10,
     wonBattles: 10
 }
-class SkillType {
-    static SELF = 'Self';
-    static NONSELF = 'Nonself';
-}
+
 class Skill {
-    constructor (name, duration, skillType, effect, manaRequired, targetStat) {
+    constructor (name, duration, effect, manaRequired, targetStat) {
         this.name = name;
         this.duration = duration;
-        this.skillType = skillType;
         this.effect = effect;
         this.manaRequired = manaRequired;
         this.targetStat = targetStat;
     }
     name = "default skill name";
     duration = 0; // 0 - permanent 
-    skillType = SkillType.SELF;
     effect = 0;
     manaRequired = 5;
     targetStat = playerStats.hitpoints;
@@ -87,12 +55,12 @@ class Skill {
     };
 }
 
-var magicalPulseSkill = new Skill("Magical Pulse", 0, SkillType.NONSELF, 2, 0, playerStats.hitpoints, );
-var holyRageSkill = new Skill("Holy Rage", 1, SkillType.SELF, 5, 25, playerStats.intelligence);
-var ancestorsWrathSkill = new Skill("Ancestors Wrath", 0, SkillType.NONSELF, 30, 25, playerStats.hitpoints);
-var skyRevengeSkill = new Skill("Sky Revenge", 0, SkillType.NONSELF, 25, 20, playerStats.hitpoints);
-var holyTouchSkill = new Skill("Holy Touch", 0, SkillType.SELF, 5, 5, playerStats.hitpoints);
-var brainStormSkill = new Skill("Brain Storm", 2, SkillType.NONSELF, 1, 10, playerStats.intelligence);
+var magicalPulseSkill = new Skill("Magical Pulse", 0, 2, 0, playerStats.hitpoints, );
+var holyRageSkill = new Skill("Holy Rage", 1, 5, 25, playerStats.intelligence);
+var ancestorsWrathSkill = new Skill("Ancestors Wrath", 0, 30, 25, playerStats.hitpoints);
+var skyRevengeSkill = new Skill("Sky Revenge", 0, 25, 20, playerStats.hitpoints);
+var holyTouchSkill = new Skill("Holy Touch", 0, 5, 5, playerStats.hitpoints);
+var brainStormSkill = new Skill("Brain Storm", 2, 1, 10, playerStats.intelligence);
 
 var players = {mainPlayer: null, opponent: null};
 
@@ -139,70 +107,6 @@ const bodyPartSelectionScreen =
         screen_height,
         true
     );
-
-class BattleScreenManager {
-    selections = [];
-    previousSelectionButton;
-    nextSelectionButton;
-    currentScreen = 0;
-
-    constructor(selections, previousSelectionButton, nextSelectionButton, battleScreenFinishTurnButton) {
-        this.selections = selections;
-        this.previousSelectionButton = previousSelectionButton;
-        this.nextSelectionButton = nextSelectionButton;
-        this.finishTurnButton = battleScreenFinishTurnButton;
-
-        this.previousSelectionButton.onclick = () => this.showPreviousSelection();
-        this.nextSelectionButton.onclick = () => this.showNextSelection();
-
-        this.showFirstSelection();
-    }
-
-    showFirstSelection() {
-        this.hideAllSelections();
-
-        this.currentScreen = 0;
-        showElement(this.selections[this.currentScreen]);
-        showElement(this.nextSelectionButton);
-
-        hideElement(this.previousSelectionButton);
-        hideElement(this.finishTurnButton);
-    }
-
-    hideAllSelections() {
-        for(let i = 1; i < this.selections.length; i++) {
-            hideElement(this.selections[i]);
-        }
-    }
-
-    showPreviousSelection() {
-
-        hideElement(this.selections[this.currentScreen]);
-        this.currentScreen -= 1;
-        showElement(this.selections[this.currentScreen]);
-
-        showElement(this.nextSelectionButton);
-        hideElement(this.finishTurnButton);
-
-        if(this.currentScreen == 0) {
-            hideElement(this.previousSelectionButton);
-        }
-    }
-
-    showNextSelection() {
-
-        hideElement(this.selections[this.currentScreen]);
-        this.currentScreen += 1;
-        showElement(this.selections[this.currentScreen]);
-
-        showElement(this.previousSelectionButton);
-
-        if(this.currentScreen == this.selections.length - 1) {
-            hideElement(this.nextSelectionButton);
-            showElement(this.finishTurnButton);
-        }
-    }
-}
 
 const battleScreenManager = new BattleScreenManager(
     [battleScreenSelectionAbility, battleScreenSelectionAttack, battleScreenSelectionDefense],
