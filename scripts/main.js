@@ -14,7 +14,10 @@ function updateSummary(firstPlayerName, firstPlayerDamage, secondPlayerName, sec
 function createPlayerAbilityListElement(skillInfo) {
     let newAbility = document.createElement('button');
     newAbility.setAttribute('class', 'player-ability');
-    newAbility.innerText = skillInfo.name + " — " + skillInfo.manaRequired + " mana";
+
+    let manaRequiredText = skillInfo.manaRequired == 0 ? "free" : skillInfo.manaRequired + " mana";
+
+    newAbility.innerText = skillInfo.name + " — " + manaRequiredText;
 
     newAbility.onclick = () => {
         newAbility.classList.toggle('selected');
