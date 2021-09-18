@@ -12,10 +12,9 @@ class BodyScreen {
         this.type = _type
         this.border_width = _border_width
         this.border_color = _border_color
-        this.content = {}
         switch (_type) {
             case BodyScreenType.AttackTargetSelection:
-                this.content["attack-silhouette"] = new Silhouette(
+                this.content = new Silhouette(
                     _x + silhouette_padding,
                     _y + silhouette_padding,
                     Math.min(
@@ -26,7 +25,7 @@ class BodyScreen {
                 )
                 break
             case BodyScreenType.DefenseTargetSelection:
-                this.content["defence-silhouette"] = new Silhouette(
+                this.content = new Silhouette(
                     _x + silhouette_padding,
                     _y + silhouette_padding,
                     Math.min(
@@ -51,15 +50,7 @@ class BodyScreen {
         _context.strokeRect(
             this.x, this.y, this.width, this.height 
         )
-        for (var element_name in this.content) {
-            switch (element_name) {
-                case "attack-silhouette":
-                    this.content[element_name].render(_context)
-                    break
-                case "defence-silhouette":
-                    this.content[element_name].render(_context)
-                    break
-            }
-        }
+        
+        this.content.render(_context);
     }
 }

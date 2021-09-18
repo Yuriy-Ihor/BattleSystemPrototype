@@ -55,7 +55,6 @@ class Silhouette {
                 body_part_Y < _y &&
                 _y < body_part_Y + this.get_silhouette_coordinate(body_part_name, 0, 'height')
             ) {
-                // document.body.style.cursor = "pointer"
                 this.hovering = body_part_name
                 break
             } else {

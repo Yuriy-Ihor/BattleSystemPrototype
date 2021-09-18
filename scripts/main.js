@@ -40,16 +40,7 @@ function getSelectedPlayerAbilities() {
 function disSelectBodyParts(screen) {
     let content = screen.content; 
 
-    for (var element_name in content) {
-        switch (element_name) {
-            case "attack-silhouette":
-                content[element_name].selected_body_part = null;
-                break
-            case "defence-silhouette":
-                content[element_name].selected_body_part = null;
-                break
-        }
-    }
+    content.selected_body_part = null;
 }
 
 function updatePlayersUI() {
