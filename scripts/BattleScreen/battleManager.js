@@ -21,3 +21,11 @@ class BattleManager {
         console.log("Select body part to defend: " + this.defenseBodySelection.getSelected());
     }
 }
+
+const playerTurnInfo = { 
+    turnNumber: 0,
+    damageDealt: 0,
+    abilitiesUsed: [],
+    protectedBodyPart,
+    attackedBodyPart
+}

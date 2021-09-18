@@ -7,6 +7,6 @@ class BattleSelection {
     }
 
     getSelected() {
-        return 123;
+        return undefined;
     }
 }
