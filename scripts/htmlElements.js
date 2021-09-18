@@ -20,6 +20,17 @@ const battleScreenSelectionAbilityHTML = document.getElementById('battle-screen-
 const battleScreenSelectionAttackHTML = document.getElementById('battle-screen-selection-body-attack');
 const battleScreenSelectionDefenseHTML = document.getElementById('battle-screen-selection-body-defense');
 
+/*---  canvases ---*/
+    const attackCanvas = document.getElementById('body-attack-canvas');
+    attackCanvas.width = window.innerWidth;
+    attackCanvas.height = window.innerHeight / 2;
+    const attackCanvasContext = attackCanvas.getContext("2d");
+
+    const defenseCanvas = document.getElementById("body-defense-canvas");
+    defenseCanvas.width = window.innerWidth;
+    defenseCanvas.height = window.innerHeight / 2;
+    const defenseCanvasContext = defenseCanvas.getContext("2d");
+
 const battleScreenBackButtonHTML = document.getElementById("battle-screen-button-back");
 const battleScreenNextButtonHTML = document.getElementById("battle-screen-button-next");
 const battleScreenFinishTurnButtonHTML = document.getElementById("battle-screen-button-finish-turn");
