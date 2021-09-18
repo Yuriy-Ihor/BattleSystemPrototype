@@ -37,19 +37,17 @@ function getSelectedPlayerAbilities() {
     return rezult;
 }
 
-function disSelectBodyParts() {
-    for(let i = 0; i < bodyPartSelectionScreen.screens.length; i++) {
-        let content = bodyPartSelectionScreen.screens[i].content; 
+function disSelectBodyParts(screen) {
+    let content = screen.content; 
 
-        for (var element_name in content) {
-            switch (element_name) {
-                case "attack-silhouette":
-                    content[element_name].selected_body_part = null;
-                    break
-                case "defence-silhouette":
-                    content[element_name].selected_body_part = null;
-                    break
-            }
+    for (var element_name in content) {
+        switch (element_name) {
+            case "attack-silhouette":
+                content[element_name].selected_body_part = null;
+                break
+            case "defence-silhouette":
+                content[element_name].selected_body_part = null;
+                break
         }
     }
 }
@@ -174,7 +172,8 @@ function startTurn(currentTurn) {
 
 function finishTurn() {
     battleSelectionsPanel.hideAllSelections();
-    disSelectBodyParts();
+    disSelectBodyParts(selectDefenseBody);
+    disSelectBodyParts(selectAttackBody);
 
     let totalDamage = calculateTotalMainPlayerDamage();
     let totalMana = calculateTotalMainPlayerMana();

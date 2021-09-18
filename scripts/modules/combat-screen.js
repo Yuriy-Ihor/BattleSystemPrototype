@@ -64,34 +64,3 @@ class BodyScreen {
         }
     }
 }
-
-class BodyScreenController {
-    constructor(_x, _y, _width, _height, _layered) {
-        this.x = _x
-        this.y = _y
-        this.width = _width
-        this.height = _height
-        this.layered = _layered
-
-        this.screens = [
-            new BodyScreen(
-                _x, _y, _width, _height,
-                BodyScreenType.AttackTargetSelection,
-                screen_border_width, screen_border_color,
-                true
-            ),
-            new BodyScreen(
-                _x, _y, _width, _height,
-                BodyScreenType.DefenseTargetSelection,
-                screen_border_width, screen_border_color,
-                true
-            )
-        ]
-    }
-
-    renderScreen(_context, bodyScreenType) {
-        if(!_context.canvas.parentNode.classList.contains('hidden')) {
-            this.screens[bodyScreenType].render(_context);
-        } 
-    }
-}
