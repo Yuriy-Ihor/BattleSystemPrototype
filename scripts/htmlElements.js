@@ -16,8 +16,7 @@ const battleScreen = document.getElementById("battle-screen");
 const battleScreenSelection = document.getElementById('battle-screen-selection');
 
 const battleScreenSelectionAbility = document.getElementById('battle-screen-selection-ability');
-const battleScreenAbilitiesList = document.getElementById('battle-screen-selection-abilities-list');
-
+    const battleScreenAbilitiesList = document.getElementById('battle-screen-selection-abilities-list');
 const battleScreenSelectionAttack = document.getElementById('battle-screen-selection-body-attack');
 const battleScreenSelectionDefense = document.getElementById('battle-screen-selection-body-defense');
 
@@ -26,8 +25,8 @@ const battleScreenNextButton = document.getElementById("battle-screen-button-nex
 const battleScreenFinishTurnButton = document.getElementById("battle-screen-button-finish-turn");
 
 const battleSummaryScreen = document.getElementById('battle-screen-summary');
-const battleSummaryScreenFirstPlayer = document.getElementById('battle-screen-summary-first-player');
-const battleSummaryScreenSecondPlayer = document.getElementById('battle-screen-summary-second-player');
+    const battleSummaryScreenFirstPlayer = document.getElementById('battle-screen-summary-first-player');
+    const battleSummaryScreenSecondPlayer = document.getElementById('battle-screen-summary-second-player');
 
 const battleScreenNextTurnButton = document.getElementById('battle-screen-next-turn');
 

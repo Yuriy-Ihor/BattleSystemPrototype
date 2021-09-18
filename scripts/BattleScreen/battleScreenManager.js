@@ -69,21 +69,3 @@ class BattleScreenManager {
         this.onSelectionChanged.invoke(this.selections[this.currentSelection]);
     }
 }
-
-class BattleSelection {
-    battleSelectionHTML;
-    battleScreenManager;
-
-    constructor(battleSelectionHTML, battleScreenManager) {
-        this.battleSelectionHTML = battleSelectionHTML;
-        this.battleScreenManager = battleScreenManager;
-
-        this.battleScreenManager.onSelectionChanged.AddListener(checkIfSelectionIsVisible);
-    }
-
-    checkIfSelectionIsVisible = function (selection) {
-        if(this.battleSelectionHTML == selection) {
-            console.log("i'm not visible!");
-        }
-    }
-}
