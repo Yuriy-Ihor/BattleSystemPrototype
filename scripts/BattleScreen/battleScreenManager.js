@@ -2,13 +2,15 @@ class BattleScreenManager {
     selections = [];
     previousSelectionButton;
     nextSelectionButton;
-    currentScreen = 0;
+    currentSelection = 0;
+    onSelectionChanged;
 
     constructor(selections, previousSelectionButton, nextSelectionButton, battleScreenFinishTurnButton) {
         this.selections = selections;
         this.previousSelectionButton = previousSelectionButton;
         this.nextSelectionButton = nextSelectionButton;
         this.finishTurnButton = battleScreenFinishTurnButton;
+        this.onSelectionChanged = new Delegate(this.selections[this.currentSelection]);
 
         this.previousSelectionButton.onclick = () => this.showPreviousSelection();
         this.nextSelectionButton.onclick = () => this.showNextSelection();
@@ -19,12 +21,14 @@ class BattleScreenManager {
     showFirstSelection() {
         this.hideAllSelections();
 
-        this.currentScreen = 0;
-        showElement(this.selections[this.currentScreen]);
+        this.currentSelection = 0;
+        showElement(this.selections[this.currentSelection]);
         showElement(this.nextSelectionButton);
 
         hideElement(this.previousSelectionButton);
         hideElement(this.finishTurnButton);
+
+        onSelectionChanged(this.selections[this.currentSelection]);
     }
 
     hideAllSelections() {
@@ -35,29 +39,51 @@ class BattleScreenManager {
 
     showPreviousSelection() {
 
-        hideElement(this.selections[this.currentScreen]);
-        this.currentScreen -= 1;
-        showElement(this.selections[this.currentScreen]);
+        hideElement(this.selections[this.currentSelection]);
+        this.currentSelection -= 1;
+        showElement(this.selections[this.currentSelection]);
 
         showElement(this.nextSelectionButton);
         hideElement(this.finishTurnButton);
 
-        if(this.currentScreen == 0) {
+        if(this.currentSelection == 0) {
             hideElement(this.previousSelectionButton);
         }
+
+        onSelectionChanged(this.selections[this.currentSelection]);
     }
 
     showNextSelection() {
 
-        hideElement(this.selections[this.currentScreen]);
-        this.currentScreen += 1;
-        showElement(this.selections[this.currentScreen]);
+        hideElement(this.selections[this.currentSelection]);
+        this.currentSelection += 1;
+        showElement(this.selections[this.currentSelection]);
 
         showElement(this.previousSelectionButton);
 
-        if(this.currentScreen == this.selections.length - 1) {
+        if(this.currentSelection == this.selections.length - 1) {
             hideElement(this.nextSelectionButton);
             showElement(this.finishTurnButton);
+        }
+
+        onSelectionChanged(this.selections[this.currentSelection]);
+    }
+}
+
+class BattleSelection {
+    battleSelectionHTML;
+    battleScreenManager;
+
+    constructor(battleSelectionHTML, battleScreenManager) {
+        this.battleSelectionHTML = battleSelectionHTML;
+        this.battleScreenManager = battleScreenManager;
+
+        this.battleScreenManager.onSelectionChanged.AddListener(checkIfSelectionIsVisible);
+    }
+
+    checkIfSelectionIsVisible = function (selection) {
+        if(this.battleSelectionHTML == selection) {
+            console.log("i'm not visible!");
         }
     }
 }

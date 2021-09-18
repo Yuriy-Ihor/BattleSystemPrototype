@@ -35,7 +35,7 @@ function createPlayerAbilityListElement(skillInfo, text) {
 
 function getSelectedPlayerAbilities() {
     let selectedAbilitiesTags = battleScreenAbilitiesList.getElementsByClassName('player-ability');
-    console.log(selectedAbilitiesTags);
+
     let rezult = [];
 
     for(let i = 0; i < selectedAbilitiesTags.length; i++) {
