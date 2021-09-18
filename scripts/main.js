@@ -38,9 +38,9 @@ function getSelectedPlayerAbilities() {
 }
 
 function disSelectBodyParts(screen) {
-    let content = screen.content; 
-
-    content.selected_body_part = null;
+    let silhouette = screen.silhouette; 
+    
+    silhouette.selected_body_part = null;
 }
 
 function updatePlayersUI() {
@@ -74,6 +74,7 @@ const selectAttackBody =
         BodyScreenType.AttackTargetSelection,
         screen_border_width, screen_border_color
     );
+
 const selectDefenseBody = 
     new BodyScreen(
         (width - screen_height) / 2, 0, screen_width, screen_height,

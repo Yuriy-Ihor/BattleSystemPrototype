@@ -5,20 +5,20 @@ const BattleSelectionType = {
 }
 
 class BattleSelection {
-    battleSelectionType;
-    battleSelectionHTML;
+    selectionType;
+    selectionHTML;
     battleScreenManager;
 
-    constructor(battleSelectionType, battleSelectionHTML, battleScreenManager) {
-        this.battleSelectionType = battleSelectionType;
-        this.battleSelectionHTML = battleSelectionHTML;
+    constructor(selectionType, selectionHTML, battleScreenManager) {
+        this.selectionType = selectionType;
+        this.selectionHTML = selectionHTML;
         this.battleScreenManager = battleScreenManager;
 
         this.battleScreenManager.onSelectionChanged.AddListener(checkIfSelectionIsVisible);
     }
 
     checkIfSelectionIsVisible = function (selection) {
-        if(this.battleSelectionHTML == selection) {
+        if(this.selectionHTML == selection) {
             console.log("i'm not visible!");
         }
     }

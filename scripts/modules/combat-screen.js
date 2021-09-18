@@ -24,7 +24,7 @@ class BodyScreen {
                 break
         }
 
-        this.content = new Silhouette(
+        this.silhouette = new Silhouette(
             _x + silhouette_padding,
             _y + silhouette_padding,
             Math.min(
@@ -33,6 +33,10 @@ class BodyScreen {
             ),
             silhouette_coordinate_map
         )
+    }
+
+    getSelectedBodyPart() {
+        return silhouette.selected_body_part;
     }
 
     render(_context) {
@@ -48,6 +52,6 @@ class BodyScreen {
             this.x, this.y, this.width, this.height 
         )
         
-        this.content.render(_context);
+        this.silhouette.render(_context);
     }
 }

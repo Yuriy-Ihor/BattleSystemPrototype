@@ -68,4 +68,8 @@ class BattleSelectionsPanel {
 
         this.onSelectionChanged.invoke(this.selections[this.currentSelection]);
     }
+
+    showElement(selection) {
+        hideElement(selection.selectionHTML);
+    }
 }
