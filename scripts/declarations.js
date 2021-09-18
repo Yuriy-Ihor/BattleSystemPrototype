@@ -131,17 +131,6 @@ function initOpponent() {
     return opponent;
 }
 
-function get_total_height() {
-    return Math.max(
-        character_avatar_size + 2 * character_avatar_padding,
-        health_bar_height + mana_bar_height + character_name_size + 2 * default_text_size + 6 * character_avatar_padding
-    )
-}
-
-function get_total_width() {
-    return character_avatar_size + Math.max(health_bar_width, mana_bar_width) + 3 * character_avatar_padding
-}
-
 const bodyPartSelectionScreen =  
     new BodyScreenController(
         (width - screen_height) / 2,
