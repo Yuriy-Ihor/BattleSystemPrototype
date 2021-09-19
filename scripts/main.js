@@ -2,16 +2,11 @@
 function fillPlayerAbilitiesList(player) {
     for(let i = 0; i < player.playerSkills.length; i++) {
         let currentSkill = player.playerSkills[i];
-        createPlayerAbilityListElement(currentSkill, i);
+        createPlayerAbilitiesListElement(currentSkill, i);
     }
 }
 
-function updateSummary(firstPlayerName, firstPlayerDamage, secondPlayerName, secondPlayerDamage) {
-    battleSummaryScreenFirstPlayerHTML.innerHTML = firstPlayerName + ', you dealt ' + firstPlayerDamage + ' damage to ' + secondPlayerName;
-    battleSummaryScreenSecondPlayerHTML.innerHTML = secondPlayerName + ', dealt ' + secondPlayerDamage + ' damage to you';
-}
-
-function createPlayerAbilityListElement(skillInfo) {
+function createPlayerAbilitiesListElement(skillInfo) {
     let newAbility = document.createElement('button');
     newAbility.setAttribute('class', 'player-ability');
 
@@ -24,20 +19,6 @@ function createPlayerAbilityListElement(skillInfo) {
     };
     
     battleScreenAbilitiesListHTML.appendChild(newAbility);
-}
-
-function getSelectedPlayerAbilities() {
-    let selectedAbilitiesTags = battleScreenAbilitiesListHTML.getElementsByClassName('player-ability');
-
-    let rezult = [];
-
-    for(let i = 0; i < selectedAbilitiesTags.length; i++) {
-        if(selectedAbilitiesTags[i].classList.contains('selected')) {
-            rezult.push(i);
-        }
-    }
-
-    return rezult;
 }
 
 function updatePlayersUI() {
@@ -90,7 +71,17 @@ attackSelection.getSelected = () => { return attackBodySilhouette.getSelectedBod
 const defenseSelection = new BattleSelection(battleScreenSelectionDefenseHTML);
 defenseSelection.getSelected = () => { return defenseBodySilhouette.getSelectedBodyPart() };
 
-const battleManager = new BattleManager(abilitySelection, attackSelection, defenseSelection);
+function drawAttackScreen() {
+    attackBodySilhouette.render(attackCanvasContext);
+    
+    requestAnimationFrame(drawAttackScreen)
+}
+
+function drawDefenseScreen() {
+    defenseBodySilhouette.render(defenseCanvasContext);
+
+    requestAnimationFrame(drawDefenseScreen)
+}
     
 const battleSelectionsPanel = new BattleSelectionsPanel(
     [abilitySelection, attackSelection, defenseSelection],
@@ -98,6 +89,92 @@ const battleSelectionsPanel = new BattleSelectionsPanel(
     battleScreenNextButtonHTML,
     battleScreenFinishTurnButtonHTML
 );
+
+function isGameOver() {
+    return players.mainPlayer.playerStats[playerStats.hitpoints] < 0 || players.opponent.playerStats[playerStats.hitpoints] < 0;
+}
+
+function startGame() {
+    hideElement(versusScreenHTML);
+    hideElement(battleScreenHTML);
+
+    startBattleButtonHTML.onclick = () => {
+        hideElement(startScreenHTML);
+        showElement(versusScreenHTML);
+    };
+    
+    startTurnButtonHTML.onclick = () => {
+        hideElement(versusScreenHTML);
+        showElement(battleScreenHTML);
+
+        drawAttackScreen();
+        drawDefenseScreen();
+        startTurn();
+    }
+
+    battleSelectionsPanel.finishTurnButton.onclick = finishTurn;
+
+    battleScreenNextTurnButtonHTML.onclick = () => {
+        hideElement(battleSummaryScreenHTML);
+
+        if(isGameOver()) {
+            hideElement(battleScreenHTML);
+            showElement(winScreenHTML);
+        }
+        else {
+            hideElement(battleSummaryScreenHTML);
+            startTurn();
+        }
+    };
+}
+
+function startTurn() {
+    updatePlayersUI();
+    fillPlayerAbilitiesList(players.mainPlayer);
+    battleSelectionsPanel.showFirstSelection();
+    showElement(battleScreenSelectionHTML);
+    showElement(battleScreenSelectionAbilityHTML);
+}
+
+function finishTurn() {
+    if(getSelectedPlayerAbilities().length == 0 || !attackBodySilhouette.isBodyPartSelected() || !defenseBodySilhouette.isBodyPartSelected()) {
+        showErrorMessage("You dumb idiot did something wrong!", 5);
+        return;
+    }
+
+    battleSelectionsPanel.hideAllSelections();
+
+    proceedBattleRezults();
+    
+    attackBodySilhouette.disselectBodyPart();
+    defenseBodySilhouette.disselectBodyPart();
+
+    battleScreenAbilitiesListHTML.innerHTML = '';
+
+    hideElement(battleScreenSelectionHTML);
+    showElement(battleSummaryScreenHTML);
+
+    updatePlayersUI();
+    clearErrorMessage();
+
+    currentTurn++;
+}
+
+function proceedBattleRezults() {
+    console.log("Selected abilities: " + abilitySelection.getSelected());
+    console.log("Select body part to attack: " + attackSelection.getSelected());
+    console.log("Select body part to defend: " + defenseSelection.getSelected());
+
+    let totalDamage = calculateTotalMainPlayerDamage();
+    let totalMana = calculateTotalMainPlayerMana();
+    players.mainPlayer.playerStats[playerStats.hitpoints] -= Math.floor(Math.random() * 10);
+    players.mainPlayer.playerStats[playerStats.mana] -= totalMana;
+
+    players.opponent.playerStats[playerStats.hitpoints] -= totalDamage;
+    players.opponent.playerStats[playerStats.mana] -= Math.floor(Math.random() * 10);
+
+    updateSummary(players.mainPlayer.name, totalDamage, players.opponent.name, 5);
+}
 
 function calculateTotalMainPlayerDamage() {
     let abilities = getSelectedPlayerAbilities();
@@ -119,97 +196,6 @@ function calculateTotalMainPlayerMana() {
     }
 
     return totalMana;
-}
-
-function isGameOver() {
-    return players.mainPlayer.playerStats[playerStats.hitpoints] < 0 || players.opponent.playerStats[playerStats.hitpoints] < 0;
-}
-
-function startGame() {
-    hideElement(versusScreenHTML);
-    hideElement(battleScreenHTML);
-
-    startBattleButtonHTML.onclick = () => {
-        hideElement(startScreenHTML);
-        showElement(versusScreenHTML);
-    };
-    
-    startTurnButtonHTML.onclick = () => {
-        hideElement(versusScreenHTML);
-        showElement(battleScreenHTML);
-
-        drawAttackScreen();
-        drawDefenseScreen();
-        startTurn(currentTurn);
-    }
-
-    battleSelectionsPanel.finishTurnButton.onclick = finishTurn;
-
-    battleScreenNextTurnButtonHTML.onclick = () => {
-        hideElement(battleSummaryScreenHTML);
-
-        if(isGameOver()) {
-            hideElement(battleScreenHTML);
-            showElement(winScreenHTML);
-        }
-        else {
-            hideElement(battleSummaryScreenHTML);
-            startTurn(currentTurn);
-        }
-    };
-}
-
-function startTurn(currentTurn) {
-    updatePlayersUI();
-    fillPlayerAbilitiesList(players.mainPlayer);
-    battleSelectionsPanel.showFirstSelection();
-    showElement(battleScreenSelectionHTML);
-    showElement(battleScreenSelectionAbilityHTML);
-}
-
-function finishTurn() {
-    if(getSelectedPlayerAbilities().length == 0 || !attackBodySilhouette.isBodyPartSelected() || !defenseBodySilhouette.isBodyPartSelected()) {
-        showErrorMessage("You dumb idiot did something wrong!", 5);
-        return;
-    }
-
-    battleSelectionsPanel.hideAllSelections();
-
-    battleManager.proceedBattleRezults();
-    
-    attackBodySilhouette.disselectBodyPart();
-    defenseBodySilhouette.disselectBodyPart();
-
-    let totalDamage = calculateTotalMainPlayerDamage();
-    let totalMana = calculateTotalMainPlayerMana();
-    players.mainPlayer.playerStats[playerStats.hitpoints] -= Math.floor(Math.random() * 10);
-    players.mainPlayer.playerStats[playerStats.mana] -= totalMana;
-
-    players.opponent.playerStats[playerStats.hitpoints] -= totalDamage;
-    players.opponent.playerStats[playerStats.mana] -= Math.floor(Math.random() * 10);
-
-    updateSummary(players.mainPlayer.name, totalDamage, players.opponent.name, 5);
-    battleScreenAbilitiesListHTML.innerHTML = '';
-
-    hideElement(battleScreenSelectionHTML);
-    showElement(battleSummaryScreenHTML);
-
-    updatePlayersUI();
-    clearErrorMessage();
-
-    currentTurn++;
-}
-
-function drawAttackScreen() {
-    attackBodySilhouette.render(attackCanvasContext);
-    
-    requestAnimationFrame(drawAttackScreen)
-}
-
-function drawDefenseScreen() {
-    defenseBodySilhouette.render(defenseCanvasContext);
-
-    requestAnimationFrame(drawDefenseScreen)
 }
 
 startGame();

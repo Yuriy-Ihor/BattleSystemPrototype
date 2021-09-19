@@ -85,3 +85,22 @@ function showElementForTime(element, seconds) {
         hideElement(element);
     }, seconds * 1000);
 }
+
+function updateSummary(firstPlayerName, firstPlayerDamage, secondPlayerName, secondPlayerDamage) {
+    battleSummaryScreenFirstPlayerHTML.innerHTML = firstPlayerName + ', you dealt ' + firstPlayerDamage + ' damage to ' + secondPlayerName;
+    battleSummaryScreenSecondPlayerHTML.innerHTML = secondPlayerName + ', dealt ' + secondPlayerDamage + ' damage to you';
+}
+
+function getSelectedPlayerAbilities() {
+    let selectedAbilitiesTags = battleScreenAbilitiesListHTML.getElementsByClassName('player-ability');
+
+    let rezult = [];
+
+    for(let i = 0; i < selectedAbilitiesTags.length; i++) {
+        if(selectedAbilitiesTags[i].classList.contains('selected')) {
+            rezult.push(i);
+        }
+    }
+
+    return rezult;
+}

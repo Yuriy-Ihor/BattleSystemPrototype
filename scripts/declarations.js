@@ -15,16 +15,19 @@ const playerStats = {
     defense: "Defense",
     criticalStrike: "Critical strike"
 }
+
+const playerRating = {
+    rank: 10,
+    wonBattles: 10
+}
+
 class Player {
     name = "default name";
     playerRating = Object.create(playerRating);
     playerSkills = [];
     playerStats = Object.create(playerStats);
 }
-const playerRating = {
-    rank: 10,
-    wonBattles: 10
-}
+
 class Skill {
     constructor (name, duration, effect, manaRequired, targetStat) {
         this.name = name;
