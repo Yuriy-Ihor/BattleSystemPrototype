@@ -16,9 +16,10 @@ const screen_border_color = "#000000"
 const startScreenHTML = document.getElementById('start-screen');
 const startBattleButtonHTML = document.getElementById('start-battle-button');
 
-const playerDescriptionName = document.getElementById('player-description-name');
-const playerDescriptionRank = document.getElementById('player-rating-rank');
-const playerDescriptionWins = document.getElementById('player-rating-wins');
+const playerDescriptionNameHTML = document.getElementById('player-description-name');
+const playerDescriptionImageHTML = document.getElementById('player-description-image');
+const playerDescriptionRankHTML = document.getElementById('player-rating-rank');
+const playerDescriptionWinsHTML = document.getElementById('player-rating-wins');
 
 
 /*--- Versus screen */

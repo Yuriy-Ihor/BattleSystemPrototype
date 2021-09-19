@@ -2,9 +2,10 @@
 /*--- Start screen */
 
 function updateStartScreen(playerInfo) {
-    playerDescriptionName.innerText = playerInfo.name;
-    playerDescriptionRank.innerText = playerInfo.playerRating.rank;
-    playerDescriptionWins.innerText = playerInfo.playerRating.wins;
+    playerDescriptionNameHTML.innerText = playerInfo.name;
+    playerDescriptionRankHTML.innerText = playerInfo.playerRating.rank;
+    playerDescriptionWinsHTML.innerText = playerInfo.playerRating.wins;
+    playerDescriptionImageHTML.src = playerInfo.image;
 }
 
 /*--- Battle screen ---*/

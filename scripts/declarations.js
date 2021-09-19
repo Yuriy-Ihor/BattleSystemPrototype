@@ -22,7 +22,8 @@ function initMainPlayer() {
     mainPlayer.playerRating = {
         rank: 77,
         wins: 14
-    }
+    };
+    mainPlayer.image = 'images/protoss.jpg';
     mainPlayer.playerStats[playerStats.hitpoints] = 100;
     mainPlayer.playerStats[playerStats.mana] = 222;
     mainPlayer.playerStats[playerStats.defense] = 18;
@@ -39,6 +40,11 @@ function initOpponent() {
         holyRageSkill, 
         skyRevengeSkill
     ];
+    opponent.playerRating = {
+        rank: 66,
+        wins: 13
+    };
+    opponent.image = 'images/undead.jpg';
     opponent.playerStats[playerStats.hitpoints] = 80;
     opponent.playerStats[playerStats.mana] = 110;
     opponent.playerStats[playerStats.defense] = 8;
