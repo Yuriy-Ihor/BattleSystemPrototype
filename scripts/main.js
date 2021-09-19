@@ -48,28 +48,6 @@ function updatePlayerStatUI(playerId, barClassName, textAmountClassName, amount)
 
 var currentTurn = 1;
 
-const attackBodySilhouette = 
-    new BodyScreen(
-        (width - screen_height) / 2, 0, screen_width, screen_height,
-        BodyScreenType.AttackTargetSelection,
-        screen_border_width, screen_border_color
-    );
-
-const defenseBodySilhouette = 
-    new BodyScreen(
-        (width - screen_height) / 2, 0, screen_width, screen_height,
-        BodyScreenType.DefenseTargetSelection,
-        screen_border_width, screen_border_color
-    );
-    
-const abilitySelection = new BattleSelection(battleScreenSelectionAbilityHTML);
-abilitySelection.getSelected = getSelectedPlayerAbilities;
-
-const attackSelection = new BattleSelection(battleScreenSelectionAttackHTML);
-attackSelection.getSelected = () => { return attackBodySilhouette.getSelectedBodyPart() };
-
-const defenseSelection = new BattleSelection(battleScreenSelectionDefenseHTML);
-defenseSelection.getSelected = () => { return defenseBodySilhouette.getSelectedBodyPart() };
 
 function drawAttackScreen() {
     attackBodySilhouette.render(attackCanvasContext);
@@ -82,13 +60,6 @@ function drawDefenseScreen() {
 
     requestAnimationFrame(drawDefenseScreen)
 }
-    
-const battleSelectionsPanel = new BattleSelectionsPanel(
-    [abilitySelection, attackSelection, defenseSelection],
-    battleScreenBackButtonHTML,
-    battleScreenNextButtonHTML,
-    battleScreenFinishTurnButtonHTML
-);
 
 function isGameOver() {
     return players.mainPlayer.playerStats[playerStats.hitpoints] < 0 || players.opponent.playerStats[playerStats.hitpoints] < 0;

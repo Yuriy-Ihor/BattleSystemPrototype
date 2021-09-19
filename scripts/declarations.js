@@ -1,54 +1,4 @@
 
-const width = $(window).width()
-const height = $(window).height()
-
-const silhouette_padding = 60
-
-const screen_width = 400
-const screen_height = 400
-const screen_border_width = 5
-const screen_border_color = "#000000"
-
-const playerStats = {
-    hitpoints: "Hitpoints",
-    mana: "Mana",
-    defense: "Defense",
-    criticalStrike: "Critical strike"
-}
-
-const playerRating = {
-    rank: 10,
-    wonBattles: 10
-}
-
-class Player {
-    name = "default name";
-    playerRating = Object.create(playerRating);
-    playerSkills = [];
-    playerStats = Object.create(playerStats);
-}
-
-class Skill {
-    constructor (name, duration, effect, manaRequired, targetStat) {
-        this.name = name;
-        this.duration = duration;
-        this.effect = effect;
-        this.manaRequired = manaRequired;
-        this.targetStat = targetStat;
-    }
-    name = "default skill name";
-    duration = 0; // 0 - permanent 
-    effect = 0;
-    manaRequired = 5;
-    targetStat = playerStats.hitpoints;
-    applyEffect = function(targetStat, player, effect) {
-        player.playerStats[targetStat] += effect;
-    };
-    removeEffect = function(targetStat, player, effect) {
-        player.playerStats[targetStat] -= effect;
-    };
-}
-
 var magicalPulseSkill = new Skill("Magical Pulse", 0, 2, 0, playerStats.hitpoints, );
 var holyRageSkill = new Skill("Holy Rage", 1, 5, 25, playerStats.intelligence);
 var ancestorsWrathSkill = new Skill("Ancestors Wrath", 0, 30, 25, playerStats.hitpoints);
@@ -92,3 +42,32 @@ function initOpponent() {
     
     return opponent;
 }
+
+const attackBodySilhouette = 
+    new BodyScreen(
+        (width - screen_height) / 2, 0, screen_width, screen_height,
+        BodyScreenType.AttackTargetSelection,
+        screen_border_width, screen_border_color
+    );
+
+const defenseBodySilhouette = 
+    new BodyScreen(
+        (width - screen_height) / 2, 0, screen_width, screen_height,
+        BodyScreenType.DefenseTargetSelection,
+        screen_border_width, screen_border_color
+    );
+    
+const abilitySelection = new BattleSelection(battleScreenSelectionAbilityHTML);
+abilitySelection.getSelected = getSelectedPlayerAbilities;
+
+const attackSelection = new BattleSelection(battleScreenSelectionAttackHTML);
+attackSelection.getSelected = () => { return attackBodySilhouette.getSelectedBodyPart() };
+
+const defenseSelection = new BattleSelection(battleScreenSelectionDefenseHTML);
+defenseSelection.getSelected = () => { return defenseBodySilhouette.getSelectedBodyPart() };
+const battleSelectionsPanel = new BattleSelectionsPanel(
+    [abilitySelection, attackSelection, defenseSelection],
+    battleScreenBackButtonHTML,
+    battleScreenNextButtonHTML,
+    battleScreenFinishTurnButtonHTML
+);

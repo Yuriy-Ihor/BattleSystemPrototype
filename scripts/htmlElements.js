@@ -1,3 +1,16 @@
+/*--- Constns ---*/
+
+const width = $(window).width()
+const height = $(window).height()
+
+const silhouette_padding = 60
+
+const screen_width = 400
+const screen_height = 400
+const screen_border_width = 5
+const screen_border_color = "#000000"
+
+
 /*--- Start screen */
 
 const startScreenHTML = document.getElementById('start-screen');
@@ -50,7 +63,7 @@ const winScreenHTML = document.getElementById('win-screen');
 const winScreenMessageHTML = document.getElementById('win-screen-message');
 
 
-/*--- Functions */
+/*--- Functions ---*/
 
 const hideElement = function(element) {
     if(!hasClass(element, 'hidden')) { 
