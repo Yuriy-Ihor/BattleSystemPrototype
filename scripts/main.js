@@ -135,10 +135,10 @@ function startGame() {
                 showElement(winScreenHTML);
             }
             else if(winner == players.opponent) {
-                // (loseScreenHTML);
+                showElement(loseScreenHTML);
             }
             else {
-                // showElement(drawScreenHTML);
+                showElement(drawScreenHTML);
             }
         }
         else {
