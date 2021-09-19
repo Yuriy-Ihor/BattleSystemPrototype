@@ -1,8 +1,13 @@
 
-function updateSummary(firstPlayerName, firstPlayerDamage, secondPlayerName, secondPlayerDamage) {
-    battleSummaryScreenFirstPlayerHTML.innerHTML = firstPlayerName + ', you dealt ' + firstPlayerDamage + ' damage to ' + secondPlayerName;
-    battleSummaryScreenSecondPlayerHTML.innerHTML = secondPlayerName + ', dealt ' + secondPlayerDamage + ' damage to you';
+/*--- Start screen */
+
+function updateStartScreen(playerInfo) {
+    playerDescriptionName.innerText = playerInfo.name;
+    playerDescriptionRank.innerText = playerInfo.playerRating.rank;
+    playerDescriptionWins.innerText = playerInfo.playerRating.wins;
 }
+
+/*--- Battle screen ---*/
 
 function getSelectedPlayerAbilities() {
     let selectedAbilitiesTags = battleScreenAbilitiesListHTML.getElementsByClassName('player-ability');
@@ -61,4 +66,11 @@ function updatePlayerStatUI(playerId, barClassName, textAmountClassName, amount)
     let playerBar = playerPanel.getElementsByClassName(barClassName)[0];
     let playerStatAmount = playerBar.getElementsByClassName(textAmountClassName)[0];
     playerStatAmount.textContent  = amount;
+}
+
+/*--- Summary screen --- */
+
+function updateSummary(firstPlayerName, firstPlayerDamage, secondPlayerName, secondPlayerDamage) {
+    battleSummaryScreenFirstPlayerHTML.innerHTML = firstPlayerName + ', you dealt ' + firstPlayerDamage + ' damage to ' + secondPlayerName;
+    battleSummaryScreenSecondPlayerHTML.innerHTML = secondPlayerName + ', dealt ' + secondPlayerDamage + ' damage to you';
 }

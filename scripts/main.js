@@ -88,8 +88,12 @@ function calculateTotalMainPlayerMana() {
 }
 
 function startGame() {
+    updateStartScreen(players.mainPlayer);
+
     hideElement(versusScreenHTML);
     hideElement(battleScreenHTML);
+    hideElement(battleSummaryScreenHTML);
+    hideElement(winScreenHTML);
 
     startBattleButtonHTML.onclick = () => {
         hideElement(startScreenHTML);

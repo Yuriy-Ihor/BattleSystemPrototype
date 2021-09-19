@@ -19,6 +19,10 @@ function initMainPlayer() {
         holyRageSkill, 
         skyRevengeSkill 
     ];
+    mainPlayer.playerRating = {
+        rank: 77,
+        wins: 14
+    }
     mainPlayer.playerStats[playerStats.hitpoints] = 100;
     mainPlayer.playerStats[playerStats.mana] = 222;
     mainPlayer.playerStats[playerStats.defense] = 18;
