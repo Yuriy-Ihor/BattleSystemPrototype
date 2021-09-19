@@ -38,3 +38,17 @@
     margin-left: auto;
     margin-right: 0;
 }
+
+@media(max-height: 700px) {
+    #versus-text {
+        margin-top: 25px;
+        margin-bottom: 25px;
+    }
+    .versus-screen-player-portrait {
+        width: 120px;
+        height: 120px;
+    }
+    .versus-screen-player-display {
+        max-width: 250px;
+    }
+}

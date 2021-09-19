@@ -5,6 +5,10 @@ body {
     margin: auto;
 }
 
+img {
+    object-fit: cover;
+}
+
 .imported-data, .hidden {
     display: none !important;
 }
@@ -32,6 +36,6 @@ body {
         margin: 15px 45px;
         height: 56px;
         width: 154px;
-        font-size: 20px;
+        font-size: 18px;
     }
 }
