@@ -4,7 +4,7 @@
     align-items: center;
     flex-direction: column;
     font-size: 40px;
-    min-height: 100vh;
+    min-height: 95vh; /* <--- FIX THIS LATER */
 }
 
 #win-screen-winner-portrait {
