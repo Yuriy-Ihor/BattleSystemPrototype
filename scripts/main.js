@@ -3,6 +3,18 @@ function isGameOver() {
     return players.mainPlayer.playerStats[playerStats.hitpoints] < 0 || players.opponent.playerStats[playerStats.hitpoints] < 0;
 }
 
+function getBattleWinner(players) {
+    if(players.opponent.playerStats[playerStats.hitpoints] > 0) {
+        return players.opponent;
+    }
+    else if(players.mainPlayer.playerStats[playerStats.hitpoints] > 0) {
+        return players.mainPlayer;
+    }
+    else {
+        return null;
+    }
+}
+
 var currentTurn = 1;
 
 function drawAttackScreen() {
@@ -116,10 +128,20 @@ function startGame() {
 
         if(isGameOver()) {
             hideElement(battleScreenHTML);
-            showElement(winScreenHTML);
+
+            let winner = getBattleWinner(players);
+
+            if(winner == players.mainPlayer) {
+                showElement(winScreenHTML);
+            }
+            else if(winner == players.opponent) {
+                // (loseScreenHTML);
+            }
+            else {
+                // showElement(drawScreenHTML);
+            }
         }
         else {
-            hideElement(battleSummaryScreenHTML);
             startTurn();
         }
     };

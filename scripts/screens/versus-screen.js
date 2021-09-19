@@ -1,4 +1,6 @@
 
-function updatePlayer(playerInfo) {
-
+const versusScreen = {
+    updatePlayer: function(playerInfo) {
+        
+    }
 }
