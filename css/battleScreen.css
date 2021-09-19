@@ -24,17 +24,9 @@
     margin-right: 20px;
 }
 
-.player-portrait {
+.player-image {
     width: 200px;
     height: 200px;
-    background-color: rgb(243, 243, 243);
-    border-width: 3px;
-    border-color: rgb(42, 165, 42);
-}
-
-.player-portrait-image {
-    max-height:100%; 
-    max-width:100%;
 }
 
 #player-right > .player-portrait {
@@ -101,7 +93,7 @@
 }
 
 @media (max-width: 950px) {
-    .player-portrait {
-        
+    .player-image {
+
     }
 }
