@@ -133,19 +133,27 @@ function startGame() {
             let winner = getBattleWinner(players);
 
             if(winner == players.mainPlayer) {
-                showElement(winScreenHTML);
+                showWinScreen(players.mainPlayer);
             }
             else if(winner == players.opponent) {
-                showElement(loseScreenHTML);
+                showLoseScreen(players.mainPlayer);
             }
             else {
-                showElement(drawScreenHTML);
+                showDrawScreen(players);
             }
         }
         else {
             startTurn();
         }
     };
+}
+
+function showLoseScreen(loser) {
+    showElement(loseScreenHTML);
+}
+
+function showDrawScreen(players) {
+    showElement(drawScreenHTML);
 }
 
 startGame();
