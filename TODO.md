@@ -1,5 +1,11 @@
 ### TODO list
 
+0. General UX:
+	1) Fix damn viewheight problem 
+	2) Wait for data to be loaded before showing page
+	3) Launch in fullscreen on mobiles
+	4) All buttons on the same level
+
 1. Game logic: 
 	1) Crit chance
 	2) Defense 
@@ -19,8 +25,7 @@
 	2) Style for potrait and landscape
 	
 4. Design:
-	1) All buttons on same level
-	2) Terminal-like style (flickers etc)
+	1) Terminal-like style (flickers etc)
 	
 5. Sounds:
 	1) Hover button sound
