@@ -2,8 +2,8 @@
 const versusScreenHTML = document.getElementById('versus-screen');
 const startTurnButtonHTML = document.getElementById('start-turn-button');
 
-const versusScreenMainPlayerHTML;
-const versusScreenOpponentPlayerHTML;
+let versusScreenMainPlayerHTML;
+let versusScreenOpponentPlayerHTML;
 
 function updateVersusScreen(players) {
     updateVersusScreenPlayer(players.mainPlayer, versusScreenMainPlayerHTML);
