@@ -1,3 +1,4 @@
+
 class Silhouette {
     constructor(_x, _y, _size, _coordinate_map) {
         this.x = _x

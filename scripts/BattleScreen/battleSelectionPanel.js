@@ -45,6 +45,7 @@ class BattleSelectionsPanel {
         this.showSelection(this.selections[this.currentSelection]);
 
         showElement(this.nextSelectionButton);
+        
         hideElement(this.finishTurnButton);
 
         if(this.currentSelection == 0) {

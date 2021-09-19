@@ -1,3 +1,4 @@
+
 const BodyScreenType = {
     AttackTargetSelection: 0,
     DefenseTargetSelection: 1

@@ -46,8 +46,11 @@ function updatePlayerStatUI(playerId, barClassName, textAmountClassName, amount)
 
 // ___ game logic ___ //
 
-var currentTurn = 1;
+function isGameOver() {
+    return players.mainPlayer.playerStats[playerStats.hitpoints] < 0 || players.opponent.playerStats[playerStats.hitpoints] < 0;
+}
 
+var currentTurn = 1;
 
 function drawAttackScreen() {
     attackBodySilhouette.render(attackCanvasContext);
@@ -59,10 +62,6 @@ function drawDefenseScreen() {
     defenseBodySilhouette.render(defenseCanvasContext);
 
     requestAnimationFrame(drawDefenseScreen)
-}
-
-function isGameOver() {
-    return players.mainPlayer.playerStats[playerStats.hitpoints] < 0 || players.opponent.playerStats[playerStats.hitpoints] < 0;
 }
 
 function startGame() {

@@ -1,4 +1,4 @@
-/*--- Constns ---*/
+/*--- Consts ---*/
 
 const width = $(window).width()
 const height = $(window).height()
