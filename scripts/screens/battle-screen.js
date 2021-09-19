@@ -1,3 +1,35 @@
+
+const battleScreenHTML = document.getElementById("battle-screen");
+const battleScreenSelectionHTML = document.getElementById('battle-screen-selection');
+
+const battleScreenSelectionAbilityHTML = document.getElementById('battle-screen-selection-ability');
+    const battleScreenAbilitiesListHTML = document.getElementById('battle-screen-selection-abilities-list');
+const battleScreenSelectionAttackHTML = document.getElementById('battle-screen-selection-body-attack');
+const battleScreenSelectionDefenseHTML = document.getElementById('battle-screen-selection-body-defense');
+
+/*---  canvases ---*/
+    const attackCanvas = document.getElementById('body-attack-canvas');
+    attackCanvas.width = window.innerWidth;
+    attackCanvas.height = window.innerHeight / 2;
+    const attackCanvasContext = attackCanvas.getContext("2d");
+
+    const defenseCanvas = document.getElementById("body-defense-canvas");
+    defenseCanvas.width = window.innerWidth;
+    defenseCanvas.height = window.innerHeight / 2;
+    const defenseCanvasContext = defenseCanvas.getContext("2d");
+
+const battleScreenBackButtonHTML = document.getElementById("battle-screen-button-back");
+const battleScreenNextButtonHTML = document.getElementById("battle-screen-button-next");
+const battleScreenFinishTurnButtonHTML = document.getElementById("battle-screen-button-finish-turn");
+
+const battleSummaryScreenHTML = document.getElementById('battle-screen-summary');
+    const battleSummaryScreenFirstPlayerHTML = document.getElementById('battle-screen-summary-first-player');
+    const battleSummaryScreenSecondPlayerHTML = document.getElementById('battle-screen-summary-second-player');
+
+const battleScreenNextTurnButtonHTML = document.getElementById('battle-screen-next-turn');
+
+const battleScreenErrorHTML = document.getElementById("battle-screen-error-message");
+
 class BattleSelectionsPanel {
     selections = [];
     previousSelectionButton;
@@ -154,4 +186,13 @@ function updatePlayerStatUI(playerId, barClassName, textAmountClassName, amount)
 function updateSummary(firstPlayerName, firstPlayerDamage, secondPlayerName, secondPlayerDamage) {
     battleSummaryScreenFirstPlayerHTML.innerHTML = firstPlayerName + ', you dealt ' + firstPlayerDamage + ' damage to ' + secondPlayerName;
     battleSummaryScreenSecondPlayerHTML.innerHTML = secondPlayerName + ', dealt ' + secondPlayerDamage + ' damage to you';
+}
+
+function showErrorMessage(message, time) {
+    battleScreenErrorHTML.innerHTML = message;
+    showElementForTime(battleScreenErrorHTML, time);
+}
+
+function clearErrorMessage() {
+    battleScreenErrorHTML.innerHTML = '';
 }
