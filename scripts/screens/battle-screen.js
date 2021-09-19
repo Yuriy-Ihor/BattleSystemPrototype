@@ -1,6 +1,6 @@
 
 const battleScreenHTML = document.getElementById("battle-screen");
-const battleScreenSelectionHTML = document.getElementById('battle-screen-selection');
+const battleScreenSelectionHTML = document.getElementById('battle-screen-selections');
 
 const battleScreenSelectionAbilityHTML = document.getElementById('battle-screen-selection-ability');
     const battleScreenAbilitiesListHTML = document.getElementById('battle-screen-selection-abilities-list');

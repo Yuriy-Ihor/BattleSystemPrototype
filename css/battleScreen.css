@@ -34,9 +34,8 @@
     margin-right: 0;
 }
 
-#battle-screen-selection-switching {
-    display: flex;
-    justify-content: center;
+#battle-screen-selections {
+    font-size: 25px;
 }
 
 #battle-screen-selection-ability {
@@ -81,8 +80,9 @@
     text-align: center;
 }
 
-.selection-body-title {
-    font-size: 25px;
+#battle-screen-selection-switching {
+    display: flex;
+    justify-content: center;
 }
 
 #battle-screen-error-message {
@@ -94,6 +94,47 @@
 
 @media (max-width: 950px) {
     .player-image {
+        width: 140px;
+        height: 140px;
+    }
+    .player-name {
+        font-size: 25px;
+    }
+    .player-hp-bar, .player-mana-bar {
+        font-size: 15px;
+    }
+    .player-stats {
+        margin-left: 0;
+        margin-right: 10px;
+    }
+    .player-ability {
+        margin: 15px 45px;
+        height: 56px;
+        width: 154px;
+        font-size: 18px;
+    }
+}
 
+@media(max-width: 650px) {
+    .player-image {
+        width: 100px;
+        height: 100px;
+    }
+}
+
+@media(max-width: 525px) {
+    #players-bar { 
+        flex-direction: column;
+        align-items: center;
+    }
+    #battle-screen-selections {
+        margin-top: 30px;
+    }
+}
+
+
+@media(max-height: 700px) {
+    .player-ability {
+        margin: 8px 10px;
     }
 }
