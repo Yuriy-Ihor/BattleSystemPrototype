@@ -79,3 +79,15 @@ class BattleSelectionsPanel {
         showElement(selection.selectionHTML);
     }
 }
+
+class BattleSelection {
+    selectionHTML;
+
+    constructor(selectionHTML) {
+        this.selectionHTML = selectionHTML;
+    }
+
+    getSelected() {
+        return undefined;
+    }
+}

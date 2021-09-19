@@ -1,5 +1,5 @@
 
-/*--- Start screen */
+/*--- Start screen ---*/
 
 function updateStartScreen(playerInfo) {
     playerDescriptionNameHTML.innerText = playerInfo.name;
@@ -7,6 +7,14 @@ function updateStartScreen(playerInfo) {
     playerDescriptionWinsHTML.innerText = playerInfo.playerRating.wins;
     playerDescriptionImageHTML.src = playerInfo.image;
 }
+
+/*--- Versus screen ---*/
+
+function updatePlayer(playerInfo) {
+
+}
+
+
 
 /*--- Battle screen ---*/
 
