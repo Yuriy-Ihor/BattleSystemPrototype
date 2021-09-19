@@ -35,3 +35,7 @@
 .player-description-rating-name {
     font-size: 30px;
 }
+
+@media(max-width: 940px) {
+    
+}

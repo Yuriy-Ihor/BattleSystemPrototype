@@ -1,4 +1,3 @@
-# CyberGothic
 ### TODO list
 
 1. Game logic: 
@@ -6,12 +5,14 @@
 	2) Defense 
 	3) Body part selection
 	4) Body part shot chance
+	5) Check if player has enough mana
 	
 2. UI:
 	1) Bars for mana and hp
 	2) Crit chance UI
 	3) Defense UI
 	4) Display body part shot chance on silhouettes
+	5) Different color for damaged body part
 
 3. Adaptiveness:
 	1) Adapt for mobiles
