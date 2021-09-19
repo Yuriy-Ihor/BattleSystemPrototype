@@ -36,6 +36,16 @@
     font-size: 30px;
 }
 
-@media(max-width: 940px) {
-    
+@media(max-height: 650px) {
+    #player-description-image {
+        max-width: 250px;
+        max-height: 250px;
+    }
+    #player-description-name {
+        text-transform: uppercase;
+        font-size: 40px;
+    }
+    .player-description-rating-name, .player-description-rating-value {
+        font-size: 25px;
+    }
 }
