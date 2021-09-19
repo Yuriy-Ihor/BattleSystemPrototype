@@ -1,4 +1,17 @@
 
+var vh;
+
+function calculateViewHeight() {
+    vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
+}
+
+calculateViewHeight();
+
+window.addEventListener('resize', () => {
+    calculateViewHeight();
+});
+
 const width = $(window).width()
 const height = $(window).height()
 
