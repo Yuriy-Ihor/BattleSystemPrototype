@@ -7,7 +7,6 @@ body {
     font-family: 'Courier New', Courier, monospace;
     color: rgb(42, 165, 42);
     margin: auto;
-    height: -webkit-fill-available;
 }
 
 img {
