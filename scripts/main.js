@@ -130,7 +130,7 @@ function startGame() {
         if(isGameOver()) {
             hideElement(battleScreenHTML);
             
-            showLoseScreen(players.mainPlayer);
+            showDrawScreen(players);
             return;
             let winner = getBattleWinner(players);
 
