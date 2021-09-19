@@ -129,7 +129,9 @@ function startGame() {
 
         if(isGameOver()) {
             hideElement(battleScreenHTML);
-
+            
+            showLoseScreen(players.mainPlayer);
+            return;
             let winner = getBattleWinner(players);
 
             if(winner == players.mainPlayer) {
@@ -146,14 +148,6 @@ function startGame() {
             startTurn();
         }
     };
-}
-
-function showLoseScreen(loser) {
-    showElement(loseScreenHTML);
-}
-
-function showDrawScreen(players) {
-    showElement(drawScreenHTML);
 }
 
 startGame();
