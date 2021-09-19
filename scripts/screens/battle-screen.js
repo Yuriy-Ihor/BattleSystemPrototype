@@ -171,6 +171,9 @@ function updatePlayerUI(playerId, playerInfo) {
     let playerName = playerPanel.getElementsByClassName("player-name")[0];
     playerName.textContent  = playerInfo.name.toString();
 
+    let playerImage = playerPanel.getElementsByClassName('player-image')[0];
+    playerImage.src = playerInfo.image;
+
     updatePlayerStatUI(playerId, 'player-hp-bar', 'player-hp-amount', playerInfo.playerStats[playerStats.hitpoints]);
     updatePlayerStatUI(playerId, 'player-mana-bar', 'player-mana-amount', playerInfo.playerStats[playerStats.mana]);
 }
