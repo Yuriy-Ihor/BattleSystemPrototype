@@ -4,7 +4,7 @@
     align-items: center;
     flex-direction: column;
     font-size: 40px;
-    min-height: 100vh;
+    min-height: 100vh; /* <--- FIX THIS LATER */
 }
 
 #lose-screen-loser-portrait {

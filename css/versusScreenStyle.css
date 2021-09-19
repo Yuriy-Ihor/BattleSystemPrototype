@@ -3,7 +3,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    min-height: 95vh; /* <--- FIX THIS LATER */
+    min-height: 100vh; /* <--- FIX THIS LATER */
 }
 
 #versus-text {
