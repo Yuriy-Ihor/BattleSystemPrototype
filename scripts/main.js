@@ -108,8 +108,6 @@ function startGame() {
     hideElement(battleSummaryScreenHTML);
     hideElement(winScreenHTML);
 
-    showElement(startScreenHTML);
-
     startBattleButtonHTML.onclick = () => {
         hideElement(startScreenHTML);
         showElement(versusScreenHTML);
