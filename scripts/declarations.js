@@ -65,6 +65,7 @@ attackSelection.getSelected = () => { return attackBodySilhouette.getSelectedBod
 
 const defenseSelection = new BattleSelection(battleScreenSelectionDefenseHTML);
 defenseSelection.getSelected = () => { return defenseBodySilhouette.getSelectedBodyPart() };
+
 const battleSelectionsPanel = new BattleSelectionsPanel(
     [abilitySelection, attackSelection, defenseSelection],
     battleScreenBackButtonHTML,

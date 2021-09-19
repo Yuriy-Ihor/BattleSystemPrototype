@@ -1,51 +1,4 @@
 
-function fillPlayerAbilitiesList(player) {
-    for(let i = 0; i < player.playerSkills.length; i++) {
-        let currentSkill = player.playerSkills[i];
-        createPlayerAbilitiesListElement(currentSkill, i);
-    }
-}
-
-function createPlayerAbilitiesListElement(skillInfo) {
-    let newAbility = document.createElement('button');
-    newAbility.setAttribute('class', 'player-ability');
-
-    let manaRequiredText = skillInfo.manaRequired == 0 ? "free" : skillInfo.manaRequired + " mana";
-
-    newAbility.innerText = skillInfo.name + " — " + manaRequiredText;
-
-    newAbility.onclick = () => {
-        newAbility.classList.toggle('selected');
-    };
-    
-    battleScreenAbilitiesListHTML.appendChild(newAbility);
-}
-
-function updatePlayersUI() {
-    updatePlayerUI('player-left', players.mainPlayer);
-    updatePlayerUI('player-right', players.opponent);
-}
-
-function updatePlayerUI(playerId, playerInfo) {
-    let playerPanel = document.getElementById(playerId);
-
-    let playerName = playerPanel.getElementsByClassName("player-name")[0];
-    playerName.textContent  = playerInfo.name.toString();
-
-    updatePlayerStatUI(playerId, 'player-hp-bar', 'player-hp-amount', playerInfo.playerStats[playerStats.hitpoints]);
-    updatePlayerStatUI(playerId, 'player-mana-bar', 'player-mana-amount', playerInfo.playerStats[playerStats.mana]);
-}
-
-function updatePlayerStatUI(playerId, barClassName, textAmountClassName, amount) {
-    let playerPanel = document.getElementById(playerId);
-
-    let playerBar = playerPanel.getElementsByClassName(barClassName)[0];
-    let playerStatAmount = playerBar.getElementsByClassName(textAmountClassName)[0];
-    playerStatAmount.textContent  = amount;
-}
-
-// ___ game logic ___ //
-
 function isGameOver() {
     return players.mainPlayer.playerStats[playerStats.hitpoints] < 0 || players.opponent.playerStats[playerStats.hitpoints] < 0;
 }
@@ -64,42 +17,8 @@ function drawDefenseScreen() {
     requestAnimationFrame(drawDefenseScreen)
 }
 
-function startGame() {
-    hideElement(versusScreenHTML);
-    hideElement(battleScreenHTML);
-
-    startBattleButtonHTML.onclick = () => {
-        hideElement(startScreenHTML);
-        showElement(versusScreenHTML);
-    };
-    
-    startTurnButtonHTML.onclick = () => {
-        hideElement(versusScreenHTML);
-        showElement(battleScreenHTML);
-
-        drawAttackScreen();
-        drawDefenseScreen();
-        startTurn();
-    }
-
-    battleSelectionsPanel.finishTurnButton.onclick = finishTurn;
-
-    battleScreenNextTurnButtonHTML.onclick = () => {
-        hideElement(battleSummaryScreenHTML);
-
-        if(isGameOver()) {
-            hideElement(battleScreenHTML);
-            showElement(winScreenHTML);
-        }
-        else {
-            hideElement(battleSummaryScreenHTML);
-            startTurn();
-        }
-    };
-}
-
 function startTurn() {
-    updatePlayersUI();
+    updatePlayersUI(players);
     fillPlayerAbilitiesList(players.mainPlayer);
     battleSelectionsPanel.showFirstSelection();
     showElement(battleScreenSelectionHTML);
@@ -124,7 +43,7 @@ function finishTurn() {
     hideElement(battleScreenSelectionHTML);
     showElement(battleSummaryScreenHTML);
 
-    updatePlayersUI();
+    updatePlayersUI(players);
     clearErrorMessage();
 
     currentTurn++;
@@ -166,6 +85,40 @@ function calculateTotalMainPlayerMana() {
     }
 
     return totalMana;
+}
+
+function startGame() {
+    hideElement(versusScreenHTML);
+    hideElement(battleScreenHTML);
+
+    startBattleButtonHTML.onclick = () => {
+        hideElement(startScreenHTML);
+        showElement(versusScreenHTML);
+    };
+    
+    startTurnButtonHTML.onclick = () => {
+        hideElement(versusScreenHTML);
+        showElement(battleScreenHTML);
+
+        drawAttackScreen();
+        drawDefenseScreen();
+        startTurn();
+    }
+
+    battleSelectionsPanel.finishTurnButton.onclick = finishTurn;
+
+    battleScreenNextTurnButtonHTML.onclick = () => {
+        hideElement(battleSummaryScreenHTML);
+
+        if(isGameOver()) {
+            hideElement(battleScreenHTML);
+            showElement(winScreenHTML);
+        }
+        else {
+            hideElement(battleSummaryScreenHTML);
+            startTurn();
+        }
+    };
 }
 
 startGame();
