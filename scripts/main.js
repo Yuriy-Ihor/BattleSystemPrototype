@@ -101,6 +101,7 @@ function calculateTotalMainPlayerMana() {
 
 function startGame() {
     updateStartScreen(players.mainPlayer);
+    updateVersusScreen(players);
 
     hideElement(versusScreenHTML);
     hideElement(battleScreenHTML);
