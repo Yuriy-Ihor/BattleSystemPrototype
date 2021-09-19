@@ -17,4 +17,9 @@
 
 #win-screen-message {
     font-size: 40px;
+    color: gold;
+}
+
+#win-screen > .switch-button {
+    background-color: gold;
 }

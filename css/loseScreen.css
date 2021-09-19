@@ -17,4 +17,9 @@
 
 #lose-screen-message {
     font-size: 40px;
+    color: red;
+}
+
+#lose-screen > .switch-button {
+    background-color: red;
 }
