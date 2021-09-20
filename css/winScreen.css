@@ -24,3 +24,13 @@
 #win-screen > .switch-button {
     background-color: gold;
 }
+
+@media (max-width: 600px) {
+    #win-screen-winner-portrait {
+        max-width: 200px;
+        max-height: 200px;
+    }
+    #win-screen-message {
+        font-size: 30px;
+    }
+}
