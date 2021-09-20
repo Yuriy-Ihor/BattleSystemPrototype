@@ -14,10 +14,12 @@ window.addEventListener('resize', () => {
 const width = $(window).width()
 const height = $(window).height()
 
-const silhouette_padding = 60
+const ui_scale = (width + height) / 1000;
 
-const screen_width = 400
-const screen_height = 400
+const silhouette_padding = ui_scale * 60
+
+const screen_width = ui_scale * 400
+const screen_height = ui_scale * 400
 const screen_border_width = 5
 const screen_border_color = "#000000"
 

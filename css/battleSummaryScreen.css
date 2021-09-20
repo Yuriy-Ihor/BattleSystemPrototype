@@ -2,14 +2,22 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-}
-
-#summary-text {
-    font-size: 45px;
+    font-size: 40px;
 }
 
 .battle-screen-player-summary {
     font-size: 30px;
     margin-top: 20px;
     margin-bottom: 20px;
+}
+
+@media(max-height: 700px) {
+    #battle-screen-player {
+        font-size: 25px;
+    }
+    .battle-screen-player-summary {
+        font-size: 20px;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
 }
