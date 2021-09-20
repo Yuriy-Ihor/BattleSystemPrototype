@@ -21,7 +21,8 @@
 	5) Different color for damaged body part
 
 3. Adaptiveness:
-	1) Adapt for mobiles
+	1) Adapt for mobiles:
+		- Remove hover effect on switch battle selection buttons
 	2) Style for potrait and landscape
 	
 4. Design:
