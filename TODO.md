@@ -5,8 +5,7 @@
 	2) Wait for data to be loaded before showing page
 	3) Launch in fullscreen on mobiles
 	4) All buttons on the same level
-	5) Remove hover on mobiles
-	6) Error message as popup
+	5) Error message as popup
 
 1. Game logic: 
 	1) Crit chance
@@ -24,7 +23,6 @@
 
 3. Adaptiveness:
 	1) Adapt for mobiles:
-		- Remove hover effect on switch battle selection buttons
 	2) Style for potrait and landscape
 	
 4. Design:

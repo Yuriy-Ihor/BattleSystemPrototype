@@ -120,6 +120,13 @@
         width: 100px;
         height: 100px;
     }
+    #battle-screen-selection-switching > .switch-button {
+        width: 100%;
+        max-width: 120px;
+        margin-left: 20px;
+        margin-right: 20px;
+    }
+    
 }
 
 @media(max-width: 525px) {
@@ -129,6 +136,9 @@
     }
     #battle-screen-selections {
         margin-top: 30px;
+    }
+    .battle-screen-selection-body {
+        font-size: 20px;
     }
 }
 
