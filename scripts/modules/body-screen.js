@@ -27,7 +27,7 @@ class BodyScreen {
 
         this.silhouette = new Silhouette(
             _x + silhouette_padding,
-            _y + silhouette_padding,
+            _y + 0,
             Math.min(
                 _width - 2 * silhouette_padding,
                 _height - 2 * silhouette_padding
