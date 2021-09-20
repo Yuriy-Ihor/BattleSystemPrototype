@@ -15,12 +15,10 @@ window.addEventListener('resize', () => {
 const width = $(window).width()
 const height = $(window).height()
 
-const ui_scale = (width + height) / 1000;
-
 const silhouette_padding = 0
 
 const screen_width = 400
-const screen_height = 300
+const canvas_height = 300
 const screen_border_width = 5
 const screen_border_color = "#000000"
 

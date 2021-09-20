@@ -10,12 +10,12 @@ const battleScreenSelectionDefenseHTML = document.getElementById('battle-screen-
 /*---  canvases ---*/
     const attackCanvas = document.getElementById('body-attack-canvas');
     attackCanvas.width = window.innerWidth;
-    attackCanvas.height = screen_height;
+    attackCanvas.height = canvas_height;
     const attackCanvasContext = attackCanvas.getContext("2d");
 
     const defenseCanvas = document.getElementById("body-defense-canvas");
     defenseCanvas.width = window.innerWidth;
-    defenseCanvas.height = screen_height;
+    defenseCanvas.height = canvas_height;
     const defenseCanvasContext = defenseCanvas.getContext("2d");
 
 const battleScreenBackButtonHTML = document.getElementById("battle-screen-button-back");

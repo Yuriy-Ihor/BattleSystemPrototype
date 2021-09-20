@@ -6,6 +6,7 @@
 	3) Launch in fullscreen on mobiles
 	4) All buttons on the same level
 	5) Remove hover on mobiles
+	6) Error message as popup
 
 1. Game logic: 
 	1) Crit chance
