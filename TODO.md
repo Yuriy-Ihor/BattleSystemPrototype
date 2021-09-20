@@ -22,7 +22,7 @@
 	5) Different color for damaged body part
 
 3. Adaptiveness:
-	1) Adapt for mobiles:
+	1) Scale canvas 
 	2) Style for potrait and landscape
 	
 4. Design:
@@ -33,4 +33,3 @@
 	2) Click button sound
 
 6. Abstract server
-
