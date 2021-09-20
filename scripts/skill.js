@@ -1,3 +1,4 @@
+
 class Skill {
     constructor (name, duration, effect, manaRequired, targetStat) {
         this.name = name;

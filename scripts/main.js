@@ -103,6 +103,8 @@ function startGame() {
     updateStartScreen(players.mainPlayer);
     updateVersusScreen(players);
 
+    showElement(startScreenHTML);
+
     hideElement(versusScreenHTML);
     hideElement(battleScreenHTML);
     hideElement(battleSummaryScreenHTML);

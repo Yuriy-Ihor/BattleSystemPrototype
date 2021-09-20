@@ -1,3 +1,4 @@
+
 var vh;
 
 function calculateViewHeight() {
@@ -16,10 +17,10 @@ const height = $(window).height()
 
 const ui_scale = (width + height) / 1000;
 
-const silhouette_padding = ui_scale * 60
+const silhouette_padding = 1 * 60
 
-const screen_width = ui_scale * 400
-const screen_height = ui_scale * 400
+const screen_width = 1 * 400
+const screen_height = 1 * 400
 const screen_border_width = 5
 const screen_border_color = "#000000"
 

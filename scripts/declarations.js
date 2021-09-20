@@ -55,14 +55,14 @@ function initOpponent() {
 
 const attackBodySilhouette = 
     new BodyScreen(
-        (width - screen_height) / 2, 0, screen_width, screen_height,
+        (width - screen_height) / 2, 100, screen_width, screen_height,
         BodyScreenType.AttackTargetSelection,
         screen_border_width, screen_border_color
     );
 
 const defenseBodySilhouette = 
     new BodyScreen(
-        (width - screen_height) / 2, 0, screen_width, screen_height,
+        (width - screen_height) / 2, 100, 400, 400,
         BodyScreenType.DefenseTargetSelection,
         screen_border_width, screen_border_color
     );
