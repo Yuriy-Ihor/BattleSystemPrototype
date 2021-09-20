@@ -18,8 +18,16 @@
 #lose-screen-message {
     font-size: 40px;
     color: red;
+    text-align: center;
 }
 
 #lose-screen > .switch-button {
     background-color: red;
+}
+
+@media (max-width: 650px) {
+    #lose-screen-loser-portrait {
+        max-width: 200px;
+        max-height: 200px;
+    }
 }
