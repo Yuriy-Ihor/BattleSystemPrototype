@@ -1,3 +1,4 @@
+
 #lose-screen {
     display: flex;
     justify-content: center;
@@ -26,8 +27,11 @@
 }
 
 @media (max-width: 600px) {
-    #lose-screen-loser-portrait {
+    #win-screen-winner-portrait {
         max-width: 200px;
         max-height: 200px;
+    }
+    #lose-screen-message {
+        font-size: 30px;
     }
 }
