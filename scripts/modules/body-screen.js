@@ -5,14 +5,13 @@ const BodyScreenType = {
 }
 
 class BodyScreen {
-    constructor(_x, _y, _width, _height, _type, _border_width, _border_color) {
+    constructor(_x, _y, _width, _height, _type, _border_width) {
         this.x = _x
         this.y = _y
         this.width = _width
         this.height = _height
         this.type = _type
         this.border_width = _border_width
-        this.border_color = _border_color
 
         let silhouette_coordinate_map;
 
@@ -55,7 +54,6 @@ class BodyScreen {
             this.width,
             this.height
         )
-        _context.strokeStyle = this.border_color
         _context.lineWidth = this.border_width
         _context.strokeRect(
             this.x, this.y, this.width, this.height 
