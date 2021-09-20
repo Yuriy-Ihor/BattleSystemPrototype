@@ -14,14 +14,30 @@
 
 .draw-screen-player-portrait {
     display: block;
-    width: 400px;
     height: 400px;
+    width: 400px;
     margin-left: 30px;
     margin-right: 30px;
 }
 
-@media (max-width: 600px) {
-    #lose-screen-loser-portrait {
+@media (max-width: 950px) {
+    #draw-screen-player-portraits {
+        flex-direction: column;
+    }
+    .draw-screen-player-portrait {
+        max-width: 250px;
+        max-height: 250px;
+    }
+    #draw-screen {
+        font-size: 30px;
+    }
+}
+
+@media (max-width: 650px) {
+    #draw-screen-player-portraits {
+        flex-direction: column;
+    }
+    .draw-screen-player-portrait {
         max-width: 200px;
         max-height: 200px;
     }
