@@ -27,9 +27,11 @@ img {
     transition-duration: 0.1s;
 }
 
-.switch-button:hover {
-    background-color: greenyellow; 
-    transition-duration: 0.1s;
+@media (hover: hover){ 
+    .switch-button:hover{
+        background-color: greenyellow; 
+        transition-duration: 0.1s;
+    }
 }
 
 @media(max-height: 650px) {
