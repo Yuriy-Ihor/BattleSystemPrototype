@@ -10,7 +10,7 @@
 1. Game logic: 
 	1) Crit chance
 	2) Defense 
-	3) Body part selection
+	3) Body part selection [DONE]
 	4) Body part shot chance
 	5) Check if player has enough mana
 	

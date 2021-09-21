@@ -1,6 +1,6 @@
 
 class Silhouette {
-    constructor(_x, _y, _size, _coordinate_map) {
+    constructor(_x, _y, _size, _coordinate_map, canvas) {
         this.x = _x
         this.y = _y
         this.scale = _size / _coordinate_map["unscaled-size"]
@@ -19,7 +19,7 @@ class Silhouette {
         }
         this.hovering = null
 
-        document.addEventListener(
+        canvas.addEventListener(
             "mousemove",
             (event) => {
                 if(this._context != null) {
@@ -29,7 +29,7 @@ class Silhouette {
                 }
             }
         )
-        document.addEventListener(
+        canvas.addEventListener(
             "mousedown",
             (event) => {
                 if(this.hovering != null) {
@@ -40,6 +40,7 @@ class Silhouette {
     }
 
     check_mouseover(_x, _y) {
+        
         for (var body_part_name in this.coordinate_map) {
             
             if(body_part_name == this.selected_body_part) {

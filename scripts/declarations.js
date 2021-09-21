@@ -67,14 +67,16 @@ const attackBodySilhouette =
     new BodyScreen(
         (width - canvas_height) / 2, 0, screen_width, canvas_height,
         BodyScreenType.AttackTargetSelection,
-        screen_border_width
+        screen_border_width,
+        attackCanvas
     );
 
 const defenseBodySilhouette = 
     new BodyScreen(
         (width - canvas_height) / 2, 0, screen_width, canvas_height,
         BodyScreenType.DefenseTargetSelection,
-        screen_border_width
+        screen_border_width,
+        defenseCanvas
     );
     
 const abilitySelection = new BattleSelection(battleScreenSelectionAbilityHTML);

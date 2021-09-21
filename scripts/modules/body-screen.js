@@ -5,7 +5,7 @@ const BodyScreenType = {
 }
 
 class BodyScreen {
-    constructor(_x, _y, _width, _height, _type, _border_width) {
+    constructor(_x, _y, _width, _height, _type, _border_width, canvas) {
         this.x = _x
         this.y = _y
         this.width = _width
@@ -31,7 +31,8 @@ class BodyScreen {
                 _width - 2 * silhouette_padding,
                 _height - 2 * silhouette_padding
             ),
-            silhouette_coordinate_map
+            silhouette_coordinate_map,
+            canvas
         )
     }
 
