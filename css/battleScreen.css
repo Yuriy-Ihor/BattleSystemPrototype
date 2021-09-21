@@ -37,8 +37,8 @@
 }
 
 .player-hp-bar {
-    margin: 5px 10px;
     background-color: gray;
+    margin-top: 15px;
     width: 100%;
     height: 20px;
 }
@@ -52,8 +52,8 @@
 }
 
 .player-mana-bar {
-    margin: 5px 10px;
     background-color: gray;
+    margin-top: 15px;
     width: 100%;
     height: 20px;
 }
