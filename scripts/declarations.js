@@ -1,6 +1,6 @@
 
 var magicalPulseSkill = new Skill("Magical Pulse", 0, 2, 0, playerStats.hitpoints, );
-var holyRageSkill = new Skill("Holy Rage", 0, 10, 4, playerStats.intelligence);
+var holyRageSkill = new Skill("Holy Rage", 0, 10, 6, playerStats.intelligence);
 var ancestorsWrathSkill = new Skill("Ancestors Wrath", 0, 30, 25, playerStats.hitpoints);
 var skyRevengeSkill = new Skill("Sky Revenge", 0, 40, 30, playerStats.hitpoints);
 var holyTouchSkill = new Skill("Holy Touch", 0, 5, 5, playerStats.hitpoints);

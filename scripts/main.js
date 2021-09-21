@@ -1,6 +1,6 @@
 
 function isGameOver() {
-    return players.mainPlayer.playerStats[playerStats.hitpoints] < 0 || players.opponent.playerStats[playerStats.hitpoints] < 0;
+    return players.mainPlayer.playerStats[playerStats.hitpoints] <= 0 || players.opponent.playerStats[playerStats.hitpoints] <= 0;
 }
 
 function getBattleWinner(players) {
