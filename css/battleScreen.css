@@ -24,6 +24,13 @@
     margin-right: 20px;
 }
 
+#player-right .player-hp-bar, #player-right .player-mana-bar {
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
 .player-image {
     width: 200px;
     height: 200px;
