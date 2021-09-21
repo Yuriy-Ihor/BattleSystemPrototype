@@ -29,13 +29,25 @@
     height: 200px;
 }
 
-.player-hp-amount {
+.player-hp-bar {
+    margin: 5px 10px;
     background-color: gray;
     width: 100%;
 }
 
 .player-hp-amount {
-    background-color: red;
+    background-color: rgb(38, 128, 38);
+    width: 50%;
+}
+
+.player-mana-bar {
+    margin: 5px 10px;
+    background-color: gray;
+    width: 100%;
+}
+
+.player-mana-amount {
+    background-color: rgb(134, 37, 134);
     width: 50%;
 }
 
