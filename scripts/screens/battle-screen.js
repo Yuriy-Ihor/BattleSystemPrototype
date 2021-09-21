@@ -191,10 +191,12 @@ function updatePlayerStatUI(playerId, barClassName, textAmountClassName, baseVal
 }
 
 function updatePlayerSummary(playerId, playerName, playerDamage, attackedBodypart, defendedBodypart) {
-    
+    let summaryPanel = document.getElementById(playerId);
 
-    battleSummaryScreenFirstPlayerHTML.innerHTML = firstPlayerName + ', you dealt ' + firstPlayerDamage + ' damage to ' + secondPlayerName;
-    battleSummaryScreenSecondPlayerHTML.innerHTML = secondPlayerName + ', dealt ' + secondPlayerDamage + ' damage to you';
+    let summaryText = playerName + ", you dealt " + playerDamage + ".<br />"; 
+    summaryText += playerName + " selected " + attackedBodypart + " to attack and " + defendedBodypart + " to defend.";
+
+    summaryPanel.innerHTML = summaryText;
 }
 
 function showErrorMessage(message, time) {
