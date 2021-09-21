@@ -185,7 +185,9 @@ function updatePlayerStatUI(playerId, barClassName, textAmountClassName, baseVal
     let playerStatAmount = playerBar.getElementsByClassName(textAmountClassName)[0];
     console.log(playerId + " " + textAmountClassName + " base = " + baseValue + "; amount = " + amount)
 
-    playerStatAmount.style.width = (amount / baseValue) * 100 + "%";
+    let fillAmount =  (amount / baseValue) * 100;
+
+    playerStatAmount.style.width = (fillAmount > 0 ? fillAmount : 0) + "%";
 }
 
 function updateSummary(firstPlayerName, firstPlayerDamage, secondPlayerName, secondPlayerDamage) {
