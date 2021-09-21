@@ -14,9 +14,10 @@ window.addEventListener('resize', () => {
 
 const width = $(window).width()
 const height = $(window).height()
+const is_mobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
 
 const silhouette_padding = 0
-const canvas_height_scale = 300 / height;
+const canvas_height_scale = is_mobile ? 0.7 : 1;
 
 const screen_width = 400
 const canvas_height = 300 * canvas_height_scale
