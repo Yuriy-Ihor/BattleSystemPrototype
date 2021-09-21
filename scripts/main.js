@@ -85,12 +85,13 @@ function proceedBattleRezults() {
     let totalDamage = calculateTotalMainPlayerDamage();
     let totalMana = calculateTotalMainPlayerMana();
 
-    let opponentDamage = Math.floor(Math.random() * 10) + 5;
+    //let opponentDamage = Math.floor(Math.random() * 10) + 5;
+    let opponentDamage = 10;
     players.mainPlayer.playerStats[playerStats.hitpoints] -= opponentDamage;
     players.mainPlayer.playerStats[playerStats.mana] -= totalMana;
 
     players.opponent.playerStats[playerStats.hitpoints] -= totalDamage;
-    players.opponent.playerStats[playerStats.mana] -= Math.floor(Math.random() * 10) + 5;
+    players.opponent.playerStats[playerStats.mana] -= 7;
 
     updatePlayerSummary('battle-screen-summary-first-player', players.mainPlayer.name, totalDamage, attackSelection.getSelected(), defenseSelection.getSelected());
     updatePlayerSummary('battle-screen-summary-second-player', players.opponent.name, opponentDamage, "head", "torso");
