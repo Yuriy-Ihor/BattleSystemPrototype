@@ -85,7 +85,6 @@ function proceedBattleRezults() {
     let totalDamage = calculateTotalMainPlayerDamage();
     let totalMana = calculateTotalMainPlayerMana();
 
-    //let opponentDamage = Math.floor(Math.random() * 10) + 5;
     let opponentDamage = 10;
     players.mainPlayer.playerStats[playerStats.hitpoints] -= opponentDamage;
     players.mainPlayer.playerStats[playerStats.mana] -= totalMana;

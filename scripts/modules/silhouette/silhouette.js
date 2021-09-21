@@ -1,4 +1,12 @@
 
+const bodyPart = {
+    id: '',
+    baseLife: 100,
+    currentLife: 100,
+    baseShotChance: 50,
+    shotChance: 50
+}
+
 class Silhouette {
     constructor(_x, _y, _size, _coordinate_map, canvas) {
         this.x = _x
@@ -17,6 +25,15 @@ class Silhouette {
             this.body_parts_sprites[`${body_part_name}-hollow`] = document.getElementById(`${body_part_name}-hollow-${this.relevance}`)
             this.body_parts_sprites[`${body_part_name}-filled`] = document.getElementById(`${body_part_name}-filled-${this.relevance}`)        
         }
+
+        this.body_parts_life = {};
+        for(var body_part in this.body_parts_sprites) {
+            let newBodyPart = Object.create(bodyPart);
+            newBodyPart.id = body_part;
+            
+            body_parts_life[body_part] = newBodyPart;
+        }
+
         this.hovering = null
 
         canvas.addEventListener(

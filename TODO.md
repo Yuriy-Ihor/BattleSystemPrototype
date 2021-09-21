@@ -22,7 +22,7 @@
 	5) Different color for damaged body part
 
 3. Adaptiveness:
-	1) Scale canvas 
+	1) Scale canvas [DONE]
 	2) Style for potrait and landscape
 	
 4. Design:
