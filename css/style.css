@@ -34,9 +34,3 @@ img {
         transition-duration: 0.1s;
     }
 }
-
-@media(max-height: 650px) {
-    .switch-button {
-        
-    }
-}

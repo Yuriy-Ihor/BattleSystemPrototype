@@ -1,9 +1,18 @@
+
 #versus-screen {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     min-height: 100vh; /* <--- FIX THIS LATER */
+}
+
+#versus-screen .player-hp-bar {
+    margin-left: 5px;
+}
+
+#versus-screen .player-mana-bar {
+    margin-left: 5px;
 }
 
 #versus-text {
