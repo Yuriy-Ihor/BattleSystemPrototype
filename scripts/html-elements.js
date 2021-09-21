@@ -16,9 +16,10 @@ const width = $(window).width()
 const height = $(window).height()
 
 const silhouette_padding = 0
+const canvas_height_scale = 300 / height;
 
 const screen_width = 400
-const canvas_height = 300
+const canvas_height = 300 * canvas_height_scale
 const screen_border_width = 5
 const screen_border_color = "#000000"
 

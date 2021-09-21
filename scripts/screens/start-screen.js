@@ -1,3 +1,4 @@
+
 const startScreenHTML = document.getElementById('start-screen');
 const startBattleButtonHTML = document.getElementById('start-battle-button');
 
