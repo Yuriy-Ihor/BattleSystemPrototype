@@ -30,11 +30,26 @@ function drawDefenseScreen() {
 }
 
 function startTurn() {
+    if(currentTurn > 0) {
+        restoreManaToPlayer(players.mainPlayer, 5);
+        restoreManaToPlayer(players.opponent, 5);
+    }
+
     updatePlayersUI(players);
     fillPlayerAbilitiesList(players.mainPlayer);
     battleSelectionsPanel.showFirstSelection();
     showElement(battleScreenSelectionHTML);
     showElement(battleScreenSelectionAbilityHTML);
+}
+
+function restoreManaToPlayer(player, amount) {
+    let value = player.playerStats[playerStats.mana] + amount;
+
+    if(player.playerBaseStats[playerStats.mana] < value) {
+        value = player.playerBaseStats[playerStats.mana];
+    }
+
+    player.playerStats[playerStats.mana] = value;
 }
 
 function finishTurn() {
