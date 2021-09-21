@@ -174,16 +174,16 @@ function updatePlayerUI(playerId, playerInfo) {
     let playerImage = playerPanel.getElementsByClassName('player-image')[0];
     playerImage.src = playerInfo.image;
 
-    updatePlayerStatUI(playerId, 'player-hp-bar', 'player-hp-amount', playerInfo.playerStats[playerStats.hitpoints]);
-    updatePlayerStatUI(playerId, 'player-mana-bar', 'player-mana-amount', playerInfo.playerStats[playerStats.mana]);
+    updatePlayerStatUI(playerId, 'player-hp-bar', 'player-hp-amount', playerInfo.playerBaseStats[playerStats.hitpoints], playerInfo.playerStats[playerStats.hitpoints]);
+    updatePlayerStatUI(playerId, 'player-mana-bar', 'player-mana-amount', playerInfo.playerBaseStats[playerStats.mana], playerInfo.playerStats[playerStats.mana]);
 }
 
-function updatePlayerStatUI(playerId, barClassName, textAmountClassName, amount) {
+function updatePlayerStatUI(playerId, barClassName, textAmountClassName, baseValue, amount) {
     let playerPanel = document.getElementById(playerId);
 
     let playerBar = playerPanel.getElementsByClassName(barClassName)[0];
     let playerStatAmount = playerBar.getElementsByClassName(textAmountClassName)[0];
-    playerStatAmount.textContent  = amount;
+    playerStatAmount.style.width = (amount / baseValue) * 100 + "%";
 }
 
 function updateSummary(firstPlayerName, firstPlayerDamage, secondPlayerName, secondPlayerDamage) {

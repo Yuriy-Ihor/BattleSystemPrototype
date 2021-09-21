@@ -37,7 +37,7 @@
 
 .player-hp-amount {
     background-color: rgb(38, 128, 38);
-    width: 50%;
+    width: 100%;
 }
 
 .player-mana-bar {
@@ -48,7 +48,7 @@
 
 .player-mana-amount {
     background-color: rgb(134, 37, 134);
-    width: 50%;
+    width: 100%;
 }
 
 #player-right > .player-portrait {
