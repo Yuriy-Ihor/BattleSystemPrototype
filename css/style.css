@@ -17,7 +17,8 @@ img {
 .switch-button {
     margin: 20px 60px;
     height: 80px;
-    width: 220px;
+    max-width: 220px;
+    width: 100%;
     font-size: 25px;
     font-family: 'Courier New', Courier, monospace;
     display: block;
@@ -34,11 +35,16 @@ img {
     }
 }
 
+@media(max-width: 525px) {
+    .switch-button {
+        max-width: 160px;
+    }
+}
+
 @media(max-height: 650px) {
     .switch-button {
         margin: 15px 45px;
         height: 56px;
-        width: 154px;
         font-size: 18px;
     }
 }

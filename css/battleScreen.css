@@ -99,11 +99,6 @@
     transition-duration: 0.1s;
 }
 
-.player-ability:hover {
-    background-color: greenyellow; 
-    transition-duration: 0.1s;
-}
-
 .selected {
     background-color: gold !important;
 }
@@ -130,6 +125,13 @@
     margin-top: 20px;
     color:orangered;
     text-align: center;
+}
+
+@media (hover: hover){ 
+    .player-ability:hover{
+        background-color: greenyellow; 
+        transition-duration: 0.1s;
+    }
 }
 
 @media (max-width: 950px) {
@@ -163,7 +165,6 @@
     }
     .player-ability {
         margin: 15px 45px;
-        height: 56px;
         width: 154px;
         font-size: 18px;
     }
@@ -185,5 +186,6 @@
 @media(max-height: 700px) {
     .player-ability {
         margin: 8px 10px;
+        height: 50px;
     }
 }
