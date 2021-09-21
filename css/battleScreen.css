@@ -158,10 +158,6 @@
         width: 100px;
         height: 100px;
     }
-    #battle-screen-selection-switching > .switch-button {
-        margin-left: 20px;
-        margin-right: 20px;
-    }
 }
 
 @media(max-width: 525px) {
