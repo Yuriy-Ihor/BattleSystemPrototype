@@ -13,12 +13,11 @@ function updateVersusScreen(players) {
 function updateVersusScreenPlayer(playerInfo, display) {
     let playerNameHTML = display.getElementsByClassName('versus-screen-player-display-name')[0];
     let playerImageHTML = display.getElementsByClassName('versus-screen-player-portrait')[0];
-    let playerHPBarHTML = display.getElementsByClassName('player-hp-bar')[0];
-    let playerManaBarHTML = display.getElementsByClassName('player-mana-bar')[0];
+    let playerHPAmountHTML = display.getElementsByClassName('player-hp-amount')[0];
+    let playerManaAmountHTML = display.getElementsByClassName('player-mana-amount')[0];
 
     playerNameHTML.textContent = playerInfo.name;
     playerImageHTML.src = playerInfo.image;
-    playerHPBarHTML.max = playerInfo.playerStats[playerStats.hitpoints];
-    playerHPBarHTML.value = playerInfo.playerStats[playerStats.hitpoints];
-    playerManaBarHTML.value = playerInfo.playerStats[playerStats.mana];
+    playerHPAmountHTML.textContent = playerInfo.playerStats[playerStats.hitpoints];
+    playerManaAmountHTML.textContent = playerInfo.playerStats[playerStats.mana];
 }
