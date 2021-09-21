@@ -23,8 +23,6 @@ const battleScreenNextButtonHTML = document.getElementById("battle-screen-button
 const battleScreenFinishTurnButtonHTML = document.getElementById("battle-screen-button-finish-turn");
 
 const battleSummaryScreenHTML = document.getElementById('battle-screen-summary');
-    const battleSummaryScreenFirstPlayerHTML = document.getElementById('battle-screen-summary-first-player');
-    const battleSummaryScreenSecondPlayerHTML = document.getElementById('battle-screen-summary-second-player');
 
 const battleScreenNextTurnButtonHTML = document.getElementById('battle-screen-next-turn');
 
