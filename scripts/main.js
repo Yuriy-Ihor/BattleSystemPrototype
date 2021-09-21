@@ -68,11 +68,11 @@ function proceedBattleRezults() {
 
     let totalDamage = calculateTotalMainPlayerDamage();
     let totalMana = calculateTotalMainPlayerMana();
-    players.mainPlayer.playerStats[playerStats.hitpoints] -= Math.floor(Math.random() * 10);
+    players.mainPlayer.playerStats[playerStats.hitpoints] -= Math.floor(Math.random() * 10) + 5;
     players.mainPlayer.playerStats[playerStats.mana] -= totalMana;
 
     players.opponent.playerStats[playerStats.hitpoints] -= totalDamage;
-    players.opponent.playerStats[playerStats.mana] -= Math.floor(Math.random() * 10);
+    players.opponent.playerStats[playerStats.mana] -= Math.floor(Math.random() * 10) + 5;
 
     updateSummary(players.mainPlayer.name, totalDamage, players.opponent.name, 5);
 }

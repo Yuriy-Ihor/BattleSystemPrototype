@@ -29,7 +29,10 @@ function initMainPlayer() {
     mainPlayer.playerStats[playerStats.defense] = 18;
     mainPlayer.playerStats[playerStats.criticalStrike] = 0.2;
 
-    mainPlayer.playerBaseStats = mainPlayer.playerStats;
+    mainPlayer.playerBaseStats[playerStats.hitpoints] = 100;
+    mainPlayer.playerBaseStats[playerStats.mana] = 222;
+    mainPlayer.playerBaseStats[playerStats.defense] = 18;
+    mainPlayer.playerBaseStats[playerStats.criticalStrike] = 0.2;
 
     return mainPlayer;
 }
@@ -52,7 +55,10 @@ function initOpponent() {
     opponent.playerStats[playerStats.defense] = 8;
     opponent.playerStats[playerStats.criticalStrike] = 0.2;
 
-    opponent.playerBaseStats = opponent.playerStats;
+    opponent.playerBaseStats[playerStats.hitpoints] = 80;
+    opponent.playerBaseStats[playerStats.mana] = 110;
+    opponent.playerBaseStats[playerStats.defense] = 8;
+    opponent.playerBaseStats[playerStats.criticalStrike] = 0.2;
     
     return opponent;
 }
