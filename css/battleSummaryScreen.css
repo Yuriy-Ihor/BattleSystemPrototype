@@ -7,7 +7,7 @@
 }
 
 .battle-screen-player-summary {
-    font-size: 30px;
+    font-size: 25px;
     margin-top: 20px;
     margin-bottom: 20px;
 }
@@ -17,10 +17,10 @@
         font-size: 25px;
     }
     .battle-screen-player-summary {
-        font-size: 19px;
+        font-size: 18px;
         margin-left: 10px;
         margin-right: 10px;
         margin-bottom: 0;
-        margin-top: 15px;
+        margin-top: 13px;
     }
 }

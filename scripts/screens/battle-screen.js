@@ -190,7 +190,7 @@ function updatePlayerStatUI(playerId, barClassName, textAmountClassName, baseVal
 function updatePlayerSummary(playerId, playerName, playerDamage, attackedBodypart, defendedBodypart) {
     let summaryPanel = document.getElementById(playerId);
 
-    let summaryText = playerName + ", you dealt " + playerDamage + ".<br />"; 
+    let summaryText = playerName + ", you dealt " + playerDamage + " damage.<br />"; 
     summaryText += playerName + " selected " + attackedBodypart + " to attack and " + defendedBodypart + " to defend.";
 
     summaryPanel.innerHTML = summaryText;
