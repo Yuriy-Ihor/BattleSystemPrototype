@@ -12,7 +12,7 @@ players.mainPlayer = initMainPlayer();
 players.opponent = initOpponent();
 
 function initMainPlayer() {
-    var mainPlayer = new Player();
+    let mainPlayer = new Player();
     mainPlayer.name = "Tassadar";
     mainPlayer.playerSkills = [
         magicalPulseSkill, 
@@ -29,11 +29,13 @@ function initMainPlayer() {
     mainPlayer.playerStats[playerStats.defense] = 18;
     mainPlayer.playerStats[playerStats.criticalStrike] = 0.2;
 
+    mainPlayer.playerBaseStats = mainPlayer.playerStats;
+
     return mainPlayer;
 }
 
 function initOpponent() {
-    var opponent = new Player();
+    let opponent = new Player();
     opponent.name = "K'Rashnar";
     opponent.playerSkills = [
         magicalPulseSkill, 
@@ -49,6 +51,8 @@ function initOpponent() {
     opponent.playerStats[playerStats.mana] = 110;
     opponent.playerStats[playerStats.defense] = 8;
     opponent.playerStats[playerStats.criticalStrike] = 0.2;
+
+    opponent.playerBaseStats = opponent.playerStats;
     
     return opponent;
 }

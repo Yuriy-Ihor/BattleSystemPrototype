@@ -16,5 +16,6 @@ class Player {
     image = 'src/.png';
     playerRating = Object.create(playerRating);
     playerSkills = [];
+    playerBaseStats = Object.create(playerStats);
     playerStats = Object.create(playerStats);
 }
