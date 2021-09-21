@@ -15,7 +15,7 @@
 	5) Check if player has enough mana
 	
 2. UI:
-	1) Bars for mana and hp
+	1) Bars for mana and hp [DONE]
 	2) Crit chance UI
 	3) Defense UI
 	4) Display body part shot chance on silhouettes

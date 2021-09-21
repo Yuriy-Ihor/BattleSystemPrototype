@@ -190,7 +190,9 @@ function updatePlayerStatUI(playerId, barClassName, textAmountClassName, baseVal
     playerStatAmount.style.width = (fillAmount > 0 ? fillAmount : 0) + "%";
 }
 
-function updateSummary(firstPlayerName, firstPlayerDamage, secondPlayerName, secondPlayerDamage) {
+function updatePlayerSummary(playerId, playerName, playerDamage, attackedBodypart, defendedBodypart) {
+    
+
     battleSummaryScreenFirstPlayerHTML.innerHTML = firstPlayerName + ', you dealt ' + firstPlayerDamage + ' damage to ' + secondPlayerName;
     battleSummaryScreenSecondPlayerHTML.innerHTML = secondPlayerName + ', dealt ' + secondPlayerDamage + ' damage to you';
 }

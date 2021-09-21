@@ -63,18 +63,19 @@ function finishTurn() {
 
 function proceedBattleRezults() {
     console.log("Selected abilities: " + abilitySelection.getSelected());
-    console.log("Select body part to attack: " + attackSelection.getSelected());
-    console.log("Select body part to defend: " + defenseSelection.getSelected());
 
     let totalDamage = calculateTotalMainPlayerDamage();
     let totalMana = calculateTotalMainPlayerMana();
-    players.mainPlayer.playerStats[playerStats.hitpoints] -= Math.floor(Math.random() * 10) + 5;
+
+    let opponentDamage = Math.floor(Math.random() * 10) + 5;
+    players.mainPlayer.playerStats[playerStats.hitpoints] -= opponentDamage;
     players.mainPlayer.playerStats[playerStats.mana] -= totalMana;
 
     players.opponent.playerStats[playerStats.hitpoints] -= totalDamage;
     players.opponent.playerStats[playerStats.mana] -= Math.floor(Math.random() * 10) + 5;
 
-    updateSummary(players.mainPlayer.name, totalDamage, players.opponent.name, 5);
+    updatePlayerSummary('battle-screen-summary-first-player', players.mainPlayer.name, totalDamage, attackSelection.getSelected(), defenseSelection.getSelected());
+    updatePlayerSummary('battle-screen-summary-second-player', players.opponent.name, opponentDamage, "head", "torso");
 }
 
 function calculateTotalMainPlayerDamage() {
