@@ -15,7 +15,7 @@ img {
 }
 
 .switch-button {
-    margin: 20px 60px;
+    margin: 10px 10px;
     height: 80px;
     max-width: 220px;
     width: 100%;
@@ -35,16 +35,8 @@ img {
     }
 }
 
-@media(max-width: 525px) {
-    .switch-button {
-        max-width: 160px;
-    }
-}
-
 @media(max-height: 650px) {
     .switch-button {
-        margin: 15px 45px;
-        height: 56px;
-        font-size: 18px;
+        
     }
 }
