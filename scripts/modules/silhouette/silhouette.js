@@ -40,7 +40,6 @@ class Silhouette {
     }
 
     check_mouseover(_x, _y) {
-        
         for (var body_part_name in this.coordinate_map) {
             
             if(body_part_name == this.selected_body_part) {

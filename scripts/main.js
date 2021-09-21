@@ -50,6 +50,9 @@ function finishTurn() {
     attackBodySilhouette.disselectBodyPart();
     defenseBodySilhouette.disselectBodyPart();
 
+    attackBodySilhouette.silhouette.hovering = null;
+    defenseBodySilhouette.silhouette.hovering = null;
+
     battleScreenAbilitiesListHTML.innerHTML = '';
 
     hideElement(battleScreenSelectionHTML);

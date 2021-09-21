@@ -147,12 +147,7 @@
         margin-left: 0;
         margin-right: 10px;
     }
-    .player-ability {
-        margin: 15px 45px;
-        height: 56px;
-        width: 154px;
-        font-size: 18px;
-    }
+    
 }
 
 @media(max-width: 650px) {
@@ -166,7 +161,12 @@
         margin-left: 20px;
         margin-right: 20px;
     }
-    
+    .player-ability {
+        margin: 15px 45px;
+        height: 56px;
+        width: 154px;
+        font-size: 18px;
+    }
 }
 
 @media(max-width: 525px) {

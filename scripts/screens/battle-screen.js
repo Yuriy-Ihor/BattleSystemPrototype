@@ -181,7 +181,6 @@ function updatePlayerStatUI(playerId, barClassName, textAmountClassName, baseVal
 
     let playerBar = playerPanel.getElementsByClassName(barClassName)[0];
     let playerStatAmount = playerBar.getElementsByClassName(textAmountClassName)[0];
-    console.log(playerId + " " + textAmountClassName + " base = " + baseValue + "; amount = " + amount)
 
     let fillAmount =  (amount / baseValue) * 100;
 
