@@ -50,23 +50,32 @@
 <body>
     <div style="position: absolute; top: 100px; left: 50px">
         <button class="favorite styled"
-        type="button">
+        type="button" onclick="fuck()">
     Add to favorites
     </button>
     </div>
     <div style="position: absolute; top: 100px; left: 50px">
         <button class="favorite styled"
-        type="button">
+        type="button" onclick="fuck()">
     Add to favorites
     </button>
     </div>
     <button class="favorite styled"
-        type="button">
+        type="button" onclick="fuck()">
     Add to favorites
     </button>
 
     <input class="favorite styled"
-        type="button" value="input" />
+        type="button" onclick="fuck()" value="input" />
 
+    <script>
+        function fuck() {
+            let newDiv = document.createElement('div');
+            newDiv.setAttribute('style', 'color: #fff');
+            newDiv.innerText = "clicked";
+            document.body.appendChild(newDiv);
+        }
+    </script>
+    
 </body>
 </html> 
