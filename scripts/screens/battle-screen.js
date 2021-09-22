@@ -158,35 +158,6 @@ function createPlayerAbilitiesListElement(skillInfo) {
     battleScreenAbilitiesListHTML.appendChild(newAbility);
 }
 
-function updatePlayersUI(players) {
-    updatePlayerUI('player-left', players.mainPlayer);
-    updatePlayerUI('player-right', players.opponent);
-}
-
-function updatePlayerUI(playerId, playerInfo) {
-    let playerPanel = document.getElementById(playerId);
-
-    let playerName = playerPanel.getElementsByClassName("player-name")[0];
-    playerName.textContent  = playerInfo.name.toString();
-
-    let playerImage = playerPanel.getElementsByClassName('player-image')[0];
-    playerImage.src = playerInfo.image;
-
-    updatePlayerStatUI(playerId, 'player-hp-bar', 'player-hp-amount', playerInfo.playerBaseStats[playerStats.hitpoints], playerInfo.playerStats[playerStats.hitpoints]);
-    updatePlayerStatUI(playerId, 'player-mana-bar', 'player-mana-amount', playerInfo.playerBaseStats[playerStats.mana], playerInfo.playerStats[playerStats.mana]);
-}
-
-function updatePlayerStatUI(playerId, barClassName, textAmountClassName, baseValue, amount) {
-    let playerPanel = document.getElementById(playerId);
-
-    let playerBar = playerPanel.getElementsByClassName(barClassName)[0];
-    let playerStatAmount = playerBar.getElementsByClassName(textAmountClassName)[0];
-
-    let fillAmount =  (amount / baseValue) * 100;
-
-    playerStatAmount.style.width = (fillAmount > 0 ? fillAmount : 0) + "%";
-}
-
 function updatePlayerSummary(playerId, playerName, playerDamage, attackedBodypart, defendedBodypart) {
     let summaryPanel = document.getElementById(playerId);
 

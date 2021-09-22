@@ -16,4 +16,7 @@ function updateVersusScreenPlayer(playerInfo, display) {
 
     playerNameHTML.textContent = playerInfo.name;
     playerImageHTML.src = playerInfo.image;
+    
+    updatePlayerHealthBar(display, playerInfo.playerStats[playerStats.hitpoints], playerInfo.playerBaseStats[playerStats.hitpoints]);
+    updatePlayerManaBar(display, playerInfo.playerStats[playerStats.mana], playerInfo.playerBaseStats[playerStats.mana]);
 }
