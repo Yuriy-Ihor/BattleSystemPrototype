@@ -1,12 +1,4 @@
 
-const bodyPart = {
-    id: '',
-    baseLife: 100,
-    currentLife: 100,
-    baseShotChance: 50,
-    shotChance: 50
-}
-
 class BodyScreen {
     constructor(_x, _y, _width, _height, _border_width, canvas) {
         this.x = _x
