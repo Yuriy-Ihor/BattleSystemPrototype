@@ -135,16 +135,16 @@ function startGame() {
     showElement(startScreenHTML);
 
     startBattleButtonHTML.onclick = () => {
-        hideElement(startScreenHTML);
+        //hideElement(startScreenHTML);
         showElement(versusScreenHTML);
     };
     
     startTurnButtonHTML.onclick = () => {
-        hideElement(versusScreenHTML);
+        //hideElement(versusScreenHTML);
         showElement(battleScreenHTML);
 
-        drawAttackScreen();
-        drawDefenseScreen();
+        //drawAttackScreen();
+        //drawDefenseScreen();
         startTurn();
     }
 
