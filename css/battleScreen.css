@@ -36,6 +36,10 @@
     height: 200px;
 }
 
+.player-bar-container {
+    height: 20px;
+}
+
 .player-hp-bar, .player-mana-bar {
     background-color: gray;
     margin-top: 15px;
