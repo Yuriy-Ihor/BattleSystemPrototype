@@ -33,7 +33,6 @@ class Silhouette {
             this.body_parts[body_part_name] = newBodyPart;
         }
 
-        console.log(this.body_parts);
         this.hovering = null
 
         canvas.addEventListener(

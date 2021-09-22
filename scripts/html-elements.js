@@ -1,24 +1,11 @@
 
-var vh;
-
-function calculateViewHeight() {
-    vh = window.innerHeight * 0.01;
-    document.documentElement.style.setProperty('--vh', `${vh}px`);
-}
-
-calculateViewHeight();
-
-window.addEventListener('resize', () => {
-    calculateViewHeight();
-});
-
 const width = $(window).width()
 const height = $(window).height()
 
 const silhouette_padding = 0
 const canvas_height_scale = 0.38;
 
-const screen_width = 400
+const screen_width = width
 const canvas_height = height * canvas_height_scale
 const screen_border_width = 5
 const screen_border_color = "#000000"

@@ -160,6 +160,12 @@
         width: 100px;
         height: 100px;
     }
+    .player-bar-container, .player-hp-bar, .player-mana-bar, .player-hp-amount, .player-mana-amount {
+        height: 20px;
+    }
+    .player-bar-text {
+        top: -20px;
+    }
 }
 
 @media(max-width: 525px) {
