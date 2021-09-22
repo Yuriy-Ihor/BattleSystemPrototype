@@ -57,6 +57,11 @@
     transition-duration: 0.5s;
 }
 
+.player-bar-text {
+    position: relative;
+    top: -23px;
+}
+
 #player-right > .player-portrait {
     margin-left: auto;
     margin-right: 0;
@@ -138,11 +143,14 @@
     .player-hp-bar, .player-mana-bar {
         font-size: 15px;
     }
+    .player-bar-text {
+        position: relative;
+        top: -15px;
+    }
     .player-stats {
         margin-left: 0;
         margin-right: 10px;
     }
-    
 }
 
 @media(max-width: 650px) {
