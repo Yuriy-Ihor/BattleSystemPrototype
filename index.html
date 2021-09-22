@@ -11,31 +11,31 @@
     integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
     crossorigin="anonymous">
     </script>
-    <script type="text/javascript" defer src="silhouette-parts/main/silhouette-coordinate-map.js" defer></script>
-    <script type="text/javascript" defer src="silhouette-parts/side/silhouette-coordinate-map.js" defer></script>
+    <script src="silhouette-parts/main/silhouette-coordinate-map.js" defer></script>
+    <script src="silhouette-parts/side/silhouette-coordinate-map.js" defer></script>
     
-    <script type="text/javascript" src="scripts/modules/js-extensions.js" type="text/javascript" defer></script> 
-    <script type="text/javascript" src="scripts/html-elements.js" type="text/javascript" defer></script> 
+    <script src="scripts/modules/js-extensions.js" defer></script> 
+    <script src="scripts/html-elements.js" defer></script> 
 
-    <script type="text/javascript" src="scripts/player.js" type="text/javascript" defer></script> 
-    <script type="text/javascript" src="scripts/skill.js" type="text/javascript" defer></script> 
+    <script src="scripts/player.js" defer></script> 
+    <script src="scripts/skill.js" defer></script> 
     
-    <script type="text/javascript" src="scripts/screens/player-display.js" type="text/javascript" defer></script> 
-    <script type="text/javascript" src="scripts/screens/start-screen.js" type="text/javascript" defer></script> 
-    <script type="text/javascript" src="scripts/screens/versus-screen.js" type="text/javascript" defer></script> 
-    <script type="text/javascript" src="scripts/screens/battle-screen.js" type="text/javascript" defer></script> 
-    <script type="text/javascript" src="scripts/screens/win-screen.js" type="text/javascript" defer></script> 
-    <script type="text/javascript" src="scripts/screens/lose-screen.js" type="text/javascript" defer></script> 
-    <script type="text/javascript" src="scripts/screens/draw-screen.js" type="text/javascript" defer></script> 
+    <script src="scripts/screens/player-display.js" defer></script> 
+    <script src="scripts/screens/start-screen.js" defer></script> 
+    <script src="scripts/screens/versus-screen.js" defer></script> 
+    <script src="scripts/screens/battle-screen.js" defer></script> 
+    <script src="scripts/screens/win-screen.js" defer></script> 
+    <script src="scripts/screens/lose-screen.js" defer></script> 
+    <script src="scripts/screens/draw-screen.js" defer></script> 
 
-    <script type="text/javascript" src="scripts/modules/silhouettes/silhouette.js" type="text/javascript" defer></script> 
-    <script type="text/javascript" src="scripts/modules/silhouettes/attack-silhouette.js" type="text/javascript" defer></script> 
-    <script type="text/javascript" src="scripts/modules/silhouettes/defense-silhouette.js" type="text/javascript" defer></script> 
-    <script type="text/javascript" src="scripts/modules/body-screen.js" type="text/javascript" defer></script> 
+    <script src="scripts/modules/silhouettes/silhouette.js" defer></script> 
+    <script src="scripts/modules/silhouettes/attack-silhouette.js" defer></script> 
+    <script src="scripts/modules/silhouettes/defense-silhouette.js" defer></script> 
+    <script src="scripts/modules/body-screen.js" defer></script> 
 
-    <script type="text/javascript" src="scripts/declarations.js" type="text/javascript" defer></script> 
+    <script src="scripts/declarations.js" defer></script> 
 
-    <script type="text/javascript" src="scripts/main.js" type="text/javascript" defer></script> 
+    <script src="scripts/main.js" defer></script> 
 
     <link rel="stylesheet" type="text/css" href="css/style.css"/>
     <link rel="stylesheet" type="text/css" href="css/startScreenStyle.css"/>
@@ -52,7 +52,7 @@
             <div id="player-description-name">
                 
             </div>
-            <img id="player-description-image" src='' />
+            <img alt='Player image' id="player-description-image" src='//:0' />
             <div class="player-description-rating">
                 <span class="player-description-rating-name">Hero rank: </span>
                 <span id="player-rating-rank" class="player-description-rating-value"></span>
@@ -72,7 +72,7 @@
                 
             </div>
             <div class="versus-screen-player-stats">
-                <img class="versus-screen-player-portrait" src='' />   
+                <img alt='Player image' class="versus-screen-player-portrait" src='//:0' />   
                 <div style="width: 100%">
                     <div class='player-bar-container'>
                         <div class="player-hp-bar">
@@ -98,7 +98,7 @@
             </div>
 
             <div class="versus-screen-player-stats">
-                <img class="versus-screen-player-portrait" src='' />          
+                <img alt='Player image' class="versus-screen-player-portrait" src='//:0' />          
                 <div style="width: 100%">
                     <div class='player-bar-container'>
                         <div class="player-hp-bar">
@@ -122,7 +122,7 @@
     <div id="battle-screen" class="hidden">
         <div id="players-bar">
             <div id="player-left" class="player-display">
-                <img class="player-image" src='' />
+                <img alt='Player image' class="player-image" src='//:0' />
                 <div class="player-stats">
                     <div class="player-name">
                         Player 1
@@ -160,7 +160,7 @@
                         <div class="player-bar-text player-mana-text">Mana</div>
                     </div>
                 </div>
-                <img class="player-image" src='' />
+                <img alt='Player image' class="player-image" src='//:0' />
             </div>
         </div>
 
@@ -179,19 +179,19 @@
                 <div>
                     Choose body part to ATTACK
                 </div>
-                <img src="silhouette-parts/main/hollow/arm-left-hollow.png" id="arm-left-hollow-side" class="imported-data">
-                <img src="silhouette-parts/main/hollow/arm-right-hollow.png" id="arm-right-hollow-side" class="imported-data">
-                <img src="silhouette-parts/main/hollow/leg-left-hollow.png" id="leg-left-hollow-side" class="imported-data">
-                <img src="silhouette-parts/main/hollow/leg-right-hollow.png" id="leg-right-hollow-side" class="imported-data">
-                <img src="silhouette-parts/main/hollow/torso-hollow.png" id="torso-hollow-side" class="imported-data">
-                <img src="silhouette-parts/main/hollow/head-hollow.png" id="head-hollow-side" class="imported-data">
+                <img src="silhouette-parts/main/hollow/arm-left-hollow.png" id="arm-left-hollow-side" class="imported-data" alt="silhouette part">
+                <img src="silhouette-parts/main/hollow/arm-right-hollow.png" id="arm-right-hollow-side" class="imported-data" alt="silhouette part">
+                <img src="silhouette-parts/main/hollow/leg-left-hollow.png" id="leg-left-hollow-side" class="imported-data" alt="silhouette part">
+                <img src="silhouette-parts/main/hollow/leg-right-hollow.png" id="leg-right-hollow-side" class="imported-data" alt="silhouette part">
+                <img src="silhouette-parts/main/hollow/torso-hollow.png" id="torso-hollow-side" class="imported-data" alt="silhouette part">
+                <img src="silhouette-parts/main/hollow/head-hollow.png" id="head-hollow-side" class="imported-data" alt="silhouette part">
     
-                <img src="silhouette-parts/main/filled/arm-left-filled.png" id="arm-left-filled-side" class="imported-data">
-                <img src="silhouette-parts/main/filled/arm-right-filled.png" id="arm-right-filled-side" class="imported-data">
-                <img src="silhouette-parts/main/filled/leg-left-filled.png" id="leg-left-filled-side" class="imported-data">
-                <img src="silhouette-parts/main/filled/leg-right-filled.png" id="leg-right-filled-side" class="imported-data">
-                <img src="silhouette-parts/main/filled/torso-filled.png" id="torso-filled-side" class="imported-data">
-                <img src="silhouette-parts/main/filled/head-filled.png" id="head-filled-side" class="imported-data">
+                <img src="silhouette-parts/main/filled/arm-left-filled.png" id="arm-left-filled-side" class="imported-data" alt="silhouette part">
+                <img src="silhouette-parts/main/filled/arm-right-filled.png" id="arm-right-filled-side" class="imported-data" alt="silhouette part">
+                <img src="silhouette-parts/main/filled/leg-left-filled.png" id="leg-left-filled-side" class="imported-data" alt="silhouette part">
+                <img src="silhouette-parts/main/filled/leg-right-filled.png" id="leg-right-filled-side" class="imported-data" alt="silhouette part">
+                <img src="silhouette-parts/main/filled/torso-filled.png" id="torso-filled-side" class="imported-data" alt="silhouette part">
+                <img src="silhouette-parts/main/filled/head-filled.png" id="head-filled-side" class="imported-data" alt="silhouette part">
     
                 <canvas id='body-attack-canvas'>
     
@@ -203,19 +203,19 @@
                     Choose body part to DEFEND
                 </div>
                 
-                <img src="silhouette-parts/side/hollow/arm-left-hollow.png" id="arm-left-hollow-main" class="imported-data">
-                <img src="silhouette-parts/side/hollow/arm-right-hollow.png" id="arm-right-hollow-main" class="imported-data">
-                <img src="silhouette-parts/side/hollow/leg-left-hollow.png" id="leg-left-hollow-main" class="imported-data">
-                <img src="silhouette-parts/side/hollow/leg-right-hollow.png" id="leg-right-hollow-main" class="imported-data">
-                <img src="silhouette-parts/side/hollow/torso-hollow.png" id="torso-hollow-main" class="imported-data">
-                <img src="silhouette-parts/side/hollow/head-hollow.png" id="head-hollow-main" class="imported-data">
+                <img src="silhouette-parts/side/hollow/arm-left-hollow.png" id="arm-left-hollow-main" class="imported-data" alt="silhouette part">
+                <img src="silhouette-parts/side/hollow/arm-right-hollow.png" id="arm-right-hollow-main" class="imported-data" alt="silhouette part">
+                <img src="silhouette-parts/side/hollow/leg-left-hollow.png" id="leg-left-hollow-main" class="imported-data" alt="silhouette part">
+                <img src="silhouette-parts/side/hollow/leg-right-hollow.png" id="leg-right-hollow-main" class="imported-data" alt="silhouette part">
+                <img src="silhouette-parts/side/hollow/torso-hollow.png" id="torso-hollow-main" class="imported-data" alt="silhouette part">
+                <img src="silhouette-parts/side/hollow/head-hollow.png" id="head-hollow-main" class="imported-data" alt="silhouette part">
     
-                <img src="silhouette-parts/side/filled/arm-left-filled.png" id="arm-left-filled-main" class="imported-data">
-                <img src="silhouette-parts/side/filled/arm-right-filled.png" id="arm-right-filled-main" class="imported-data">
-                <img src="silhouette-parts/side/filled/leg-left-filled.png" id="leg-left-filled-main" class="imported-data">
-                <img src="silhouette-parts/side/filled/leg-right-filled.png" id="leg-right-filled-main" class="imported-data">
-                <img src="silhouette-parts/side/filled/torso-filled.png" id="torso-filled-main" class="imported-data">
-                <img src="silhouette-parts/side/filled/head-filled.png" id="head-filled-main" class="imported-data">
+                <img src="silhouette-parts/side/filled/arm-left-filled.png" id="arm-left-filled-main" class="imported-data" alt="silhouette part">
+                <img src="silhouette-parts/side/filled/arm-right-filled.png" id="arm-right-filled-main" class="imported-data" alt="silhouette part">
+                <img src="silhouette-parts/side/filled/leg-left-filled.png" id="leg-left-filled-main" class="imported-data" alt="silhouette part">
+                <img src="silhouette-parts/side/filled/leg-right-filled.png" id="leg-right-filled-main" class="imported-data" alt="silhouette part">
+                <img src="silhouette-parts/side/filled/torso-filled.png" id="torso-filled-main" class="imported-data" alt="silhouette part">
+                <img src="silhouette-parts/side/filled/head-filled.png" id="head-filled-main" class="imported-data" alt="silhouette part">
     
                 <canvas id='body-defense-canvas'>
     
@@ -264,7 +264,7 @@
             loh
         </div>
         
-        <img id="lose-screen-loser-portrait" src="" />
+        <img alt='Player image' id="lose-screen-loser-portrait" src="" />
         <input type="button" class='switch-button' onClick="window.location.reload(true)" value="Return to menu">
     </div>
 
