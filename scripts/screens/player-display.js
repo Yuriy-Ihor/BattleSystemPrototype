@@ -21,7 +21,7 @@ function updatePlayerHealthBar(display, currentValue, baseValue) {
     let hpBarText = display.getElementsByClassName('player-hp-text')[0];
     currentValue = currentValue < 0 ? 0 : currentValue;
     
-    hpBarText.innerText = "Health: " + currentValue + " / " +  baseValue;
+    hpBarText.innerText = "Health: " + currentValue + "/" +  baseValue;
 
     updatePlayerFillBar('player-hp-amount', display, currentValue, baseValue);
 }
@@ -30,7 +30,7 @@ function updatePlayerManaBar(display, currentValue, baseValue) {
     let manaBar = display.getElementsByClassName('player-mana-text')[0];
     currentValue = currentValue < 0 ? 0 : currentValue;
 
-    manaBar.innerText = "Mana: " + currentValue + " / " +  baseValue;
+    manaBar.innerText = "Mana: " + currentValue + "/" +  baseValue;
     
     updatePlayerFillBar('player-mana-amount', display, currentValue, baseValue);
 }

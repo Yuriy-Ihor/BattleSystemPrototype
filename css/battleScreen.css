@@ -147,7 +147,7 @@
     }
     .player-bar-text {
         position: relative;
-        top: -15px;
+        font-size: 14px;
     }
     .player-stats {
         margin-left: 0;

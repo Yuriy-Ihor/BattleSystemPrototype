@@ -45,7 +45,7 @@ class AttackBodyScreen extends BodyScreen {
         silhouette_coordinate_map = silhouette_coordinate_map_side
         this.silhouette = new AttackSilhouette(
             this.x + silhouette_padding,
-            this.y + 0,
+            this.y,
             Math.min(
                 this.width - 2 * silhouette_padding,
                 this.height - 2 * silhouette_padding
@@ -63,7 +63,7 @@ class DefenseBodyScreen extends BodyScreen {
         silhouette_coordinate_map = silhouette_coordinate_map_main
         this.silhouette = new DefenseSilhouette(
             this.x + silhouette_padding,
-            this.y + 0,
+            this.y,
             Math.min(
                 this.width - 2 * silhouette_padding,
                 this.height - 2 * silhouette_padding
