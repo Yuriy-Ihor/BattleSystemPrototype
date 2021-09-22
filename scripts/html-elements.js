@@ -14,7 +14,6 @@ window.addEventListener('resize', () => {
 
 const width = $(window).width()
 const height = $(window).height()
-const is_mobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
 
 const silhouette_padding = 0
 const canvas_height_scale = 0.38;

@@ -50,7 +50,6 @@ function initOpponent() {
         wins: 13
     };
     opponent.image = 'images/undead.jpg';
-    let stats = {};
 
     opponent.playerStats[playerStats.hitpoints] = 50;
     opponent.playerStats[playerStats.mana] = 50;
