@@ -4,6 +4,11 @@ body {
     font-family: 'Courier New', Courier, monospace;
     color: rgb(42, 165, 42);
     margin: auto;
+    user-select: none; /* supported by Chrome and Opera */
+   -webkit-user-select: none; /* Safari */
+   -khtml-user-select: none; /* Konqueror HTML */
+   -moz-user-select: none; /* Firefox */
+   -ms-user-select: none; /* Internet Explorer/Edge */
 }
 
 img {
