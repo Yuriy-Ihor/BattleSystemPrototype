@@ -196,6 +196,10 @@ function updatePlayerSummary(playerId, playerName, playerDamage, attackedBodypar
     summaryPanel.innerHTML = summaryText;
 }
 
+function updateSecondPlayerSummary() {
+
+}
+
 function showErrorMessage(message, time) {
     battleScreenErrorHTML.innerHTML = message;
     showElementForTime(battleScreenErrorHTML, time);

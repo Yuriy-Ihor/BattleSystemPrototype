@@ -21,19 +21,19 @@ class Silhouette {
         }
 
         this.body_parts_sprites = {}
+        this.body_parts = [];
+        
         for (var body_part_name in this.coordinate_map) {
             this.body_parts_sprites[`${body_part_name}-hollow`] = document.getElementById(`${body_part_name}-hollow-${this.relevance}`)
-            this.body_parts_sprites[`${body_part_name}-filled`] = document.getElementById(`${body_part_name}-filled-${this.relevance}`)        
-        }
-
-        this.body_parts_life = {};
-        for(var body_part in this.body_parts_sprites) {
-            let newBodyPart = Object.create(bodyPart);
-            newBodyPart.id = body_part;
+            this.body_parts_sprites[`${body_part_name}-filled`] = document.getElementById(`${body_part_name}-filled-${this.relevance}`) 
             
-            body_parts_life[body_part] = newBodyPart;
+            let newBodyPart = Object.create(bodyPart);
+            newBodyPart.id = body_part_name;
+            
+            this.body_parts[body_part_name] = newBodyPart;
         }
 
+        console.log(this.body_parts);
         this.hovering = null
 
         canvas.addEventListener(
