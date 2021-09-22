@@ -36,34 +36,31 @@
     height: 200px;
 }
 
-.player-bar-container {
-    height: 20px;
+.player-bar-container, .player-hp-bar, .player-mana-bar, .player-hp-amount, .player-mana-amount {
+    height: 30px;
 }
 
 .player-hp-bar, .player-mana-bar {
     background-color: gray;
     margin-top: 15px;
     width: 100%;
-    height: 20px;
 }
 
 .player-hp-amount {
     background-color: rgb(38, 128, 38);
     width: 100%;
-    height: 20px;
     transition-duration: 0.5s;
 }
 
 .player-mana-amount {
     background-color: rgb(62, 81, 194);
     width: 100%;
-    height: 20px;
     transition-duration: 0.5s;
 }
 
 .player-bar-text {
     position: relative;
-    top: -23px;
+    top: -30px;
 }
 
 #player-right > .player-portrait {

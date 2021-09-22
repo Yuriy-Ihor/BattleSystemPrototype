@@ -7,11 +7,7 @@
     min-height: 100vh; /* <--- FIX THIS LATER */
 }
 
-#versus-screen .player-hp-bar {
-    margin-left: 5px;
-}
-
-#versus-screen .player-mana-bar {
+#versus-screen .player-bar-container {
     margin-left: 5px;
 }
 
