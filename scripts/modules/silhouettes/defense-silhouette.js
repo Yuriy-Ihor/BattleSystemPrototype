@@ -1,13 +1,5 @@
 
-const bodyPart = {
-    id: '',
-    baseLife: 100,
-    currentLife: 100,
-    baseShotChance: 50,
-    shotChance: 50
-}
-
-class Silhouette {
+class DefenseSilhouette {
     constructor(_x, _y, _size, _coordinate_map, canvas) {
         this.x = _x
         this.y = _y

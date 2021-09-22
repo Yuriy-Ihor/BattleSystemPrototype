@@ -1,39 +1,20 @@
 
-const BodyScreenType = {
-    AttackTargetSelection: 0,
-    DefenseTargetSelection: 1
+const bodyPart = {
+    id: '',
+    baseLife: 100,
+    currentLife: 100,
+    baseShotChance: 50,
+    shotChance: 50
 }
 
 class BodyScreen {
-    constructor(_x, _y, _width, _height, _type, _border_width, canvas) {
+    constructor(_x, _y, _width, _height, _border_width, canvas) {
         this.x = _x
         this.y = _y
         this.width = _width
         this.height = _height
-        this.type = _type
         this.border_width = _border_width
-
-        let silhouette_coordinate_map;
-
-        switch (_type) {
-            case BodyScreenType.AttackTargetSelection:
-                silhouette_coordinate_map = silhouette_coordinate_map_side
-                break
-            case BodyScreenType.DefenseTargetSelection:
-                silhouette_coordinate_map = silhouette_coordinate_map_main
-                break
-        }
-
-        this.silhouette = new Silhouette(
-            _x + silhouette_padding,
-            _y + 0,
-            Math.min(
-                _width - 2 * silhouette_padding,
-                _height - 2 * silhouette_padding
-            ),
-            silhouette_coordinate_map,
-            canvas
-        )
+        this._canvas = canvas;
     }
 
     isBodyPartSelected() {
@@ -61,5 +42,42 @@ class BodyScreen {
         )
         
         this.silhouette.render(_context);
+    }
+}
+
+
+class AttackBodyScreen extends BodyScreen {
+    initSilhouette() {
+        let silhouette_coordinate_map;
+
+        silhouette_coordinate_map = silhouette_coordinate_map_side
+        this.silhouette = new AttackSilhouette(
+            this.x + silhouette_padding,
+            this.y + 0,
+            Math.min(
+                this.width - 2 * silhouette_padding,
+                this.height - 2 * silhouette_padding
+                ),
+            silhouette_coordinate_map,
+            this._canvas
+        )
+    }
+}
+
+class DefenseBodyScreen extends BodyScreen {
+    initSilhouette() {
+        let silhouette_coordinate_map;
+
+        silhouette_coordinate_map = silhouette_coordinate_map_main
+        this.silhouette = new DefenseSilhouette(
+            this.x + silhouette_padding,
+            this.y + 0,
+            Math.min(
+                this.width - 2 * silhouette_padding,
+                this.height - 2 * silhouette_padding
+            ),
+            silhouette_coordinate_map,
+            this._canvas
+        )
     }
 }

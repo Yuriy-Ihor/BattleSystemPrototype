@@ -66,20 +66,20 @@ function initOpponent() {
 }
 
 const attackBodySilhouette = 
-    new BodyScreen(
+    new AttackBodyScreen(
         (width - canvas_height) / 2, 0, screen_width, canvas_height,
-        BodyScreenType.AttackTargetSelection,
         screen_border_width,
         attackCanvas
     );
+attackBodySilhouette.initSilhouette();
 
 const defenseBodySilhouette = 
-    new BodyScreen(
+    new DefenseBodyScreen(
         (width - canvas_height) / 2, 0, screen_width, canvas_height,
-        BodyScreenType.DefenseTargetSelection,
         screen_border_width,
         defenseCanvas
     );
+defenseBodySilhouette.initSilhouette();
     
 const abilitySelection = new BattleSelection(battleScreenSelectionAbilityHTML);
 abilitySelection.getSelected = getSelectedPlayerAbilities;
