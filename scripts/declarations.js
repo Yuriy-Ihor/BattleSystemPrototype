@@ -70,7 +70,7 @@ const attackBodySilhouette =
         screen_border_width,
         attackCanvas
     );
-attackBodySilhouette.initSilhouette();
+attackBodySilhouette.init();
 
 const defenseBodySilhouette = 
     new DefenseBodyScreen(
@@ -78,7 +78,14 @@ const defenseBodySilhouette =
         screen_border_width,
         defenseCanvas
     );
-defenseBodySilhouette.initSilhouette();
+defenseBodySilhouette.init();
+
+const summaryBodySilhouettes = 
+    new DefenseBodyScreen(
+        (width - canvas_height) / 2, 0, screen_width, canvas_height,
+        screen_border_width,
+        summaryCanvas
+    );
     
 const abilitySelection = new BattleSelection(battleScreenSelectionAbilityHTML);
 abilitySelection.getSelected = getSelectedPlayerAbilities;

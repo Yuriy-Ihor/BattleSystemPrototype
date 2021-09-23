@@ -31,6 +31,8 @@
     <script src="scripts/modules/silhouettes/silhouette.js" defer></script> 
     <script src="scripts/modules/silhouettes/attack-silhouette.js" defer></script> 
     <script src="scripts/modules/silhouettes/defense-silhouette.js" defer></script> 
+    <script src="scripts/modules/silhouettes/summary-silhouettes/attacked-silhouette.js" defer></script> 
+    <script src="scripts/modules/silhouettes/summary-silhouettes/defended-silhouette.js" defer></script> 
     <script src="scripts/modules/body-screen.js" defer></script> 
 
     <script src="scripts/declarations.js" defer></script> 
@@ -294,12 +296,17 @@
                 Summary
             </div>
 
+            <!--
             <div id="battle-screen-summary-first-player" class="battle-screen-player-summary">
                 
             </div>
             <div id="battle-screen-summary-second-player" class="battle-screen-player-summary">
                 
-            </div>
+            </div>-->
+
+            <canvas id="battle-screen-summary-canvas">
+
+            </canvas>
 
             <input type="button" class='switch-button' id="battle-screen-next-turn" value="Next turn" />  
         </div>

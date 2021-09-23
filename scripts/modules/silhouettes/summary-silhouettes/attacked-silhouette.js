@@ -1,0 +1,3 @@
+class AttackedSilhouette extends Silhouette {
+    
+}
