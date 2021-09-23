@@ -95,7 +95,7 @@ function proceedBattleRezults() {
     // updatePlayerSummary('battle-screen-summary-first-player', players.mainPlayer.name, totalDamage, attackSelection.getSelected(), defenseSelection.getSelected());
     // updatePlayerSummary('battle-screen-summary-second-player', players.opponent.name, opponentDamage, "head", "torso");
 
-    
+    summaryBodySilhouettes.render(summaryContext);
 }
 
 function calculateTotalMainPlayerDamage() {

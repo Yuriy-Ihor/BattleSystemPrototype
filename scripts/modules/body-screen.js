@@ -86,7 +86,7 @@ class SummaryScreen {
 
     init() {
         this.attackSilhouette = new AttackedSilhouette(
-            this.x + silhouette_padding * 2,
+            this.x + silhouette_padding,
             this.y,
             Math.min(
                 this.width - 2 * silhouette_padding,

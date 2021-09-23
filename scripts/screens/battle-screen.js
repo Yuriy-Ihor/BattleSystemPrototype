@@ -24,6 +24,7 @@ const battleScreenFinishTurnButtonHTML = document.getElementById("battle-screen-
 
 const battleSummaryScreenHTML = document.getElementById('battle-screen-summary');
     const summaryCanvas = document.getElementById('battle-screen-summary-canvas');
+    const summaryContext = summaryCanvas.getContext('2d');
 
 const battleScreenNextTurnButtonHTML = document.getElementById('battle-screen-next-turn');
 
