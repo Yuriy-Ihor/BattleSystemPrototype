@@ -64,6 +64,14 @@
     top: -30px;
 }
 
+.stat-name {
+    float: left;
+}
+
+.stat-value { 
+    float: right;
+}
+
 #player-right > .player-portrait {
     margin-left: auto;
     margin-right: 0;
