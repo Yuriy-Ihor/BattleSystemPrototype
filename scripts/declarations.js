@@ -81,11 +81,12 @@ const defenseBodySilhouette =
 defenseBodySilhouette.init();
 
 const summaryBodySilhouettes = 
-    new DefenseBodyScreen(
+    new SummaryScreen(
         (width - canvas_height) / 2, 0, screen_width, canvas_height,
         screen_border_width,
         summaryCanvas
     );
+summaryBodySilhouettes.init();
     
 const abilitySelection = new BattleSelection(battleScreenSelectionAbilityHTML);
 abilitySelection.getSelected = getSelectedPlayerAbilities;

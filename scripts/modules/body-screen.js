@@ -74,7 +74,7 @@ class DefenseBodyScreen extends BodyScreen {
     }
 }
 
-class SummaryBodyScreen{
+class SummaryScreen {
     constructor(_x, _y, _width, _height, _border_width, canvas) {
         this.x = _x
         this.y = _y
@@ -86,24 +86,24 @@ class SummaryBodyScreen{
 
     init() {
         this.attackSilhouette = new AttackedSilhouette(
-            this.x + silhouette_padding,
+            this.x + silhouette_padding * 2,
             this.y,
             Math.min(
                 this.width - 2 * silhouette_padding,
                 this.height - 2 * silhouette_padding
             ),
-            silhouette_coordinate_map,
+            silhouette_coordinate_map_side,
             this._canvas
         )
 
         this.defendedSilhouette = new DefenseSilhouette(
-            this.x + silhouette_padding,
+            this.x - silhouette_padding,
             this.y,
             Math.min(
                 this.width - 2 * silhouette_padding,
                 this.height - 2 * silhouette_padding
             ),
-            silhouette_coordinate_map,
+            silhouette_coordinate_map_main,
             this._canvas
         )
     }

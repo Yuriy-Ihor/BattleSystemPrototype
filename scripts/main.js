@@ -92,8 +92,10 @@ function proceedBattleRezults() {
     players.opponent.playerStats[playerStats.hitpoints] -= totalDamage;
     players.opponent.playerStats[playerStats.mana] -= 7;
 
-    updatePlayerSummary('battle-screen-summary-first-player', players.mainPlayer.name, totalDamage, attackSelection.getSelected(), defenseSelection.getSelected());
-    updatePlayerSummary('battle-screen-summary-second-player', players.opponent.name, opponentDamage, "head", "torso");
+    // updatePlayerSummary('battle-screen-summary-first-player', players.mainPlayer.name, totalDamage, attackSelection.getSelected(), defenseSelection.getSelected());
+    // updatePlayerSummary('battle-screen-summary-second-player', players.opponent.name, opponentDamage, "head", "torso");
+
+    
 }
 
 function calculateTotalMainPlayerDamage() {
