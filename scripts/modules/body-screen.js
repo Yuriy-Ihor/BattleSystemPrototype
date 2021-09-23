@@ -85,24 +85,25 @@ class SummaryScreen {
     }
 
     init() {
+        let silhouetteWidth = Math.min(
+            this.width - 2 * silhouette_padding,
+            this.height - 2 * silhouette_padding
+        );
+
+        let x = this.width - silhouetteWidth;
+
         this.attackSilhouette = new AttackedSilhouette(
-            this.x + silhouette_padding,
+            this.x + silhouetteWidth / 2,
             this.y,
-            Math.min(
-                this.width - 2 * silhouette_padding,
-                this.height - 2 * silhouette_padding
-            ),
+            silhouetteWidth,
             silhouette_coordinate_map_side,
             this._canvas
         )
 
         this.defendedSilhouette = new DefenseSilhouette(
-            this.x - silhouette_padding,
+            this.x - silhouetteWidth / 2,
             this.y,
-            Math.min(
-                this.width - 2 * silhouette_padding,
-                this.height - 2 * silhouette_padding
-            ),
+            silhouetteWidth,
             silhouette_coordinate_map_main,
             this._canvas
         )
