@@ -69,12 +69,16 @@ class SummarySilhouette extends Silhouette {
     }
 
     drawDefenseIcon(_context) {
+        let sizeMultiplayer = Math.max(this.defenseIcon.naturalHeight, this.defenseIcon.naturalWidth);
+
+        sizeMultiplayer =  Math.min(this.coordinate_map[this.defendedPart]["width"], this.coordinate_map[this.defendedPart]["height"]) / sizeMultiplayer;
+        
         _context.drawImage(
             this.defenseIcon,
             this.x + this.coordinate_map[this.defendedPart]["left"] * this.scale,
             this.y + this.coordinate_map[this.defendedPart]["top"] * this.scale,
-            this.coordinate_map[this.defendedPart]["width"] * this.scale,
-            this.coordinate_map[this.defendedPart]["height"] * this.scale
+            this.defenseIcon.naturalWidth * sizeMultiplayer,
+            this.defenseIcon.naturalHeight * sizeMultiplayer
         );
     }
 }
