@@ -49,8 +49,19 @@ class Silhouette {
             });
 
             newImage.addEventListener('mouseout', () => {
+                if(this.selected == newImage) {
+                    return;
+                }
                 this.hovering = null;
                 newImage.setAttribute('href', this.getImagesPath('hollow', newImage.id));
+            });
+
+            newImage.addEventListener('mousedown', () => {
+                if(this.selected != null) {
+                    this.selected.setAttribute('href', this.getImagesPath('hollow', this.selected.id));
+                }
+                this.selected = newImage;
+                newImage.setAttribute('href', this.getImagesPath('filled', newImage.id));
             });
             
             path.appendChild(newImage);
@@ -59,6 +70,7 @@ class Silhouette {
         }
 
         this.hovering = null;
+        this.selected = null;
     }
 
     getImagesPath(type, id) {
