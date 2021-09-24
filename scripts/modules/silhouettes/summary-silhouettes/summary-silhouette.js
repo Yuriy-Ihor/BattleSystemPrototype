@@ -19,6 +19,7 @@ class SummarySilhouette extends Silhouette {
             this.body_parts_sprites[`${body_part_name}-filled`] = document.getElementById(`${body_part_name}-filled-${this.relevance}`);
         }
 
+        this.defenseIcon = document.getElementById('shield-icon');
         this.shotParts = [];
         this.defendedPart = '';
     }
@@ -63,5 +64,17 @@ class SummarySilhouette extends Silhouette {
                 this.coordinate_map[body_part_name]["height"] * this.scale
             );
         }
+
+        this.drawDefenseIcon(_context);
+    }
+
+    drawDefenseIcon(_context) {
+        _context.drawImage(
+            this.defenseIcon,
+            this.x + this.coordinate_map[this.defendedPart]["left"] * this.scale,
+            this.y + this.coordinate_map[this.defendedPart]["top"] * this.scale,
+            this.coordinate_map[this.defendedPart]["width"] * this.scale,
+            this.coordinate_map[this.defendedPart]["height"] * this.scale
+        );
     }
 }

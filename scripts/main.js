@@ -86,7 +86,7 @@ function proceedBattleRezults() {
     let enemyAttackedPart = 'head';
     let enemyDefendedPart = 'torso';
 
-    let totalDamage = calculateTotalMainPlayerDamage();
+    let totalDamage = calculateTotalMainPlayerDamage(playerAttackedPart == enemyDefendedPart);
     let totalMana = calculateTotalMainPlayerMana();
 
     let opponentDamage = 10;
@@ -106,7 +106,7 @@ function drawSilhouettes() {
     
 }
 
-function calculateTotalMainPlayerDamage() {
+function calculateTotalMainPlayerDamage(attackBlocked) {
     let abilities = getSelectedPlayerAbilities();
 
     let totalDamage = 0;
@@ -115,6 +115,7 @@ function calculateTotalMainPlayerDamage() {
     }
 
     return totalDamage;
+    //return attackBlocked ? totalDamage * 0.1 : totalDamage;
 }
 
 function calculateTotalMainPlayerMana() {
