@@ -23,10 +23,11 @@ class Silhouette{
         }
 
         let group = document.createElementNS("http://www.w3.org/2000/svg", 'g');
+        group.setAttribute('class', 'svg-silhouette');
 
         for (var body_part_name in this.coordinate_map) {
-            let positionX = this.coordinate_map[body_part_name]["left"] + (screenWidth - this.size) / 2;
-            let positionY = this.coordinate_map[body_part_name]["top"] + (svgScreenHeight - this.size) / 2;
+            let positionX = this.coordinate_map[body_part_name]["left"];
+            let positionY = this.coordinate_map[body_part_name]["top"];
 
             let newImage = document.createElementNS("http://www.w3.org/2000/svg", 'image');
 
@@ -43,6 +44,9 @@ class Silhouette{
         }
 
         display.appendChild(group);
+        
+        display.style.width = this.size;
+        display.style.height = this.size;
 
         this.display = display;
     }

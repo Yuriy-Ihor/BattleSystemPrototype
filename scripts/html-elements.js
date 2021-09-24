@@ -1,6 +1,8 @@
 
 const screenWidth = $(window).width();
-const svgScreenHeight = 400;
+
+const svgScreenWidth = 300;
+const svgScreenHeight = 300;
 
 const hideElement = function(element) {
     if(!hasClass(element, 'hidden')) { 
