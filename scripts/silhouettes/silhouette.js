@@ -7,7 +7,7 @@ const bodyPart = {
     shotChance: 50
 }
 
-const silhouetteImagePath = 'silhouette-parts/side/hollow/';
+const silhouetteImagePath = 'silhouette-parts/main/hollow/';
 
 class Silhouette {
     imagesPath;

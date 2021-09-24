@@ -140,7 +140,7 @@ function hideAllScreens() {
 
 function startGame() {
     let svg = document.getElementById('attack-selection-silhouette');
-    let silhouette = new Silhouette(0, 0, silhouette_coordinate_map_main);
+    let silhouette = new Silhouette(0, 0, silhouette_coordinate_map_side);
     silhouette.render(svg);
 
     hideAllScreens();
