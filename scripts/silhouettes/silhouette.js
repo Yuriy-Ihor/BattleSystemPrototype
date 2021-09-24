@@ -49,12 +49,18 @@ class Silhouette {
                 body_part_image_type = 'hollow';
             }
 
+            let width = this.coordinate_map[body_part_name]["width"];
+            let height = this.coordinate_map[body_part_name]["height"];
+
+            let positionX = this.coordinate_map[body_part_name]["left"] - 128 + 500;
+            let positionY = this.coordinate_map[body_part_name]["top"] - 128 + 200;
+
             let newImage = document.createElementNS("http://www.w3.org/2000/svg", 'image');
-            newImage.setAttribute('href', this.imagesPath + body_part_name + '-hollow.png');
-            newImage.setAttribute('x', this.coordinate_map[body_part_name]["left"]);
-            newImage.setAttribute('y', this.coordinate_map[body_part_name]["top"]);
-            newImage.setAttribute('width', this.coordinate_map[body_part_name]["width"]);
-            newImage.setAttribute('height', this.coordinate_map[body_part_name]["height"]);
+            newImage.setAttribute('href', this.imagesPath + body_part_name + `-${body_part_image_type}.png`);
+            newImage.setAttribute('x', positionX);
+            newImage.setAttribute('y', positionY);
+            newImage.setAttribute('width', width);
+            newImage.setAttribute('height', height);
             
             path.appendChild(newImage);
         }

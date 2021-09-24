@@ -1,14 +1,6 @@
 
-const width = $(window).width()
-const height = $(window).height()
-
-const silhouette_padding = 0
-const canvas_height_scale = 0.38;
-
-const screen_width = width
-const canvas_height = height * canvas_height_scale
-const screen_border_width = 5
-const screen_border_color = "#000000"
+const screenWidth = $(window).width();
+const svgScreenHeight = 400;
 
 const hideElement = function(element) {
     if(!hasClass(element, 'hidden')) { 
