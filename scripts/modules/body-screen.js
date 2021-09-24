@@ -89,18 +89,18 @@ class SummaryScreen {
         );
 
         this.playerSilhouette = new SummarySilhouette(
-            this.x + silhouetteWidth / 2,
-            this.y,
-            silhouetteWidth,
-            silhouette_coordinate_map_side,
-            this._canvas
-        )
-
-        this.enemySilhouette = new SummarySilhouette(
             this.x - silhouetteWidth / 2,
             this.y,
             silhouetteWidth,
             silhouette_coordinate_map_main,
+            this._canvas
+        )
+
+        this.enemySilhouette = new SummarySilhouette(
+            this.x + silhouetteWidth / 2,
+            this.y,
+            silhouetteWidth,
+            silhouette_coordinate_map_side,
             this._canvas
         )
     }
