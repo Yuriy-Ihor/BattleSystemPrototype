@@ -17,18 +17,6 @@ function getBattleWinner(players) {
 
 var currentTurn = 1;
 
-function drawAttackScreen() {
-    //attackBodySilhouette.render(attackCanvasContext);
-    
-    //requestAnimationFrame(drawAttackScreen)
-}
-
-function drawDefenseScreen() {
-    //defenseBodySilhouette.render(defenseCanvasContext);
-
-    //requestAnimationFrame(drawDefenseScreen)
-}
-
 function startTurn() {
     if(currentTurn > 0) {
         restoreManaToPlayer(players.mainPlayer, 5);
@@ -53,7 +41,6 @@ function restoreManaToPlayer(player, amount) {
 }
 
 function finishTurn() {
-    
     if(getSelectedPlayerAbilities().length == 0 || !attackSilhouette.isBodyPartSelected() || !defenseSilhouette.isBodyPartSelected()) {
         showErrorMessage("You dumb idiot did something wrong!", 5);
         return;
@@ -98,10 +85,6 @@ function proceedBattleRezults() {
     //summaryBodySilhouettes.playerSilhouette.assignNewParts(enemyAttackedPart, playerDefendedPart);
 
     //summaryBodySilhouettes.render(summaryContext);
-}
-
-function drawSilhouettes() {
-    
 }
 
 function calculateTotalMainPlayerDamage(attackBlocked) {

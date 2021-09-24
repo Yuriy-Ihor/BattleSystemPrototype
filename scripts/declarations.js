@@ -64,9 +64,9 @@ function initOpponent() {
     return opponent;
 }
 
-const attackSilhouette = new Silhouette(0, 0, silhouette_coordinate_map_side, attackSvg);
-const defenseSilhouette = new Silhouette(0, 0, silhouette_coordinate_map_main, defenseSvg);
-    
+const attackSilhouette = new SelectableSilhouette(silhouette_coordinate_map_side, attackSvg);
+const defenseSilhouette = new SelectableSilhouette(silhouette_coordinate_map_main, defenseSvg);
+
 const abilitySelection = new BattleSelection(battleScreenSelectionAbilityHTML);
 abilitySelection.getSelected = getSelectedPlayerAbilities;
 
