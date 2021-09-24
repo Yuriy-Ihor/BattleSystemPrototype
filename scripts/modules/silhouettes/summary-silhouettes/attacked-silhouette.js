@@ -20,6 +20,7 @@ class AttackedSilhouette extends Silhouette {
         }
 
         this.shotParts = [];
+        this.defendedPart = '';
     }
 
     render(_context) {

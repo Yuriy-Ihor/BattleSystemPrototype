@@ -116,6 +116,8 @@ class SummaryScreen {
     }
 
     render(_context) {
+        _context.clearRect(0, 0, _context.canvas.width, _context.canvas.height);
+
         _context.fillRect(
             this.x,
             this.y,
