@@ -96,5 +96,4 @@ class SelectableSilhouette extends Silhouette {
         this.hollowImage(this.selected);
         this.selected = null;
     }
-
 }
