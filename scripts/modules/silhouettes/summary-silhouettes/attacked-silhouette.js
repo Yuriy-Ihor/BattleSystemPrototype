@@ -24,7 +24,7 @@ class AttackedSilhouette extends Silhouette {
 
     render(_context) {
         this._context = _context;
-        console.log(this.shotParts);
+        
         for (var body_part_name in this.coordinate_map) {
             let body_part_image_type;
             

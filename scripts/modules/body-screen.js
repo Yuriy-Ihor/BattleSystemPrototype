@@ -96,7 +96,7 @@ class SummaryScreen {
             this._canvas
         )
 
-        this.defendedSilhouette = new DefenseSilhouette(
+        this.defendedSilhouette = new DefendedSilhouette(
             this.x - silhouetteWidth / 2,
             this.y,
             silhouetteWidth,
