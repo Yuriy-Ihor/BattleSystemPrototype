@@ -10,8 +10,7 @@ const bodyPart = {
 const silhouetteImagePath = 'silhouette-parts';
 
 class Silhouette {
-    imagesPath;
-    constructor(_x, _y, _coordinate_map, path) {
+    constructor(_x, _y, _coordinate_map, display) {
         this.relevance = _coordinate_map["relevance"];
         this.size = _coordinate_map['unscaled-size'];
         this.coordinate_map = {};
@@ -22,29 +21,22 @@ class Silhouette {
             }
         }
 
-        this.images = {};
-
         for (var body_part_name in this.coordinate_map) {
-            let body_part_image_type = 'hollow';
-
-            let width = this.coordinate_map[body_part_name]["width"];
-            let height = this.coordinate_map[body_part_name]["height"];
 
             let positionX = this.coordinate_map[body_part_name]["left"] + (screenWidth - this.size) / 2;
             let positionY = this.coordinate_map[body_part_name]["top"] + (svgScreenHeight - this.size) / 2;
 
             let newImage = document.createElementNS("http://www.w3.org/2000/svg", 'image');
 
-            newImage.setAttribute('href', this.getImagesPath(body_part_image_type, body_part_name));
+            newImage.setAttribute('href', this.getImagesPath('hollow', body_part_name));
             newImage.setAttribute('class', 'silhouette-part');
             newImage.setAttribute('id', body_part_name);
             newImage.setAttribute('x', positionX);
             newImage.setAttribute('y', positionY);
-            newImage.setAttribute('width', width);
-            newImage.setAttribute('height', height);
+            newImage.setAttribute('width', this.coordinate_map[body_part_name]["width"]);
+            newImage.setAttribute('height', this.coordinate_map[body_part_name]["height"]);
 
             newImage.addEventListener('mouseover', () => {
-                this.hovering = newImage;
                 newImage.setAttribute('href', this.getImagesPath('filled', newImage.id));
             });
 
@@ -52,7 +44,6 @@ class Silhouette {
                 if(this.selected == newImage) {
                     return;
                 }
-                this.hovering = null;
                 newImage.setAttribute('href', this.getImagesPath('hollow', newImage.id));
             });
 
@@ -64,13 +55,11 @@ class Silhouette {
                 newImage.setAttribute('href', this.getImagesPath('filled', newImage.id));
             });
             
-            path.appendChild(newImage);
-
-            this.images[body_part_name] = newImage;
+            display.appendChild(newImage);
         }
 
-        this.hovering = null;
         this.selected = null;
+        this.display = display;
     }
 
     getImagesPath(type, id) {
