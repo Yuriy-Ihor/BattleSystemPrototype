@@ -80,7 +80,8 @@ function finishTurn() {
 }
 
 function proceedBattleRezults() {
-    console.log("Selected abilities: " + abilitySelection.getSelected());
+    let playerDefendedPart = defenseSelection.getSelected();
+    let playerAttackedPart = attackSelection.getSelected();
 
     let totalDamage = calculateTotalMainPlayerDamage();
     let totalMana = calculateTotalMainPlayerMana();
@@ -92,13 +93,17 @@ function proceedBattleRezults() {
     players.opponent.playerStats[playerStats.hitpoints] -= totalDamage;
     players.opponent.playerStats[playerStats.mana] -= 7;
 
-    // updatePlayerSummary('battle-screen-summary-first-player', players.mainPlayer.name, totalDamage, attackSelection.getSelected(), defenseSelection.getSelected());
-    // updatePlayerSummary('battle-screen-summary-second-player', players.opponent.name, opponentDamage, "head", "torso");
-
-    summaryBodySilhouettes.addAttackedPart(attackSelection.getSelected());
-    summaryBodySilhouettes.assignDefendedPart(defenseSelection.getSelected());
+    summaryBodySilhouettes.enemySilhouette.assignDefendedPart('head');
+    summaryBodySilhouettes.enemySilhouette.addAttackedPart(playerAttackedPart);
+    
+    summaryBodySilhouettes.playerSilhouette.assignDefendedPart(playerDefendedPart);
+    summaryBodySilhouettes.playerSilhouette.addAttackedPart('head');
 
     summaryBodySilhouettes.render(summaryContext);
+}
+
+function drawSilhouettes() {
+    
 }
 
 function calculateTotalMainPlayerDamage() {

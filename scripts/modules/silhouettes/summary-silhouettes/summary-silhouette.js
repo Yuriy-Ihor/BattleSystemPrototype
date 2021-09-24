@@ -1,4 +1,4 @@
-class AttackedSilhouette extends Silhouette {
+class SummarySilhouette extends Silhouette {
     constructor(_x, _y, _size, _coordinate_map, _canvas) {
         super(_x, _y, _size, _coordinate_map, _canvas)
         this.x = _x;
@@ -23,13 +23,23 @@ class AttackedSilhouette extends Silhouette {
         this.defendedPart = '';
     }
 
+    addAttackedPart(part) {
+        if(!this.shotParts.includes(part)) {
+            this.shotParts.push(part);
+        }
+    }
+
+    assignDefendedPart(part) {
+        this.defendedPart = part;
+    }
+
     render(_context) {
         this._context = _context;
         
         for (var body_part_name in this.coordinate_map) {
             let body_part_image_type;
             
-            if(this.shotParts.includes(body_part_name)) {
+            if(this.shotParts.includes(body_part_name) || body_part_name == this.defendedPart) {
                 body_part_image_type = 'filled';
             }
             else {

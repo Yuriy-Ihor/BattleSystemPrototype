@@ -88,7 +88,7 @@ class SummaryScreen {
             this.height - 2 * silhouette_padding
         );
 
-        this.attackSilhouette = new AttackedSilhouette(
+        this.playerSilhouette = new SummarySilhouette(
             this.x + silhouetteWidth / 2,
             this.y,
             silhouetteWidth,
@@ -96,23 +96,13 @@ class SummaryScreen {
             this._canvas
         )
 
-        this.defendedSilhouette = new DefendedSilhouette(
+        this.enemySilhouette = new SummarySilhouette(
             this.x - silhouetteWidth / 2,
             this.y,
             silhouetteWidth,
             silhouette_coordinate_map_main,
             this._canvas
         )
-    }
-    
-    addAttackedPart(part) {
-        if(!this.attackSilhouette.shotParts.includes(part)) {
-            this.attackSilhouette.shotParts.push(part);
-        }
-    }
-
-    assignDefendedPart(part) {
-        this.defendedSilhouette.defendedPart = part;
     }
 
     render(_context) {
@@ -129,7 +119,7 @@ class SummaryScreen {
             this.x, this.y, this.width, this.height 
         )
         
-        this.attackSilhouette.render(_context);
-        this.defendedSilhouette.render(_context);
+        this.playerSilhouette.render(_context);
+        this.enemySilhouette.render(_context);
     }
 }
