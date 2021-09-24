@@ -5,8 +5,9 @@ const battleScreenSelectionHTML = document.getElementById('battle-screen-selecti
 const battleScreenSelectionAbilityHTML = document.getElementById('battle-screen-selection-ability');
     const battleScreenAbilitiesListHTML = document.getElementById('battle-screen-selection-abilities-list');
 const battleScreenSelectionAttackHTML = document.getElementById('battle-screen-selection-body-attack');
+    const attackSvg = document.getElementById('attack-selection-silhouette');
 const battleScreenSelectionDefenseHTML = document.getElementById('battle-screen-selection-body-defense');
-
+    const defenseSvg = document.getElementById('defense-selection-silhouette');
 
 const battleScreenBackButtonHTML = document.getElementById("battle-screen-button-back");
 const battleScreenNextButtonHTML = document.getElementById("battle-screen-button-next");
@@ -19,22 +20,16 @@ const battleScreenNextTurnButtonHTML = document.getElementById('battle-screen-ne
 const battleScreenErrorHTML = document.getElementById("battle-screen-error-message");
 
 class BattleSelectionsPanel {
-    selections = [];
-    previousSelectionButton;
-    nextSelectionButton;
-    currentSelection = 0;
-    onSelectionChanged;
-
     constructor(selections, previousSelectionButton, nextSelectionButton, battleScreenFinishTurnButton) {
         this.selections = selections;
         this.previousSelectionButton = previousSelectionButton;
         this.nextSelectionButton = nextSelectionButton;
         this.finishTurnButton = battleScreenFinishTurnButton;
-        this.onSelectionChanged = new Delegate();
 
         this.previousSelectionButton.onclick = () => this.showPreviousSelection();
         this.nextSelectionButton.onclick = () => this.showNextSelection();
 
+        this.currentSelection = 0;
         this.showFirstSelection();
     }
 
@@ -48,8 +43,6 @@ class BattleSelectionsPanel {
 
         hideElement(this.previousSelectionButton);
         hideElement(this.finishTurnButton);
-
-        this.onSelectionChanged.invoke(this.selections[this.currentSelection]);
     }
 
     hideAllSelections() {
@@ -61,7 +54,7 @@ class BattleSelectionsPanel {
     showPreviousSelection() {
 
         this.hideSelection(this.selections[this.currentSelection]);
-        this.currentSelection -= 1;
+        this.currentSelection--;
         this.showSelection(this.selections[this.currentSelection]);
 
         showElement(this.nextSelectionButton);
@@ -71,14 +64,12 @@ class BattleSelectionsPanel {
         if(this.currentSelection == 0) {
             hideElement(this.previousSelectionButton);
         }
-
-        this.onSelectionChanged.invoke(this.selections[this.currentSelection]);
     }
 
     showNextSelection() {
 
         this.hideSelection(this.selections[this.currentSelection]);
-        this.currentSelection += 1;
+        this.currentSelection++;
         this.showSelection(this.selections[this.currentSelection]);
 
         showElement(this.previousSelectionButton);
@@ -87,8 +78,6 @@ class BattleSelectionsPanel {
             hideElement(this.nextSelectionButton);
             showElement(this.finishTurnButton);
         }
-
-        this.onSelectionChanged.invoke(this.selections[this.currentSelection]);
     }
 
     hideSelection(selection) {
@@ -101,8 +90,6 @@ class BattleSelectionsPanel {
 }
 
 class BattleSelection {
-    selectionHTML;
-
     constructor(selectionHTML) {
         this.selectionHTML = selectionHTML;
     }

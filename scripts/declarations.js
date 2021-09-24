@@ -63,8 +63,6 @@ function initOpponent() {
     
     return opponent;
 }
-const attackSvg = document.getElementById('attack-selection-silhouette');
-const defenseSvg = document.getElementById('defense-selection-silhouette');
 
 const attackSilhouette = new Silhouette(0, 0, silhouette_coordinate_map_side, attackSvg);
 const defenseSilhouette = new Silhouette(0, 0, silhouette_coordinate_map_main, defenseSvg);
