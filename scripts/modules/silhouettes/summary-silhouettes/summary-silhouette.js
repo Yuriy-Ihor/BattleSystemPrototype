@@ -69,10 +69,12 @@ class SummarySilhouette extends Silhouette {
     }
 
     drawDefenseIcon(_context) {
+        /*
         let sizeMultiplayer = Math.max(this.defenseIcon.naturalHeight, this.defenseIcon.naturalWidth);
 
         sizeMultiplayer =  Math.min(this.coordinate_map[this.defendedPart]["width"], this.coordinate_map[this.defendedPart]["height"]) / sizeMultiplayer;
-        
+        */
+       let sizeMultiplayer = 0.1;
         _context.drawImage(
             this.defenseIcon,
             this.x + this.coordinate_map[this.defendedPart]["left"] * this.scale,
