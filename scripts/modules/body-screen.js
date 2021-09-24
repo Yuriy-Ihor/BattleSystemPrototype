@@ -82,15 +82,11 @@ class SummaryScreen {
         this.height = _height
         this.border_width = _border_width
         this._canvas = canvas;
-    }
 
-    init() {
         let silhouetteWidth = Math.min(
             this.width - 2 * silhouette_padding,
             this.height - 2 * silhouette_padding
         );
-
-        let x = this.width - silhouetteWidth;
 
         this.attackSilhouette = new AttackedSilhouette(
             this.x + silhouetteWidth / 2,
@@ -107,6 +103,16 @@ class SummaryScreen {
             silhouette_coordinate_map_main,
             this._canvas
         )
+    }
+    
+    addAttackedPart(part) {
+        if(!this.attackSilhouette.shotParts.includes(part)) {
+            this.attackSilhouette.shotParts.push(part);
+        }
+    }
+
+    assignDefendedPart(part) {
+        this.defendedSilhouette.defendedPart = part;
     }
 
     render(_context) {

@@ -86,7 +86,6 @@ const summaryBodySilhouettes =
         screen_border_width,
         summaryCanvas
     );
-summaryBodySilhouettes.init();
     
 const abilitySelection = new BattleSelection(battleScreenSelectionAbilityHTML);
 abilitySelection.getSelected = getSelectedPlayerAbilities;
