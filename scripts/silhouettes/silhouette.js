@@ -15,7 +15,7 @@ class Silhouette {
         this.relevance = _coordinate_map["relevance"];
         this.size = _coordinate_map['unscaled-size'];
         this.coordinate_map = {};
-        
+
         for (var body_part_name in _coordinate_map) {
             if (body_part_name != "unscaled-size" && body_part_name != "relevance") {
                 this.coordinate_map[body_part_name] = _coordinate_map[body_part_name];
@@ -56,18 +56,21 @@ class Silhouette {
             let width = this.coordinate_map[body_part_name]["width"];
             let height = this.coordinate_map[body_part_name]["height"];
 
-            let positionX = this.coordinate_map[body_part_name]["left"] - 128 + 500;
-            let positionY = this.coordinate_map[body_part_name]["top"] - 128 + 200;
+            let positionX = this.coordinate_map[body_part_name]["left"] + (screenWidth - this.size) / 2;
+            let positionY = this.coordinate_map[body_part_name]["top"] + (svgScreenHeight - this.size) / 2;
 
             let newImage = document.createElementNS("http://www.w3.org/2000/svg", 'image');
-            console.log(this.getImagesPath(body_part_image_type, body_part_name));
+
             newImage.setAttribute('href', this.getImagesPath(body_part_image_type, body_part_name));
             newImage.setAttribute('x', positionX);
             newImage.setAttribute('y', positionY);
             newImage.setAttribute('width', width);
             newImage.setAttribute('height', height);
 
-            //newImage.addEventListener('mouseover', );
+            newImage.addEventListener('mouseover', () => function(){
+                this.hovering = newImage;
+                console.log("Hovering " + this.hovering);
+            });
             
             path.appendChild(newImage);
         }
