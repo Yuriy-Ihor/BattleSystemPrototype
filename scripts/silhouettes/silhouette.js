@@ -22,6 +22,8 @@ class Silhouette{
             }
         }
 
+        let group = document.createElementNS("http://www.w3.org/2000/svg", 'g');
+
         for (var body_part_name in this.coordinate_map) {
             let positionX = this.coordinate_map[body_part_name]["left"] + (screenWidth - this.size) / 2;
             let positionY = this.coordinate_map[body_part_name]["top"] + (svgScreenHeight - this.size) / 2;
@@ -36,9 +38,11 @@ class Silhouette{
             newImage.setAttribute('width', this.coordinate_map[body_part_name]["width"]);
             newImage.setAttribute('height', this.coordinate_map[body_part_name]["height"]);
             
-            display.appendChild(newImage);
+            group.appendChild(newImage);
             this.images.push(newImage);
         }
+
+        display.appendChild(group);
 
         this.display = display;
     }

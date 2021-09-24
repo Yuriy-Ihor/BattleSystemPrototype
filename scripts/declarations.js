@@ -82,3 +82,5 @@ const battleSelectionsPanel = new BattleSelectionsPanel(
     battleScreenNextButtonHTML,
     battleScreenFinishTurnButtonHTML
 );
+
+const turnSummaryDisplay = new TurnSummaryDisplay(turnSummaryDisplaySvg);
