@@ -139,6 +139,9 @@ function hideAllScreens() {
 }
 
 function startGame() {
+    let silhouette = new Silhouette(0, 0, silhouette_coordinate_map_main);
+    silhouette.render(document.getElementById('attack-selection-silhouette'))
+
     hideAllScreens();
     
     updateStartScreen(players.mainPlayer);

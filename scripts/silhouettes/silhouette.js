@@ -7,11 +7,11 @@ const bodyPart = {
     shotChance: 50
 }
 
-const silhouetteImagePath = 'silhouette-parts/hollow/';
+const silhouetteImagePath = 'silhouette-parts/side/hollow/';
 
 class Silhouette {
     imagesPath;
-    constructor(_x, _y, _size, _coordinate_map) {
+    constructor(_x, _y, _coordinate_map) {
         
         this.relevance = _coordinate_map["relevance"];
         this.coordinate_map = {};
@@ -49,12 +49,12 @@ class Silhouette {
                 body_part_image_type = 'hollow';
             }
 
-            let newImage = document.createElement('image');
-            newImage.link = this.imagesPath + body_part_name + '.png';
-            newImage.x = this.x + this.coordinate_map[body_part_name]["left"];
-            newImage.y = this.y + this.coordinate_map[body_part_name]["top"];
-            newImage.width = this.coordinate_map[body_part_name]["width"];
-            newImage.height = this.coordinate_map[body_part_name]["height"];
+            let newImage = document.createElementNS("http://www.w3.org/2000/svg", 'image');
+            newImage.setAttribute('href', this.imagesPath + body_part_name + '-hollow.png');
+            newImage.setAttribute('x', this.coordinate_map[body_part_name]["left"]);
+            newImage.setAttribute('y', this.coordinate_map[body_part_name]["top"]);
+            newImage.setAttribute('width', this.coordinate_map[body_part_name]["width"]);
+            newImage.setAttribute('height', this.coordinate_map[body_part_name]["height"]);
             
             path.appendChild(newImage);
         }
