@@ -1,4 +1,0 @@
-
-class DefenseSilhouette extends Silhouette {
-    
-}

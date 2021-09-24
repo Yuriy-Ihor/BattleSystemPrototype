@@ -18,15 +18,15 @@ function getBattleWinner(players) {
 var currentTurn = 1;
 
 function drawAttackScreen() {
-    attackBodySilhouette.render(attackCanvasContext);
+    //attackBodySilhouette.render(attackCanvasContext);
     
-    requestAnimationFrame(drawAttackScreen)
+    //requestAnimationFrame(drawAttackScreen)
 }
 
 function drawDefenseScreen() {
-    defenseBodySilhouette.render(defenseCanvasContext);
+    //defenseBodySilhouette.render(defenseCanvasContext);
 
-    requestAnimationFrame(drawDefenseScreen)
+    //requestAnimationFrame(drawDefenseScreen)
 }
 
 function startTurn() {
@@ -53,6 +53,7 @@ function restoreManaToPlayer(player, amount) {
 }
 
 function finishTurn() {
+    
     if(getSelectedPlayerAbilities().length == 0 || !attackBodySilhouette.isBodyPartSelected() || !defenseBodySilhouette.isBodyPartSelected()) {
         showErrorMessage("You dumb idiot did something wrong!", 5);
         return;
@@ -62,11 +63,11 @@ function finishTurn() {
 
     proceedBattleRezults();
     
-    attackBodySilhouette.disselectBodyPart();
-    defenseBodySilhouette.disselectBodyPart();
+   // attackBodySilhouette.disselectBodyPart();
+    //defenseBodySilhouette.disselectBodyPart();
 
-    attackBodySilhouette.silhouette.hovering = null;
-    defenseBodySilhouette.silhouette.hovering = null;
+    //attackBodySilhouette.silhouette.hovering = null;
+    //defenseBodySilhouette.silhouette.hovering = null;
 
     battleScreenAbilitiesListHTML.innerHTML = '';
 
@@ -80,11 +81,11 @@ function finishTurn() {
 }
 
 function proceedBattleRezults() {
-    let playerAttackedPart = attackSelection.getSelected();
-    let playerDefendedPart = defenseSelection.getSelected();
+    //let playerAttackedPart = attackSelection.getSelected();
+    //let playerDefendedPart = defenseSelection.getSelected();
 
-    let enemyAttackedPart = 'head';
-    let enemyDefendedPart = 'torso';
+    //let enemyAttackedPart = 'head';
+    //let enemyDefendedPart = 'torso';
 
     let totalDamage = calculateTotalMainPlayerDamage(playerAttackedPart == enemyDefendedPart);
     let totalMana = calculateTotalMainPlayerMana();
@@ -96,10 +97,10 @@ function proceedBattleRezults() {
     players.opponent.playerStats[playerStats.hitpoints] -= totalDamage;
     players.opponent.playerStats[playerStats.mana] -= 7;
 
-    summaryBodySilhouettes.enemySilhouette.assignNewParts(playerAttackedPart, enemyDefendedPart);
-    summaryBodySilhouettes.playerSilhouette.assignNewParts(enemyAttackedPart, playerDefendedPart);
+    //summaryBodySilhouettes.enemySilhouette.assignNewParts(playerAttackedPart, enemyDefendedPart);
+    //summaryBodySilhouettes.playerSilhouette.assignNewParts(enemyAttackedPart, playerDefendedPart);
 
-    summaryBodySilhouettes.render(summaryContext);
+    //summaryBodySilhouettes.render(summaryContext);
 }
 
 function drawSilhouettes() {
@@ -154,8 +155,8 @@ function startGame() {
         hideElement(versusScreenHTML);
         showElement(battleScreenHTML);
 
-        drawAttackScreen();
-        drawDefenseScreen();
+        //drawAttackScreen();
+        //drawDefenseScreen();
         startTurn();
     }
 
