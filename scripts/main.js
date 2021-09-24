@@ -54,7 +54,7 @@ function restoreManaToPlayer(player, amount) {
 
 function finishTurn() {
     
-    if(getSelectedPlayerAbilities().length == 0 || !attackBodySilhouette.isBodyPartSelected() || !defenseBodySilhouette.isBodyPartSelected()) {
+    if(getSelectedPlayerAbilities().length == 0 || !attackSilhouette.isBodyPartSelected() || !defenseSilhouette.isBodyPartSelected()) {
         showErrorMessage("You dumb idiot did something wrong!", 5);
         return;
     }
@@ -63,11 +63,8 @@ function finishTurn() {
 
     proceedBattleRezults();
     
-   // attackBodySilhouette.disselectBodyPart();
-    //defenseBodySilhouette.disselectBodyPart();
-
-    //attackBodySilhouette.silhouette.hovering = null;
-    //defenseBodySilhouette.silhouette.hovering = null;
+    attackSilhouette.disselectBodyPart();
+    defenseSilhouette.disselectBodyPart();
 
     battleScreenAbilitiesListHTML.innerHTML = '';
 
@@ -139,11 +136,6 @@ function hideAllScreens() {
 }
 
 function startGame() {
-    let attackSvg = document.getElementById('attack-selection-silhouette');
-    let defenseSvg = document.getElementById('defense-selection-silhouette');
-    
-    let attackSilhouette = new Silhouette(0, 0, silhouette_coordinate_map_side, attackSvg);
-    let defenseSsilhouette = new Silhouette(0, 0, silhouette_coordinate_map_main, defenseSvg);
 
     hideAllScreens();
     
@@ -161,8 +153,6 @@ function startGame() {
         hideElement(versusScreenHTML);
         showElement(battleScreenHTML);
 
-        //drawAttackScreen();
-        //drawDefenseScreen();
         startTurn();
     }
 

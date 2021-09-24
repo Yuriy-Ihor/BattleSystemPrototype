@@ -7,6 +7,11 @@ const bodyPart = {
     shotChance: 50
 }
 
+const fillType = {
+    hollow: 'hollow',
+    filled: 'filled'
+}
+
 const silhouetteImagePath = 'silhouette-parts';
 
 class Silhouette {
@@ -36,21 +41,21 @@ class Silhouette {
             newImage.setAttribute('height', this.coordinate_map[body_part_name]["height"]);
 
             newImage.addEventListener('mouseover', () => {
-                this.changeImageType(newImage, 'filled');
+                this.fillImage(newImage);
             });
 
             newImage.addEventListener('mouseout', () => {
                 if(this.selected != newImage) {
-                    this.changeImageType(newImage, 'hollow');
+                    this.hollowImage(newImage);
                 }
             });
 
             newImage.addEventListener('mousedown', () => {
                 if(this.selected != null) {
-                    this.changeImageType(this.selected, 'hollow')
+                    this.hollowImage(this.selected);
                 }
                 this.selected = newImage;
-                this.changeImageType(newImage, 'filled');
+                this.fillImage(this.selected);
             });
             
             display.appendChild(newImage);
@@ -64,10 +69,20 @@ class Silhouette {
         return `${silhouetteImagePath}/${this.relevance}/${type}/${id}-${type}.png`;
     }
 
-    changeImageType(image, newType) {
-        image.setAttribute('href', this.getImagesPath(newType, image.id));
+
+    disselectBodyPart() {
+        this.hollowImage(image);
+        this.selected = null;
     }
 
+    hollowImage(image) { 
+        image.setAttribute('href', this.getImagesPath('hollow', image.id));
+    }
+
+    fillImage(image) {
+        image.setAttribute('href', this.getImagesPath('filled', image.id));
+    }
+ 
     render() {
         // todo : update position on resize
     }

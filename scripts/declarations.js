@@ -63,15 +63,20 @@ function initOpponent() {
     
     return opponent;
 }
+const attackSvg = document.getElementById('attack-selection-silhouette');
+const defenseSvg = document.getElementById('defense-selection-silhouette');
+
+const attackSilhouette = new Silhouette(0, 0, silhouette_coordinate_map_side, attackSvg);
+const defenseSilhouette = new Silhouette(0, 0, silhouette_coordinate_map_main, defenseSvg);
     
 const abilitySelection = new BattleSelection(battleScreenSelectionAbilityHTML);
 abilitySelection.getSelected = getSelectedPlayerAbilities;
 
 const attackSelection = new BattleSelection(battleScreenSelectionAttackHTML);
-//attackSelection.getSelected = () => { return attackBodySilhouette.getSelectedBodyPart() };
+attackSelection.getSelected = () => { return attackSilhouette.selected };
 
 const defenseSelection = new BattleSelection(battleScreenSelectionDefenseHTML);
-//defenseSelection.getSelected = () => { return defenseBodySilhouette.getSelectedBodyPart() };
+defenseSelection.getSelected = () => { return defenseSilhouette.selected };
 
 const battleSelectionsPanel = new BattleSelectionsPanel(
     [abilitySelection, attackSelection, defenseSelection],
