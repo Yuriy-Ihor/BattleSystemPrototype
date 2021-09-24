@@ -23,6 +23,15 @@ class SummarySilhouette extends Silhouette {
         this.defendedPart = '';
     }
 
+    assignNewParts(attackedPart, defendedPart) {
+        if(attackedPart == defendedPart) {
+            return;
+        }
+
+        this.addAttackedPart(attackedPart);
+        this.assignDefendedPart(defendedPart);
+    }
+
     addAttackedPart(part) {
         if(!this.shotParts.includes(part)) {
             this.shotParts.push(part);

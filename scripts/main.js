@@ -83,6 +83,9 @@ function proceedBattleRezults() {
     let playerAttackedPart = attackSelection.getSelected();
     let playerDefendedPart = defenseSelection.getSelected();
 
+    let enemyAttackedPart = 'head';
+    let enemyDefendedPart = 'torso';
+
     let totalDamage = calculateTotalMainPlayerDamage();
     let totalMana = calculateTotalMainPlayerMana();
 
@@ -93,12 +96,8 @@ function proceedBattleRezults() {
     players.opponent.playerStats[playerStats.hitpoints] -= totalDamage;
     players.opponent.playerStats[playerStats.mana] -= 7;
 
-    //summaryBodySilhouettes.enemySilhouette.assignDefendedPart('torso');
-    console.log(playerAttackedPart);
-    summaryBodySilhouettes.enemySilhouette.addAttackedPart(playerAttackedPart);
-    
-    summaryBodySilhouettes.playerSilhouette.assignDefendedPart(playerDefendedPart);
-    //summaryBodySilhouettes.playerSilhouette.addAttackedPart('head');
+    summaryBodySilhouettes.enemySilhouette.assignNewParts(playerAttackedPart, enemyDefendedPart);
+    summaryBodySilhouettes.playerSilhouette.assignNewParts(enemyAttackedPart, playerDefendedPart);
 
     summaryBodySilhouettes.render(summaryContext);
 }
