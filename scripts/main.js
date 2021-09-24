@@ -78,11 +78,11 @@ function finishTurn() {
 }
 
 function proceedBattleRezults() {
-    //let playerAttackedPart = attackSelection.getSelected();
-    //let playerDefendedPart = defenseSelection.getSelected();
+    let playerAttackedPart = attackSelection.getSelected();
+    let playerDefendedPart = defenseSelection.getSelected();
 
-    //let enemyAttackedPart = 'head';
-    //let enemyDefendedPart = 'torso';
+    let enemyAttackedPart = 'head';
+    let enemyDefendedPart = 'torso';
 
     let totalDamage = calculateTotalMainPlayerDamage(playerAttackedPart == enemyDefendedPart);
     let totalMana = calculateTotalMainPlayerMana();

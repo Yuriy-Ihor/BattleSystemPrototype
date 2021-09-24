@@ -7,11 +7,6 @@ const bodyPart = {
     shotChance: 50
 }
 
-const fillType = {
-    hollow: 'hollow',
-    filled: 'filled'
-}
-
 const silhouetteImagePath = 'silhouette-parts';
 
 class Silhouette {
@@ -69,9 +64,12 @@ class Silhouette {
         return `${silhouetteImagePath}/${this.relevance}/${type}/${id}-${type}.png`;
     }
 
+    isBodyPartSelected() {
+        return this.selected != null;
+    }
 
     disselectBodyPart() {
-        this.hollowImage(image);
+        this.hollowImage(this.selected);
         this.selected = null;
     }
 
