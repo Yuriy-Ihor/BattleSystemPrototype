@@ -1,16 +1,4 @@
 
-.body-selection {
-    
-}
-
-.silhouette-part {
-    
-}
-
-.svg-silhouette {
-    
-}
-
 .silhouette-part:hover {
     background-color: white;
 }
@@ -137,6 +125,23 @@
 
 .battle-screen-player-summary {
     text-align: center;
+}
+
+.body-selection {
+    display: block;
+}
+
+.silhouette-part {
+    
+}
+
+.svg-silhouette {
+    
+}
+
+#player-silhouettes {
+    display: flex;
+    justify-content: center;
 }
 
 #battle-screen-selection-switching {

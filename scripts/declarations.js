@@ -83,4 +83,4 @@ const battleSelectionsPanel = new BattleSelectionsPanel(
     battleScreenFinishTurnButtonHTML
 );
 
-const turnSummaryDisplay = new TurnSummaryDisplay(turnSummaryDisplaySvg);
+const turnSummaryDisplay = new TurnSummaryDisplay(turnSummaryPlayerDisplaySvg, turnSummaryEnemyDisplaySvg);
