@@ -22,7 +22,6 @@ class Silhouette {
         }
 
         for (var body_part_name in this.coordinate_map) {
-
             let positionX = this.coordinate_map[body_part_name]["left"] + (screenWidth - this.size) / 2;
             let positionY = this.coordinate_map[body_part_name]["top"] + (svgScreenHeight - this.size) / 2;
 
@@ -37,22 +36,21 @@ class Silhouette {
             newImage.setAttribute('height', this.coordinate_map[body_part_name]["height"]);
 
             newImage.addEventListener('mouseover', () => {
-                newImage.setAttribute('href', this.getImagesPath('filled', newImage.id));
+                this.changeImageType(newImage, 'filled');
             });
 
             newImage.addEventListener('mouseout', () => {
-                if(this.selected == newImage) {
-                    return;
+                if(this.selected != newImage) {
+                    this.changeImageType(newImage, 'hollow');
                 }
-                newImage.setAttribute('href', this.getImagesPath('hollow', newImage.id));
             });
 
             newImage.addEventListener('mousedown', () => {
                 if(this.selected != null) {
-                    this.selected.setAttribute('href', this.getImagesPath('hollow', this.selected.id));
+                    this.changeImageType(this.selected, 'hollow')
                 }
                 this.selected = newImage;
-                newImage.setAttribute('href', this.getImagesPath('filled', newImage.id));
+                this.changeImageType(newImage, 'filled');
             });
             
             display.appendChild(newImage);
@@ -66,7 +64,11 @@ class Silhouette {
         return `${silhouetteImagePath}/${this.relevance}/${type}/${id}-${type}.png`;
     }
 
-    render(path) {
+    changeImageType(image, newType) {
+        image.setAttribute('href', this.getImagesPath(newType, image.id));
+    }
+
+    render() {
         // todo : update position on resize
     }
 }
