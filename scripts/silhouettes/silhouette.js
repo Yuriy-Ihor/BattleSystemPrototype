@@ -11,7 +11,7 @@ const silhouetteImagePath = 'silhouette-parts';
 
 class Silhouette {
     imagesPath;
-    constructor(_x, _y, _coordinate_map) {
+    constructor(_x, _y, _coordinate_map, path) {
         this.relevance = _coordinate_map["relevance"];
         this.size = _coordinate_map['unscaled-size'];
         this.coordinate_map = {};
@@ -22,36 +22,10 @@ class Silhouette {
             }
         }
 
-        this.body_parts_sprites = {}
-        this.body_parts = [];
-        
+        this.images = {};
+
         for (var body_part_name in this.coordinate_map) {
-            this.body_parts_sprites[`${body_part_name}-hollow`] = document.getElementById(`${body_part_name}-hollow-${this.relevance}`);
-            this.body_parts_sprites[`${body_part_name}-filled`] = document.getElementById(`${body_part_name}-filled-${this.relevance}`);
-            
-            let newBodyPart = Object.create(bodyPart);
-            newBodyPart.id = body_part_name;
-            
-            this.body_parts[body_part_name] = newBodyPart;
-        }
-
-        this.hovering = null;
-    }
-
-    getImagesPath(type, id) {
-        return `${silhouetteImagePath}/${this.relevance}/${type}/${id}-${type}.png`;
-    }
-
-    render(path) {
-        for (var body_part_name in this.coordinate_map) {
-            let body_part_image_type;
-            
-            if(body_part_name == this.hovering || body_part_name == this.selected_body_part) {
-                body_part_image_type = 'filled';
-            }
-            else {
-                body_part_image_type = 'hollow';
-            }
+            let body_part_image_type = 'hollow';
 
             let width = this.coordinate_map[body_part_name]["width"];
             let height = this.coordinate_map[body_part_name]["height"];
@@ -62,17 +36,36 @@ class Silhouette {
             let newImage = document.createElementNS("http://www.w3.org/2000/svg", 'image');
 
             newImage.setAttribute('href', this.getImagesPath(body_part_image_type, body_part_name));
+            newImage.setAttribute('class', 'silhouette-part');
+            newImage.setAttribute('id', body_part_name);
             newImage.setAttribute('x', positionX);
             newImage.setAttribute('y', positionY);
             newImage.setAttribute('width', width);
             newImage.setAttribute('height', height);
 
-            newImage.addEventListener('mouseover', () => function(){
+            newImage.addEventListener('mouseover', () => {
                 this.hovering = newImage;
-                console.log("Hovering " + this.hovering);
+                newImage.setAttribute('href', this.getImagesPath('filled', newImage.id));
+            });
+
+            newImage.addEventListener('mouseout', () => {
+                this.hovering = null;
+                newImage.setAttribute('href', this.getImagesPath('hollow', newImage.id));
             });
             
             path.appendChild(newImage);
+
+            this.images[body_part_name] = newImage;
         }
+
+        this.hovering = null;
+    }
+
+    getImagesPath(type, id) {
+        return `${silhouetteImagePath}/${this.relevance}/${type}/${id}-${type}.png`;
+    }
+
+    render(path) {
+        // todo : update position on resize
     }
 }

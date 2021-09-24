@@ -142,11 +142,8 @@ function startGame() {
     let attackSvg = document.getElementById('attack-selection-silhouette');
     let defenseSvg = document.getElementById('defense-selection-silhouette');
     
-    let attackSilhouette = new Silhouette(0, 0, silhouette_coordinate_map_side);
-    let defenseSsilhouette = new Silhouette(0, 0, silhouette_coordinate_map_main);
-
-    attackSilhouette.render(attackSvg);
-    defenseSsilhouette.render(defenseSvg);
+    let attackSilhouette = new Silhouette(0, 0, silhouette_coordinate_map_side, attackSvg);
+    let defenseSsilhouette = new Silhouette(0, 0, silhouette_coordinate_map_main, defenseSvg);
 
     hideAllScreens();
     
