@@ -1,12 +1,7 @@
 
-#attack-selection-silhouette {
+.body-selection {
     width: 100%;
     height: 400px;
-}
-
-#defense-selection-silhouette {
-    width: 500px;
-    height: 500px;
 }
 
 #players-bar {
