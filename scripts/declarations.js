@@ -20,9 +20,9 @@ function getBodypartsList (coordinate_map) {
         
         let newBodyPart = Object.create(bodyPart);
         newBodyPart.id = body_part_name;
-        newBodyPart.baseLife = 100;
-        newBodyPart.currentLife = 100;
-        newBodyPart.shotChance = 0.5;
+        newBodyPart.baseLife = BODY_PART_LIFE;
+        newBodyPart.currentLife = BODY_PART_LIFE;
+        newBodyPart.shotChance = BODY_PART_SHOOT_CHANCE;
 
         bodyParts.push(newBodyPart);
     }
@@ -84,8 +84,8 @@ function initOpponent() {
     return opponent;
 }
 
-const attackSilhouette = new SelectableSilhouette(silhouette_coordinate_map_side, attackSvg);
-const defenseSilhouette = new SelectableSilhouette(silhouette_coordinate_map_main, defenseSvg);
+const attackSilhouette = new SelectableSilhouette(silhouette_coordinate_map_side, attackSvg, players.opponent);
+const defenseSilhouette = new SelectableSilhouette(silhouette_coordinate_map_main, defenseSvg, players.mainPlayer);
 
 const abilitySelection = new BattleSelection(battleScreenSelectionAbilityHTML);
 abilitySelection.getSelected = getSelectedPlayerAbilities;

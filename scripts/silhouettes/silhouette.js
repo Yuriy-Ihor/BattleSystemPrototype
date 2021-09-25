@@ -1,8 +1,14 @@
 
 const silhouetteImagePath = 'silhouette-parts';
 
-class SilhouetteBar {
+class BodyPartUI {
+    constructor(targetBodyPart) {
+        this.targetBodyPart = targetBodyPart;
+    }
 
+    getImage() {
+        return this.targetBodyPart.getElementsByClassName('silhouette-part')[0];
+    }
 }
 
 class Silhouette{
@@ -10,7 +16,7 @@ class Silhouette{
         this.relevance = _coordinate_map["relevance"];
         this.size = _coordinate_map['unscaled-size'];
         this.coordinate_map = {};
-        this.images = [];
+        this.bodyParts = [];
 
         for (var body_part_name in _coordinate_map) {
             if (body_part_name != "unscaled-size" && body_part_name != "relevance") {
@@ -22,6 +28,8 @@ class Silhouette{
         group.setAttribute('class', 'svg-silhouette');
 
         for (var body_part_name in this.coordinate_map) {
+            let bodyPartGroup = document.createElementNS("http://www.w3.org/2000/svg", 'g');
+
             let path = this.getImagesPath('hollow', body_part_name);
 
             let width = this.coordinate_map[body_part_name]["width"];
@@ -31,9 +39,12 @@ class Silhouette{
             let positionY = this.coordinate_map[body_part_name]["top"];
 
             let newImage = this.createImage(path, body_part_name, width, height, positionX, positionY, 'silhouette-part');
+            bodyPartGroup.appendChild(newImage);
+
+            let bodyPart = new BodyPartUI(bodyPartGroup);
             
-            group.appendChild(newImage);
-            this.images.push(newImage);
+            group.appendChild(bodyPartGroup);
+            this.bodyParts.push(bodyPart);
         }
 
         display.appendChild(group);
@@ -42,6 +53,7 @@ class Silhouette{
         display.style.height = this.size;
 
         this.display = display;
+        this.targetPlayer = targetPlayer;
     }
 
     createImage(path, id, width, height, x = 0, y = 0, className = '') {
@@ -79,8 +91,8 @@ class SelectableSilhouette extends Silhouette {
     constructor(_coordinate_map, display, targetPlayer) {
         super(_coordinate_map, display, targetPlayer);
 
-        for(let i = 0; i < this.images.length; i++){
-            let image = this.images[i];
+        for(let i = 0; i < this.bodyParts.length; i++){
+            let image = this.bodyParts[i].getImage();
             image.addEventListener('mouseover', () => {
                 this.fillImage(image);
             });
