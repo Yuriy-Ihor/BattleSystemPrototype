@@ -11,6 +11,24 @@ var players = {mainPlayer: null, opponent: null};
 players.mainPlayer = initMainPlayer();
 players.opponent = initOpponent();
 
+function getBodypartsList (coordinate_map) {
+    let bodyParts = [];
+    for (var body_part_name in coordinate_map) {
+        if(body_part_name == 'relevance' || body_part_name == 'unscaled-size') {
+            continue;
+        }
+        
+        let newBodyPart = Object.create(bodyPart);
+        newBodyPart.id = body_part_name;
+        newBodyPart.baseLife = 100;
+        newBodyPart.currentLife = 100;
+        newBodyPart.shotChance = 0.5;
+
+        bodyParts.push(newBodyPart);
+    }
+    return bodyParts;
+}
+
 function initMainPlayer() {
     let mainPlayer = new Player();
     mainPlayer.name = "Tassadar";
@@ -23,6 +41,7 @@ function initMainPlayer() {
         rank: 77,
         wins: 14
     };
+    mainPlayer.bodyParts = getBodypartsList(silhouette_coordinate_map_main);
     mainPlayer.image = 'images/protoss.jpg';
     mainPlayer.playerStats[playerStats.hitpoints] = 50;
     mainPlayer.playerStats[playerStats.mana] = 50;
@@ -49,6 +68,7 @@ function initOpponent() {
         rank: 66,
         wins: 13
     };
+    opponent.bodyParts = getBodypartsList(silhouette_coordinate_map_side);
     opponent.image = 'images/undead.jpg';
 
     opponent.playerStats[playerStats.hitpoints] = 50;

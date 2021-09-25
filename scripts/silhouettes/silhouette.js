@@ -44,18 +44,6 @@ class Silhouette{
         this.display = display;
     }
 
-    createPlayerBodyparts (targetPlayer) {
-        for (var body_part_name in this.coordinate_map) {
-            let newBodyPart = Object.create(bodyPart);
-            newBodyPart.id = body_part_name;
-            newBodyPart.baseLife = 100;
-            newBodyPart.currentLife = 100;
-            newBodyPart.shotChance = 0.5;
-
-            targetPlayer.bodyParts.add(newBodyPart);
-        }
-    }
-
     createImage(path, id, width, height, x = 0, y = 0, className = '') {
         let newImage = document.createElementNS("http://www.w3.org/2000/svg", 'image');
 
@@ -126,11 +114,11 @@ class SelectableSilhouette extends Silhouette {
 }
 
 class SummarySilhouette extends Silhouette {
-    constructor(_coordinate_map, display, targetPlayer, attackedIconImage, defendedIconImage) {
+    constructor(_coordinate_map, display, targetPlayer) {
         super(_coordinate_map, display, targetPlayer);
         
-        this.attackedIcon = this.createImage(attackedIconImage, 'attacked-icon', 50, 50, 0, 0, 'silhouette-icon');
-        this.defendedIcon = this.createImage(defendedIconImage, 'defended-icon', 50, 50, 0, 0, 'silhouette-icon');
+        this.attackedIcon = this.createImage('images/sight.png', 'attacked-icon', 50, 50, 0, 0, 'silhouette-icon');
+        this.defendedIcon = this.createImage('images/shield.png', 'defended-icon', 50, 50, 0, 0, 'silhouette-icon');
 
         display.appendChild(this.attackedIcon);
         display.appendChild(this.defendedIcon);
@@ -151,7 +139,6 @@ class SummarySilhouette extends Silhouette {
     }
 
     alignIconOnBodyPart(bodyPart, icon) {
-        
         let x = parseFloat(bodyPart.getAttribute('x')) + parseFloat(bodyPart.getAttribute('width')) * 0.5 - parseFloat(icon.getAttribute('width')) * 0.5;
         let y = parseFloat(bodyPart.getAttribute('y')) + parseFloat(bodyPart.getAttribute('height')) * 0.5 - parseFloat(icon.getAttribute('height')) * 0.5;
 
