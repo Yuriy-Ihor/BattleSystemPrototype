@@ -22,7 +22,7 @@ function getBodypartsList (coordinate_map) {
         newBodyPart.id = body_part_name;
         newBodyPart.baseLife = BODY_PART_LIFE;
         newBodyPart.currentLife = BODY_PART_LIFE;
-        newBodyPart.shotChance = BODY_PART_SHOOT_CHANCE;
+        newBodyPart.shootChance = BODY_PART_SHOOT_CHANCE;
 
         bodyParts.push(newBodyPart);
     }
@@ -104,4 +104,4 @@ const battleSelectionsPanel = new BattleSelectionsPanel(
     battleScreenFinishTurnButtonHTML
 );
 
-const turnSummaryDisplay = new TurnSummaryDisplay(turnSummaryPlayerDisplaySvg, turnSummaryEnemyDisplaySvg);
+const turnSummaryDisplay = new TurnSummaryDisplay(turnSummaryPlayerDisplaySvg, turnSummaryEnemyDisplaySvg, players.mainPlayer, players.opponent);

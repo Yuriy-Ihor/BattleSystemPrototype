@@ -2,12 +2,29 @@
 const silhouetteImagePath = 'silhouette-parts';
 
 class BodyPartUI {
-    constructor(targetBodyPart) {
+    constructor(targetBodyPart, bodyPartInfo) {
         this.targetBodyPart = targetBodyPart;
+        this.bodyPartInfo = bodyPartInfo;
+        this.bodyPartImage = targetBodyPart.getElementsByClassName('silhouette-part')[0];
+
+        this.drawShootChance(bodyPartInfo.shootChance);
+    }
+    
+    drawShootChance(chance) {
+        let shootChanceText = document.createElementNS("http://www.w3.org/2000/svg", 'text');
+        shootChanceText.innerText = chance;
+        shootChanceText.setAttribute('x', this.bodyPartImage.getAttribute('x'));
+        shootChanceText.setAttribute('y', this.bodyPartImage.getAttribute('y'));
+        shootChanceText.setAttribute('fill', 'white');
+        
+        let textNode = document.createTextNode(chance * 100 + "%");
+        shootChanceText.appendChild(textNode);
+
+        this.targetBodyPart.appendChild(shootChanceText);
     }
 
     getImage() {
-        return this.targetBodyPart.getElementsByClassName('silhouette-part')[0];
+        return this.bodyPartImage;
     }
 }
 
@@ -38,10 +55,11 @@ class Silhouette{
             let positionX = this.coordinate_map[body_part_name]["left"];
             let positionY = this.coordinate_map[body_part_name]["top"];
 
-            let newImage = this.createImage(path, body_part_name, width, height, positionX, positionY, 'silhouette-part');
+            let newImage = createImage(path, body_part_name, width, height, positionX, positionY, 'silhouette-part');
             bodyPartGroup.appendChild(newImage);
 
-            let bodyPart = new BodyPartUI(bodyPartGroup);
+            let bodyPartInfo = targetPlayer.bodyParts.find(x => x.id == body_part_name);
+            let bodyPart = new BodyPartUI(bodyPartGroup, bodyPartInfo);
             
             group.appendChild(bodyPartGroup);
             this.bodyParts.push(bodyPart);
@@ -54,20 +72,6 @@ class Silhouette{
 
         this.display = display;
         this.targetPlayer = targetPlayer;
-    }
-
-    createImage(path, id, width, height, x = 0, y = 0, className = '') {
-        let newImage = document.createElementNS("http://www.w3.org/2000/svg", 'image');
-
-        newImage.setAttribute('href', path);
-        newImage.setAttribute('class', className);
-        newImage.setAttribute('id', id);
-        newImage.setAttribute('x', x);
-        newImage.setAttribute('y', y);
-        newImage.setAttribute('width', width);
-        newImage.setAttribute('height', height);
-
-        return newImage;
     }
 
     getImagesPath(type, id) {
@@ -129,8 +133,8 @@ class SummarySilhouette extends Silhouette {
     constructor(_coordinate_map, display, targetPlayer) {
         super(_coordinate_map, display, targetPlayer);
         
-        this.attackedIcon = this.createImage('images/sight.png', 'attacked-icon', 50, 50, 0, 0, 'silhouette-icon');
-        this.defendedIcon = this.createImage('images/shield.png', 'defended-icon', 50, 50, 0, 0, 'silhouette-icon');
+        this.attackedIcon = createImage('images/sight.png', 'attacked-icon', 50, 50, 0, 0, 'silhouette-icon');
+        this.defendedIcon = createImage('images/shield.png', 'defended-icon', 50, 50, 0, 0, 'silhouette-icon');
 
         display.appendChild(this.attackedIcon);
         display.appendChild(this.defendedIcon);
@@ -157,4 +161,18 @@ class SummarySilhouette extends Silhouette {
         icon.setAttribute('x', x);
         icon.setAttribute('y', y);
     }
+}
+
+function createImage(path, id, width, height, x = 0, y = 0, className = '') {
+    let newImage = document.createElementNS("http://www.w3.org/2000/svg", 'image');
+
+    newImage.setAttribute('href', path);
+    newImage.setAttribute('class', className);
+    newImage.setAttribute('id', id);
+    newImage.setAttribute('x', x);
+    newImage.setAttribute('y', y);
+    newImage.setAttribute('width', width);
+    newImage.setAttribute('height', height);
+
+    return newImage;
 }

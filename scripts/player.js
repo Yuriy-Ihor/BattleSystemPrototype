@@ -10,7 +10,7 @@ const bodyPart = {
     id: '',
     baseLife: 100,
     currentLife: 100,
-    shotChance: 0.5
+    shootChance: 0.5
 }
 
 const playerRating = {
