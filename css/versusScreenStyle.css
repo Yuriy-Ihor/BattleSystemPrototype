@@ -24,6 +24,7 @@
 
 .versus-screen-player-stats {
     display: flex;
+    justify-content: center;
 }
 
 .versus-screen-player-display-name {

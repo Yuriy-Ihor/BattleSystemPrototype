@@ -13,8 +13,8 @@ function updatePlayerUI(playerId, playerInfo) {
     let playerImage = playerPanel.getElementsByClassName('player-image')[0];
     playerImage.src = playerInfo.image;
 
-    updatePlayerHealthBar(playerPanel, playerInfo.playerStats[playerStats.hitpoints], playerInfo.playerBaseStats[playerStats.hitpoints]);
-    updatePlayerManaBar(playerPanel, playerInfo.playerStats[playerStats.mana], playerInfo.playerBaseStats[playerStats.mana]);
+    //updatePlayerHealthBar(playerPanel, playerInfo.playerStats[playerStats.hitpoints], playerInfo.playerBaseStats[playerStats.hitpoints]);
+    //updatePlayerManaBar(playerPanel, playerInfo.playerStats[playerStats.mana], playerInfo.playerBaseStats[playerStats.mana]);
 }
 
 function updatePlayerHealthBar(display, currentValue, baseValue) {

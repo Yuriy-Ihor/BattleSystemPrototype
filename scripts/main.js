@@ -18,16 +18,17 @@ function getBattleWinner(players) {
 var currentTurn = 1;
 
 function startTurn() {
+    /*
     if(currentTurn > 0) {
         restoreManaToPlayer(players.mainPlayer, 5);
         restoreManaToPlayer(players.opponent, 5);
-    }
+    }*/
 
     updatePlayersUI(players);
-    fillPlayerAbilitiesList(players.mainPlayer);
+    //fillPlayerAbilitiesList(players.mainPlayer);
     battleSelectionsPanel.showFirstSelection();
     showElement(battleScreenSelectionHTML);
-    showElement(battleScreenSelectionAbilityHTML);
+    // showElement(battleScreenSelectionAbilityHTML);
 }
 
 function restoreManaToPlayer(player, amount) {
@@ -41,7 +42,9 @@ function restoreManaToPlayer(player, amount) {
 }
 
 function finishTurn() {
-    if(getSelectedPlayerAbilities().length == 0 || !attackSilhouette.isBodyPartSelected() || !defenseSilhouette.isBodyPartSelected()) {
+    
+    // if(getSelectedPlayerAbilities().length == 0 || !attackSilhouette.isBodyPartSelected() || !defenseSilhouette.isBodyPartSelected()) {
+    if(!attackSilhouette.isBodyPartSelected() || !defenseSilhouette.isBodyPartSelected()) {
         showErrorMessage("You dumb idiot did something wrong!", 5);
         return;
     }
@@ -53,7 +56,7 @@ function finishTurn() {
     attackSilhouette.disselectBodyPart();
     defenseSilhouette.disselectBodyPart();
 
-    battleScreenAbilitiesListHTML.innerHTML = '';
+    // battleScreenAbilitiesListHTML.innerHTML = '';
 
     hideElement(battleScreenSelectionHTML);
     showElement(battleSummaryScreenHTML);
@@ -70,7 +73,7 @@ function proceedBattleRezults() {
     
     let enemyAttackedPart = defenseSilhouette.images[0];
     let enemyDefendedPart = attackSilhouette.images[1];
-
+    /*
     let totalDamage = calculateTotalMainPlayerDamage(playerAttackedPart == enemyDefendedPart);
     let totalMana = calculateTotalMainPlayerMana();
 
@@ -79,12 +82,13 @@ function proceedBattleRezults() {
     players.mainPlayer.playerStats[playerStats.mana] -= totalMana;
 
     players.opponent.playerStats[playerStats.hitpoints] -= totalDamage;
-    players.opponent.playerStats[playerStats.mana] -= 7;
+    players.opponent.playerStats[playerStats.mana] -= 7;*/
 
     turnSummaryDisplay.updateSummary(playerAttackedPart, playerDefendedPart, enemyAttackedPart, enemyDefendedPart);
 }
 
 function calculateTotalMainPlayerDamage(attackBlocked) {
+    
     let abilities = getSelectedPlayerAbilities();
 
     let totalDamage = 0;
