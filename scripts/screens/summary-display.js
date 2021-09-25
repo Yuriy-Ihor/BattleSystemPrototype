@@ -10,4 +10,12 @@ class TurnSummaryDisplay {
         this.playerDisplay = playerDisplay;
         this.enemyDisplay = enemyDisplay;
     }
+
+    updateSummary(playerAttackedPart, playerDefendedPart, enemyAttackedPart, enemyDefendedPart) {
+        
+    }
+
+    drawIconsOnSilhouette(attackedPart, defendedPart, targetSilhouette) {
+
+    }
 }

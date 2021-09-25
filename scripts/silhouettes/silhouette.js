@@ -9,6 +9,10 @@ const bodyPart = {
 
 const silhouetteImagePath = 'silhouette-parts';
 
+class SilhouetteBar {
+    
+}
+
 class Silhouette{
     constructor(_coordinate_map, display) {
         this.relevance = _coordinate_map["relevance"];
