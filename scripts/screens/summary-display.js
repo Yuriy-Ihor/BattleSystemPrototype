@@ -21,8 +21,4 @@ class TurnSummaryDisplay {
         this.enemySilhouette.showAttackedIcon(playerAttackedPart);
         this.enemySilhouette.showDefendedIcon(enemyDefendedPart);
     }
-
-    drawIconsOnSilhouette(attackedPart, defendedPart, targetSilhouette) {
-
-    }
 }

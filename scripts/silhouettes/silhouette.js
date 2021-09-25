@@ -134,6 +134,10 @@ class SummarySilhouette extends Silhouette {
 
     showAttackedIcon(bodyPart) {
         this.alignIconOnBodyPart(bodyPart, this.attackedIcon);
+
+        bodyPart.classList.add('damaged');
+
+        this.display.getElementById(bodyPart.id).classList.add('damaged');
     }
 
     showDefendedIcon(bodyPart) {
@@ -144,9 +148,6 @@ class SummarySilhouette extends Silhouette {
         
         let x = parseFloat(bodyPart.getAttribute('x')) + parseFloat(bodyPart.getAttribute('width')) * 0.5 - parseFloat(icon.getAttribute('width')) * 0.5;
         let y = parseFloat(bodyPart.getAttribute('y')) + parseFloat(bodyPart.getAttribute('height')) * 0.5 - parseFloat(icon.getAttribute('height')) * 0.5;
- 
-        console.log(x);
-        console.log(y);
 
         icon.setAttribute('x', x);
         icon.setAttribute('y', y);

@@ -135,6 +135,11 @@
     
 }
 
+.damaged {
+    transition: 0.5s;
+    filter: invert(78%) sepia(95%) saturate(1148%) hue-rotate(333deg) brightness(101%) contrast(89%);
+}
+
 .svg-silhouette {
     
 }
