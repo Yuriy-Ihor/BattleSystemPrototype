@@ -6,6 +6,13 @@ const playerStats = {
     criticalStrike: "Critical strike"
 }
 
+const bodyPart = {
+    id: '',
+    baseLife: 100,
+    currentLife: 100,
+    shotChance: 0.5
+}
+
 const playerRating = {
     rank: 10,
     wins: 10
@@ -15,6 +22,7 @@ class Player {
     name = "default name";
     image = 'src/.png';
     playerRating = Object.create(playerRating);
+    bodyParts = [];
     playerSkills = [];
     playerBaseStats = Object.create(playerStats);
     playerStats = Object.create(playerStats);

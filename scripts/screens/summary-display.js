@@ -20,5 +20,8 @@ class TurnSummaryDisplay {
 
         this.enemySilhouette.showAttackedIcon(playerAttackedPart);
         this.enemySilhouette.showDefendedIcon(enemyDefendedPart);
+
+        //setTimeout(this.playerSilhouette.playDamageAnimation(enemyAttackedPart), 3000);
+        //setTimeout(this.enemySilhouette.playDamageAnimation(playerAttackedPart), 3000);
     }
 }
