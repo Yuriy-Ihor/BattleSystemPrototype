@@ -81,13 +81,13 @@ class Silhouette{
             }
         }
 
-        let group = document.createElementNS("http://www.w3.org/2000/svg", 'g');
-        group.setAttribute('class', 'svg-silhouette');
+        let silhouetteGroup = document.createElementNS("http://www.w3.org/2000/svg", 'g');
+        silhouetteGroup.setAttribute('class', 'svg-silhouette');
 
         for (var body_part_name in this.coordinate_map) {
             let bodyPartGroup = document.createElementNS("http://www.w3.org/2000/svg", 'g');
 
-            let path = this.getImagesPath('hollow', body_part_name);
+            let imagePath = this.getImagesPath('hollow', body_part_name);
 
             let width = this.coordinate_map[body_part_name]["width"];
             let height = this.coordinate_map[body_part_name]["height"];
@@ -95,17 +95,17 @@ class Silhouette{
             let positionX = this.coordinate_map[body_part_name]["left"];
             let positionY = this.coordinate_map[body_part_name]["top"];
 
-            let newImage = createImage(path, body_part_name, width, height, positionX, positionY, 'silhouette-part');
-            bodyPartGroup.appendChild(newImage);
+            let bodyPartImage = createImage(imagePath, body_part_name, width, height, positionX, positionY, 'silhouette-part');
+            bodyPartGroup.appendChild(bodyPartImage);
 
             let bodyPartInfo = targetPlayer.bodyParts.find(x => x.id == body_part_name);
-            let bodyPart = new BodyPartUI(bodyPartGroup, bodyPartInfo);
+            let bodyPartUI = new BodyPartUI(bodyPartGroup, bodyPartInfo);
             
-            group.appendChild(bodyPartGroup);
-            this.bodyParts.push(bodyPart);
+            silhouetteGroup.appendChild(bodyPartGroup);
+            this.bodyParts.push(bodyPartUI);
         }
 
-        display.appendChild(group);
+        display.appendChild(silhouetteGroup);
         
         display.style.width = this.size;
         display.style.height = this.size;
@@ -136,18 +136,21 @@ class SelectableSilhouette extends Silhouette {
         super(_coordinate_map, display, targetPlayer);
 
         for(let i = 0; i < this.bodyParts.length; i++){
-            let image = this.bodyParts[i].getImage();
-            image.addEventListener('mouseover', () => {
+            let bodyPartUI = this.bodyParts[i];
+            let targetBodyPart = bodyPartUI.targetBodyPart;
+            let image = bodyPartUI.getImage();
+            
+            targetBodyPart.addEventListener('mouseover', () => {
                 this.fillImage(image);
             });
 
-            image.addEventListener('mouseout', () => {
+            targetBodyPart.addEventListener('mouseout', () => {
                 if(this.selected != image) {
                     this.hollowImage(image);
                 }
             });
 
-            image.addEventListener('mousedown', () => {
+            targetBodyPart.addEventListener('mousedown', () => {
                 if(this.selected != null) {
                     this.hollowImage(this.selected);
                 }
