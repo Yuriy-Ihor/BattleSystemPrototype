@@ -10,7 +10,7 @@ class Bar {
         
         this.view.setAttribute('x', x);
         this.view.setAttribute('y', y);
-        this.view.setAttribute('fill', 'red');
+        this.view.setAttribute('fill', 'green');
         this.view.setAttribute('width', width);
         this.view.setAttribute('height', height);
 
@@ -40,7 +40,7 @@ class BodyPartUI {
     }
 
     createHealthBar(baseValue) { 
-        let x = parseFloat(this.bodyPartImage.getAttribute('width')) * 0.5 + parseFloat(this.bodyPartImage.getAttribute('x')) - bodyPartUIHealthBarWidth / 2;
+        let x = parseFloat(this.bodyPartImage.getAttribute('width')) * 0.5 + parseFloat(this.bodyPartImage.getAttribute('x')) - bodyPartUIHealthBarWidth * 0.5;
         let y = parseFloat(this.bodyPartImage.getAttribute('height')) * 0.5 + parseFloat(this.bodyPartImage.getAttribute('y'));
 
         let newBar = new Bar(x, y + bodyPartUIPaddingY, baseValue, bodyPartUIHealthBarWidth, bodyPartUIHealthBarHeight);
@@ -56,16 +56,20 @@ class BodyPartUI {
         let shootChanceText = document.createElementNS("http://www.w3.org/2000/svg", 'text');
         shootChanceText.innerText = chance;
         let fontSize = 15;
-        
-        let x = parseFloat(this.bodyPartImage.getAttribute('width')) * 0.5 + parseFloat(this.bodyPartImage.getAttribute('x'));
-        let y = parseFloat(this.bodyPartImage.getAttribute('height')) * 0.5 + parseFloat(this.bodyPartImage.getAttribute('y'));
+        let textNode = document.createTextNode(chance * 100 + "%");
         shootChanceText.setAttribute('font-size', fontSize + 'px');
+        shootChanceText.appendChild(textNode);
+
+        // get width
+        var bbox = shootChanceText.getBBox();
+        console.log(bbox.width);
+        
+        let x = parseFloat(this.bodyPartImage.getAttribute('width')) * 0.5 + parseFloat(this.bodyPartImage.getAttribute('x') - bbox.width * 0.5);
+        let y = parseFloat(this.bodyPartImage.getAttribute('height')) * 0.5 + parseFloat(this.bodyPartImage.getAttribute('y'));
+        
         shootChanceText.setAttribute('x', x - fontSize * 0.5);
         shootChanceText.setAttribute('y', y);
-        shootChanceText.setAttribute('fill', 'white');
-        
-        let textNode = document.createTextNode(chance * 100 + "%");
-        shootChanceText.appendChild(textNode);
+        shootChanceText.setAttribute('fill', 'green');     
 
         return shootChanceText;
     }
