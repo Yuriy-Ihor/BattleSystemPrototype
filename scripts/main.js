@@ -78,12 +78,12 @@ function proceedBattleRezults() {
     let enemyDefendedPart =  enemySilhouette.bodyPartsUI[DEFENDED_ENEMY_PART_ID].bodyPartImage; //attackSilhouette.bodyParts[1].getImage();
 
     if(playerAttackedPartId != enemyDefendedPart.id) {
-        console.log('Decreasing life of ' + playerAttackedPartId);
         players.opponent.bodyParts[playerAttackedPartId].currentLife -= 1;
     }
     
     if(enemyAttackedPart.id != playerDefendedPartId) {
         console.log('Decreasing life of ' + enemyAttackedPart.id);
+        console.log('defended  ' + playerDefendedPartId);
         players.mainPlayer.bodyParts[enemyAttackedPart.id].currentLife -= 1;
     }
 
