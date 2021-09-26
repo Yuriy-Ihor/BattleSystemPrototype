@@ -4,8 +4,8 @@ const turnSummaryEnemyDisplaySvg = document.getElementById('battle-screen-summar
 
 class TurnSummaryDisplay {
     constructor(playerDisplay, enemyDisplay, mainPlayer, opponent) {
-        this.playerSilhouette = new SummarySilhouette(silhouette_coordinate_map_main, playerDisplay, mainPlayer);
-        this.enemySilhouette = new SummarySilhouette(silhouette_coordinate_map_side, enemyDisplay, opponent);
+        this.playerSilhouette = new SummarySilhouette(silhouette_coordinate_map_main, playerDisplay, mainPlayer, UI_SCALE);
+        this.enemySilhouette = new SummarySilhouette(silhouette_coordinate_map_side, enemyDisplay, opponent, UI_SCALE);
 
         this.playerDisplay = playerDisplay;
         this.enemyDisplay = enemyDisplay;
@@ -15,14 +15,19 @@ class TurnSummaryDisplay {
     }
 
     updateEnemySilhouetteUI(attackedPart, defendedPart, bodyParts) {
-        this.playerSilhouette.showAttackedIcon(attackedPart);
-        this.playerSilhouette.showDefendedIcon(defendedPart);
-
+        this.updateSilhouetteUI(attackedPart, defendedPart, bodyParts, this.enemySilhouette);
     }
 
     updatePlayerSilhouetteUI(attackedPart, defendedPart, bodyParts) {
-        this.enemySilhouette.showAttackedIcon(attackedPart);
-        this.enemySilhouette.showDefendedIcon(defendedPart);
+        this.updateSilhouetteUI(attackedPart, defendedPart, bodyParts, this.playerSilhouette);
+    }
 
+    updateSilhouetteUI(attackedPart, defendedPart, bodyParts, silhouette) {
+        silhouette.showAttackedIcon(attackedPart);
+        silhouette.showDefendedIcon(defendedPart);
+
+        for(let bodyPartName in bodyParts) {
+            silhouette.bodyPartsUI[bodyPartName].updateHealthBarLife(bodyParts[bodyPartName].currentLife);
+        }
     }
 }
