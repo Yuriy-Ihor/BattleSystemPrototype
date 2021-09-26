@@ -20,11 +20,11 @@ class Bar {
 }
 
 class BodyPartUI {
-    constructor(targetBodyPart, bodyPartInfo, display) {
+    constructor(targetBodyPart, bodyPartInfo, svgDisplay) {
         this.targetBodyPart = targetBodyPart;
         this.bodyPartInfo = bodyPartInfo;
         this.bodyPartImage = targetBodyPart.getElementsByClassName('silhouette-part')[0];
-        this.display = display;
+        this.svgDisplay = svgDisplay;
         this.uiGroup = document.createElementNS("http://www.w3.org/2000/svg", 'g');
     }
 
@@ -36,7 +36,7 @@ class BodyPartUI {
         this.healthBar = this.createHealthBar(this.bodyPartInfo.baseLife);
         this.uiGroup.appendChild(this.healthBar.view);
 
-        this.display.appendChild(this.uiGroup);
+        this.svgDisplay.appendChild(this.uiGroup);
     }
 
     createHealthBar(baseValue) { 
@@ -155,23 +155,25 @@ class SelectableSilhouette extends Silhouette {
             let targetBodyPart = bodyPartUI.uiGroup;
             let image = bodyPartUI.getImage();
             
-            targetBodyPart.addEventListener('mouseover', () => {
-                this.fillImage(image);
-            });
+            const elements = [targetBodyPart, image];
 
-            targetBodyPart.addEventListener('mouseout', () => {
+            elements.forEach(element => element.addEventListener('mouseover', () => {
+                this.fillImage(image);
+            }));
+
+            elements.forEach(element => element.addEventListener('mouseout', () => {
                 if(this.selected != image) {
                     this.hollowImage(image);
                 }
-            });
+            }));
 
-            targetBodyPart.addEventListener('mousedown', () => {
+            elements.forEach(element => element.addEventListener('mousedown', () => {
                 if(this.selected != null) {
                     this.hollowImage(this.selected);
                 }
                 this.selected = image;
                 this.fillImage(this.selected);
-            });
+            }));
         }
 
         this.selected = null;
