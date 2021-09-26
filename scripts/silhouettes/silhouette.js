@@ -1,9 +1,10 @@
 
 const silhouetteImagePath = 'silhouette-parts';
 
+const healthBarPaddingY = 8;
 const bodyPartUIPaddingY = 15;
 const iconsPaddingY = 10;
-const bodyPartUIHealthBarWidth = 55;
+const bodyPartUIHealthBarWidth = 65;
 const bodyPartUIHealthBarHeight = 10;
 
 class Bar {
@@ -57,8 +58,8 @@ class BodyPartUI {
         this.uiGroup.setAttribute('class', 'body-part-ui-group');
         this.uiGroup.setAttribute('width', 30);
 
-        let x = parseFloat(this.bodyPartImage.getAttribute('width')) * 0.5 + parseFloat(this.bodyPartImage.getAttribute('x'));
-        let y = parseFloat(this.bodyPartImage.getAttribute('height')) * 0.5 + parseFloat(this.bodyPartImage.getAttribute('y'));
+        let x = parseFloat(this.bodyPartImage.getAttribute('x')) + parseFloat(this.bodyPartImage.getAttribute('width')) * 0.1;
+        let y = parseFloat(this.bodyPartImage.getAttribute('y')) + parseFloat(this.bodyPartImage.getAttribute('height')) * 0.1;
 
         this.uiGroup.setAttribute('x', x);
         this.uiGroup.setAttribute('y', y);
@@ -73,16 +74,30 @@ class BodyPartUI {
         let x = this.uiGroup.getAttribute('x');
         let y = this.uiGroup.getAttribute('y');
 
-        let newBar = new Bar(x - bodyPartUIHealthBarWidth * 0.5, y, baseValue, bodyPartUIHealthBarWidth, bodyPartUIHealthBarHeight);
+        let newBar = new Bar(x - bodyPartUIHealthBarWidth * 0.5, parseFloat(y) + healthBarPaddingY, baseValue, bodyPartUIHealthBarWidth, bodyPartUIHealthBarHeight);
 
         return newBar;
     }
 
     updateUI(currentHealth) {
+        if(currentHealth <= 0) {
+            var that = this;
+            setTimeout(function () {
+                console.log(that);
+                that.bodyPartImage.classList.add('killed');
+                if(hasClass(that.bodyPartImage, 'damaged')) {
+                    that.bodyPartImage.classList.remove('damaged');
+                }
+                that.healthBar.updateFillAmount(currentHealth);
+            }, 100);
+            return;
+        }
         if(currentHealth < this.bodyPartBaseInfo.baseLife) {
             var that = this;
             setTimeout(function () {
-                that.bodyPartImage.setAttribute('class', 'damaged');
+                if(!hasClass(that.bodyPartImage, 'damaged')) {
+                    that.bodyPartImage.classList.add('damaged');
+                }
                 that.healthBar.updateFillAmount(currentHealth);
             }, 100);
         }
@@ -99,7 +114,7 @@ class BodyPartUI {
         let x = this.uiGroup.getAttribute('x');
         let y = this.uiGroup.getAttribute('y');
         
-        shootChanceText.setAttribute('x', x - fontSize * 0.5);
+        shootChanceText.setAttribute('x', x - 24); // 24 - text width multiplayed on 0.5 (no way to get width from text now :( )
         shootChanceText.setAttribute('y', y);
         shootChanceText.setAttribute('fill', 'green');    
 
@@ -266,4 +281,10 @@ function createImage(path, id, width, height, x = 0, y = 0, className = '') {
     newImage.setAttribute('height', height);
 
     return newImage;
+}
+
+function changeBrightness(element) {
+    let style = element.style;
+    let filters = style.filter;
+    console.log(filters);
 }
