@@ -71,8 +71,8 @@ function proceedBattleRezults() {
     let playerAttackedPart = attackSelection.getSelected();
     let playerDefendedPart = defenseSelection.getSelected();
     
-    let enemyAttackedPart = defenseSilhouette.bodyParts[0].getImage();
-    let enemyDefendedPart = attackSilhouette.bodyParts[1].getImage();
+    let enemyAttackedPart = defenseSilhouette.bodyParts['head'].bodyPartImage; //defenseSilhouette.bodyParts[0].getImage();
+    let enemyDefendedPart =  defenseSilhouette.bodyParts['torso'].bodyPartImage; //attackSilhouette.bodyParts[1].getImage();
     /*
     let totalDamage = calculateTotalMainPlayerDamage(playerAttackedPart == enemyDefendedPart);
     let totalMana = calculateTotalMainPlayerMana();

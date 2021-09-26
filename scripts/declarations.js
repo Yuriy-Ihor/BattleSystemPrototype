@@ -91,7 +91,10 @@ const abilitySelection = new BattleSelection(battleScreenSelectionAbilityHTML);
 abilitySelection.getSelected = getSelectedPlayerAbilities;
 
 const attackSelection = new BattleSelection(battleScreenSelectionAttackHTML);
-attackSelection.getSelected = () => { return attackSilhouette.selected };
+attackSelection.getSelected = () => { 
+    console.log(attackSilhouette.selected);
+    return attackSilhouette.selected;
+};
 
 const defenseSelection = new BattleSelection(battleScreenSelectionDefenseHTML);
 defenseSelection.getSelected = () => { return defenseSilhouette.selected };

@@ -1,5 +1,6 @@
 
 const silhouetteImagePath = 'silhouette-parts';
+
 const bodyPartUIPaddingY = 5;
 const bodyPartUIHealthBarWidth = 26;
 const bodyPartUIHealthBarHeight = 15;
@@ -11,11 +12,23 @@ class Bar {
         this.view.setAttribute('x', x);
         this.view.setAttribute('y', y);
         this.view.setAttribute('fill', 'green');
-        this.view.setAttribute('width', width);
         this.view.setAttribute('height', height);
+        this.setWidth(width);
 
         this.currentValue = baseValue;
+        this.baseWidth = width;
         this.baseValue = baseValue;
+    }
+
+    updateFillAmount(value) {
+        this.currentValue = value;
+
+        let fillAmount = value / this.baseValue;
+        this.setWidth(this.baseWidth * fillAmount);     
+    }
+
+    setWidth(width) {
+        this.view.setAttribute('width', width);
     }
 }
 
@@ -49,7 +62,7 @@ class BodyPartUI {
     }
 
     updateHealthBarLife(value) {
-
+        this.healthBar.updateFillAmount(value);
     }
     
     drawShootChance(chance) {
@@ -84,7 +97,7 @@ class Silhouette{
         this.relevance = _coordinate_map["relevance"];
         this.size = _coordinate_map['unscaled-size'];
         this.coordinate_map = {};
-        this.bodyParts = [];
+        this.bodyParts = {};
 
         for (var body_part_name in _coordinate_map) {
             if (body_part_name != "unscaled-size" && body_part_name != "relevance") {
@@ -113,13 +126,13 @@ class Silhouette{
             let bodyPartUI = new BodyPartUI(bodyPartGroup, bodyPartInfo, silhouetteGroup);
             
             silhouetteGroup.appendChild(bodyPartGroup);
-            this.bodyParts.push(bodyPartUI);
+            this.bodyParts[body_part_name] = bodyPartUI;
         }
 
         display.appendChild(silhouetteGroup);
-
-        for(let i = 0; i < this.bodyParts.length; i++) {
-            this.bodyParts[i].init();
+        
+        for(let bodyPartId in this.bodyParts) {
+            this.bodyParts[bodyPartId].init();
         }
         
         display.style.width = this.size;
@@ -141,6 +154,10 @@ class Silhouette{
         image.setAttribute('href', this.getImagesPath('filled', image.id));
     }
 
+    updateBodyPartsLife(player) {
+         
+    }
+
     render() {
         // todo : update position on resize
     }
@@ -150,8 +167,8 @@ class SelectableSilhouette extends Silhouette {
     constructor(_coordinate_map, display, targetPlayer) {
         super(_coordinate_map, display, targetPlayer);
 
-        for(let i = 0; i < this.bodyParts.length; i++){
-            let bodyPartUI = this.bodyParts[i];
+        for(let bodyPartId in this.bodyParts){
+            let bodyPartUI = this.bodyParts[bodyPartId];
             let targetBodyPart = bodyPartUI.uiGroup;
             let image = bodyPartUI.getImage();
             
@@ -215,6 +232,7 @@ class SummarySilhouette extends Silhouette {
     }
 
     alignIconOnBodyPart(bodyPart, icon) {
+        console.log(bodyPart);
         let x = parseFloat(bodyPart.getAttribute('x')) + parseFloat(bodyPart.getAttribute('width')) * 0.5 - parseFloat(icon.getAttribute('width')) * 0.5;
         let y = parseFloat(bodyPart.getAttribute('y')) + parseFloat(bodyPart.getAttribute('height')) * 0.5 - parseFloat(icon.getAttribute('height')) * 0.5;
 
