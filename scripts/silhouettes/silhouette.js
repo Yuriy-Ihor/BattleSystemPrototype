@@ -1,9 +1,10 @@
 
 const silhouetteImagePath = 'silhouette-parts';
 
-const bodyPartUIPaddingY = 5;
-const bodyPartUIHealthBarWidth = 35;
-const bodyPartUIHealthBarHeight = 20;
+const bodyPartUIPaddingY = 15;
+const iconsPaddingY = 10;
+const bodyPartUIHealthBarWidth = 55;
+const bodyPartUIHealthBarHeight = 10;
 
 class Bar {
     constructor(x, y, baseValue, width, height) {
@@ -22,6 +23,7 @@ class Bar {
         });
 
         this.barBackground.setAttribute('fill', 'gray');
+        this.fillView.setAttribute('class', 'bar-fill-view');
 
         this.currentValue = baseValue;
         this.baseWidth = width;
@@ -235,12 +237,6 @@ class SummarySilhouette extends Silhouette {
         display.appendChild(this.defendedIcon);
     }
 
-    playDamageAnimation(bodyPart) {
-        bodyPart.classList.add('damaged');
-
-        this.display.getElementById(bodyPart.id).classList.add('damaged');
-    }
-
     showAttackedIcon(bodyPart) {
         this.alignIconOnBodyPart(bodyPart, this.attackedIcon);
     }
@@ -254,7 +250,7 @@ class SummarySilhouette extends Silhouette {
         let y = parseFloat(bodyPart.getAttribute('y')) + parseFloat(bodyPart.getAttribute('height')) * 0.5 - parseFloat(icon.getAttribute('height')) * 0.5;
 
         icon.setAttribute('x', x);
-        icon.setAttribute('y', y);
+        icon.setAttribute('y', y + iconsPaddingY);
     }
 }
 

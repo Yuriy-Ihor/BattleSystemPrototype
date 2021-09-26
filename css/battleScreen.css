@@ -1,8 +1,4 @@
 
-.silhouette-part:hover {
-    background-color: white;
-}
-
 #players-bar {
     display: flex;
     justify-content: space-between;
@@ -137,7 +133,11 @@
 
 .damaged {
     transition-duration: 1s;
-    filter: invert(78%) sepia(95%) saturate(1148%) hue-rotate(333deg) brightness(101%) contrast(89%);
+    filter: hue-rotate(333deg) invert(78%) sepia(95%) saturate(1148%) brightness(101%) contrast(89%);
+}
+
+.bar-fill-view {
+    transition: 0.5s;
 }
 
 .svg-silhouette {
