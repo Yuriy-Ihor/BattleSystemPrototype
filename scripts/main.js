@@ -77,8 +77,12 @@ function proceedBattleRezults() {
     let enemyAttackedPart = defenseSilhouette.bodyPartsUI[ATTACKED_ENEMY_PART_ID].bodyPartImage; //defenseSilhouette.bodyParts[0].getImage();
     let enemyDefendedPart =  defenseSilhouette.bodyPartsUI[DEFENDED_ENEMY_PART_ID].bodyPartImage; //attackSilhouette.bodyParts[1].getImage();
 
-    if(playerAttackedPartId != enemyDefendedPart) {
+    if(playerAttackedPartId != enemyDefendedPart.id) {
         players.opponent.bodyParts[playerAttackedPartId].currentLife -= 1;
+    }
+    
+    if(enemyAttackedPart.id != playerDefendedPartId) {
+        players.mainPlayer.bodyParts[enemyAttackedPart.id].currentLife -= 1;
     }
 
     /*
@@ -92,7 +96,8 @@ function proceedBattleRezults() {
     players.opponent.playerStats[playerStats.hitpoints] -= totalDamage;
     players.opponent.playerStats[playerStats.mana] -= 7;*/
 
-    turnSummaryDisplay.updateSilhouettesUI(playerAttackedPart, playerDefendedPart, enemyAttackedPart, enemyDefendedPart, players);
+    turnSummaryDisplay.updatePlayerSilhouetteUI(enemyAttackedPart, playerDefendedPart, players.mainPlayer.bodyParts);
+    turnSummaryDisplay.updateEnemySilhouetteUI(playerAttackedPart, enemyDefendedPart, players.opponent.bodyParts);
 }
 
 function calculateTotalMainPlayerDamage(attackBlocked) {
