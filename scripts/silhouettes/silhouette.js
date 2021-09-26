@@ -13,8 +13,13 @@ class BodyPartUI {
     drawShootChance(chance) {
         let shootChanceText = document.createElementNS("http://www.w3.org/2000/svg", 'text');
         shootChanceText.innerText = chance;
-        shootChanceText.setAttribute('x', this.bodyPartImage.getAttribute('x'));
-        shootChanceText.setAttribute('y', this.bodyPartImage.getAttribute('y'));
+        let fontSize = 15;
+        
+        let x = parseFloat(this.bodyPartImage.getAttribute('width')) / 2 + parseFloat(this.bodyPartImage.getAttribute('x'));
+        let y = parseFloat(this.bodyPartImage.getAttribute('height')) / 2 + parseFloat(this.bodyPartImage.getAttribute('y'));
+        shootChanceText.setAttribute('font-size', fontSize + 'px');
+        shootChanceText.setAttribute('x', x - fontSize / 2);
+        shootChanceText.setAttribute('y', y);
         shootChanceText.setAttribute('fill', 'white');
         
         let textNode = document.createTextNode(chance * 100 + "%");
