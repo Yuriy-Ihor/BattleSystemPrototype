@@ -1,13 +1,48 @@
 
 const silhouetteImagePath = 'silhouette-parts';
 
+class Bar {
+    constructor(x, y, baseValue, width, height) {
+        this.view = document.createElementNS("http://www.w3.org/2000/svg", 'rect');
+        
+        this.view.setAttribute('x', x);
+        this.view.setAttribute('y', y);
+        this.view.setAttribute('fill', 'red');
+        this.view.setAttribute('width', width);
+        this.view.setAttribute('height', height);
+
+        this.currentValue = baseValue;
+        this.baseValue = baseValue;
+    }
+}
+
 class BodyPartUI {
     constructor(targetBodyPart, bodyPartInfo) {
         this.targetBodyPart = targetBodyPart;
         this.bodyPartInfo = bodyPartInfo;
         this.bodyPartImage = targetBodyPart.getElementsByClassName('silhouette-part')[0];
 
-        this.drawShootChance(bodyPartInfo.shootChance);
+        this.uiGroup = document.createElementNS("http://www.w3.org/2000/svg", 'g');
+        this.uiGroup.setAttribute('class', 'body-part-ui-group');
+        this.targetBodyPart.appendChild(this.uiGroup);
+
+        this.shootChanceText = this.drawShootChance(bodyPartInfo.shootChance);
+        this.uiGroup.appendChild(this.shootChanceText);
+        this.healthBar = this.createHealthBar(bodyPartInfo.baseLife);
+        this.uiGroup.appendChild(this.healthBar.view);
+    }
+
+    createHealthBar(baseValue) { 
+        let x = parseFloat(this.bodyPartImage.getAttribute('width')) / 2 + parseFloat(this.bodyPartImage.getAttribute('x')) - 14;
+        let y = parseFloat(this.bodyPartImage.getAttribute('height')) / 2 + parseFloat(this.bodyPartImage.getAttribute('y'));
+
+        let newBar = new Bar(x, y, baseValue, 27, 10);
+
+        return newBar;
+    }
+
+    updateHealthBarLife(value) {
+
     }
     
     drawShootChance(chance) {
@@ -25,7 +60,7 @@ class BodyPartUI {
         let textNode = document.createTextNode(chance * 100 + "%");
         shootChanceText.appendChild(textNode);
 
-        this.targetBodyPart.appendChild(shootChanceText);
+        return shootChanceText;
     }
 
     getImage() {
