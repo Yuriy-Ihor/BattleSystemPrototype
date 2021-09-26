@@ -33,11 +33,9 @@ class Bar {
 }
 
 class BodyPartUI {
-    constructor(targetBodyPart, bodyPartInfo, svgDisplay) {
-        this.targetBodyPart = targetBodyPart;
+    constructor(targetBodyPart, bodyPartInfo) {
         this.bodyPartInfo = bodyPartInfo;
-        this.bodyPartImage = targetBodyPart.getElementsByClassName('silhouette-part')[0];
-        this.svgDisplay = svgDisplay;
+        this.bodyPartImage = targetBodyPart;
         this.uiGroup = document.createElementNS("http://www.w3.org/2000/svg", 'g');
     }
 
@@ -48,8 +46,6 @@ class BodyPartUI {
         this.uiGroup.appendChild(this.shootChanceText);
         this.healthBar = this.createHealthBar(this.bodyPartInfo.baseLife);
         this.uiGroup.appendChild(this.healthBar.view);
-
-        this.svgDisplay.appendChild(this.uiGroup);
     }
 
     createHealthBar(baseValue) { 
@@ -72,12 +68,8 @@ class BodyPartUI {
         let textNode = document.createTextNode(chance * 100 + "%");
         shootChanceText.setAttribute('font-size', fontSize + 'px');
         shootChanceText.appendChild(textNode);
-
-        // get width
-        var bbox = shootChanceText.getBBox();
-        console.log(bbox.width);
         
-        let x = parseFloat(this.bodyPartImage.getAttribute('width')) * 0.5 + parseFloat(this.bodyPartImage.getAttribute('x') - bbox.width * 0.5);
+        let x = parseFloat(this.bodyPartImage.getAttribute('width')) * 0.5 + parseFloat(this.bodyPartImage.getAttribute('x'));
         let y = parseFloat(this.bodyPartImage.getAttribute('height')) * 0.5 + parseFloat(this.bodyPartImage.getAttribute('y'));
         
         shootChanceText.setAttribute('x', x - fontSize * 0.5);
@@ -97,7 +89,7 @@ class Silhouette{
         this.relevance = _coordinate_map["relevance"];
         this.size = _coordinate_map['unscaled-size'];
         this.coordinate_map = {};
-        this.bodyParts = {};
+        this.bodyPartsUI = {};
 
         for (var body_part_name in _coordinate_map) {
             if (body_part_name != "unscaled-size" && body_part_name != "relevance") {
@@ -109,8 +101,6 @@ class Silhouette{
         silhouetteGroup.setAttribute('class', 'svg-silhouette');
 
         for (var body_part_name in this.coordinate_map) {
-            let bodyPartGroup = document.createElementNS("http://www.w3.org/2000/svg", 'g');
-
             let imagePath = this.getImagesPath('hollow', body_part_name);
 
             let width = this.coordinate_map[body_part_name]["width"];
@@ -120,19 +110,19 @@ class Silhouette{
             let positionY = this.coordinate_map[body_part_name]["top"];
 
             let bodyPartImage = createImage(imagePath, body_part_name, width, height, positionX, positionY, 'silhouette-part');
-            bodyPartGroup.appendChild(bodyPartImage);
 
             let bodyPartInfo = targetPlayer.bodyParts.find(x => x.id == body_part_name);
-            let bodyPartUI = new BodyPartUI(bodyPartGroup, bodyPartInfo, silhouetteGroup);
+            let bodyPartUI = new BodyPartUI(bodyPartImage, bodyPartInfo);
             
-            silhouetteGroup.appendChild(bodyPartGroup);
-            this.bodyParts[body_part_name] = bodyPartUI;
+            silhouetteGroup.appendChild(bodyPartImage);
+            this.bodyPartsUI[body_part_name] = bodyPartUI;
         }
 
         display.appendChild(silhouetteGroup);
         
-        for(let bodyPartId in this.bodyParts) {
-            this.bodyParts[bodyPartId].init();
+        for(let bodyPartId in this.bodyPartsUI) {
+            this.bodyPartsUI[bodyPartId].init();
+            display.appendChild(this.bodyPartsUI[bodyPartId].uiGroup);
         }
         
         display.style.width = this.size;
@@ -167,8 +157,8 @@ class SelectableSilhouette extends Silhouette {
     constructor(_coordinate_map, display, targetPlayer) {
         super(_coordinate_map, display, targetPlayer);
 
-        for(let bodyPartId in this.bodyParts){
-            let bodyPartUI = this.bodyParts[bodyPartId];
+        for(let bodyPartId in this.bodyPartsUI){
+            let bodyPartUI = this.bodyPartsUI[bodyPartId];
             let targetBodyPart = bodyPartUI.uiGroup;
             let image = bodyPartUI.getImage();
             
