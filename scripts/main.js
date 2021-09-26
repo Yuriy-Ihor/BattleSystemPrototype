@@ -44,7 +44,7 @@ function restoreManaToPlayer(player, amount) {
 function finishTurn() {
     
     // if(getSelectedPlayerAbilities().length == 0 || !attackSilhouette.isBodyPartSelected() || !defenseSilhouette.isBodyPartSelected()) {
-    if(!attackSilhouette.isBodyPartSelected() || !defenseSilhouette.isBodyPartSelected()) {
+    if(!enemySilhouette.isBodyPartSelected() || !enemySilhouette.isBodyPartSelected()) {
         showErrorMessage("You dumb idiot did something wrong!", 5);
         return;
     }
@@ -53,8 +53,8 @@ function finishTurn() {
 
     proceedBattleRezults();
     
-    attackSilhouette.disselectBodyPart();
-    defenseSilhouette.disselectBodyPart();
+    playerSilhouette.disselectBodyPart();
+    enemySilhouette.disselectBodyPart();
 
     // battleScreenAbilitiesListHTML.innerHTML = '';
 
@@ -74,14 +74,16 @@ function proceedBattleRezults() {
     let playerAttackedPartId = playerAttackedPart.id;
     let playerDefendedPartId = playerDefendedPart.id;
 
-    let enemyAttackedPart = defenseSilhouette.bodyPartsUI[ATTACKED_ENEMY_PART_ID].bodyPartImage; //defenseSilhouette.bodyParts[0].getImage();
-    let enemyDefendedPart =  defenseSilhouette.bodyPartsUI[DEFENDED_ENEMY_PART_ID].bodyPartImage; //attackSilhouette.bodyParts[1].getImage();
+    let enemyAttackedPart = enemySilhouette.bodyPartsUI[ATTACKED_ENEMY_PART_ID].bodyPartImage; //defenseSilhouette.bodyParts[0].getImage();
+    let enemyDefendedPart =  enemySilhouette.bodyPartsUI[DEFENDED_ENEMY_PART_ID].bodyPartImage; //attackSilhouette.bodyParts[1].getImage();
 
     if(playerAttackedPartId != enemyDefendedPart.id) {
+        console.log('Decreasing life of ' + playerAttackedPartId);
         players.opponent.bodyParts[playerAttackedPartId].currentLife -= 1;
     }
     
     if(enemyAttackedPart.id != playerDefendedPartId) {
+        console.log('Decreasing life of ' + enemyAttackedPart.id);
         players.mainPlayer.bodyParts[enemyAttackedPart.id].currentLife -= 1;
     }
 
@@ -98,6 +100,9 @@ function proceedBattleRezults() {
 
     turnSummaryDisplay.updatePlayerSilhouetteUI(enemyAttackedPart, playerDefendedPart, players.mainPlayer.bodyParts);
     turnSummaryDisplay.updateEnemySilhouetteUI(playerAttackedPart, enemyDefendedPart, players.opponent.bodyParts);
+
+    playerSilhouette.updateUI(players.mainPlayer.bodyParts);
+    enemySilhouette.updateUI(players.opponent.bodyParts);
 }
 
 function calculateTotalMainPlayerDamage(attackBlocked) {

@@ -26,8 +26,6 @@ class TurnSummaryDisplay {
         silhouette.showAttackedIcon(attackedPart);
         silhouette.showDefendedIcon(defendedPart);
 
-        for(let bodyPartName in bodyParts) {
-            silhouette.bodyPartsUI[bodyPartName].updateHealthBarLife(bodyParts[bodyPartName].currentLife);
-        }
+        silhouette.updateUI(bodyParts);
     }
 }

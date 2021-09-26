@@ -134,6 +134,12 @@ class Silhouette{
         this.targetPlayer = targetPlayer;
     }
 
+    updateUI(bodyParts) {
+        for(let bodyPartName in bodyParts) {
+            this.bodyPartsUI[bodyPartName].updateHealthBarLife(bodyParts[bodyPartName].currentLife);
+        }
+    }
+
     getImagesPath(type, id) {
         return `${silhouetteImagePath}/${this.relevance}/${type}/${id}-${type}.png`;
     }
@@ -144,12 +150,6 @@ class Silhouette{
 
     fillImage(image) {
         image.setAttribute('href', this.getImagesPath('filled', image.id));
-    }
-
-    updateBodyPartsLife(playerBodyParts) {
-        for(let bodyPartId in this.playerBodyParts) {
-            
-        }
     }
 
     render() {

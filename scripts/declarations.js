@@ -84,19 +84,19 @@ function initOpponent() {
     return opponent;
 }
 
-const attackSilhouette = new SelectableSilhouette(silhouette_coordinate_map_side, attackSvg, players.opponent, UI_SCALE);
-const defenseSilhouette = new SelectableSilhouette(silhouette_coordinate_map_main, defenseSvg, players.mainPlayer, UI_SCALE);
+const enemySilhouette = new SelectableSilhouette(silhouette_coordinate_map_side, attackSvg, players.opponent, UI_SCALE);
+const playerSilhouette = new SelectableSilhouette(silhouette_coordinate_map_main, defenseSvg, players.mainPlayer, UI_SCALE);
 
 const abilitySelection = new BattleSelection(battleScreenSelectionAbilityHTML);
 abilitySelection.getSelected = getSelectedPlayerAbilities;
 
 const attackSelection = new BattleSelection(battleScreenSelectionAttackHTML);
 attackSelection.getSelected = () => { 
-    return attackSilhouette.selected;
+    return enemySilhouette.selected;
 };
 
 const defenseSelection = new BattleSelection(battleScreenSelectionDefenseHTML);
-defenseSelection.getSelected = () => { return defenseSilhouette.selected };
+defenseSelection.getSelected = () => { return enemySilhouette.selected };
 
 const battleSelectionsPanel = new BattleSelectionsPanel(
     //[abilitySelection, attackSelection, defenseSelection],
