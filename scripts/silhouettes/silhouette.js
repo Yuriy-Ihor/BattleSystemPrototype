@@ -2,33 +2,44 @@
 const silhouetteImagePath = 'silhouette-parts';
 
 const bodyPartUIPaddingY = 5;
-const bodyPartUIHealthBarWidth = 26;
-const bodyPartUIHealthBarHeight = 15;
+const bodyPartUIHealthBarWidth = 35;
+const bodyPartUIHealthBarHeight = 20;
 
 class Bar {
     constructor(x, y, baseValue, width, height) {
-        this.view = document.createElementNS("http://www.w3.org/2000/svg", 'rect');
+        this.group = document.createElementNS("http://www.w3.org/2000/svg", 'g');
+
+        this.fillView = document.createElementNS("http://www.w3.org/2000/svg", 'rect');
+        this.barBackground = document.createElementNS("http://www.w3.org/2000/svg", 'rect');
         
-        this.view.setAttribute('x', x);
-        this.view.setAttribute('y', y);
-        this.view.setAttribute('fill', 'green');
-        this.view.setAttribute('height', height);
-        this.setWidth(width);
+        let barElements = [this.fillView, this.barBackground];
+        barElements.forEach(element => {
+            element.setAttribute('x', x);
+            element.setAttribute('y', y);
+            element.setAttribute('fill', 'green');
+            element.setAttribute('height', height);
+            this.setWidth(width, element);
+        });
+
+        this.barBackground.setAttribute('fill', 'gray');
 
         this.currentValue = baseValue;
         this.baseWidth = width;
         this.baseValue = baseValue;
+
+        this.group.appendChild(this.barBackground);
+        this.group.appendChild(this.fillView);
     }
 
     updateFillAmount(value) {
         this.currentValue = value;
 
         let fillAmount = value / this.baseValue;
-        this.setWidth(this.baseWidth * fillAmount);     
+        this.setWidth(this.baseWidth * fillAmount, this.fillView);     
     }
 
-    setWidth(width) {
-        this.view.setAttribute('width', width);
+    setWidth(width, element) {
+        element.setAttribute('width', width);
     }
 }
 
@@ -42,18 +53,25 @@ class BodyPartUI {
 
     init() {
         this.uiGroup.setAttribute('class', 'body-part-ui-group');
+        this.uiGroup.setAttribute('width', 30);
+
+        let x = parseFloat(this.bodyPartImage.getAttribute('width')) * 0.5 + parseFloat(this.bodyPartImage.getAttribute('x'));
+        let y = parseFloat(this.bodyPartImage.getAttribute('height')) * 0.5 + parseFloat(this.bodyPartImage.getAttribute('y'));
+
+        this.uiGroup.setAttribute('x', x);
+        this.uiGroup.setAttribute('y', y);
 
         this.shootChanceText = this.drawShootChance(this.bodyPartInfo.shootChance);
         this.uiGroup.appendChild(this.shootChanceText);
         this.healthBar = this.createHealthBar(this.bodyPartInfo.baseLife);
-        this.uiGroup.appendChild(this.healthBar.view);
+        this.uiGroup.appendChild(this.healthBar.group);
     }
 
     createHealthBar(baseValue) { 
-        let x = parseFloat(this.bodyPartImage.getAttribute('width')) * 0.5 + parseFloat(this.bodyPartImage.getAttribute('x')) - bodyPartUIHealthBarWidth * 0.5;
-        let y = parseFloat(this.bodyPartImage.getAttribute('height')) * 0.5 + parseFloat(this.bodyPartImage.getAttribute('y'));
+        let x = this.uiGroup.getAttribute('x');
+        let y = this.uiGroup.getAttribute('y');
 
-        let newBar = new Bar(x, y, baseValue, bodyPartUIHealthBarWidth, bodyPartUIHealthBarHeight);
+        let newBar = new Bar(x - bodyPartUIHealthBarWidth * 0.5, y, baseValue, bodyPartUIHealthBarWidth, bodyPartUIHealthBarHeight);
 
         return newBar;
     }
@@ -65,17 +83,17 @@ class BodyPartUI {
     drawShootChance(chance) {
         let shootChanceText = document.createElementNS("http://www.w3.org/2000/svg", 'text');
         shootChanceText.innerText = chance;
-        let fontSize = 15;
+        let fontSize = 20;
         let textNode = document.createTextNode(chance * 100 + "%");
         shootChanceText.setAttribute('font-size', fontSize + 'px');
         shootChanceText.appendChild(textNode);
-        
-        let x = parseFloat(this.bodyPartImage.getAttribute('width')) * 0.5 + parseFloat(this.bodyPartImage.getAttribute('x'));
-        let y = parseFloat(this.bodyPartImage.getAttribute('height')) * 0.5 + parseFloat(this.bodyPartImage.getAttribute('y'));
+
+        let x = this.uiGroup.getAttribute('x');
+        let y = this.uiGroup.getAttribute('y');
         
         shootChanceText.setAttribute('x', x - fontSize * 0.5);
         shootChanceText.setAttribute('y', y);
-        shootChanceText.setAttribute('fill', 'green');     
+        shootChanceText.setAttribute('fill', 'green');    
 
         return shootChanceText;
     }
