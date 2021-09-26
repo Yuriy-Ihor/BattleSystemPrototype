@@ -38,7 +38,7 @@ function initMainPlayer() {
         skyRevengeSkill 
     ];
     mainPlayer.playerRating = {
-        rank: 77,
+        rank: 55,
         wins: 14
     };
     mainPlayer.bodyParts = getBodypartsList(silhouette_coordinate_map_main);
