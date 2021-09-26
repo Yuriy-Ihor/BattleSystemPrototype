@@ -1,5 +1,8 @@
 
 const silhouetteImagePath = 'silhouette-parts';
+const bodyPartUIPaddingY = 5;
+const bodyPartUIHealthBarWidth = 26;
+const bodyPartUIHealthBarHeight = 15;
 
 class Bar {
     constructor(x, y, baseValue, width, height) {
@@ -17,26 +20,30 @@ class Bar {
 }
 
 class BodyPartUI {
-    constructor(targetBodyPart, bodyPartInfo) {
+    constructor(targetBodyPart, bodyPartInfo, display) {
         this.targetBodyPart = targetBodyPart;
         this.bodyPartInfo = bodyPartInfo;
         this.bodyPartImage = targetBodyPart.getElementsByClassName('silhouette-part')[0];
-
+        this.display = display;
         this.uiGroup = document.createElementNS("http://www.w3.org/2000/svg", 'g');
-        this.uiGroup.setAttribute('class', 'body-part-ui-group');
-        this.targetBodyPart.appendChild(this.uiGroup);
+    }
 
-        this.shootChanceText = this.drawShootChance(bodyPartInfo.shootChance);
+    init() {
+        this.uiGroup.setAttribute('class', 'body-part-ui-group');
+
+        this.shootChanceText = this.drawShootChance(this.bodyPartInfo.shootChance);
         this.uiGroup.appendChild(this.shootChanceText);
-        this.healthBar = this.createHealthBar(bodyPartInfo.baseLife);
+        this.healthBar = this.createHealthBar(this.bodyPartInfo.baseLife);
         this.uiGroup.appendChild(this.healthBar.view);
+
+        this.display.appendChild(this.uiGroup);
     }
 
     createHealthBar(baseValue) { 
-        let x = parseFloat(this.bodyPartImage.getAttribute('width')) / 2 + parseFloat(this.bodyPartImage.getAttribute('x')) - 14;
-        let y = parseFloat(this.bodyPartImage.getAttribute('height')) / 2 + parseFloat(this.bodyPartImage.getAttribute('y'));
+        let x = parseFloat(this.bodyPartImage.getAttribute('width')) * 0.5 + parseFloat(this.bodyPartImage.getAttribute('x')) - bodyPartUIHealthBarWidth / 2;
+        let y = parseFloat(this.bodyPartImage.getAttribute('height')) * 0.5 + parseFloat(this.bodyPartImage.getAttribute('y'));
 
-        let newBar = new Bar(x, y, baseValue, 27, 10);
+        let newBar = new Bar(x, y + bodyPartUIPaddingY, baseValue, bodyPartUIHealthBarWidth, bodyPartUIHealthBarHeight);
 
         return newBar;
     }
@@ -50,10 +57,10 @@ class BodyPartUI {
         shootChanceText.innerText = chance;
         let fontSize = 15;
         
-        let x = parseFloat(this.bodyPartImage.getAttribute('width')) / 2 + parseFloat(this.bodyPartImage.getAttribute('x'));
-        let y = parseFloat(this.bodyPartImage.getAttribute('height')) / 2 + parseFloat(this.bodyPartImage.getAttribute('y'));
+        let x = parseFloat(this.bodyPartImage.getAttribute('width')) * 0.5 + parseFloat(this.bodyPartImage.getAttribute('x'));
+        let y = parseFloat(this.bodyPartImage.getAttribute('height')) * 0.5 + parseFloat(this.bodyPartImage.getAttribute('y'));
         shootChanceText.setAttribute('font-size', fontSize + 'px');
-        shootChanceText.setAttribute('x', x - fontSize / 2);
+        shootChanceText.setAttribute('x', x - fontSize * 0.5);
         shootChanceText.setAttribute('y', y);
         shootChanceText.setAttribute('fill', 'white');
         
@@ -99,13 +106,17 @@ class Silhouette{
             bodyPartGroup.appendChild(bodyPartImage);
 
             let bodyPartInfo = targetPlayer.bodyParts.find(x => x.id == body_part_name);
-            let bodyPartUI = new BodyPartUI(bodyPartGroup, bodyPartInfo);
+            let bodyPartUI = new BodyPartUI(bodyPartGroup, bodyPartInfo, silhouetteGroup);
             
             silhouetteGroup.appendChild(bodyPartGroup);
             this.bodyParts.push(bodyPartUI);
         }
 
         display.appendChild(silhouetteGroup);
+
+        for(let i = 0; i < this.bodyParts.length; i++) {
+            this.bodyParts[i].init();
+        }
         
         display.style.width = this.size;
         display.style.height = this.size;
@@ -137,7 +148,7 @@ class SelectableSilhouette extends Silhouette {
 
         for(let i = 0; i < this.bodyParts.length; i++){
             let bodyPartUI = this.bodyParts[i];
-            let targetBodyPart = bodyPartUI.targetBodyPart;
+            let targetBodyPart = bodyPartUI.uiGroup;
             let image = bodyPartUI.getImage();
             
             targetBodyPart.addEventListener('mouseover', () => {
