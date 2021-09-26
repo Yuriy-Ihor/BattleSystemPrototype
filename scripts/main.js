@@ -1,9 +1,20 @@
 
 function isGameOver() {
-    return players.mainPlayer.playerStats[playerStats.hitpoints] <= 0 || players.opponent.playerStats[playerStats.hitpoints] <= 0;
+    return checkIfAnyBodyPartIsDead(players.mainPlayer.bodyParts) || checkIfAnyBodyPartIsDead(players.opponent.bodyParts);
+    //return players.mainPlayer.playerStats[playerStats.hitpoints] <= 0 || players.opponent.playerStats[playerStats.hitpoints] <= 0;
+}
+
+function checkIfAnyBodyPartIsDead(bodyParts) {
+    for(let bodyPartName in bodyParts) {
+        if(bodyParts[bodyPartName].currentLife <= 0) {
+            return true;
+        }
+    }
+    return false;
 }
 
 function getBattleWinner(players) {
+    /*
     if(players.opponent.playerStats[playerStats.hitpoints] > 0) {
         return players.opponent;
     }
@@ -13,6 +24,7 @@ function getBattleWinner(players) {
     else {
         return null;
     }
+    */
 }
 
 var currentTurn = 1;
@@ -82,8 +94,6 @@ function proceedBattleRezults() {
     }
     
     if(enemyAttackedPart.id != playerDefendedPartId) {
-        console.log('Decreasing life of ' + enemyAttackedPart.id);
-        console.log('defended  ' + playerDefendedPartId);
         players.mainPlayer.bodyParts[enemyAttackedPart.id].currentLife -= 1;
     }
 
@@ -165,7 +175,21 @@ function startGame() {
 
         if(isGameOver()) {
             hideElement(battleScreenHTML);
+
+            let isMainPlayerDead = checkIfAnyBodyPartIsDead(players.mainPlayer.bodyParts);
+            let isOpponentDead = checkIfAnyBodyPartIsDead(players.opponent.bodyParts);
+
+            if(isMainPlayerDead && isOpponentDead) {
+                showDrawScreen(players);
+            }
+            else if(isMainPlayerDead) {
+                showLoseScreen(players.mainPlayer);
+            }
+            else if(isOpponentDead) {
+                showWinScreen(players.mainPlayer);
+            }
             
+            /*
             let winner = getBattleWinner(players);
 
             if(winner == players.mainPlayer) {
@@ -176,7 +200,7 @@ function startGame() {
             }
             else {
                 showDrawScreen(players);
-            }
+            }*/
         }
         else {
             startTurn();
