@@ -22,7 +22,7 @@ class Player {
     name = "default name";
     image = 'src/.png';
     playerRating = Object.create(playerRating);
-    bodyParts = [];
+    bodyParts = {};
     playerSkills = [];
     playerBaseStats = Object.create(playerStats);
     playerStats = Object.create(playerStats);

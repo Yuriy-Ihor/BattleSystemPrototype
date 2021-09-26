@@ -12,7 +12,7 @@ players.mainPlayer = initMainPlayer();
 players.opponent = initOpponent();
 
 function getBodypartsList (coordinate_map) {
-    let bodyParts = [];
+    let bodyParts = {};
     for (var body_part_name in coordinate_map) {
         if(body_part_name == 'relevance' || body_part_name == 'unscaled-size') {
             continue;
@@ -24,7 +24,7 @@ function getBodypartsList (coordinate_map) {
         newBodyPart.currentLife = BODY_PART_LIFE;
         newBodyPart.shootChance = BODY_PART_SHOOT_CHANCE;
 
-        bodyParts.push(newBodyPart);
+        bodyParts[body_part_name] = newBodyPart;
     }
     return bodyParts;
 }

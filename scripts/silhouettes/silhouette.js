@@ -111,7 +111,7 @@ class Silhouette{
 
             let bodyPartImage = createImage(imagePath, body_part_name, width, height, positionX, positionY, 'silhouette-part');
 
-            let bodyPartInfo = targetPlayer.bodyParts.find(x => x.id == body_part_name);
+            let bodyPartInfo = targetPlayer.bodyParts[body_part_name];
             let bodyPartUI = new BodyPartUI(bodyPartImage, bodyPartInfo);
             
             silhouetteGroup.appendChild(bodyPartImage);
