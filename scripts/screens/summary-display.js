@@ -14,7 +14,7 @@ class TurnSummaryDisplay {
         this.opponent = opponent;
     }
 
-    updateSummary(playerAttackedPart, playerDefendedPart, enemyAttackedPart, enemyDefendedPart) {
+    updateSilhouettesUI(playerAttackedPart, playerDefendedPart, enemyAttackedPart, enemyDefendedPart) {
         
         this.playerSilhouette.showAttackedIcon(enemyAttackedPart);
         this.playerSilhouette.showDefendedIcon(playerDefendedPart);
