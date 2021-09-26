@@ -45,7 +45,7 @@ class Bar {
 
 class BodyPartUI {
     constructor(targetBodyPart, bodyPartInfo, scale) {
-        this.bodyPartInfo = bodyPartInfo;
+        this.bodyPartBaseInfo = bodyPartInfo;
         this.bodyPartImage = targetBodyPart;
         this.uiGroup = document.createElementNS("http://www.w3.org/2000/svg", 'g');
         this.scale = scale;
@@ -61,9 +61,9 @@ class BodyPartUI {
         this.uiGroup.setAttribute('x', x);
         this.uiGroup.setAttribute('y', y);
 
-        this.shootChanceText = this.drawShootChance(this.bodyPartInfo.shootChance);
+        this.shootChanceText = this.drawShootChance(this.bodyPartBaseInfo.shootChance);
         this.uiGroup.appendChild(this.shootChanceText);
-        this.healthBar = this.createHealthBar(this.bodyPartInfo.baseLife);
+        this.healthBar = this.createHealthBar(this.bodyPartBaseInfo.baseLife);
         this.uiGroup.appendChild(this.healthBar.group);
     }
 
@@ -76,8 +76,14 @@ class BodyPartUI {
         return newBar;
     }
 
-    updateHealthBarLife(value) {
-        this.healthBar.updateFillAmount(value);
+    updateUI(currentHealth) {
+        if(currentHealth < this.bodyPartBaseInfo.baseLife) {
+            var that = this;
+            setTimeout(function () {
+                that.bodyPartImage.setAttribute('class', 'damaged');
+                that.healthBar.updateFillAmount(currentHealth);
+            }, 100);
+        }
     }
     
     drawShootChance(chance) {
@@ -154,7 +160,7 @@ class Silhouette{
 
     updateUI(bodyParts) {
         for(let bodyPartName in bodyParts) {
-            this.bodyPartsUI[bodyPartName].updateHealthBarLife(bodyParts[bodyPartName].currentLife);
+            this.bodyPartsUI[bodyPartName].updateUI(bodyParts[bodyPartName].currentLife);
         }
     }
 
