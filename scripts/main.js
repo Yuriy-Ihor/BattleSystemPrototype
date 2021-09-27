@@ -89,13 +89,13 @@ function proceedBattleRezults() {
     if(playerAttackedPart.id != enemyDefendedPart.id) {
         let shootSucceed = applyDamageToBodyPart(players.opponent.bodyParts[playerAttackedPart.id], 1);
 
-        //turnSummaryDisplay.updateMainPlayerSummary(players.mainPlayer.name, playerAttackedPart.id, !shootSucceed);
+        turnSummaryDisplay.updateMainPlayerSummary(players.mainPlayer.name, playerAttackedPart.id, !shootSucceed);
     }
     
     if(enemyAttackedPart.id != playerDefendedPart.id) {
-        let shootSucceed = applyDamageToBodyPart(players.mainPlayer.bodyParts[playerAttackedPart.id], 1);
+        let shootSucceed = applyDamageToBodyPart(players.mainPlayer.bodyParts[enemyAttackedPart.id], 1);
 
-        //turnSummaryDisplay.updateOpponentSummary(players.opponent.name, enemyAttackedPart.id, !shootSucceed);
+        turnSummaryDisplay.updateOpponentSummary(players.opponent.name, enemyAttackedPart.id, !shootSucceed);
     }
 
     /*
@@ -108,7 +108,7 @@ function proceedBattleRezults() {
 
     players.opponent.playerStats[playerStats.hitpoints] -= totalDamage;
     players.opponent.playerStats[playerStats.mana] -= 7;*/
-
+    
     turnSummaryDisplay.updatePlayerSilhouetteUI(enemyAttackedPart, playerDefendedPart, players.mainPlayer.bodyParts[enemyAttackedPart.id]);
     turnSummaryDisplay.updateEnemySilhouetteUI(playerAttackedPart, enemyDefendedPart, players.opponent.bodyParts[playerAttackedPart.id]);
 
