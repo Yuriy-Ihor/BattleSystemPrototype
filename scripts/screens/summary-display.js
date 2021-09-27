@@ -22,15 +22,27 @@ class TurnSummaryDisplay {
         turnSummaryEnemy.innerHTML = '';
     }
 
-    updateMainPlayerSummary(playerName, attackedPartId, missed) {
-        this.updatePlayerSummary(turnSummaryPlayer, playerName, attackedPartId, missed);
+    updateMainPlayerDefendSummary(playerName, defendedPartId) {
+        this.updatePlayerDefendSummary(turnSummaryPlayer, playerName, defendedPartId);
     }
 
-    updateOpponentSummary(playerName, attackedPartId, missed) {
-        this.updatePlayerSummary(turnSummaryEnemy, playerName, attackedPartId, missed);
+    updateOpponentDefendSummary(playerName, defendedPartId) {
+        this.updatePlayerDefendSummary(turnSummaryEnemy, playerName, defendedPartId);
     }
 
-    updatePlayerSummary(playerDisplay, playerName, attackedPartId, missed) {
+    updatePlayerDefendSummary(playerDisplay, playerName, defendedPartId) {
+        playerDisplay.innerHTML = `${playerName} defended ${defendedPartId}!`;
+    }
+
+    updateMainPlayerAttackSummary(playerName, attackedPartId, missed) {
+        this.updatePlayerAttackSummary(turnSummaryPlayer, playerName, attackedPartId, missed);
+    }
+
+    updateOpponentAttackSummary(playerName, attackedPartId, missed) {
+        this.updatePlayerAttackSummary(turnSummaryEnemy, playerName, attackedPartId, missed);
+    }
+
+    updatePlayerAttackSummary(playerDisplay, playerName, attackedPartId, missed) {
         let summaryText;
         if(missed) {
             summaryText = playerName + " missed!";
