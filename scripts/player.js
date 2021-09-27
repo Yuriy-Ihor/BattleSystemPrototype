@@ -7,7 +7,6 @@ const playerStats = {
 }
 
 const bodyPart = {
-    id: '',
     baseLife: 100,
     currentLife: 100,
     shootChance: 0.5

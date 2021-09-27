@@ -83,18 +83,23 @@ function proceedBattleRezults() {
     let playerAttackedPart = attackSelection.getSelected();
     let playerDefendedPart = defenseSelection.getSelected();
 
-    let playerAttackedPartId = playerAttackedPart.id;
-    let playerDefendedPartId = playerDefendedPart.id;
+    let enemyAttackedPart = enemySilhouette.bodyPartsUI[ATTACKED_ENEMY_PART_ID].bodyPartImage; 
+    let enemyDefendedPart =  enemySilhouette.bodyPartsUI[DEFENDED_ENEMY_PART_ID].bodyPartImage; 
 
-    let enemyAttackedPart = enemySilhouette.bodyPartsUI[ATTACKED_ENEMY_PART_ID].bodyPartImage; //defenseSilhouette.bodyParts[0].getImage();
-    let enemyDefendedPart =  enemySilhouette.bodyPartsUI[DEFENDED_ENEMY_PART_ID].bodyPartImage; //attackSilhouette.bodyParts[1].getImage();
+    if(playerAttackedPart.id != enemyDefendedPart.id) {
+        let shootSucceed = applyDamageToBodyPart(players.opponent.bodyParts[playerAttackedPart.id], 1);
 
-    if(playerAttackedPartId != enemyDefendedPart.id) {
-        players.opponent.bodyParts[playerAttackedPartId].currentLife -= 1;
+        if(!shootSucceed) {
+            console.log(players.mainPlayer.name + " missed!");
+        }
     }
     
-    if(enemyAttackedPart.id != playerDefendedPartId) {
-        players.mainPlayer.bodyParts[enemyAttackedPart.id].currentLife -= 1;
+    if(enemyAttackedPart.id != playerDefendedPart.id) {
+        let shootSucceed = applyDamageToBodyPart(players.mainPlayer.bodyParts[playerAttackedPart.id], 1);
+
+        if(!shootSucceed) {
+            console.log(players.opponent.name + " missed!");
+        }
     }
 
     /*
@@ -113,6 +118,17 @@ function proceedBattleRezults() {
 
     playerSilhouette.updateUI(players.mainPlayer.bodyParts);
     enemySilhouette.updateUI(players.opponent.bodyParts);
+}
+
+function applyDamageToBodyPart(bodyPart, damage) {
+    let shootChance = Math.random(); 
+    console.log(shootChance);
+    console.log(bodyPart);
+    if(shootChance <= bodyPart.shootChance ) {
+        bodyPart.currentLife -= damage;
+        return true;
+    }
+    return false;
 }
 
 function calculateTotalMainPlayerDamage(attackBlocked) {

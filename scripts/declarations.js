@@ -11,18 +11,17 @@ var players = {mainPlayer: null, opponent: null};
 players.mainPlayer = initMainPlayer();
 players.opponent = initOpponent();
 
-function getBodypartsList (coordinate_map) {
+function getBodypartsList (body_parts_info) {
     let bodyParts = {};
-    for (var body_part_name in coordinate_map) {
+    for (var body_part_name in body_parts_info) {
         if(body_part_name == 'relevance' || body_part_name == 'unscaled-size') {
             continue;
         }
         
         let newBodyPart = Object.create(bodyPart);
-        newBodyPart.id = body_part_name;
-        newBodyPart.baseLife = BODY_PART_LIFE;
-        newBodyPart.currentLife = BODY_PART_LIFE;
-        newBodyPart.shootChance = BODY_PART_SHOOT_CHANCE;
+        newBodyPart.baseLife = body_parts_info[body_part_name].baseLife;
+        newBodyPart.currentLife = body_parts_info[body_part_name].baseLife;
+        newBodyPart.shootChance = body_parts_info[body_part_name].shootChance;
 
         bodyParts[body_part_name] = newBodyPart;
     }
@@ -41,7 +40,7 @@ function initMainPlayer() {
         rank: 55,
         wins: 14
     };
-    mainPlayer.bodyParts = getBodypartsList(silhouette_coordinate_map_main);
+    mainPlayer.bodyParts = getBodypartsList(body_parts_info);
     mainPlayer.image = 'images/protoss.jpg';
     mainPlayer.playerStats[playerStats.hitpoints] = 50;
     mainPlayer.playerStats[playerStats.mana] = 50;
@@ -68,7 +67,7 @@ function initOpponent() {
         rank: 66,
         wins: 13
     };
-    opponent.bodyParts = getBodypartsList(silhouette_coordinate_map_side);
+    opponent.bodyParts = getBodypartsList(body_parts_info);
     opponent.image = 'images/undead.jpg';
 
     opponent.playerStats[playerStats.hitpoints] = 50;
