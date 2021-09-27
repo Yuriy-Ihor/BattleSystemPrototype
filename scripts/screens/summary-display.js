@@ -2,6 +2,9 @@
 const turnSummaryPlayerDisplaySvg = document.getElementById('battle-screen-summary-player-svg');
 const turnSummaryEnemyDisplaySvg = document.getElementById('battle-screen-summary-enemy-svg');
 
+const turnSummaryPlayer = document.getElementById('battle-screen-summary-player');
+const turnSummaryEnemy = document.getElementById('battle-screen-summary-enemy');
+
 class TurnSummaryDisplay {
     constructor(playerDisplay, enemyDisplay, mainPlayer, opponent) {
         this.playerSilhouette = new SummarySilhouette(silhouette_coordinate_map_main, playerDisplay, mainPlayer, UI_SCALE);
@@ -14,8 +17,28 @@ class TurnSummaryDisplay {
         this.opponent = opponent;
     }
 
-    updatePlayerSummary() {
+    clearSummaries() {
+        turnSummaryPlayer.innerHTML = '';
+        turnSummaryEnemy.innerHTML = '';
+    }
 
+    updateMainPlayerSummary(playerName, attackedPartId, missed) {
+        this.updatePlayerSummary(turnSummaryPlayer, playerName, attackedPartId, missed);
+    }
+
+    updateOpponentSummary(playerName, attackedPartId, missed) {
+        this.updatePlayerSummary(turnSummaryEnemy, playerName, attackedPartId, missed);
+    }
+
+    updatePlayerSummary(playerDisplay, playerName, attackedPartId, missed) {
+        let summaryText;
+        if(missed) {
+            summaryText = playerName + " missed!";
+        }
+        else {
+            summaryText = playerName + " successfully shoot " + attackedPartId + "!";
+        }
+        playerDisplay.innerHTML = summaryText;
     }
 
     updateEnemySilhouetteUI(attackedPart, defendedPart, bodyPartInfo) {
@@ -32,13 +55,4 @@ class TurnSummaryDisplay {
 
         silhouette.updateBodyPartUI(attackedPart.id, bodyPartInfo);
     }
-}
-
-function updatePlayerSummary(playerId, playerName, playerDamage, attackedBodypart, defendedBodypart) {
-    let summaryPanel = document.getElementById(playerId);
-
-    let summaryText = playerName + ", you dealt " + playerDamage + " damage.<br />"; 
-    summaryText += playerName + " selected " + attackedBodypart + " to attack and " + defendedBodypart + " to defend.";
-
-    summaryPanel.innerHTML = summaryText;
 }

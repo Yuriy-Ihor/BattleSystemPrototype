@@ -78,6 +78,8 @@ function finishTurn() {
 }
 
 function proceedBattleRezults() {
+    turnSummaryDisplay.clearSummaries();
+
     let playerAttackedPart = attackSelection.getSelected();
     let playerDefendedPart = defenseSelection.getSelected();
 
@@ -87,17 +89,13 @@ function proceedBattleRezults() {
     if(playerAttackedPart.id != enemyDefendedPart.id) {
         let shootSucceed = applyDamageToBodyPart(players.opponent.bodyParts[playerAttackedPart.id], 1);
 
-        if(!shootSucceed) {
-            console.log(players.mainPlayer.name + " missed!");
-        }
+        //turnSummaryDisplay.updateMainPlayerSummary(players.mainPlayer.name, playerAttackedPart.id, !shootSucceed);
     }
     
     if(enemyAttackedPart.id != playerDefendedPart.id) {
         let shootSucceed = applyDamageToBodyPart(players.mainPlayer.bodyParts[playerAttackedPart.id], 1);
 
-        if(!shootSucceed) {
-            console.log(players.opponent.name + " missed!");
-        }
+        //turnSummaryDisplay.updateOpponentSummary(players.opponent.name, enemyAttackedPart.id, !shootSucceed);
     }
 
     /*
