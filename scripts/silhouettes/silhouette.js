@@ -183,10 +183,8 @@ class Silhouette{
         this.targetPlayer = targetPlayer;
     }
 
-    updateUI(bodyParts) {
-        for(let bodyPartName in bodyParts) {
-            this.bodyPartsUI[bodyPartName].updateUI(bodyParts[bodyPartName].currentLife);
-        }
+    updateBodyPartUI(targetBodyPart, bodyPartInfo) {
+        this.bodyPartsUI[targetBodyPart].updateUI(bodyPartInfo.currentLife);
     }
 
     getImagesPath(type, id) {
@@ -261,14 +259,14 @@ class SummarySilhouette extends Silhouette {
     }
 
     showAttackedIcon(bodyPart) {
-        this.alignIconOnBodyPart(bodyPart, this.attackedIcon);
+        this.displayIconOnBodyPart(bodyPart, this.attackedIcon);
     }
 
     showDefendedIcon(bodyPart) {
-        this.alignIconOnBodyPart(bodyPart, this.defendedIcon);
+        this.displayIconOnBodyPart(bodyPart, this.defendedIcon);
     }
 
-    alignIconOnBodyPart(bodyPart, icon) {
+    displayIconOnBodyPart(bodyPart, icon) {
         let x = parseFloat(bodyPart.getAttribute('x')) + parseFloat(bodyPart.getAttribute('width')) * 0.5 - parseFloat(icon.getAttribute('width')) * 0.5;
         let y = parseFloat(bodyPart.getAttribute('y')) + parseFloat(bodyPart.getAttribute('height')) * 0.5 - parseFloat(icon.getAttribute('height')) * 0.5;
 

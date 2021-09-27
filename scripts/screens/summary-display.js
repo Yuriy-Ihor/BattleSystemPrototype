@@ -1,6 +1,6 @@
 
-const turnSummaryPlayerDisplaySvg = document.getElementById('battle-screen-summary-player');
-const turnSummaryEnemyDisplaySvg = document.getElementById('battle-screen-summary-enemy');
+const turnSummaryPlayerDisplaySvg = document.getElementById('battle-screen-summary-player-svg');
+const turnSummaryEnemyDisplaySvg = document.getElementById('battle-screen-summary-enemy-svg');
 
 class TurnSummaryDisplay {
     constructor(playerDisplay, enemyDisplay, mainPlayer, opponent) {
@@ -14,18 +14,31 @@ class TurnSummaryDisplay {
         this.opponent = opponent;
     }
 
-    updateEnemySilhouetteUI(attackedPart, defendedPart, bodyParts) {
-        this.updateSilhouetteUI(attackedPart, defendedPart, bodyParts, this.enemySilhouette);
+    updatePlayerSummary() {
+
     }
 
-    updatePlayerSilhouetteUI(attackedPart, defendedPart, bodyParts) {
-        this.updateSilhouetteUI(attackedPart, defendedPart, bodyParts, this.playerSilhouette);
+    updateEnemySilhouetteUI(attackedPart, defendedPart, bodyPartInfo) {
+        this.updateSilhouetteUI(attackedPart, defendedPart, bodyPartInfo, this.enemySilhouette);
     }
 
-    updateSilhouetteUI(attackedPart, defendedPart, bodyParts, silhouette) {
+    updatePlayerSilhouetteUI(attackedPart, defendedPart, bodyPartInfo) {
+        this.updateSilhouetteUI(attackedPart, defendedPart, bodyPartInfo, this.playerSilhouette);
+    }
+
+    updateSilhouetteUI(attackedPart, defendedPart, bodyPartInfo, silhouette) {
         silhouette.showAttackedIcon(attackedPart);
         silhouette.showDefendedIcon(defendedPart);
 
-        silhouette.updateUI(bodyParts);
+        silhouette.updateBodyPartUI(attackedPart.id, bodyPartInfo);
     }
+}
+
+function updatePlayerSummary(playerId, playerName, playerDamage, attackedBodypart, defendedBodypart) {
+    let summaryPanel = document.getElementById(playerId);
+
+    let summaryText = playerName + ", you dealt " + playerDamage + " damage.<br />"; 
+    summaryText += playerName + " selected " + attackedBodypart + " to attack and " + defendedBodypart + " to defend.";
+
+    summaryPanel.innerHTML = summaryText;
 }

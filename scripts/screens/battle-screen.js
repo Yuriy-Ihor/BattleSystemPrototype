@@ -135,15 +135,6 @@ function createPlayerAbilitiesListElement(skillInfo) {
     battleScreenAbilitiesListHTML.appendChild(newAbility);
 }
 
-function updatePlayerSummary(playerId, playerName, playerDamage, attackedBodypart, defendedBodypart) {
-    let summaryPanel = document.getElementById(playerId);
-
-    let summaryText = playerName + ", you dealt " + playerDamage + " damage.<br />"; 
-    summaryText += playerName + " selected " + attackedBodypart + " to attack and " + defendedBodypart + " to defend.";
-
-    summaryPanel.innerHTML = summaryText;
-}
-
 function showErrorMessage(message, time) {
     battleScreenErrorHTML.innerHTML = message;
     showElementForTime(battleScreenErrorHTML, time);

@@ -14,7 +14,6 @@ function checkIfAnyBodyPartIsDead(bodyParts) {
 }
 
 function getBattleWinner(players) {
-    /*
     if(players.opponent.playerStats[playerStats.hitpoints] > 0) {
         return players.opponent;
     }
@@ -24,7 +23,6 @@ function getBattleWinner(players) {
     else {
         return null;
     }
-    */
 }
 
 var currentTurn = 1;
@@ -113,11 +111,11 @@ function proceedBattleRezults() {
     players.opponent.playerStats[playerStats.hitpoints] -= totalDamage;
     players.opponent.playerStats[playerStats.mana] -= 7;*/
 
-    turnSummaryDisplay.updatePlayerSilhouetteUI(enemyAttackedPart, playerDefendedPart, players.mainPlayer.bodyParts);
-    turnSummaryDisplay.updateEnemySilhouetteUI(playerAttackedPart, enemyDefendedPart, players.opponent.bodyParts);
+    turnSummaryDisplay.updatePlayerSilhouetteUI(enemyAttackedPart, playerDefendedPart, players.mainPlayer.bodyParts[enemyAttackedPart.id]);
+    turnSummaryDisplay.updateEnemySilhouetteUI(playerAttackedPart, enemyDefendedPart, players.opponent.bodyParts[playerAttackedPart.id]);
 
-    playerSilhouette.updateUI(players.mainPlayer.bodyParts);
-    enemySilhouette.updateUI(players.opponent.bodyParts);
+    playerSilhouette.updateBodyPartUI(enemyAttackedPart.id, players.mainPlayer.bodyParts[enemyAttackedPart.id]);
+    enemySilhouette.updateBodyPartUI(playerAttackedPart.id, players.opponent.bodyParts[playerAttackedPart.id]);
 }
 
 function applyDamageToBodyPart(bodyPart, damage) {
