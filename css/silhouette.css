@@ -17,6 +17,15 @@
     transition: 0.5s;
 }
 
-.svg-silhouette {
+.svg-silhouette .hidden {
     
+}
+
+.bar-background-view {
+    transition: 0.5s;
+}
+
+.no-opacity {
+    transition: 0.5s;
+    opacity: 0;
 }

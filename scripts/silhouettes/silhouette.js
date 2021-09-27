@@ -24,6 +24,7 @@ class Bar {
         });
 
         this.barBackground.setAttribute('fill', 'gray');
+        this.barBackground.setAttribute('class', 'bar-background-view');
         this.fillView.setAttribute('class', 'bar-fill-view');
 
         this.currentValue = baseValue;
@@ -35,10 +36,16 @@ class Bar {
     }
 
     updateFillAmount(value) {
+
         this.currentValue = value;
 
         let fillAmount = value / this.baseValue;
         this.setWidth(this.baseWidth * fillAmount, this.fillView);     
+
+        if(value <= 0) {
+            hideElement(this.barBackground);
+            this.barBackground.classList.add('no-opacity');
+        }
     }
 
     setWidth(width, element) {
@@ -89,6 +96,7 @@ class BodyPartUI {
                     that.bodyPartImage.classList.remove('damaged');
                 }
                 that.healthBar.updateFillAmount(currentHealth);
+                that.shootChanceText.classList.add('no-opacity');
             }, 100);
             return;
         }
