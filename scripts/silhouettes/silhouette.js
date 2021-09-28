@@ -59,6 +59,10 @@ class Bar {
             this.barBackground.classList.add('no-opacity');
         }
     }
+
+    setWidth(width, element) {
+        element.setAttribute('width', width);
+    }
 }
 
 class BodyPartUI {
