@@ -13,7 +13,7 @@ silhouette_bar_coordinate_map_main = {
         "left": 90,
         "top": 180
     },
-    "leg-left": {
+    "leg-right": {
         "left": 175,
         "top": 160
     },
