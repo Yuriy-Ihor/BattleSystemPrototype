@@ -151,7 +151,7 @@ class BodyPartUI {
                 }
                 that.currentColor = that.healthBar.updateFillAmount(currentHealth);
                 that.shootChanceText.setAttribute('fill', that.currentColor);
-            }, 100);
+            }, 300);
         }
     }
     
@@ -319,23 +319,23 @@ class SummarySilhouette extends Silhouette {
         display.appendChild(this.defendedIcon);
 
         for(let bodyPart in this.bodyPartsUI) {
-            hideElement(this.bodyPartsUI[bodyPart].uiGroup);
+            //hideElement(this.bodyPartsUI[bodyPart].uiGroup);
         }
 
         this.activeHealthBar = null;
     }
 
     updateBodyPartUI(targetBodyPart, bodyPartInfo) {
-        if(this.activeHealthBar != null) {
-            hideElement(this.activeHealthBar.group);
-            this.activeHealthBar = null;
-        }
+        //if(this.activeHealthBar != null) {
+           // hideElement(this.activeHealthBar.group);
+        //    this.activeHealthBar = null;
+        //}
 
         this.bodyPartsUI[targetBodyPart].updateUI(bodyPartInfo.currentLife);
 
-        this.activeHealthBar = this.bodyPartsUI[targetBodyPart].healthBar;
+        //this.activeHealthBar = this.bodyPartsUI[targetBodyPart].healthBar;
         // console.log(this.activeHealthBar);
-        showElement(this.activeHealthBar.group);
+        //showElement(this.activeHealthBar.group);
     }
 
     showAttackedIcon(bodyPart) {
