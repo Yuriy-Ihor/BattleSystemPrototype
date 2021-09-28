@@ -2,12 +2,12 @@ silhouette_bar_coordinate_map_main = {
     "relevance": "main",
     "unscaled-size": 256,
     "arm-left": {
-        "left": 80,
-        "top": 90
-    },
-    "arm-right": {
         "left": 170,
         "top": 80
+    },
+    "arm-right": {
+        "left": 80,
+        "top": 90
     },
     "leg-left": {
         "left": 90,
