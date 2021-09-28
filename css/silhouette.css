@@ -4,6 +4,11 @@
     transition-duration: 1s;
 }
 
+#battle-screen-summary .silhouette-part {
+    cursor: pointer;
+    transition-duration: 1s;
+}
+
 .damaged {
     transition-duration: 1s; 
     filter: hue-rotate(352deg) invert(44%) sepia(90%) saturate(7465%) brightness(601%) contrast(104%);
@@ -18,9 +23,9 @@
     transition: 0.5s;
 }
 
-.svg-silhouette .hidden {
+/* .svg-silhouette .hidden {
     
-}
+} */
 
 .bar-background-view {
     transition: 0.5s;

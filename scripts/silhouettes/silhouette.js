@@ -38,7 +38,10 @@ class Bar {
             element.setAttribute('width', width)
         });
 
-        this.barBackground.setAttribute('fill', 'transparent');
+        this.barBackground.setAttribute('fill', 'none');
+        this.barBackground.setAttribute('stroke', mainColor);
+        this.barBackground.setAttribute('stroke-width', 1);
+
         this.barBackground.setAttribute('class', 'bar-background-view');
         this.fillView.setAttribute('class', 'bar-fill-view');
 
@@ -66,6 +69,7 @@ class Bar {
 
         this.fillView.setAttribute('fill', this.currentColor);
         this.wrapperRect.setAttribute('stroke', this.currentColor);
+        this.barBackground.setAttribute('stroke', this.currentColor)
         
         if(value <= 0) {
             hideElement(this.barBackground);
