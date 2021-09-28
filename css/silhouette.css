@@ -1,12 +1,18 @@
 
 .silhouette-part {
+    stroke: white;
     cursor: pointer;
-    transition-duration: 1s;
+    transition-duration: 0.2s;
 }
 
-#battle-screen-summary .silhouette-part {
+.silhouette-part:hover {
+    fill: white;
     cursor: pointer;
-    transition-duration: 1s;
+    transition-duration: 0.2s;
+}
+
+path {
+    pointer-events: all;
 }
 
 .damaged {

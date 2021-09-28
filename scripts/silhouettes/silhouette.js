@@ -200,51 +200,34 @@ class BodyPartUI {
 }
 
 class Silhouette{
-    constructor(_coordinate_map, display, targetPlayer, scale) {
-        this.relevance = _coordinate_map["relevance"];
-        this.size = _coordinate_map['unscaled-size'] * scale;
-        this.coordinate_map = {};
+    constructor(silhouetteSvg, targetPlayer, scale, relevance) {
+        
         this.bodyPartsUI = {};
         this.scale = scale;
+        this.relevance = relevance;
 
-        for (var body_part_name in _coordinate_map) {
-            if (body_part_name != "unscaled-size" && body_part_name != "relevance") {
-                this.coordinate_map[body_part_name] = _coordinate_map[body_part_name];
-            }
-        }
+        this.silhouetteSvg = silhouetteSvg;
 
-        let silhouetteGroup = document.createElementNS("http://www.w3.org/2000/svg", 'g');
-        silhouetteGroup.setAttribute('class', 'svg-silhouette');
-
-        for (var body_part_name in this.coordinate_map) {
-            let imagePath = this.getImagesPath('hollow', body_part_name);
-
-            let width = this.coordinate_map[body_part_name]["width"] * this.scale;
-            let height = this.coordinate_map[body_part_name]["height"] * this.scale;
-
-            let positionX = this.coordinate_map[body_part_name]["left"] * this.scale;
-            let positionY = this.coordinate_map[body_part_name]["top"] * this.scale;
-
-            let bodyPartImage = createImage(imagePath, body_part_name, width, height, positionX, positionY, 'silhouette-part');
-
-            let bodyPartInfo = targetPlayer.bodyParts[body_part_name];
-            let bodyPartUI = new BodyPartUI(body_part_name, bodyPartImage, bodyPartInfo, this.scale, this.relevance);
+        this.bodyParts = this.silhouetteSvg.getElementsByClassName('silhouette-part');
+        /*
+        for(let i = 0; i < this.bodyParts.length; i++) {
+            let bodyPartImage = this.bodyParts[i];
+            let bodyPartInfo = targetPlayer.bodyParts[bodyPartImage.id];
+            let bodyPartUI = new BodyPartUI(this.bodyParts[i].id, bodyPartImage, bodyPartInfo, this.scale, this.relevance);
             
-            silhouetteGroup.appendChild(bodyPartImage);
-            this.bodyPartsUI[body_part_name] = bodyPartUI;
+            this.bodyPartsUI[this.bodyParts[this.bodyParts[i].id]] = bodyPartUI;
         }
-
-        display.appendChild(silhouetteGroup);
         
         for(let bodyPartId in this.bodyPartsUI) {
             this.bodyPartsUI[bodyPartId].init();
-            display.appendChild(this.bodyPartsUI[bodyPartId].uiGroup);
-        }
-        
-        display.style.width = this.size;
-        display.style.height = this.size;
+            silhouetteSvg.appendChild(this.bodyPartsUI[bodyPartId].uiGroup);
+        }*/
 
-        this.display = display;
+        console.log(silhouetteSvg);
+
+        this.silhouetteSvg.setAttribute('width', SILHOUETTE_SIZE * UI_SCALE);
+        this.silhouetteSvg.setAttribute('height', SILHOUETTE_SIZE * UI_SCALE);
+        
         this.targetPlayer = targetPlayer;
     }
 
@@ -257,11 +240,11 @@ class Silhouette{
     }
 
     hollowImage(image) { 
-        image.setAttribute('href', this.getImagesPath('hollow', image.id));
+        image.setAttribute('fill', 'none');
     }
 
     fillImage(image) {
-        image.setAttribute('href', this.getImagesPath('filled', image.id));
+        image.setAttribute('fill', 'white');
     }
 
     render() {
@@ -270,8 +253,8 @@ class Silhouette{
 }
 
 class SelectableSilhouette extends Silhouette {
-    constructor(_coordinate_map, display, targetPlayer, scale) {
-        super(_coordinate_map, display, targetPlayer, scale);
+    constructor(silhouetteSvg, targetPlayer, scale, relevance) {
+        super(silhouetteSvg, targetPlayer, scale, relevance);
 
         for(let bodyPartId in this.bodyPartsUI){
             let bodyPartUI = this.bodyPartsUI[bodyPartId];
@@ -313,8 +296,8 @@ class SelectableSilhouette extends Silhouette {
 }
 
 class SummarySilhouette extends Silhouette {
-    constructor(_coordinate_map, display, targetPlayer, scale) {
-        super(_coordinate_map, display, targetPlayer, scale);
+    constructor(silhouetteSvg, targetPlayer, scale, relevance) {
+        super(silhouetteSvg, targetPlayer, scale, relevance);
         
         //this.attackedIcon = createImage('images/sight.png', 'attacked-icon', 50, 50, 0, 0, 'silhouette-icon');
         //this.defendedIcon = createImage('images/shield.png', 'defended-icon', 50, 50, 0, 0, 'silhouette-icon');

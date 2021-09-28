@@ -130,6 +130,7 @@
 
 .body-selection {
     display: block;
+    stroke: white;
 }
 
 #player-silhouettes {
