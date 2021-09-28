@@ -101,7 +101,7 @@ function proceedBattleRezults() {
         turnSummaryDisplay.updateOpponentAttackSummary(players.opponent.name, enemyAttackedPart.id, !shootSucceed);
     }
     else {
-        turnSummaryDisplay.updateOpponentDefendSummary(players.mainPlayer.name, enemyAttackedPart.id);
+        turnSummaryDisplay.updateMainPlayerDefendSummary(players.mainPlayer.name, enemyAttackedPart.id);
     }
 
     /*
