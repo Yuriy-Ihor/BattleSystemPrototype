@@ -1,11 +1,11 @@
 
 .silhouette-part {
     stroke: white;
-    cursor: pointer;
     transition-duration: 0.2s;
 }
 
-.silhouette-part:hover {
+#battle-screen-selections .silhouette-part:hover {
+    cursor: pointer;
     fill: white;
     cursor: pointer;
     transition-duration: 0.2s;
