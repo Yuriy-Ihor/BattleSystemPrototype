@@ -24,6 +24,7 @@ img {
 }
 
 .switch-button {
+    cursor: pointer;
     margin: 10px 10px;
     height: 80px;
     max-width: 220px;

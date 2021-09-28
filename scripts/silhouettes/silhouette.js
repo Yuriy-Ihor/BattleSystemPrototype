@@ -4,16 +4,27 @@ const silhouetteImagePath = 'silhouette-parts';
 const healthBarPaddingY = 8;
 const bodyPartUIPaddingY = 15;
 const iconsPaddingY = 10;
-const bodyPartUIHealthBarWidth = 100;
+const bodyPartUIHealthBarWidth = 40;
 const bodyPartUIHealthBarHeight = 10;
+const barStrokePadding = 5;
+const fontRatio = 0.6;
+const fontSize = 20;
 
 class Bar {
     constructor(x, y, baseValue, width, height) {
         this.group = document.createElementNS("http://www.w3.org/2000/svg", 'g');
-
         this.fillView = document.createElementNS("http://www.w3.org/2000/svg", 'rect');
         this.barBackground = document.createElementNS("http://www.w3.org/2000/svg", 'rect');
-        
+        this.wrapperRect = document.createElementNS("http://www.w3.org/2000/svg", 'rect');
+
+        this.wrapperRect.setAttribute('x', x - barStrokePadding);
+        this.wrapperRect.setAttribute('y', y - height - (fontSize + 3 * barStrokePadding) / 2);
+        this.wrapperRect.setAttribute('fill', 'none');
+        this.wrapperRect.setAttribute('stroke', 'green');
+        this.wrapperRect.setAttribute('stroke-width', 2);
+        this.wrapperRect.setAttribute('height', height + fontSize + 3 * barStrokePadding);
+        this.wrapperRect.setAttribute('width', width + 2 * barStrokePadding);
+
         let barElements = [this.fillView, this.barBackground];
         barElements.forEach(element => {
             element.setAttribute('x', x);
@@ -31,6 +42,7 @@ class Bar {
         this.baseWidth = width;
         this.baseValue = baseValue;
 
+        this.group.appendChild(this.wrapperRect)
         this.group.appendChild(this.barBackground);
         this.group.appendChild(this.fillView);
     }
@@ -75,10 +87,12 @@ class BodyPartUI {
         this.uiGroup.setAttribute('x', x);
         this.uiGroup.setAttribute('y', y);
 
-        // this.shootChanceText = this.drawShootChance(this.bodyPartBaseInfo.shootChance);
-        // this.uiGroup.appendChild(this.shootChanceText);
-        this.bodyPartNameText = this.drawBodyPartName();
-        this.uiGroup.appendChild(this.bodyPartNameText);
+        this.shootChanceText = this.drawShootChance(this.bodyPartBaseInfo.shootChance);
+        this.uiGroup.appendChild(this.shootChanceText);
+
+        // this.bodyPartNameText = this.drawBodyPartName();
+        // this.uiGroup.appendChild(this.bodyPartNameText);
+
         this.healthBar = this.createHealthBar(this.bodyPartBaseInfo.baseLife);
         this.uiGroup.appendChild(this.healthBar.group);
     }
@@ -120,7 +134,6 @@ class BodyPartUI {
     drawShootChance(chance) {
         let shootChanceText = document.createElementNS("http://www.w3.org/2000/svg", 'text');
         shootChanceText.innerText = chance;
-        let fontSize = 20;
         let textNode = document.createTextNode(chance * 100 + "%");
         shootChanceText.setAttribute('font-size', fontSize + 'px');
         shootChanceText.appendChild(textNode);
@@ -128,7 +141,7 @@ class BodyPartUI {
         let x = this.uiGroup.getAttribute('x');
         let y = this.uiGroup.getAttribute('y');
         
-        shootChanceText.setAttribute('x', x - 24); // 24 - text width multiplayed on 0.5 (no way to get width from text now :( )
+        shootChanceText.setAttribute('x', x - (chance * 100 + "%").length * fontSize * fontRatio / 2);
         shootChanceText.setAttribute('y', y);
         shootChanceText.setAttribute('fill', 'green');    
 
@@ -139,7 +152,6 @@ class BodyPartUI {
         let bodyPartText = document.createElementNS("http://www.w3.org/2000/svg", 'text');
         let info = this.bodyPartBaseInfo
         bodyPartText.innerText = `${this.bodyPartName}: ${Math.round(info.currentLife * 100/ info.baseLife)}%`;
-        let fontSize = 20;
         let textNode = document.createTextNode(`${this.bodyPartName}: ${Math.round(info.currentLife * 100/ info.baseLife)}%`);
         bodyPartText.setAttribute('font-size', fontSize + 'px');
         bodyPartText.appendChild(textNode);
