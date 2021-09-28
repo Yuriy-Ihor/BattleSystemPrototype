@@ -84,6 +84,7 @@
 
 #battle-screen-selections {
     font-size: 25px;
+    padding-top: 5%;
 }
 
 #battle-screen-selection-ability {
@@ -130,6 +131,7 @@
 
 .body-selection {
     display: block;
+    padding-top: 2%;
 }
 
 #player-silhouettes {
