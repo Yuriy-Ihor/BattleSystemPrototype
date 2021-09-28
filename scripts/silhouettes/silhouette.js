@@ -22,7 +22,7 @@ class Bar {
         this.sideColor = sideColor;
 
         this.wrapperRect.setAttribute('x', x - barStrokePadding);
-        this.wrapperRect.setAttribute('y', y - height - (fontSize + 3 * barStrokePadding) / 2);
+        this.wrapperRect.setAttribute('y', y - height - (fontSize + 2 * barStrokePadding) / 2);
         this.wrapperRect.setAttribute('fill', 'none');
         this.wrapperRect.setAttribute('stroke', mainColor);
         this.wrapperRect.setAttribute('stroke-width', 2);
@@ -120,11 +120,11 @@ class BodyPartUI {
         let y = this.uiGroup.getAttribute('y');
 
         let newBar = new Bar(
-            x - bodyPartUIHealthBarWidth * 0.5,
-            parseFloat(y) + healthBarPaddingY,
+            this.scale * (x - bodyPartUIHealthBarWidth * 0.5),
+            this.scale * (parseFloat(y) + healthBarPaddingY),
             baseValue,
-            bodyPartUIHealthBarWidth,
-            bodyPartUIHealthBarHeight,
+            this.scale * (bodyPartUIHealthBarWidth),
+            this.scale * (bodyPartUIHealthBarHeight),
             this.mainColor,
             this.sideColor
         );
@@ -169,30 +169,30 @@ class BodyPartUI {
         let x = this.uiGroup.getAttribute('x');
         let y = this.uiGroup.getAttribute('y');
         
-        shootChanceText.setAttribute('x', x - (chance * 100 + "%").length * fontSize * fontRatio / 2);
-        shootChanceText.setAttribute('y', y);
+        shootChanceText.setAttribute('x', this.scale * x - (chance * 100 + "%").length * fontSize * fontRatio / 2);
+        shootChanceText.setAttribute('y', this.scale * y);
         shootChanceText.setAttribute('fill', this.currentColor);    
 
         return shootChanceText;
     }
 
-    drawBodyPartName() {
-        let bodyPartText = document.createElementNS("http://www.w3.org/2000/svg", 'text');
-        let info = this.bodyPartBaseInfo
-        bodyPartText.innerText = `${this.bodyPartName}: ${Math.round(info.currentLife * 100/ info.baseLife)}%`;
-        let textNode = document.createTextNode(`${this.bodyPartName}: ${Math.round(info.currentLife * 100/ info.baseLife)}%`);
-        bodyPartText.setAttribute('font-size', fontSize + 'px');
-        bodyPartText.appendChild(textNode);
+    // drawBodyPartName() {
+    //     let bodyPartText = document.createElementNS("http://www.w3.org/2000/svg", 'text');
+    //     let info = this.bodyPartBaseInfo
+    //     bodyPartText.innerText = `${this.bodyPartName}: ${Math.round(info.currentLife * 100/ info.baseLife)}%`;
+    //     let textNode = document.createTextNode(`${this.bodyPartName}: ${Math.round(info.currentLife * 100/ info.baseLife)}%`);
+    //     bodyPartText.setAttribute('font-size', fontSize + 'px');
+    //     bodyPartText.appendChild(textNode);
 
-        let x = this.uiGroup.getAttribute('x');
-        let y = this.uiGroup.getAttribute('y');
+    //     let x = this.uiGroup.getAttribute('x');
+    //     let y = this.uiGroup.getAttribute('y');
         
-        bodyPartText.setAttribute('x', x - bodyPartUIHealthBarWidth / 2);
-        bodyPartText.setAttribute('y', y);
-        bodyPartText.setAttribute('fill', 'green');    
+    //     bodyPartText.setAttribute('x', x - bodyPartUIHealthBarWidth / 2);
+    //     bodyPartText.setAttribute('y', y);
+    //     bodyPartText.setAttribute('fill', 'green');    
 
-        return bodyPartText;
-    }
+    //     return bodyPartText;
+    // }
 
     getImage() {
         return this.bodyPartImage;

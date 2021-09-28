@@ -2,27 +2,27 @@ silhouette_bar_coordinate_map_main = {
     "relevance": "main",
     "unscaled-size": 256,
     "arm-right": {
-        "left": 140,
+        "left": 130,
         "top": 80
     },
     "arm-left": {
-        "left": 50,
+        "left": 40,
         "top": 90
     },
     "leg-left": {
-        "left": 60,
+        "left": 50,
         "top": 180
     },
     "leg-right": {
-        "left": 145,
+        "left": 135,
         "top": 160
     },
     "head": {
-        "left": 85,
-        "top": 20
+        "left": 105,
+        "top": 5
     },
     "torso": {
-        "left": 91,
-        "top": 90
+        "left": 86,
+        "top": 75
     }
 }
