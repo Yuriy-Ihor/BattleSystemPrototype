@@ -1,5 +1,6 @@
 
 .silhouette-part {
+    cursor: pointer;
     transition-duration: 1s;
 }
 
