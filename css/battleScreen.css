@@ -8,7 +8,7 @@
 }
 
 #player-left, #player-right {
-    display: flex;
+    /* display: flex; */
 }
 
 #player-right {
