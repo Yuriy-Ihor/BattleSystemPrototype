@@ -11,16 +11,20 @@ const fontRatio = 0.6;
 const fontSize = 20;
 
 class Bar {
-    constructor(x, y, baseValue, width, height) {
+    constructor(x, y, baseValue, width, height, mainColor, sideColor) {
         this.group = document.createElementNS("http://www.w3.org/2000/svg", 'g');
         this.fillView = document.createElementNS("http://www.w3.org/2000/svg", 'rect');
         this.barBackground = document.createElementNS("http://www.w3.org/2000/svg", 'rect');
         this.wrapperRect = document.createElementNS("http://www.w3.org/2000/svg", 'rect');
 
+        this.mainColor = mainColor;
+        this.currentColor = this.mainColor;
+        this.sideColor = sideColor;
+
         this.wrapperRect.setAttribute('x', x - barStrokePadding);
         this.wrapperRect.setAttribute('y', y - height - (fontSize + 3 * barStrokePadding) / 2);
         this.wrapperRect.setAttribute('fill', 'none');
-        this.wrapperRect.setAttribute('stroke', 'green');
+        this.wrapperRect.setAttribute('stroke', mainColor);
         this.wrapperRect.setAttribute('stroke-width', 2);
         this.wrapperRect.setAttribute('height', height + fontSize + 3 * barStrokePadding);
         this.wrapperRect.setAttribute('width', width + 2 * barStrokePadding);
@@ -29,12 +33,12 @@ class Bar {
         barElements.forEach(element => {
             element.setAttribute('x', x);
             element.setAttribute('y', y);
-            element.setAttribute('fill', 'green');
+            element.setAttribute('fill', mainColor);
             element.setAttribute('height', height);
             element.setAttribute('width', width)
         });
 
-        this.barBackground.setAttribute('fill', 'gray');
+        this.barBackground.setAttribute('fill', 'transparent');
         this.barBackground.setAttribute('class', 'bar-background-view');
         this.fillView.setAttribute('class', 'bar-fill-view');
 
@@ -52,12 +56,23 @@ class Bar {
         this.currentValue = value;
 
         let fillAmount = value / this.baseValue;
-        this.fillView.setAttribute('width', this.baseWidth * fillAmount);  
+        this.fillView.setAttribute('width', this.baseWidth * fillAmount);
+
+        this.currentColor = lerpColor(
+            this.sideColor,
+            this.mainColor,
+            this.currentValue / this.baseValue
+        );
+
+        this.fillView.setAttribute('fill', this.currentColor);
+        this.wrapperRect.setAttribute('stroke', this.currentColor);
         
         if(value <= 0) {
             hideElement(this.barBackground);
             this.barBackground.classList.add('no-opacity');
         }
+
+        return this.currentColor;
     }
 }
 
@@ -69,6 +84,9 @@ class BodyPartUI {
         this.uiGroup = document.createElementNS("http://www.w3.org/2000/svg", 'g');
         this.scale = scale;
         this.relevance = relevance;
+        this.mainColor = "#00ff00";
+        this.sideColor = "#ff0000";
+        this.currentColor = this.mainColor;
     }
 
     init() {
@@ -97,7 +115,15 @@ class BodyPartUI {
         let x = this.uiGroup.getAttribute('x');
         let y = this.uiGroup.getAttribute('y');
 
-        let newBar = new Bar(x - bodyPartUIHealthBarWidth * 0.5, parseFloat(y) + healthBarPaddingY, baseValue, bodyPartUIHealthBarWidth, bodyPartUIHealthBarHeight);
+        let newBar = new Bar(
+            x - bodyPartUIHealthBarWidth * 0.5,
+            parseFloat(y) + healthBarPaddingY,
+            baseValue,
+            bodyPartUIHealthBarWidth,
+            bodyPartUIHealthBarHeight,
+            this.mainColor,
+            this.sideColor
+        );
 
         return newBar;
     }
@@ -106,12 +132,13 @@ class BodyPartUI {
         if(currentHealth <= 0) {
             var that = this;
             setTimeout(function () {
-                console.log(that);
+                // console.log(that);
                 that.bodyPartImage.classList.add('killed');
                 if(hasClass(that.bodyPartImage, 'damaged')) {
                     that.bodyPartImage.classList.remove('damaged');
                 }
-                that.healthBar.updateFillAmount(currentHealth);
+                that.currentColor = that.healthBar.updateFillAmount(currentHealth);
+                that.shootChanceText.setAttribute('fill', that.currentColor);
                 that.shootChanceText.classList.add('no-opacity');
             }, 100);
             return;
@@ -122,7 +149,8 @@ class BodyPartUI {
                 if(!hasClass(that.bodyPartImage, 'damaged')) {
                     that.bodyPartImage.classList.add('damaged');
                 }
-                that.healthBar.updateFillAmount(currentHealth);
+                that.currentColor = that.healthBar.updateFillAmount(currentHealth);
+                that.shootChanceText.setAttribute('fill', that.currentColor);
             }, 100);
         }
     }
@@ -139,7 +167,7 @@ class BodyPartUI {
         
         shootChanceText.setAttribute('x', x - (chance * 100 + "%").length * fontSize * fontRatio / 2);
         shootChanceText.setAttribute('y', y);
-        shootChanceText.setAttribute('fill', 'green');    
+        shootChanceText.setAttribute('fill', this.currentColor);    
 
         return shootChanceText;
     }
@@ -306,7 +334,7 @@ class SummarySilhouette extends Silhouette {
         this.bodyPartsUI[targetBodyPart].updateUI(bodyPartInfo.currentLife);
 
         this.activeHealthBar = this.bodyPartsUI[targetBodyPart].healthBar;
-        console.log(this.activeHealthBar);
+        // console.log(this.activeHealthBar);
         showElement(this.activeHealthBar.group);
     }
 
@@ -344,5 +372,5 @@ function createImage(path, id, width, height, x = 0, y = 0, className = '') {
 function changeBrightness(element) {
     let style = element.style;
     let filters = style.filter;
-    console.log(filters);
+    // console.log(filters);
 }
