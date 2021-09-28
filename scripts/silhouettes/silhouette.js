@@ -209,21 +209,19 @@ class Silhouette{
         this.silhouetteSvg = silhouetteSvg;
 
         this.bodyParts = this.silhouetteSvg.getElementsByClassName('silhouette-part');
-        /*
+        
         for(let i = 0; i < this.bodyParts.length; i++) {
             let bodyPartImage = this.bodyParts[i];
             let bodyPartInfo = targetPlayer.bodyParts[bodyPartImage.id];
-            let bodyPartUI = new BodyPartUI(this.bodyParts[i].id, bodyPartImage, bodyPartInfo, this.scale, this.relevance);
+            let bodyPartUI = new BodyPartUI(bodyPartImage.id, bodyPartImage, bodyPartInfo, this.scale, this.relevance);
             
-            this.bodyPartsUI[this.bodyParts[this.bodyParts[i].id]] = bodyPartUI;
+            this.bodyPartsUI[bodyPartImage.id] = bodyPartUI;
         }
         
         for(let bodyPartId in this.bodyPartsUI) {
             this.bodyPartsUI[bodyPartId].init();
             silhouetteSvg.appendChild(this.bodyPartsUI[bodyPartId].uiGroup);
-        }*/
-
-        console.log(silhouetteSvg);
+        }
 
         this.silhouetteSvg.setAttribute('width', SILHOUETTE_SIZE * UI_SCALE);
         this.silhouetteSvg.setAttribute('height', SILHOUETTE_SIZE * UI_SCALE);
