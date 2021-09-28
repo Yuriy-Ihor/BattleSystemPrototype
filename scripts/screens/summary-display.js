@@ -23,11 +23,11 @@ class TurnSummaryDisplay {
     }
 
     updateMainPlayerDefendSummary(playerName, defendedPartId) {
-        this.updatePlayerDefendSummary(turnSummaryPlayer, playerName, defendedPartId);
+        this.updatePlayerDefendSummary(turnSummaryEnemy, playerName, defendedPartId);
     }
 
     updateOpponentDefendSummary(playerName, defendedPartId) {
-        this.updatePlayerDefendSummary(turnSummaryEnemy, playerName, defendedPartId);
+        this.updatePlayerDefendSummary(turnSummaryPlayer, playerName, defendedPartId);
     }
 
     updatePlayerDefendSummary(playerDisplay, playerName, defendedPartId) {

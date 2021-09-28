@@ -8,8 +8,8 @@
 
 .battle-screen-player-summary {
     font-size: 25px;
-    margin-top: 20px;
-    margin-bottom: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 @media (max-width: 600px) {
