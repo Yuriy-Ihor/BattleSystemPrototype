@@ -9,12 +9,14 @@
 
 #player-left, #player-right {
     /* display: flex; */
-    width: 100%;
     max-width: 250px;
 }
 
 #player-left {
     float: left;
+    position: relative;
+    top: 0;
+    left: 0;
 }
 
 #player-right {
@@ -179,6 +181,20 @@
         margin-left: 0;
         margin-right: 10px;
     }
+    #player-left {
+        position: relative;
+        top: 0;
+        left: 0;
+        float: none;
+    }
+    
+    #player-right {
+        text-align: right;
+        position: absolute;
+        top: 0;
+        right: 0;
+        float: none;
+    }
 }
 
 @media(max-width: 650px) {
@@ -210,6 +226,10 @@
     }
     .player-ability {
         font-size: 18px;
+    }
+    #player-left, #player-right {
+        /* display: flex; */
+        width: 100%;
     }
 }
 
