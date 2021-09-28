@@ -11,8 +11,13 @@
     /* display: flex; */
 }
 
+#player-left {
+    float: left;
+}
+
 #player-right {
     text-align: right;
+    float: right;
 }
 
 .player-name {
@@ -79,6 +84,7 @@
 
 #battle-screen-selections {
     font-size: 25px;
+    padding-top: 10%;
 }
 
 #battle-screen-selection-ability {
@@ -183,6 +189,9 @@
     .player-bar-text {
         top: -20px;
     }
+    #player-right {
+        float: none;
+    }
 }
 
 @media(max-width: 525px) {
@@ -204,5 +213,8 @@
 @media(max-height: 700px) {
     .player-ability {
         margin: 8px 10px;
+    }
+    #battle-screen-selections {
+        padding-top: 0;
     }
 }
