@@ -4,7 +4,7 @@ const silhouetteImagePath = 'silhouette-parts';
 const healthBarPaddingY = 8;
 const bodyPartUIPaddingY = 15;
 const iconsPaddingY = 10;
-const bodyPartUIHealthBarWidth = 65;
+const bodyPartUIHealthBarWidth = 100;
 const bodyPartUIHealthBarHeight = 10;
 
 class Bar {
@@ -54,25 +54,31 @@ class Bar {
 }
 
 class BodyPartUI {
-    constructor(targetBodyPart, bodyPartInfo, scale) {
+    constructor(bodyPartName, targetBodyPart, bodyPartInfo, scale, relevance) {
+        this.bodyPartName = bodyPartName;
         this.bodyPartBaseInfo = bodyPartInfo;
         this.bodyPartImage = targetBodyPart;
         this.uiGroup = document.createElementNS("http://www.w3.org/2000/svg", 'g');
         this.scale = scale;
+        this.relevance = relevance;
     }
 
     init() {
         this.uiGroup.setAttribute('class', 'body-part-ui-group');
         this.uiGroup.setAttribute('width', 30);
 
-        let x = parseFloat(this.bodyPartImage.getAttribute('x')) + parseFloat(this.bodyPartImage.getAttribute('width')) * 0.1;
-        let y = parseFloat(this.bodyPartImage.getAttribute('y')) + parseFloat(this.bodyPartImage.getAttribute('height')) * 0.1;
+        // let x = parseFloat(this.bodyPartImage.getAttribute('x')) + parseFloat(this.bodyPartImage.getAttribute('width')) * 0.1;
+        // let y = parseFloat(this.bodyPartImage.getAttribute('y')) + parseFloat(this.bodyPartImage.getAttribute('height')) * 0.1;
+        let x = this.relevance === "main" ? silhouette_bar_coordinate_map_main[this.bodyPartName]["left"] * this.scale : silhouette_bar_coordinate_map_side[this.bodyPartName]["left"] * this.scale;
+        let y = this.relevance === "main" ? silhouette_bar_coordinate_map_main[this.bodyPartName]["top"] * this.scale : silhouette_bar_coordinate_map_side[this.bodyPartName]["top"] * this.scale;
 
         this.uiGroup.setAttribute('x', x);
         this.uiGroup.setAttribute('y', y);
 
-        this.shootChanceText = this.drawShootChance(this.bodyPartBaseInfo.shootChance);
-        this.uiGroup.appendChild(this.shootChanceText);
+        // this.shootChanceText = this.drawShootChance(this.bodyPartBaseInfo.shootChance);
+        // this.uiGroup.appendChild(this.shootChanceText);
+        this.bodyPartNameText = this.drawBodyPartName();
+        this.uiGroup.appendChild(this.bodyPartNameText);
         this.healthBar = this.createHealthBar(this.bodyPartBaseInfo.baseLife);
         this.uiGroup.appendChild(this.healthBar.group);
     }
@@ -129,6 +135,25 @@ class BodyPartUI {
         return shootChanceText;
     }
 
+    drawBodyPartName() {
+        let bodyPartText = document.createElementNS("http://www.w3.org/2000/svg", 'text');
+        let info = this.bodyPartBaseInfo
+        bodyPartText.innerText = `${this.bodyPartName}: ${Math.round(info.currentLife * 100/ info.baseLife)}%`;
+        let fontSize = 20;
+        let textNode = document.createTextNode(`${this.bodyPartName}: ${Math.round(info.currentLife * 100/ info.baseLife)}%`);
+        bodyPartText.setAttribute('font-size', fontSize + 'px');
+        bodyPartText.appendChild(textNode);
+
+        let x = this.uiGroup.getAttribute('x');
+        let y = this.uiGroup.getAttribute('y');
+        
+        bodyPartText.setAttribute('x', x - bodyPartUIHealthBarWidth / 2);
+        bodyPartText.setAttribute('y', y);
+        bodyPartText.setAttribute('fill', 'green');    
+
+        return bodyPartText;
+    }
+
     getImage() {
         return this.bodyPartImage;
     }
@@ -163,7 +188,7 @@ class Silhouette{
             let bodyPartImage = createImage(imagePath, body_part_name, width, height, positionX, positionY, 'silhouette-part');
 
             let bodyPartInfo = targetPlayer.bodyParts[body_part_name];
-            let bodyPartUI = new BodyPartUI(bodyPartImage, bodyPartInfo, this.scale);
+            let bodyPartUI = new BodyPartUI(body_part_name, bodyPartImage, bodyPartInfo, this.scale, this.relevance);
             
             silhouetteGroup.appendChild(bodyPartImage);
             this.bodyPartsUI[body_part_name] = bodyPartUI;
