@@ -62,8 +62,8 @@ class TurnSummaryDisplay {
     }
 
     updateSilhouetteUI(attackedPart, defendedPart, bodyPartInfo, silhouette) {
-        silhouette.showAttackedIcon(attackedPart);
-        silhouette.showDefendedIcon(defendedPart);
+        //silhouette.showAttackedIcon(attackedPart);
+        //silhouette.showDefendedIcon(defendedPart);
 
         silhouette.updateBodyPartUI(attackedPart.id, bodyPartInfo);
     }

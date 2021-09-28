@@ -312,14 +312,15 @@ class SummarySilhouette extends Silhouette {
     constructor(_coordinate_map, display, targetPlayer, scale) {
         super(_coordinate_map, display, targetPlayer, scale);
         
-        this.attackedIcon = createImage('images/sight.png', 'attacked-icon', 50, 50, 0, 0, 'silhouette-icon');
-        this.defendedIcon = createImage('images/shield.png', 'defended-icon', 50, 50, 0, 0, 'silhouette-icon');
+        //this.attackedIcon = createImage('images/sight.png', 'attacked-icon', 50, 50, 0, 0, 'silhouette-icon');
+        //this.defendedIcon = createImage('images/shield.png', 'defended-icon', 50, 50, 0, 0, 'silhouette-icon');
 
-        display.appendChild(this.attackedIcon);
-        display.appendChild(this.defendedIcon);
+        //display.appendChild(this.attackedIcon);
+        //display.appendChild(this.defendedIcon);
 
         for(let bodyPart in this.bodyPartsUI) {
-            //hideElement(this.bodyPartsUI[bodyPart].uiGroup);
+            hideElement(this.bodyPartsUI[bodyPart].shootChanceText);
+            hideElement(this.bodyPartsUI[bodyPart].healthBar.wrapperRect);
         }
 
         this.activeHealthBar = null;
