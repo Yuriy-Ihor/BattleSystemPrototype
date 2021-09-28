@@ -14,7 +14,6 @@ function checkIfAnyBodyPartIsDead(bodyParts) {
 }
 
 function getBattleWinner(players) {
-    /*
     if(players.opponent.playerStats[playerStats.hitpoints] > 0) {
         return players.opponent;
     }
@@ -24,7 +23,6 @@ function getBattleWinner(players) {
     else {
         return null;
     }
-    */
 }
 
 var currentTurn = 1;
@@ -80,6 +78,8 @@ function finishTurn() {
 }
 
 function proceedBattleRezults() {
+    turnSummaryDisplay.clearSummaries();
+
     let playerAttackedPart = attackSelection.getSelected();
     let playerDefendedPart = defenseSelection.getSelected();
 
@@ -89,17 +89,19 @@ function proceedBattleRezults() {
     if(playerAttackedPart.id != enemyDefendedPart.id) {
         let shootSucceed = applyDamageToBodyPart(players.opponent.bodyParts[playerAttackedPart.id], 1);
 
-        if(!shootSucceed) {
-            console.log(players.mainPlayer.name + " missed!");
-        }
+        turnSummaryDisplay.updateMainPlayerAttackSummary(players.mainPlayer.name, playerAttackedPart.id, !shootSucceed);
+    }
+    else {
+        turnSummaryDisplay.updateOpponentDefendSummary(players.opponent.name, playerAttackedPart.id);
     }
     
     if(enemyAttackedPart.id != playerDefendedPart.id) {
-        let shootSucceed = applyDamageToBodyPart(players.mainPlayer.bodyParts[playerAttackedPart.id], 1);
+        let shootSucceed = applyDamageToBodyPart(players.mainPlayer.bodyParts[enemyAttackedPart.id], 1);
 
-        if(!shootSucceed) {
-            console.log(players.opponent.name + " missed!");
-        }
+        turnSummaryDisplay.updateOpponentAttackSummary(players.opponent.name, enemyAttackedPart.id, !shootSucceed);
+    }
+    else {
+        turnSummaryDisplay.updateOpponentDefendSummary(players.mainPlayer.name, enemyAttackedPart.id);
     }
 
     /*
@@ -112,12 +114,12 @@ function proceedBattleRezults() {
 
     players.opponent.playerStats[playerStats.hitpoints] -= totalDamage;
     players.opponent.playerStats[playerStats.mana] -= 7;*/
+    
+    turnSummaryDisplay.updatePlayerSilhouetteUI(enemyAttackedPart, playerDefendedPart, players.mainPlayer.bodyParts[enemyAttackedPart.id]);
+    turnSummaryDisplay.updateEnemySilhouetteUI(playerAttackedPart, enemyDefendedPart, players.opponent.bodyParts[playerAttackedPart.id]);
 
-    turnSummaryDisplay.updatePlayerSilhouetteUI(enemyAttackedPart, playerDefendedPart, players.mainPlayer.bodyParts);
-    turnSummaryDisplay.updateEnemySilhouetteUI(playerAttackedPart, enemyDefendedPart, players.opponent.bodyParts);
-
-    playerSilhouette.updateUI(players.mainPlayer.bodyParts);
-    enemySilhouette.updateUI(players.opponent.bodyParts);
+    playerSilhouette.updateBodyPartUI(enemyAttackedPart.id, players.mainPlayer.bodyParts[enemyAttackedPart.id]);
+    enemySilhouette.updateBodyPartUI(playerAttackedPart.id, players.opponent.bodyParts[playerAttackedPart.id]);
 }
 
 function applyDamageToBodyPart(bodyPart, damage) {

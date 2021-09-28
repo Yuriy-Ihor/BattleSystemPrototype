@@ -1,6 +1,9 @@
 
-const turnSummaryPlayerDisplaySvg = document.getElementById('battle-screen-summary-player');
-const turnSummaryEnemyDisplaySvg = document.getElementById('battle-screen-summary-enemy');
+const turnSummaryPlayerDisplaySvg = document.getElementById('battle-screen-summary-player-svg');
+const turnSummaryEnemyDisplaySvg = document.getElementById('battle-screen-summary-enemy-svg');
+
+const turnSummaryPlayer = document.getElementById('battle-screen-summary-player');
+const turnSummaryEnemy = document.getElementById('battle-screen-summary-enemy');
 
 class TurnSummaryDisplay {
     constructor(playerDisplay, enemyDisplay, mainPlayer, opponent) {
@@ -14,18 +17,54 @@ class TurnSummaryDisplay {
         this.opponent = opponent;
     }
 
-    updateEnemySilhouetteUI(attackedPart, defendedPart, bodyParts) {
-        this.updateSilhouetteUI(attackedPart, defendedPart, bodyParts, this.enemySilhouette);
+    clearSummaries() {
+        turnSummaryPlayer.innerHTML = '';
+        turnSummaryEnemy.innerHTML = '';
     }
 
-    updatePlayerSilhouetteUI(attackedPart, defendedPart, bodyParts) {
-        this.updateSilhouetteUI(attackedPart, defendedPart, bodyParts, this.playerSilhouette);
+    updateMainPlayerDefendSummary(playerName, defendedPartId) {
+        this.updatePlayerDefendSummary(turnSummaryPlayer, playerName, defendedPartId);
     }
 
-    updateSilhouetteUI(attackedPart, defendedPart, bodyParts, silhouette) {
+    updateOpponentDefendSummary(playerName, defendedPartId) {
+        this.updatePlayerDefendSummary(turnSummaryEnemy, playerName, defendedPartId);
+    }
+
+    updatePlayerDefendSummary(playerDisplay, playerName, defendedPartId) {
+        playerDisplay.innerHTML = `${playerName} defended ${defendedPartId}!`;
+    }
+
+    updateMainPlayerAttackSummary(playerName, attackedPartId, missed) {
+        this.updatePlayerAttackSummary(turnSummaryPlayer, playerName, attackedPartId, missed);
+    }
+
+    updateOpponentAttackSummary(playerName, attackedPartId, missed) {
+        this.updatePlayerAttackSummary(turnSummaryEnemy, playerName, attackedPartId, missed);
+    }
+
+    updatePlayerAttackSummary(playerDisplay, playerName, attackedPartId, missed) {
+        let summaryText;
+        if(missed) {
+            summaryText = playerName + " missed!";
+        }
+        else {
+            summaryText = playerName + " successfully shoot " + attackedPartId + "!";
+        }
+        playerDisplay.innerHTML = summaryText;
+    }
+
+    updateEnemySilhouetteUI(attackedPart, defendedPart, bodyPartInfo) {
+        this.updateSilhouetteUI(attackedPart, defendedPart, bodyPartInfo, this.enemySilhouette);
+    }
+
+    updatePlayerSilhouetteUI(attackedPart, defendedPart, bodyPartInfo) {
+        this.updateSilhouetteUI(attackedPart, defendedPart, bodyPartInfo, this.playerSilhouette);
+    }
+
+    updateSilhouetteUI(attackedPart, defendedPart, bodyPartInfo, silhouette) {
         silhouette.showAttackedIcon(attackedPart);
         silhouette.showDefendedIcon(defendedPart);
 
-        silhouette.updateUI(bodyParts);
+        silhouette.updateBodyPartUI(attackedPart.id, bodyPartInfo);
     }
 }
