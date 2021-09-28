@@ -52,16 +52,14 @@ class Bar {
         this.currentValue = value;
 
         let fillAmount = value / this.baseValue;
-        this.setWidth(this.baseWidth * fillAmount, this.fillView);     
+        this.fillView.setAttribute('width', this.baseWidth * fillAmount);  
+        
+        this.set
 
         if(value <= 0) {
             hideElement(this.barBackground);
             this.barBackground.classList.add('no-opacity');
         }
-    }
-
-    setWidth(width, element) {
-        element.setAttribute('width', width);
     }
 }
 
