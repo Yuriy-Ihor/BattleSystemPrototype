@@ -31,7 +31,7 @@ class Bar {
             element.setAttribute('y', y);
             element.setAttribute('fill', 'green');
             element.setAttribute('height', height);
-            this.setWidth(width, element);
+            element.setAttribute('width', width)
         });
 
         this.barBackground.setAttribute('fill', 'gray');
@@ -58,10 +58,6 @@ class Bar {
             hideElement(this.barBackground);
             this.barBackground.classList.add('no-opacity');
         }
-    }
-
-    setWidth(width, element) {
-        element.setAttribute('width', width);
     }
 }
 
