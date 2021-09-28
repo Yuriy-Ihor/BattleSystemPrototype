@@ -54,8 +54,6 @@ class Bar {
         let fillAmount = value / this.baseValue;
         this.fillView.setAttribute('width', this.baseWidth * fillAmount);  
         
-        this.set
-
         if(value <= 0) {
             hideElement(this.barBackground);
             this.barBackground.classList.add('no-opacity');
