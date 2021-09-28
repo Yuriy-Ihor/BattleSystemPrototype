@@ -1,19 +1,19 @@
 silhouette_bar_coordinate_map_main = {
     "relevance": "main",
     "unscaled-size": 256,
-    "arm-left": {
+    "arm-right": {
         "left": 80,
         "top": 90
     },
-    "arm-right": {
+    "arm-left": {
         "left": 170,
         "top": 80
     },
-    "leg-left": {
+    "leg-right": {
         "left": 90,
         "top": 180
     },
-    "leg-right": {
+    "leg-left": {
         "left": 175,
         "top": 160
     },
