@@ -8,13 +8,11 @@ class EnemyBot {
     }
 
     getBodyPartToAttack(bodyPartsUI) {
-        console.log(this.botInfo);
-
         if(STUPID_BOT) {
             return bodyPartsUI[ATTACK_BODY_PART_ID];
         }
         else {
-            return getRandomBodyPart(bodyPartsUI);
+            return this.getRandomBodyPart(bodyPartsUI);
         }
     }
 
@@ -23,7 +21,7 @@ class EnemyBot {
             return bodyPartsUI[DEFEND_BODY_PART_ID];
         }
         else {
-            return getRandomBodyPart(bodyPartsUI);
+            return this.getRandomBodyPart(bodyPartsUI);
         }
     }
     

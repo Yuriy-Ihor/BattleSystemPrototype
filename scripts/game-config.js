@@ -11,7 +11,7 @@ const SUMMARY_SILHOUETTE_SIZE = 1000;
 const UI_SCALE_MULTIPLAYER = 0.45;
 const MAX_UI_SCALE = 1.5;
 
-const STUPID_BOT = true;
+const STUPID_BOT = false;
 
 const MINIMAL_SCREEN_SIZE = Math.min(window.innerHeight, window.innerWidth);
 
