@@ -239,7 +239,7 @@ class Silhouette{
     }
 
     hollowImage(image) { 
-        image.setAttribute('fill', 'none');
+        image.removeAttribute('fill');
     }
 
     fillImage(image) {
