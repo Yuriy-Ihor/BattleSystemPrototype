@@ -54,10 +54,11 @@ function restoreManaToPlayer(player, amount) {
 function finishTurn() {
     
     // if(getSelectedPlayerAbilities().length == 0 || !attackSilhouette.isBodyPartSelected() || !defenseSilhouette.isBodyPartSelected()) {
-    if(!enemySilhouette.isBodyPartSelected() || !enemySilhouette.isBodyPartSelected()) {
+    if(!playerSilhouette.isBodyPartSelected() || !enemySilhouette.isBodyPartSelected()) {
         showErrorMessage("You dumb idiot did something wrong!", 5);
         return;
     }
+    console.log('finishing turn');
 
     battleSelectionsPanel.hideAllSelections();
 
