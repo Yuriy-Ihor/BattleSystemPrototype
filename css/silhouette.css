@@ -30,12 +30,10 @@ path {
 
 .damaged {
     transition-duration: 1s; 
-    filter: hue-rotate(352deg) invert(44%) sepia(90%) saturate(7465%) brightness(601%) contrast(104%);
 }
 
 .killed {
     transition-duration: 1s; 
-    filter: hue-rotate(352deg) invert(44%) sepia(90%) saturate(7465%) brightness(101%) contrast(104%);
 }
 
 .bar-fill-view {

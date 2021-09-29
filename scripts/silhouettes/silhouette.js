@@ -91,6 +91,7 @@ class BodyPartUI {
         this.mainColor = "#00ff00";
         this.sideColor = "#ff0000";
         this.currentColor = this.mainColor;
+        this.bodyPartInfo = bodyPartInfo;
     }
 
     init() {
@@ -231,6 +232,7 @@ class Silhouette{
 
 
     updateBodyPartUI(targetBodyPart, bodyPartInfo) {
+        this.bodyPartsUI[targetBodyPart].bodyPartInfo = bodyPartInfo;
         this.bodyPartsUI[targetBodyPart].updateUI(bodyPartInfo.currentLife);
     }
 
@@ -239,7 +241,7 @@ class Silhouette{
             var color = lerpColor(
                 this.bodyPartsUI[bodyPartName].sideColor,
                 this.bodyPartsUI[bodyPartName].mainColor,
-                this.bodyPartsUI[bodyPartName].healthBar.currentValue / this.bodyPartsUI[bodyPartName].healthBar.baseValue
+                this.bodyPartsUI[bodyPartName].bodyPartInfo.currentLife / this.bodyPartsUI[bodyPartName].bodyPartInfo.baseLife
             );
             this.bodyParts[bodyPartName].setAttribute("fill", color);
         }
@@ -360,10 +362,4 @@ function createImage(path, id, width, height, x = 0, y = 0, className = '') {
     newImage.setAttribute('height', height);
 
     return newImage;
-}
-
-function changeBrightness(element) {
-    let style = element.style;
-    let filters = style.filter;
-    // console.log(filters);
 }
