@@ -83,6 +83,8 @@ function initOpponent() {
     return opponent;
 }
 
+const enemyBot = new EnemyBot(players.opponent);
+
 const enemySilhouette = new SelectableSilhouette(attackSvg, players.opponent, UI_SCALE, 'side', SILHOUETTE_SIZE * UI_SCALE);
 const playerSilhouette = new SelectableSilhouette(defenseSvg, players.mainPlayer, UI_SCALE, 'main', SILHOUETTE_SIZE * UI_SCALE);
 

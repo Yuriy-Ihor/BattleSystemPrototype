@@ -83,8 +83,8 @@ function proceedBattleRezults() {
     let playerAttackedPart = attackSelection.getSelected();
     let playerDefendedPart = defenseSelection.getSelected();
 
-    let enemyAttackedPart = enemySilhouette.bodyPartsUI[ATTACKED_ENEMY_PART_ID].bodyPartImage; 
-    let enemyDefendedPart =  enemySilhouette.bodyPartsUI[DEFENDED_ENEMY_PART_ID].bodyPartImage; 
+    let enemyAttackedPart = enemyBot.getBodyPartToAttack(enemySilhouette.bodyPartsUI).bodyPartImage; 
+    let enemyDefendedPart =  enemyBot.getBodyPartToDefend(enemySilhouette.bodyPartsUI).bodyPartImage; 
 
     if(playerAttackedPart.id != enemyDefendedPart.id) {
         let shootSucceed = applyDamageToBodyPart(players.opponent.bodyParts[playerAttackedPart.id], 1);
