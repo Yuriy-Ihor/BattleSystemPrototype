@@ -18,8 +18,8 @@ silhouette_bar_coordinate_map_main = {
         "top": 160
     },
     "head": {
-        "left": 105,
-        "top": 5
+        "left": 65,
+        "top": 12
     },
     "torso": {
         "left": 86,
