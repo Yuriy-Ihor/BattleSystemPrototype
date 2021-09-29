@@ -10,11 +10,30 @@ class TurnSummaryDisplay {
         this.playerSilhouette = new SummarySilhouette(playerDisplay, mainPlayer, UI_SCALE, 'main',Math.min(MINIMAL_SCREEN_SIZE / 2, SUMMARY_SILHOUETTE_SIZE / 2));
         this.enemySilhouette = new SummarySilhouette(enemyDisplay, opponent, UI_SCALE, 'side', Math.min(MINIMAL_SCREEN_SIZE / 2, SUMMARY_SILHOUETTE_SIZE / 2));
 
+        this.playerSilhouette.updateHealthColors();
+        this.enemySilhouette.updateHealthColors();
+
         this.playerDisplay = playerDisplay;
         this.enemyDisplay = enemyDisplay;
 
         this.mainPlayer = mainPlayer;
         this.opponent = opponent;
+    }
+
+    updateSilhouetteSummaryColors() {
+        function parseSilhouetterCollors (silhouette) {
+            for (var bodyPartName in silhouette.bodyPartsUI) {
+                var color = lerpColor(
+                    silhouette.bodyPartsUI[bodyPartName].sideColor,
+                    silhouette.bodyPartsUI[bodyPartName].mainColor,
+                    silhouette.bodyPartsUI[bodyPartName].healthBar.currentValue / silhouette.bodyPartsUI[bodyPartName].healthBar.baseValue
+                );
+                silhouette.bodyParts[bodyPartName].setAttribute("fill", color);
+            }
+        }
+
+        parseSilhouetterCollors(this.playerSilhouette);
+        parseSilhouetterCollors(this.enemySilhouette)
     }
 
     clearSummaries() {
@@ -55,10 +74,12 @@ class TurnSummaryDisplay {
 
     updateEnemySilhouetteUI(attackedPart, defendedPart, bodyPartInfo) {
         this.updateSilhouetteUI(attackedPart, defendedPart, bodyPartInfo, this.enemySilhouette);
+        this.enemySilhouette.updateHealthColors();
     }
 
     updatePlayerSilhouetteUI(attackedPart, defendedPart, bodyPartInfo) {
         this.updateSilhouetteUI(attackedPart, defendedPart, bodyPartInfo, this.playerSilhouette);
+        this.playerSilhouette.updateHealthColors();
     }
 
     updateSilhouetteUI(attackedPart, defendedPart, bodyPartInfo, silhouette) {

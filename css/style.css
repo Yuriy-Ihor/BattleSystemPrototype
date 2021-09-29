@@ -35,7 +35,7 @@ img {
     font-family: 'Courier New', Courier, monospace;
     display: block;
     text-transform: uppercase;
-    background-color: rgb(0, 255, 0);
+    background-color: green;
     border: none;
     transition-duration: 0.1s;    
     border-radius: 0;
@@ -45,7 +45,8 @@ img {
 
 @media (hover: hover){ 
     .switch-button:hover{
-        background-color: greenyellow; 
-        transition-duration: 0.1s;
+        color: black;
+        background-color: #00ff00; 
+        transition-duration: 0.3s;
     }
 }

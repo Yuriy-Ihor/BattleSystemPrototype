@@ -1,7 +1,12 @@
 
 .silhouette-part {
+    stroke-width: 3px;
     stroke: green;
     transition-duration: .3s;
+}
+
+#battle-screen-summary .silhouette-part {
+    stroke: black;
 }
 
 #battle-screen-selections .silhouette-part:hover {
@@ -9,6 +14,14 @@
     fill: green;
     cursor: pointer;
     transition-duration: .3s;
+}
+
+#battle-screen-selections .filled-body-part {
+    fill: green;
+}
+
+#battle-screen-selections .filled-body-part:hover {
+    fill: green;
 }
 
 path {

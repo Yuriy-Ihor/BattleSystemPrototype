@@ -124,8 +124,8 @@ function proceedBattleRezults() {
 
 function applyDamageToBodyPart(bodyPart, damage) {
     let shootChance = Math.random(); 
-    console.log(shootChance);
-    console.log(bodyPart);
+    // console.log(shootChance);
+    // console.log(bodyPart);
     if(shootChance <= bodyPart.shootChance ) {
         bodyPart.currentLife -= damage;
         return true;
