@@ -53,22 +53,28 @@ class TurnSummaryDisplay {
         playerDisplay.innerHTML = `${playerAttacker} attacked ${defendedPartId}, but ${playerDefender} defended!`;
     }
 
-    updateMainPlayerAttackSummary(playerName, attackedPartId, missed) {
-        this.updatePlayerAttackSummary(turnSummaryPlayer, playerName, attackedPartId, missed);
+    updateMainPlayerAttackSummary(playerName, attackedPartId, missed, killedBodyPart) {
+        this.updatePlayerAttackSummary(turnSummaryPlayer, playerName, attackedPartId, missed, killedBodyPart);
     }
 
-    updateOpponentAttackSummary(playerName, attackedPartId, missed) {
-        this.updatePlayerAttackSummary(turnSummaryEnemy, playerName, attackedPartId, missed);
+    updateOpponentAttackSummary(playerName, attackedPartId, missed, killedBodyPart) {
+        this.updatePlayerAttackSummary(turnSummaryEnemy, playerName, attackedPartId, missed, killedBodyPart);
     }
 
-    updatePlayerAttackSummary(playerDisplay, playerName, attackedPartId, missed) {
+    updatePlayerAttackSummary(playerDisplay, playerName, attackedPartId, missed, killedBodyPart) {
         let summaryText;
-        if(missed) {
-            summaryText = playerName + " missed!";
+        if(!killedBodyPart) {
+            if(missed) {
+                summaryText = playerName + " missed!";
+            }
+            else {
+                summaryText = playerName + " successfully shoot " + attackedPartId + "!";
+            }
         }
         else {
-            summaryText = playerName + " successfully shoot " + attackedPartId + "!";
+            summaryText = playerName + " massacred " + attackedPartId + "!!!";
         }
+        
         playerDisplay.innerHTML = summaryText;
     }
 
