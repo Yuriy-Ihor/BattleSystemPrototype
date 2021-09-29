@@ -41,16 +41,16 @@ class TurnSummaryDisplay {
         turnSummaryEnemy.innerHTML = '';
     }
 
-    updateMainPlayerDefendSummary(playerName, defendedPartId) {
-        this.updatePlayerDefendSummary(turnSummaryEnemy, playerName, defendedPartId);
+    updateMainPlayerDefendSummary(playerAttacker, playerDefender, defendedPartId) {
+        this.updatePlayerDefendSummary(turnSummaryEnemy, playerAttacker, playerDefender, defendedPartId);
     }
 
-    updateOpponentDefendSummary(playerName, defendedPartId) {
-        this.updatePlayerDefendSummary(turnSummaryPlayer, playerName, defendedPartId);
+    updateOpponentDefendSummary(playerAttacker, playerDefender, defendedPartId) {
+        this.updatePlayerDefendSummary(turnSummaryPlayer, playerAttacker, playerDefender, defendedPartId);
     }
 
-    updatePlayerDefendSummary(playerDisplay, playerName, defendedPartId) {
-        playerDisplay.innerHTML = `${playerName} defended ${defendedPartId}!`;
+    updatePlayerDefendSummary(playerDisplay, playerAttacker, playerDefender, defendedPartId) {
+        playerDisplay.innerHTML = `${playerAttacker} attacked ${defendedPartId}, but ${playerDefender} defended!`;
     }
 
     updateMainPlayerAttackSummary(playerName, attackedPartId, missed) {

@@ -93,7 +93,7 @@ function proceedBattleRezults() {
         turnSummaryDisplay.updateMainPlayerAttackSummary(players.mainPlayer.name, playerAttackedPart.id, !shootSucceed);
     }
     else {
-        turnSummaryDisplay.updateOpponentDefendSummary(players.opponent.name, playerAttackedPart.id);
+        turnSummaryDisplay.updateOpponentDefendSummary(players.mainPlayer.name, players.opponent.name, playerAttackedPart.id);
     }
     
     if(enemyAttackedPart.id != playerDefendedPart.id) {
@@ -102,7 +102,7 @@ function proceedBattleRezults() {
         turnSummaryDisplay.updateOpponentAttackSummary(players.opponent.name, enemyAttackedPart.id, !shootSucceed);
     }
     else {
-        turnSummaryDisplay.updateMainPlayerDefendSummary(players.mainPlayer.name, enemyAttackedPart.id);
+        turnSummaryDisplay.updateMainPlayerDefendSummary(players.opponent.name, players.mainPlayer.name, enemyAttackedPart.id);
     }
 
     /*
