@@ -58,7 +58,6 @@ function finishTurn() {
         showErrorMessage("You dumb idiot did something wrong!", 5);
         return;
     }
-    console.log('finishing turn');
 
     battleSelectionsPanel.hideAllSelections();
 
@@ -89,7 +88,7 @@ function proceedBattleRezults() {
 
     if(playerAttackedPart.id != enemyDefendedPart.id) {
         let shootSucceed = applyDamageToBodyPart(players.opponent.bodyParts[playerAttackedPart.id], 1);
-        let killedBodyPart = players.opponent.bodyParts[enemyAttackedPart.id].currentLife <= 0;
+        let killedBodyPart = players.opponent.bodyParts[playerAttackedPart.id].currentLife <= 0;
 
         turnSummaryDisplay.updateMainPlayerAttackSummary(players.mainPlayer.name, playerAttackedPart.id, !shootSucceed, killedBodyPart);
     }
@@ -127,8 +126,6 @@ function proceedBattleRezults() {
 
 function applyDamageToBodyPart(bodyPart, damage) {
     let shootChance = Math.random(); 
-    // console.log(shootChance);
-    // console.log(bodyPart);
     if(shootChance <= bodyPart.shootChance ) {
         bodyPart.currentLife -= damage;
         return true;
