@@ -7,8 +7,8 @@ const turnSummaryEnemy = document.getElementById('battle-screen-summary-enemy');
 
 class TurnSummaryDisplay {
     constructor(playerDisplay, enemyDisplay, mainPlayer, opponent) {
-        this.playerSilhouette = new SummarySilhouette(playerDisplay, mainPlayer, UI_SCALE, 'main');
-        this.enemySilhouette = new SummarySilhouette(enemyDisplay, opponent, UI_SCALE, 'side');
+        this.playerSilhouette = new SummarySilhouette(playerDisplay, mainPlayer, UI_SCALE, 'main', SUMMARY_SILHOUETTE_SIZE);
+        this.enemySilhouette = new SummarySilhouette(enemyDisplay, opponent, UI_SCALE, 'side', SUMMARY_SILHOUETTE_SIZE);
 
         this.playerDisplay = playerDisplay;
         this.enemyDisplay = enemyDisplay;

@@ -13,7 +13,10 @@
 
 @media (max-width: 600px) {
     #player-silhouettes {
-        flex-direction: column;
+        /* flex-direction: column; */
+    }
+    .summary-silhouette {
+        stroke-width: 4;
     }
 }
 

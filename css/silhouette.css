@@ -29,6 +29,10 @@ path {
     transition: 0.5s;
 }
 
+.body-part-ui-group {
+    pointer-events: none;
+}
+
 /* .svg-silhouette .hidden {
     
 } */

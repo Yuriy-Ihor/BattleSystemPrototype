@@ -200,7 +200,7 @@ class BodyPartUI {
 }
 
 class Silhouette{
-    constructor(silhouetteSvg, targetPlayer, scale, relevance) {
+    constructor(silhouetteSvg, targetPlayer, scale, relevance, silhouetteSize) {
         
         this.bodyPartsUI = {};
         this.scale = scale;
@@ -223,11 +223,12 @@ class Silhouette{
             silhouetteSvg.appendChild(this.bodyPartsUI[bodyPartId].uiGroup);
         }
 
-        this.silhouetteSvg.setAttribute('width', SILHOUETTE_SIZE * UI_SCALE);
-        this.silhouetteSvg.setAttribute('height', SILHOUETTE_SIZE * UI_SCALE);
+        this.silhouetteSvg.setAttribute('width', silhouetteSize);
+        this.silhouetteSvg.setAttribute('height', silhouetteSize);
         
         this.targetPlayer = targetPlayer;
     }
+
 
     updateBodyPartUI(targetBodyPart, bodyPartInfo) {
         this.bodyPartsUI[targetBodyPart].updateUI(bodyPartInfo.currentLife);
@@ -251,8 +252,8 @@ class Silhouette{
 }
 
 class SelectableSilhouette extends Silhouette {
-    constructor(silhouetteSvg, targetPlayer, scale, relevance) {
-        super(silhouetteSvg, targetPlayer, scale, relevance);
+    constructor(silhouetteSvg, targetPlayer, scale, relevance, silhouetteSize) {
+        super(silhouetteSvg, targetPlayer, scale, relevance, silhouetteSize);
 
         for(let bodyPartId in this.bodyPartsUI){
             let bodyPartUI = this.bodyPartsUI[bodyPartId];
@@ -260,16 +261,6 @@ class SelectableSilhouette extends Silhouette {
             let image = bodyPartUI.getImage();
             
             const elements = [targetBodyPart, image];
-
-            elements.forEach(element => element.addEventListener('mouseover', () => {
-                this.fillImage(image);
-            }));
-
-            elements.forEach(element => element.addEventListener('mouseout', () => {
-                if(this.selected != image) {
-                    this.hollowImage(image);
-                }
-            }));
 
             elements.forEach(element => element.addEventListener('mousedown', () => {
                 if(this.selected != null) {
@@ -279,7 +270,6 @@ class SelectableSilhouette extends Silhouette {
                 this.fillImage(this.selected);
             }));
         }
-
         this.selected = null;
     }
 
@@ -294,8 +284,8 @@ class SelectableSilhouette extends Silhouette {
 }
 
 class SummarySilhouette extends Silhouette {
-    constructor(silhouetteSvg, targetPlayer, scale, relevance) {
-        super(silhouetteSvg, targetPlayer, scale, relevance);
+    constructor(silhouetteSvg, targetPlayer, scale, relevance, silhouetteSize) {
+        super(silhouetteSvg, targetPlayer, scale, relevance, silhouetteSize);
         
         //this.attackedIcon = createImage('images/sight.png', 'attacked-icon', 50, 50, 0, 0, 'silhouette-icon');
         //this.defendedIcon = createImage('images/shield.png', 'defended-icon', 50, 50, 0, 0, 'silhouette-icon');
