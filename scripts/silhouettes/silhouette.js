@@ -250,8 +250,7 @@ class Silhouette{
     }
 
     hollowImage(image) { 
-        image.setAttribute('fill', 'none');
-        image.classList.remove("filled-body-part")
+        image.removeAttribute('fill');
     }
 
     fillImage(image) {
