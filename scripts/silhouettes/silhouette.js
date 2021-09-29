@@ -303,6 +303,28 @@ class SummarySilhouette extends Silhouette {
     constructor(silhouetteSvg, targetPlayer, scale, relevance, silhouetteSize) {
         super(silhouetteSvg, targetPlayer, scale, relevance, silhouetteSize);
         
+
+        // console.log(silhouetteSvg);
+
+        // var box = silhouetteSvg.getElementById("head-bounding-box");
+        // console.log(box);
+
+        for (var bodyPartName in this.bodyPartsUI) {
+            try {
+                var bodyPart = silhouetteSvg.getElementById(bodyPartName);
+                var box = bodyPart.getBBox();
+                var rawTransform = bodyPart.getAttribute("transform");
+                var parsedTransform = rawTransform.split("(")[1].split(")")[0].split(" ");
+                
+                silhouetteSvg.getElementById(`${bodyPartName}-bounding-box`).setAttribute('x', box.x + parseFloat(parsedTransform[0]));
+                silhouetteSvg.getElementById(`${bodyPartName}-bounding-box`).setAttribute('y', box.y + parseFloat(parsedTransform[1]));
+                silhouetteSvg.getElementById(`${bodyPartName}-bounding-box`).setAttribute('width', box.width);
+                silhouetteSvg.getElementById(`${bodyPartName}-bounding-box`).setAttribute('height', box.height);
+
+                console.log(silhouetteSvg.getElementById(`${bodyPartName}-bounding-box`));
+            } catch {}
+        }
+
         //this.attackedIcon = createImage('images/sight.png', 'attacked-icon', 50, 50, 0, 0, 'silhouette-icon');
         //this.defendedIcon = createImage('images/shield.png', 'defended-icon', 50, 50, 0, 0, 'silhouette-icon');
 
