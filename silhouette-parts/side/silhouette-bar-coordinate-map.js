@@ -19,7 +19,7 @@ silhouette_bar_coordinate_map_side = {
     },
     "head": {
         "left": 60,
-        "top": 10
+        "top": 12
     },
     "torso": {
         "left": 85,
