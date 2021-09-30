@@ -210,7 +210,7 @@ class Silhouette{
         this.silhouetteSvg = silhouetteSvg;
 
         this.bodyParts = this.silhouetteSvg.getElementsByClassName('silhouette-part');
-        
+
         for(let i = 0; i < this.bodyParts.length; i++) {
             let bodyPartImage = this.bodyParts[i];
             let bodyPartInfo = targetPlayer.bodyParts[bodyPartImage.id];
@@ -228,6 +228,7 @@ class Silhouette{
         this.silhouetteSvg.setAttribute('height', silhouetteSize);
         
         this.targetPlayer = targetPlayer;
+        
     }
 
 
@@ -243,7 +244,22 @@ class Silhouette{
                 this.bodyPartsUI[bodyPartName].mainColor,
                 this.bodyPartsUI[bodyPartName].bodyPartInfo.currentLife / this.bodyPartsUI[bodyPartName].bodyPartInfo.baseLife
             );
-            this.bodyParts[bodyPartName].setAttribute("fill", color);
+
+            var gradient = document.getElementById(`${this.relevance}-${bodyPartName}-gradient`);
+            gradient.children[1].setAttribute("stop-color", color);
+
+        }
+    }
+
+    updateHealthHeight() {
+        for (var bodyPartName in this.bodyPartsUI) {
+            var color = this.bodyParts[bodyPartName].setAttribute("fill", color);
+            this.bodyParts[bodyPartName].setAttribute("fill", `url(#${this.relevance}-${bodyPartName}-gradient)`);
+
+            var gradient = document.getElementById(`${this.relevance}-${bodyPartName}-gradient`);
+            var part = Math.round(100 - 100 * this.bodyPartsUI[bodyPartName].bodyPartInfo.currentLife / this.bodyPartsUI[bodyPartName].bodyPartInfo.baseLife);
+            gradient.children[0].setAttribute("offset", `${part}%`);
+            gradient.children[1].setAttribute("offset", `${part}%`);
         }
     }
 

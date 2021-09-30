@@ -81,11 +81,13 @@ class TurnSummaryDisplay {
     updateEnemySilhouetteUI(attackedPart, defendedPart, bodyPartInfo) {
         this.updateSilhouetteUI(attackedPart, defendedPart, bodyPartInfo, this.enemySilhouette);
         this.enemySilhouette.updateHealthColors();
+        this.enemySilhouette.updateHealthHeight();
     }
 
     updatePlayerSilhouetteUI(attackedPart, defendedPart, bodyPartInfo) {
         this.updateSilhouetteUI(attackedPart, defendedPart, bodyPartInfo, this.playerSilhouette);
         this.playerSilhouette.updateHealthColors();
+        this.playerSilhouette.updateHealthHeight();
     }
 
     updateSilhouetteUI(attackedPart, defendedPart, bodyPartInfo, silhouette) {
