@@ -5,6 +5,7 @@ const healthBarPaddingY = 8;
 const iconsPaddingY = 10;
 const bodyPartUIHealthBarWidth = 40;
 const bodyPartUIHealthBarHeight = 10;
+const bodyPartUIHealthBarRadius = 20;
 const barStrokePadding = 5;
 const fontRatio = 0.6;
 const fontSize = 20;
@@ -101,11 +102,11 @@ class CircularBar extends Bar {
 
         //[this.fillView, this.barBackground].forEach(element => {
         [this.fillView].forEach(element => {
-            element.setAttribute('r', 90);
+            element.setAttribute('r', radius);
             element.setAttribute('cx', x);
             element.setAttribute('cy', y);
             element.setAttribute('fill', mainColor);
-            element.setAttribute('stroke-dasharray', 565.48);
+            element.setAttribute('stroke-dasharray', radius * 2 * Math.PI);
         });
 
         this.fillView.setAttribute('class', 'circle-bar-fill-view');
@@ -129,7 +130,6 @@ class CircularBar extends Bar {
         if (val > 100) { val = 100;}
             
         var pct = ((100-val)/100)*c;
-        console.log(pct);
             
         circle.setAttribute('stroke-dashoffset', pct);
 
@@ -286,7 +286,7 @@ class SummaryBodyPartUI extends BodyPartUI {
             this.scale * (x - bodyPartUIHealthBarWidth * 0.5),
             this.scale * (parseFloat(y) + healthBarPaddingY),
             baseValue,
-            this.scale * (bodyPartUIHealthBarHeight),
+            this.scale * (bodyPartUIHealthBarRadius),
             this.mainColor,
             this.sideColor
         );

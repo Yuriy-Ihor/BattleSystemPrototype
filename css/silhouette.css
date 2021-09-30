@@ -38,8 +38,8 @@ path {
 
 .circle-bar-fill-view {
     transition: stroke-dashoffset 1s linear;
-    stroke: #666;
-    stroke-width: 5px;
+    stroke: green;
+    stroke-width: 12px;
     fill: none;
 }
 
