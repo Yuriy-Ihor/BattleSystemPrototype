@@ -95,18 +95,9 @@ class CircularBar extends Bar {
         
         this.fillView = document.createElementNS("http://www.w3.org/2000/svg", 'rect');
         this.barBackground = document.createElementNS("http://www.w3.org/2000/svg", 'rect');
-        this.wrapperRect = document.createElementNS("http://www.w3.org/2000/svg", 'rect');
 
         this.currentColor = this.mainColor;
         this.sideColor = sideColor;
-
-        this.wrapperRect.setAttribute('x', x - barStrokePadding);
-        this.wrapperRect.setAttribute('y', y - height - (fontSize + 2 * barStrokePadding) / 2);
-        this.wrapperRect.setAttribute('fill', 'none');
-        this.wrapperRect.setAttribute('stroke', mainColor);
-        this.wrapperRect.setAttribute('stroke-width', 2);
-        this.wrapperRect.setAttribute('height', height + fontSize + 3 * barStrokePadding);
-        this.wrapperRect.setAttribute('width', width + 2 * barStrokePadding);
 
         let barElements = [this.fillView, this.barBackground];
         barElements.forEach(element => {
@@ -128,7 +119,6 @@ class CircularBar extends Bar {
         this.baseWidth = width;
         this.baseValue = baseValue;
 
-        this.group.appendChild(this.wrapperRect)
         this.group.appendChild(this.barBackground);
         this.group.appendChild(this.fillView);
     }
@@ -279,6 +269,20 @@ class BodyPartUI {
 }
 
 class SummaryBodyPartUI extends BodyPartUI {
+    init() {
+        this.uiGroup.setAttribute('class', 'body-part-ui-group');
+        this.uiGroup.setAttribute('width', 30);
+
+        let x = this.relevance === "main" ? silhouette_bar_coordinate_map_main[this.bodyPartName]["left"] * this.scale : silhouette_bar_coordinate_map_side[this.bodyPartName]["left"] * this.scale;
+        let y = this.relevance === "main" ? silhouette_bar_coordinate_map_main[this.bodyPartName]["top"] * this.scale : silhouette_bar_coordinate_map_side[this.bodyPartName]["top"] * this.scale;
+
+        this.uiGroup.setAttribute('x', x);
+        this.uiGroup.setAttribute('y', y);
+
+        this.healthBar = this.createHealthBar(this.bodyPartBaseInfo.baseLife);
+        this.uiGroup.appendChild(this.healthBar.group);
+    }
+
     createHealthBar(baseValue) { 
         let x = this.uiGroup.getAttribute('x');
         let y = this.uiGroup.getAttribute('y');
@@ -405,14 +409,6 @@ class SummarySilhouette extends Silhouette {
 
         //display.appendChild(this.attackedIcon);
         //display.appendChild(this.defendedIcon);
-
-        for(let bodyPart in this.bodyPartsUI) {
-            hideElement(this.bodyPartsUI[bodyPart].shootChanceText);
-            hideElement(this.bodyPartsUI[bodyPart].healthBar.wrapperRect);
-
-            hideElement(this.bodyPartsUI[bodyPart].healthBar.fillView);
-            hideElement(this.bodyPartsUI[bodyPart].healthBar.barBackground);
-        }
     }
 
     createBodyPartsUI(targetPlayer) {    
