@@ -7,6 +7,13 @@
 
 #battle-screen-summary .silhouette-part {
     stroke: black;
+    stroke-width: 5px;
+}
+
+.silhouette-part-stroke {
+    fill: none;
+    stroke: green;
+    stroke-width: 3px;
 }
 
 #battle-screen-selections .silhouette-part:hover {

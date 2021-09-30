@@ -245,9 +245,11 @@ class Silhouette{
                 this.bodyPartsUI[bodyPartName].bodyPartInfo.currentLife / this.bodyPartsUI[bodyPartName].bodyPartInfo.baseLife
             );
 
+            var bodyPart = this.silhouetteSvg.getElementById(`${bodyPartName}-stroke`);
+            bodyPart.setAttribute("stroke", "ffffff");
+
             var gradient = document.getElementById(`${this.relevance}-${bodyPartName}-gradient`);
             gradient.children[1].setAttribute("stop-color", color);
-
         }
     }
 
@@ -255,7 +257,6 @@ class Silhouette{
         for (var bodyPartName in this.bodyPartsUI) {
             var color = this.bodyParts[bodyPartName].setAttribute("fill", color);
             this.bodyParts[bodyPartName].setAttribute("fill", `url(#${this.relevance}-${bodyPartName}-gradient)`);
-
             var gradient = document.getElementById(`${this.relevance}-${bodyPartName}-gradient`);
             var part = Math.round(100 - 100 * this.bodyPartsUI[bodyPartName].bodyPartInfo.currentLife / this.bodyPartsUI[bodyPartName].bodyPartInfo.baseLife);
             gradient.children[0].setAttribute("offset", `${part}%`);
