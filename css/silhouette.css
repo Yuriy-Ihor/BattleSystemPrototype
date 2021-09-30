@@ -9,6 +9,12 @@
     stroke: black;
 }
 
+.silhouette-part-stroke {
+    fill: none;
+    stroke: black;  
+    stroke-width: 4px;
+}
+
 #battle-screen-selections .silhouette-part:hover {
     cursor: pointer;
     fill: green;

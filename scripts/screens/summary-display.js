@@ -7,7 +7,7 @@ const turnSummaryEnemy = document.getElementById('battle-screen-summary-enemy');
 
 class TurnSummaryDisplay {
     constructor(playerDisplay, enemyDisplay, mainPlayer, opponent) {
-        this.playerSilhouette = new SummarySilhouette(playerDisplay, mainPlayer, UI_SCALE, 'main',Math.min(MINIMAL_SCREEN_SIZE / 2, SUMMARY_SILHOUETTE_SIZE / 2));
+        this.playerSilhouette = new SummarySilhouette(playerDisplay, mainPlayer, UI_SCALE, 'main', Math.min(MINIMAL_SCREEN_SIZE / 2, SUMMARY_SILHOUETTE_SIZE / 2));
         this.enemySilhouette = new SummarySilhouette(enemyDisplay, opponent, UI_SCALE, 'side', Math.min(MINIMAL_SCREEN_SIZE / 2, SUMMARY_SILHOUETTE_SIZE / 2));
 
         this.playerSilhouette.updateHealthColors();
