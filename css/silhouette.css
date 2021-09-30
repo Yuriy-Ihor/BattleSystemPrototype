@@ -12,7 +12,7 @@
 .silhouette-part-stroke {
     fill: none;
     stroke: black;  
-    stroke-width: 4px;
+    stroke-width: 5px;
 }
 
 #battle-screen-selections .silhouette-part:hover {
