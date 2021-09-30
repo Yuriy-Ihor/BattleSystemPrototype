@@ -1,7 +1,4 @@
 
-const ATTACK_BODY_PART_ID = 'head';
-const DEFEND_BODY_PART_ID = 'torso';
-
 class EnemyBot {
     constructor(botInfo) {
         this.botInfo = botInfo;

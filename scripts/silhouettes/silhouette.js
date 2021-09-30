@@ -2,7 +2,6 @@
 const silhouetteImagePath = 'silhouette-parts';
 
 const healthBarPaddingY = 8;
-const bodyPartUIPaddingY = 15;
 const iconsPaddingY = 10;
 const bodyPartUIHealthBarWidth = 40;
 const bodyPartUIHealthBarHeight = 10;
@@ -200,6 +199,10 @@ class BodyPartUI {
     }
 }
 
+class SummaryBodyPartUI extends BodyPartUI {
+
+}
+
 class Silhouette{
     constructor(silhouetteSvg, targetPlayer, scale, relevance, silhouetteSize) {
         
@@ -210,7 +213,16 @@ class Silhouette{
         this.silhouetteSvg = silhouetteSvg;
 
         this.bodyParts = this.silhouetteSvg.getElementsByClassName('silhouette-part');
+
+        this.silhouetteSvg.setAttribute('width', silhouetteSize);
+        this.silhouetteSvg.setAttribute('height', silhouetteSize);
         
+        this.targetPlayer = targetPlayer;
+        
+        this.initBodyPartsUI(targetPlayer);
+    }
+
+    initBodyPartsUI(targetPlayer) {    
         for(let i = 0; i < this.bodyParts.length; i++) {
             let bodyPartImage = this.bodyParts[i];
             let bodyPartInfo = targetPlayer.bodyParts[bodyPartImage.id];
@@ -218,18 +230,12 @@ class Silhouette{
             
             this.bodyPartsUI[bodyPartImage.id] = bodyPartUI;
         }
-        
+
         for(let bodyPartId in this.bodyPartsUI) {
             this.bodyPartsUI[bodyPartId].init();
-            silhouetteSvg.appendChild(this.bodyPartsUI[bodyPartId].uiGroup);
+            this.silhouetteSvg.appendChild(this.bodyPartsUI[bodyPartId].uiGroup);
         }
-
-        this.silhouetteSvg.setAttribute('width', silhouetteSize);
-        this.silhouetteSvg.setAttribute('height', silhouetteSize);
-        
-        this.targetPlayer = targetPlayer;
     }
-
 
     updateBodyPartUI(targetBodyPart, bodyPartInfo) {
         this.bodyPartsUI[targetBodyPart].bodyPartInfo = bodyPartInfo;
@@ -245,10 +251,6 @@ class Silhouette{
             );
             this.bodyParts[bodyPartName].setAttribute("fill", color);
         }
-    }
-
-    getImagesPath(type, id) {
-        return `${silhouetteImagePath}/${this.relevance}/${type}/${id}-${type}.png`;
     }
 
     hollowImage(image) { 
@@ -275,10 +277,8 @@ class SelectableSilhouette extends Silhouette {
             let bodyPartUI = this.bodyPartsUI[bodyPartId];
             let targetBodyPart = bodyPartUI.uiGroup;
             let image = bodyPartUI.getImage();
-            
-            const elements = [targetBodyPart, image];
 
-            elements.forEach(element => element.addEventListener('mousedown', () => {
+            [targetBodyPart, image].forEach(element => element.addEventListener('mousedown', () => {
                 if(this.selected != null) {
                     this.hollowImage(this.selected);
                 }
@@ -302,7 +302,7 @@ class SelectableSilhouette extends Silhouette {
 class SummarySilhouette extends Silhouette {
     constructor(silhouetteSvg, targetPlayer, scale, relevance, silhouetteSize) {
         super(silhouetteSvg, targetPlayer, scale, relevance, silhouetteSize);
-        
+               
         //this.attackedIcon = createImage('images/sight.png', 'attacked-icon', 50, 50, 0, 0, 'silhouette-icon');
         //this.defendedIcon = createImage('images/shield.png', 'defended-icon', 50, 50, 0, 0, 'silhouette-icon');
 
