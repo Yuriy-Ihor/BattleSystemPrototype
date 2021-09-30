@@ -9,6 +9,7 @@ const bodyPartUIHealthBarRadius = 20;
 const barStrokePadding = 5;
 const fontRatio = 0.6;
 const fontSize = 20;
+const circleWidth = 12;
 
 class Bar {
     constructor(x, y, baseValue, mainColor) {
@@ -95,6 +96,7 @@ class CircularBar extends Bar {
         super(x, y, baseValue, mainColor);
         
         this.fillView = document.createElementNS("http://www.w3.org/2000/svg", 'circle');
+        this.percentText = document.createElementNS("http://www.w3.org/2000/svg", 'text');
         //this.barBackground = document.createElementNS("http://www.w3.org/2000/svg", 'circle');
 
         this.currentColor = this.mainColor;
@@ -108,6 +110,13 @@ class CircularBar extends Bar {
             element.setAttribute('fill', mainColor);
             element.setAttribute('stroke-dasharray', radius * 2 * Math.PI);
         });
+        
+        this.percentText.setAttribute('x', x - ('100').length * fontSize * fontRatio / 2);
+        this.percentText.setAttribute('y', y + fontSize * fontRatio / 2);
+        this.percentText.setAttribute('class', 'circle-bar-amount');
+        this.percentText.setAttribute('font-size', fontSize + 'px');
+        this.percentTextNode = document.createTextNode(100);
+        this.percentText.appendChild(this.percentTextNode);
 
         this.fillView.setAttribute('class', 'circle-bar-fill-view');
 
@@ -116,11 +125,21 @@ class CircularBar extends Bar {
 
         //this.group.appendChild(this.barBackground);
         this.group.appendChild(this.fillView);
+        this.group.appendChild(this.percentText);
     }
 
     updateFillAmount(value) {
         this.currentValue = value;
-        var val = this.currentValue / this.baseValue * 100;
+
+        let currentPercentage = this.currentValue / this.baseValue;
+        this.currentColor = lerpColor(
+            this.sideColor,
+            this.mainColor,
+            currentPercentage
+        );
+        currentPercentage *= 100;
+
+        var val = currentPercentage;
         var circle = this.fillView;
 
         var r = circle.getAttribute('r');
@@ -132,12 +151,8 @@ class CircularBar extends Bar {
         var pct = ((100-val)/100)*c;
             
         circle.setAttribute('stroke-dashoffset', pct);
-
-        this.currentColor = lerpColor(
-            this.sideColor,
-            this.mainColor,
-            this.currentValue / this.baseValue
-        );
+        
+        this.percentTextNode.innerText = currentPercentage;
 
         return this.currentColor;
     }
@@ -225,7 +240,7 @@ class BodyPartUI {
     
     drawShootChance(chance) {
         let shootChanceText = document.createElementNS("http://www.w3.org/2000/svg", 'text');
-        shootChanceText.innerText = chance;
+
         let textNode = document.createTextNode(chance * 100 + "%");
         shootChanceText.setAttribute('font-size', fontSize + 'px');
         shootChanceText.appendChild(textNode);
@@ -298,7 +313,6 @@ class SummaryBodyPartUI extends BodyPartUI {
         if(currentHealth <= 0) {
             var that = this;
             setTimeout(function () {
-                // console.log(that);
                 that.bodyPartImage.classList.add('killed');
                 if(hasClass(that.bodyPartImage, 'damaged')) {
                     that.bodyPartImage.classList.remove('damaged');
