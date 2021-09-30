@@ -10,6 +10,7 @@ const barStrokePadding = 5;
 const fontRatio = 0.6;
 const fontSize = 20;
 const circleWidth = 12;
+const SummaryfontSize = 30;
 
 class Bar {
     constructor(x, y, baseValue, mainColor) {
@@ -97,13 +98,13 @@ class CircularBar extends Bar {
         
         this.fillView = document.createElementNS("http://www.w3.org/2000/svg", 'circle');
         this.percentText = document.createElementNS("http://www.w3.org/2000/svg", 'text');
-        //this.barBackground = document.createElementNS("http://www.w3.org/2000/svg", 'circle');
+        this.barBackground = document.createElementNS("http://www.w3.org/2000/svg", 'circle');
 
         this.currentColor = this.mainColor;
         this.sideColor = sideColor;
 
         //[this.fillView, this.barBackground].forEach(element => {
-        [this.fillView].forEach(element => {
+        [this.fillView, this.barBackground].forEach(element => {
             element.setAttribute('r', radius);
             element.setAttribute('cx', x);
             element.setAttribute('cy', y);
@@ -111,19 +112,19 @@ class CircularBar extends Bar {
             element.setAttribute('stroke-dasharray', radius * 2 * Math.PI);
         });
         
-        this.percentText.setAttribute('x', x - ('100').length * fontSize * fontRatio / 2);
-        this.percentText.setAttribute('y', y + fontSize * fontRatio / 2);
+        this.percentText.setAttribute('x', x - (baseValue.toString()).length * SummaryfontSize * fontRatio / 2);
+        this.percentText.setAttribute('y', y + SummaryfontSize * fontRatio / 2);
         this.percentText.setAttribute('class', 'circle-bar-amount');
-        this.percentText.setAttribute('font-size', fontSize + 'px');
-        this.percentTextNode = document.createTextNode(100);
-        this.percentText.appendChild(this.percentTextNode);
+        this.percentText.setAttribute('font-size', SummaryfontSize + 'px');
+        this.percentText.textContent = baseValue;
 
         this.fillView.setAttribute('class', 'circle-bar-fill-view');
+        this.barBackground.setAttribute('class', 'circle-bar-background');
 
         this.currentValue = baseValue;
         this.baseValue = baseValue;
 
-        //this.group.appendChild(this.barBackground);
+        this.group.appendChild(this.barBackground);
         this.group.appendChild(this.fillView);
         this.group.appendChild(this.percentText);
     }
@@ -152,7 +153,7 @@ class CircularBar extends Bar {
             
         circle.setAttribute('stroke-dashoffset', pct);
         
-        this.percentTextNode.innerText = currentPercentage;
+        this.percentText.textContent = value;
 
         return this.currentColor;
     }

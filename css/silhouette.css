@@ -36,6 +36,12 @@ path {
     transition-duration: 1s; 
 }
 
+.circle-bar-background {
+    fill: transparent;
+    stroke: black;
+    stroke-width: 16px;
+}
+
 .circle-bar-amount {
     fill: black;
     stroke: green;
@@ -43,7 +49,7 @@ path {
 
 .circle-bar-fill-view {
     transition: stroke-dashoffset 1s linear;
-    stroke: green;
+    stroke: rgb(3, 187, 3);
     stroke-width: 12px;
     fill: none;
 }
