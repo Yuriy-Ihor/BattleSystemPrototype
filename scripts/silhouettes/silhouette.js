@@ -10,13 +10,24 @@ const fontRatio = 0.6;
 const fontSize = 20;
 
 class Bar {
-    constructor(x, y, baseValue, width, height, mainColor, sideColor) {
+    constructor(x, y, baseValue, mainColor) {
         this.group = document.createElementNS("http://www.w3.org/2000/svg", 'g');
+        this.mainColor = mainColor;
+    }
+
+    updateFillAmount(value) {
+        return this.currentColor;
+    }
+}
+
+class RectangularBar extends Bar {
+    constructor(x, y, baseValue, width, height, mainColor, sideColor) {
+        super(x, y, baseValue, mainColor);
+        
         this.fillView = document.createElementNS("http://www.w3.org/2000/svg", 'rect');
         this.barBackground = document.createElementNS("http://www.w3.org/2000/svg", 'rect');
         this.wrapperRect = document.createElementNS("http://www.w3.org/2000/svg", 'rect');
 
-        this.mainColor = mainColor;
         this.currentColor = this.mainColor;
         this.sideColor = sideColor;
 
@@ -54,7 +65,75 @@ class Bar {
     }
 
     updateFillAmount(value) {
+        this.currentValue = value;
 
+        let fillAmount = value / this.baseValue;
+        this.fillView.setAttribute('width', this.baseWidth * fillAmount);
+
+        this.currentColor = lerpColor(
+            this.sideColor,
+            this.mainColor,
+            this.currentValue / this.baseValue
+        );
+
+        this.fillView.setAttribute('fill', this.currentColor);
+        this.wrapperRect.setAttribute('stroke', this.currentColor);
+        this.barBackground.setAttribute('stroke', this.currentColor)
+        
+        if(value <= 0) {
+            hideElement(this.barBackground);
+            this.barBackground.classList.add('no-opacity');
+        }
+
+        return this.currentColor;
+    }
+}
+
+class CircularBar extends Bar {
+    constructor(x, y, baseValue, width, height, mainColor, sideColor) {
+        super(x, y, baseValue, mainColor);
+        
+        this.fillView = document.createElementNS("http://www.w3.org/2000/svg", 'rect');
+        this.barBackground = document.createElementNS("http://www.w3.org/2000/svg", 'rect');
+        this.wrapperRect = document.createElementNS("http://www.w3.org/2000/svg", 'rect');
+
+        this.currentColor = this.mainColor;
+        this.sideColor = sideColor;
+
+        this.wrapperRect.setAttribute('x', x - barStrokePadding);
+        this.wrapperRect.setAttribute('y', y - height - (fontSize + 2 * barStrokePadding) / 2);
+        this.wrapperRect.setAttribute('fill', 'none');
+        this.wrapperRect.setAttribute('stroke', mainColor);
+        this.wrapperRect.setAttribute('stroke-width', 2);
+        this.wrapperRect.setAttribute('height', height + fontSize + 3 * barStrokePadding);
+        this.wrapperRect.setAttribute('width', width + 2 * barStrokePadding);
+
+        let barElements = [this.fillView, this.barBackground];
+        barElements.forEach(element => {
+            element.setAttribute('x', x);
+            element.setAttribute('y', y);
+            element.setAttribute('fill', mainColor);
+            element.setAttribute('height', height);
+            element.setAttribute('width', width)
+        });
+
+        this.barBackground.setAttribute('fill', 'none');
+        this.barBackground.setAttribute('stroke', mainColor);
+        this.barBackground.setAttribute('stroke-width', 1);
+
+        this.barBackground.setAttribute('class', 'bar-background-view');
+        this.fillView.setAttribute('class', 'bar-fill-view');
+
+        this.currentValue = baseValue;
+        this.baseWidth = width;
+        this.baseValue = baseValue;
+
+        this.group.appendChild(this.wrapperRect)
+        this.group.appendChild(this.barBackground);
+        this.group.appendChild(this.fillView);
+    }
+
+    updateFillAmount(value) {
         this.currentValue = value;
 
         let fillAmount = value / this.baseValue;
@@ -119,7 +198,7 @@ class BodyPartUI {
         let x = this.uiGroup.getAttribute('x');
         let y = this.uiGroup.getAttribute('y');
 
-        let newBar = new Bar(
+        let newBar = new RectangularBar(
             this.scale * (x - bodyPartUIHealthBarWidth * 0.5),
             this.scale * (parseFloat(y) + healthBarPaddingY),
             baseValue,
@@ -200,7 +279,22 @@ class BodyPartUI {
 }
 
 class SummaryBodyPartUI extends BodyPartUI {
+    createHealthBar(baseValue) { 
+        let x = this.uiGroup.getAttribute('x');
+        let y = this.uiGroup.getAttribute('y');
 
+        let newBar = new CircularBar(
+            this.scale * (x - bodyPartUIHealthBarWidth * 0.5),
+            this.scale * (parseFloat(y) + healthBarPaddingY),
+            baseValue,
+            this.scale * (bodyPartUIHealthBarWidth),
+            this.scale * (bodyPartUIHealthBarHeight),
+            this.mainColor,
+            this.sideColor
+        );
+
+        return newBar;
+    }
 }
 
 class Silhouette{
@@ -218,11 +312,12 @@ class Silhouette{
         this.silhouetteSvg.setAttribute('height', silhouetteSize);
         
         this.targetPlayer = targetPlayer;
-        
-        this.initBodyPartsUI(targetPlayer);
+
+        this.createBodyPartsUI(targetPlayer);
+        this.initBodyPartsUI();
     }
 
-    initBodyPartsUI(targetPlayer) {    
+    createBodyPartsUI(targetPlayer) {    
         for(let i = 0; i < this.bodyParts.length; i++) {
             let bodyPartImage = this.bodyParts[i];
             let bodyPartInfo = targetPlayer.bodyParts[bodyPartImage.id];
@@ -230,7 +325,9 @@ class Silhouette{
             
             this.bodyPartsUI[bodyPartImage.id] = bodyPartUI;
         }
+    }
 
+    initBodyPartsUI() {
         for(let bodyPartId in this.bodyPartsUI) {
             this.bodyPartsUI[bodyPartId].init();
             this.silhouetteSvg.appendChild(this.bodyPartsUI[bodyPartId].uiGroup);
@@ -316,21 +413,20 @@ class SummarySilhouette extends Silhouette {
             hideElement(this.bodyPartsUI[bodyPart].healthBar.fillView);
             hideElement(this.bodyPartsUI[bodyPart].healthBar.barBackground);
         }
+    }
 
-        this.activeHealthBar = null;
+    createBodyPartsUI(targetPlayer) {    
+        for(let i = 0; i < this.bodyParts.length; i++) {
+            let bodyPartImage = this.bodyParts[i];
+            let bodyPartInfo = targetPlayer.bodyParts[bodyPartImage.id];
+            let bodyPartUI = new SummaryBodyPartUI(bodyPartImage.id, bodyPartImage, bodyPartInfo, this.scale, this.relevance);
+            
+            this.bodyPartsUI[bodyPartImage.id] = bodyPartUI;
+        }
     }
 
     updateBodyPartUI(targetBodyPart, bodyPartInfo) {
-        //if(this.activeHealthBar != null) {
-           // hideElement(this.activeHealthBar.group);
-        //    this.activeHealthBar = null;
-        //}
-
         this.bodyPartsUI[targetBodyPart].updateUI(bodyPartInfo.currentLife);
-
-        //this.activeHealthBar = this.bodyPartsUI[targetBodyPart].healthBar;
-        // console.log(this.activeHealthBar);
-        //showElement(this.activeHealthBar.group);
     }
 
     showAttackedIcon(bodyPart) {
