@@ -101,10 +101,11 @@ class CircularBar extends Bar {
 
         //[this.fillView, this.barBackground].forEach(element => {
         [this.fillView].forEach(element => {
-            element.setAttribute('r', radius);
+            element.setAttribute('r', 90);
             element.setAttribute('cx', x);
             element.setAttribute('cy', y);
             element.setAttribute('fill', mainColor);
+            element.setAttribute('stroke-dasharray', 565.48);
         });
 
         this.fillView.setAttribute('class', 'circle-bar-fill-view');
@@ -117,23 +118,20 @@ class CircularBar extends Bar {
     }
 
     updateFillAmount(value) {
-        var val = value;
+        this.currentValue = value;
+        var val = this.currentValue / this.baseValue * 100;
         var circle = this.fillView;
+
+        var r = circle.getAttribute('r');
+        var c = Math.PI*(r*2);
         
-        if (isNaN(val)) {
-        val = 100; 
-        }
-        else{
-            var r = circle.getAttribute('r');
-            var c = Math.PI*(r*2);
-        
-            if (val < 0) { val = 0;}
-            if (val > 100) { val = 100;}
+        if (val < 0) { val = 0;}
+        if (val > 100) { val = 100;}
             
-            var pct = ((100-val)/100)*c;
+        var pct = ((100-val)/100)*c;
+        console.log(pct);
             
-            circle.setAttribute('strokeDashoffset', pct);
-        }
+        circle.setAttribute('stroke-dashoffset', pct);
 
         this.currentColor = lerpColor(
             this.sideColor,
