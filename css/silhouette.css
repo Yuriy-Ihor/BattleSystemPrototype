@@ -36,6 +36,14 @@ path {
     transition-duration: 1s; 
 }
 
+.circle-bar-fill-view {
+    stroke-dashoffset: 0;
+    transition: stroke-dashoffset 1s linear;
+    stroke: #666;
+    stroke-width: 5px;
+    fill: none;
+}
+
 .bar-fill-view {
     transition: 0.5s;
 }

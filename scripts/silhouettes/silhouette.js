@@ -90,59 +90,56 @@ class RectangularBar extends Bar {
 }
 
 class CircularBar extends Bar {
-    constructor(x, y, baseValue, width, height, mainColor, sideColor) {
+    constructor(x, y, baseValue, radius, mainColor, sideColor) {
         super(x, y, baseValue, mainColor);
         
-        this.fillView = document.createElementNS("http://www.w3.org/2000/svg", 'rect');
-        this.barBackground = document.createElementNS("http://www.w3.org/2000/svg", 'rect');
+        this.fillView = document.createElementNS("http://www.w3.org/2000/svg", 'circle');
+        //this.barBackground = document.createElementNS("http://www.w3.org/2000/svg", 'circle');
 
         this.currentColor = this.mainColor;
         this.sideColor = sideColor;
 
-        let barElements = [this.fillView, this.barBackground];
-        barElements.forEach(element => {
-            element.setAttribute('x', x);
-            element.setAttribute('y', y);
+        //[this.fillView, this.barBackground].forEach(element => {
+        [this.fillView].forEach(element => {
+            element.setAttribute('r', radius);
+            element.setAttribute('cx', x);
+            element.setAttribute('cy', y);
             element.setAttribute('fill', mainColor);
-            element.setAttribute('height', height);
-            element.setAttribute('width', width)
         });
 
-        this.barBackground.setAttribute('fill', 'none');
-        this.barBackground.setAttribute('stroke', mainColor);
-        this.barBackground.setAttribute('stroke-width', 1);
-
-        this.barBackground.setAttribute('class', 'bar-background-view');
-        this.fillView.setAttribute('class', 'bar-fill-view');
+        this.fillView.setAttribute('class', 'circle-bar-fill-view');
 
         this.currentValue = baseValue;
-        this.baseWidth = width;
         this.baseValue = baseValue;
 
-        this.group.appendChild(this.barBackground);
+        //this.group.appendChild(this.barBackground);
         this.group.appendChild(this.fillView);
     }
 
     updateFillAmount(value) {
-        this.currentValue = value;
-
-        let fillAmount = value / this.baseValue;
-        this.fillView.setAttribute('width', this.baseWidth * fillAmount);
+        var val = value;
+        var circle = this.fillView;
+        
+        if (isNaN(val)) {
+        val = 100; 
+        }
+        else{
+            var r = circle.getAttribute('r');
+            var c = Math.PI*(r*2);
+        
+            if (val < 0) { val = 0;}
+            if (val > 100) { val = 100;}
+            
+            var pct = ((100-val)/100)*c;
+            
+            circle.setAttribute('strokeDashoffset', pct);
+        }
 
         this.currentColor = lerpColor(
             this.sideColor,
             this.mainColor,
             this.currentValue / this.baseValue
         );
-
-        this.fillView.setAttribute('fill', this.currentColor);
-        this.wrapperRect.setAttribute('stroke', this.currentColor);
-        this.barBackground.setAttribute('stroke', this.currentColor)
-        
-        if(value <= 0) {
-            hideElement(this.barBackground);
-            this.barBackground.classList.add('no-opacity');
-        }
 
         return this.currentColor;
     }
@@ -291,13 +288,36 @@ class SummaryBodyPartUI extends BodyPartUI {
             this.scale * (x - bodyPartUIHealthBarWidth * 0.5),
             this.scale * (parseFloat(y) + healthBarPaddingY),
             baseValue,
-            this.scale * (bodyPartUIHealthBarWidth),
             this.scale * (bodyPartUIHealthBarHeight),
             this.mainColor,
             this.sideColor
         );
 
         return newBar;
+    }
+
+    updateUI(currentHealth) {
+        if(currentHealth <= 0) {
+            var that = this;
+            setTimeout(function () {
+                // console.log(that);
+                that.bodyPartImage.classList.add('killed');
+                if(hasClass(that.bodyPartImage, 'damaged')) {
+                    that.bodyPartImage.classList.remove('damaged');
+                }
+                that.currentColor = that.healthBar.updateFillAmount(currentHealth);
+            }, 100);
+            return;
+        }
+        if(currentHealth < this.bodyPartBaseInfo.baseLife) {
+            var that = this;
+            setTimeout(function () {
+                if(!hasClass(that.bodyPartImage, 'damaged')) {
+                    that.bodyPartImage.classList.add('damaged');
+                }
+                that.currentColor = that.healthBar.updateFillAmount(currentHealth);
+            }, 300);
+        }
     }
 }
 
