@@ -11,7 +11,9 @@ class TurnSummaryDisplay {
         this.enemySilhouette = new SummarySilhouette(enemyDisplay, opponent, UI_SCALE, 'side', Math.min(MINIMAL_SCREEN_SIZE / 2, SUMMARY_SILHOUETTE_SIZE / 2));
 
         this.playerSilhouette.updateHealthColors();
+        this.playerSilhouette.updateHealthLiquidHeight();
         this.enemySilhouette.updateHealthColors();
+        this.enemySilhouette.updateHealthLiquidHeight();
 
         this.playerDisplay = playerDisplay;
         this.enemyDisplay = enemyDisplay;
@@ -20,21 +22,23 @@ class TurnSummaryDisplay {
         this.opponent = opponent;
     }
 
-    updateSilhouetteSummaryColors() {
-        function parseSilhouetterCollors (silhouette) {
-            for (var bodyPartName in silhouette.bodyPartsUI) {
-                var color = lerpColor(
-                    silhouette.bodyPartsUI[bodyPartName].sideColor,
-                    silhouette.bodyPartsUI[bodyPartName].mainColor,
-                    silhouette.bodyPartsUI[bodyPartName].healthBar.currentValue / silhouette.bodyPartsUI[bodyPartName].healthBar.baseValue
-                );
-                silhouette.bodyParts[bodyPartName].setAttribute("fill", color);
-            }
-        }
+    // updateSilhouetteSummaryColors() {
+    //     function parseSilhouetterCollors (silhouette) {
+    //         for (var bodyPartName in silhouette.bodyPartsUI) {
+    //             var color = lerpColor(
+    //                 silhouette.bodyPartsUI[bodyPartName].sideColor,
+    //                 silhouette.bodyPartsUI[bodyPartName].mainColor,
+    //                 silhouette.bodyPartsUI[bodyPartName].healthBar.currentValue / silhouette.bodyPartsUI[bodyPartName].healthBar.baseValue
+    //             );
+    //             silhouette.bodyParts[bodyPartName].setAttribute("fill", color);
+    //         }
+    //     }
+    //     console.log("hello");
+    //     console.log(this.playerSilhouette.bodyPartsBoundingBoxes);
 
-        parseSilhouetterCollors(this.playerSilhouette);
-        parseSilhouetterCollors(this.enemySilhouette)
-    }
+    //     parseSilhouetterCollors(this.playerSilhouette);
+    //     parseSilhouetterCollors(this.enemySilhouette);
+    // }
 
     clearSummaries() {
         turnSummaryPlayer.innerHTML = '';
@@ -75,11 +79,15 @@ class TurnSummaryDisplay {
     updateEnemySilhouetteUI(attackedPart, defendedPart, bodyPartInfo) {
         this.updateSilhouetteUI(attackedPart, defendedPart, bodyPartInfo, this.enemySilhouette);
         this.enemySilhouette.updateHealthColors();
+        this.enemySilhouette.updateHealthLiquidHeight();
+
     }
 
     updatePlayerSilhouetteUI(attackedPart, defendedPart, bodyPartInfo) {
         this.updateSilhouetteUI(attackedPart, defendedPart, bodyPartInfo, this.playerSilhouette);
         this.playerSilhouette.updateHealthColors();
+        this.playerSilhouette.updateHealthLiquidHeight();
+
     }
 
     updateSilhouetteUI(attackedPart, defendedPart, bodyPartInfo, silhouette) {

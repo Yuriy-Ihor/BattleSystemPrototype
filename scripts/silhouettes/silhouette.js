@@ -244,6 +244,21 @@ class Silhouette{
                 this.bodyPartsUI[bodyPartName].bodyPartInfo.currentLife / this.bodyPartsUI[bodyPartName].bodyPartInfo.baseLife
             );
             this.bodyParts[bodyPartName].setAttribute("fill", color);
+            this.bodyPartsBoundingBoxes[bodyPartName].setAttribute("fill", color);
+        }
+    }
+
+    updateHealthLiquidHeight() {
+        for (var bodyPartName in this.bodyPartsUI) {
+            var part = this.bodyPartsUI[bodyPartName].bodyPartInfo.currentLife / this.bodyPartsUI[bodyPartName].bodyPartInfo.baseLife;
+            this.bodyPartsBoundingBoxes[bodyPartName].setAttribute(
+                'height',
+                part * this.bodyPartsBoundingBoxesTransformMemory[bodyPartName]["height"]
+            );
+            this.bodyPartsBoundingBoxes[bodyPartName].setAttribute(
+                'y',
+                this.bodyPartsBoundingBoxesTransformMemory[bodyPartName]["y"] + this.bodyPartsBoundingBoxesTransformMemory[bodyPartName]["height"] * (1 - part)
+            );
         }
     }
 
@@ -303,26 +318,29 @@ class SummarySilhouette extends Silhouette {
     constructor(silhouetteSvg, targetPlayer, scale, relevance, silhouetteSize) {
         super(silhouetteSvg, targetPlayer, scale, relevance, silhouetteSize);
         
-
-        // console.log(silhouetteSvg);
-
-        // var box = silhouetteSvg.getElementById("head-bounding-box");
-        // console.log(box);
+        this.bodyPartsBoundingBoxes = {};
+        this.bodyPartsBoundingBoxesTransformMemory = {};
 
         for (var bodyPartName in this.bodyPartsUI) {
-            try {
-                var bodyPart = silhouetteSvg.getElementById(bodyPartName);
-                var box = bodyPart.getBBox();
-                var rawTransform = bodyPart.getAttribute("transform");
-                var parsedTransform = rawTransform.split("(")[1].split(")")[0].split(" ");
-                
-                silhouetteSvg.getElementById(`${bodyPartName}-bounding-box`).setAttribute('x', box.x + parseFloat(parsedTransform[0]));
-                silhouetteSvg.getElementById(`${bodyPartName}-bounding-box`).setAttribute('y', box.y + parseFloat(parsedTransform[1]));
-                silhouetteSvg.getElementById(`${bodyPartName}-bounding-box`).setAttribute('width', box.width);
-                silhouetteSvg.getElementById(`${bodyPartName}-bounding-box`).setAttribute('height', box.height);
+            var bodyPart = silhouetteSvg.getElementById(bodyPartName);
 
-                console.log(silhouetteSvg.getElementById(`${bodyPartName}-bounding-box`));
-            } catch {}
+            var box = bodyPart.getBBox();
+            var rawTransform = bodyPart.getAttribute("transform");
+            var parsedTransform = rawTransform.split("(")[1].split(")")[0].split(" ");
+            var htmlBox = silhouetteSvg.getElementById(`${bodyPartName}-bounding-box`);
+
+            htmlBox.setAttribute('x', box.x + parseFloat(parsedTransform[0]));
+            htmlBox.setAttribute('y', box.y + parseFloat(parsedTransform[1]));
+            htmlBox.setAttribute('width', box.width);
+            htmlBox.setAttribute('height', box.height);
+            htmlBox.setAttribute('fill', bodyPart.getAttribute('fill'));
+            this.bodyPartsBoundingBoxes[bodyPartName] = htmlBox;
+
+            this.bodyPartsBoundingBoxesTransformMemory[bodyPartName] = {};
+            this.bodyPartsBoundingBoxesTransformMemory[bodyPartName]["x"] = box.x + parseFloat(parsedTransform[0]);
+            this.bodyPartsBoundingBoxesTransformMemory[bodyPartName]["y"] = box.y + parseFloat(parsedTransform[1]);
+            this.bodyPartsBoundingBoxesTransformMemory[bodyPartName]["width"] = box.width;
+            this.bodyPartsBoundingBoxesTransformMemory[bodyPartName]["height"] = box.height;
         }
 
         //this.attackedIcon = createImage('images/sight.png', 'attacked-icon', 50, 50, 0, 0, 'silhouette-icon');

@@ -58,7 +58,7 @@ function finishTurn() {
         showErrorMessage("You dumb idiot did something wrong!", 5);
         return;
     }
-    console.log('finishing turn');
+    // console.log('finishing turn');
 
     battleSelectionsPanel.hideAllSelections();
 

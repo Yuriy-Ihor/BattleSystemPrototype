@@ -11,6 +11,11 @@
     margin-bottom: 10px;
 }
 
+/* #battle-screen-summary-player-svg rect {
+    stroke-width: 3px;
+    stroke: black;
+} */
+
 @media (max-width: 600px) {
     #player-silhouettes {
         /* flex-direction: column; */
