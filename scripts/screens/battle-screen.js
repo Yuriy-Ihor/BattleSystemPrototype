@@ -34,12 +34,16 @@ class PlayerBodySelection {
             hideElement(this.displayHTML);
             showElement(this.playerBodyPartSelection);
             showElement(battleScreenBackButtonHTML);
+
+            hideElement(battleScreenFinishTurnButtonHTML);
         });
 
         enemySilhouette.silhouetteSvg.addEventListener('bodyselected', () => {
             hideElement(this.displayHTML);
             showElement(this.enemyBodyPartSelection);
             showElement(battleScreenBackButtonHTML);
+
+            hideElement(battleScreenFinishTurnButtonHTML);
         });
 
         battleScreenBackButtonHTML.onclick = () => {
@@ -47,6 +51,8 @@ class PlayerBodySelection {
             hideElement(this.playerBodyPartSelection);
             hideElement(this.enemyBodyPartSelection);
             showElement(this.displayHTML);
+
+            showElement(battleScreenFinishTurnButtonHTML);
         };
 
         battleScreenFinishTurnButtonHTML.addEventListener('click', () => {
