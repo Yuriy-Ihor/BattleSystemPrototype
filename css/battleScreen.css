@@ -168,9 +168,10 @@
     margin: auto;
     width: 30%;
     color:orangered;
-    text-align: center;
+    text-align: center;    
+    overflow: scroll;
     position: absolute;
-    top: 0;
+    top: 25px;
     left: 50%;
     margin: 0 0 0 -15%;
     transition-duration: 0.3s;
@@ -260,5 +261,15 @@
     }
     #battle-screen-selections {
         padding-top: 0;
+    }
+    
+}
+
+@media (max-height: 600px) {
+    #battle-screen-selections .switch-button {
+        height: 40px;
+        margin: 5px 10px;
+        font-size: 1.2rem;
+        width: 110px;
     }
 }
