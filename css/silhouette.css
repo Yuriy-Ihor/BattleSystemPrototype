@@ -1,4 +1,8 @@
 
+#player-selection .silhouette-part:hover {
+    
+}
+
 .silhouette-part {
     stroke-width: 3px;
     stroke: green;

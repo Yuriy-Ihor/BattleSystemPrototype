@@ -413,22 +413,36 @@ class BodySelectionSilhouette extends Silhouette {
             console.log("Body selected!");
         });
 
-        return;
         for(let bodyPartId in this.bodyPartsUI){
             let bodyPartUI = this.bodyPartsUI[bodyPartId];
             let targetBodyPart = bodyPartUI.uiGroup;
             let image = bodyPartUI.getImage();
 
-            [targetBodyPart, image].forEach(element => element.addEventListener('mousedown', () => {
-                if(this.selected != null) {
-                    this.hollowImage(this.selected);
-                }
-                this.selected = image;
-                this.fillImage(this.selected);
+            [targetBodyPart, image].forEach(element => element.addEventListener('mouseover', () => {
+                this.fillAllBodyParts();
+            }));
+
+            [targetBodyPart, image].forEach(element => element.addEventListener('mouseout', () => {
+                this.hollowAllBodyParts();
             }));
         }   
     }
-    
+
+    fillAllBodyParts() {
+        for(let bodyPartId in this.bodyPartsUI){
+            let bodyPartUI = this.bodyPartsUI[bodyPartId];
+            let image = bodyPartUI.getImage();
+            this.fillImage(image);
+        }   
+    }
+
+    hollowAllBodyParts() {
+        for(let bodyPartId in this.bodyPartsUI){
+            let bodyPartUI = this.bodyPartsUI[bodyPartId];
+            let image = bodyPartUI.getImage();
+            this.hollowImage(image);
+        }   
+    }
 }
 
 class SelectableSilhouette extends Silhouette {
@@ -481,7 +495,6 @@ class SummarySilhouette extends Silhouette {
             this.bodyPartsUI[bodyPartImage.id] = bodyPartUI;
         }
     }
-
 
     updateBodyPartUI(targetBodyPart, bodyPartInfo) {
         this.bodyPartsUI[targetBodyPart].updateUI(bodyPartInfo.currentLife);
