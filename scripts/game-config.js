@@ -7,7 +7,7 @@ const DEFEND_BODY_PART_ID = 'torso';
 
 /*--- UI constants ---*/
 
-const SILHOUETTE_SIZE = 300; 
+const SILHOUETTE_SIZE = 256; 
 const SUMMARY_SILHOUETTE_SIZE = 1000; 
 
 const UI_SCALE_MULTIPLAYER = 0.45;
@@ -18,12 +18,15 @@ const MINIMAL_SCREEN_SIZE = Math.min(window.innerHeight, window.innerWidth);
 var UI_SCALE = getUiScale();
 
 function getUiScale() {
-    let minimalSize = Math.min(window.innerHeight, window.innerWidth);
+    console.log(SILHOUETTE_SIZE);
+    console.log(MINIMAL_SCREEN_SIZE);
 
-    if(SILHOUETTE_SIZE > minimalSize) {
-        return UI_SCALE_MULTIPLAYER *  minimalSize / SILHOUETTE_SIZE;
-    }
+    if(MINIMAL_SCREEN_SIZE / SILHOUETTE_SIZE > MAX_UI_SCALE) {
+        console.log('ui scale is less');
+    } 
     else {
-        return Math.min((minimalSize / SILHOUETTE_SIZE), MAX_UI_SCALE);
+        console.log('ui scale is bigger');
     }
+    
+    return MAX_UI_SCALE;
 }

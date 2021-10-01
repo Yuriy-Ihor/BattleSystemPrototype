@@ -242,6 +242,9 @@
     #battle-screen-selections {
         margin-top: 0;
     }
+}
+
+@media (max-height: 800px) {
     #battle-screen-selection-switching {
         position: absolute;
         bottom: 0;
