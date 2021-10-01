@@ -157,6 +157,11 @@
 #battle-screen-selection-switching {
     display: flex;
     justify-content: center;
+    position: absolute;
+    bottom: 0;
+    top: 75%;
+    left: 0;
+    width: 100%;
 }
 
 #battle-screen-error-message {
@@ -241,15 +246,6 @@
     }
     #battle-screen-selections {
         margin-top: 0;
-    }
-}
-
-@media (max-height: 800px) {
-    #battle-screen-selection-switching {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100%;
     }
 }
 
