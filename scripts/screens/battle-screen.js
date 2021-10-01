@@ -31,22 +31,33 @@ class PlayersDisplay {
         this.playersBar = document.getElementById('players-bar');
         this.mainPlayerDisplay = mainPlayerDisplay;
         this.opponentDisplay = opponentDisplay;
+
+        this.mainPlayerShownStyle = 'display: flex; justify-content: center; flex-direction: column;';
     }
 
     hideMainPlayerDisplay() {
         hideElement(mainPlayerDisplay);
+
+        this.playersBar.setAttribute('style', 'justify-content: flex-end;');
+        //this.playersBar.setAttribute('style', 'justify-content: center;');
     }
 
     hideOpponentDisplay() {
         hideElement(opponentDisplay);
+        mainPlayerDisplay.setAttribute('style', this.mainPlayerShownStyle);
+
+        //this.playersBar.setAttribute('style', 'justify-content: center;');
     }
 
     showMainPlayerDisplay() {
         showElement(mainPlayerDisplay);
+
+        this.playersBar.setAttribute('style', '');
     }
 
     showOpponentDisplay() {
         showElement(opponentDisplay);
+        mainPlayerDisplay.setAttribute('style', '');
     }
 }
 

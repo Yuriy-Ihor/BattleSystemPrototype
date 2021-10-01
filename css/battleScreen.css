@@ -179,6 +179,12 @@
     }
 }
 
+@media (max-width: 1050px) {
+    #battle-screen-selections {
+        margin-top: 0;
+    }
+}
+
 @media (max-width: 950px) {
     .player-image {
         width: 140px;
@@ -234,7 +240,7 @@
         margin: 8px 10px;
     }
     #battle-screen-selections {
-        padding-top: 0;
+        margin-top: 0;
     }
     #battle-screen-selection-switching {
         position: absolute;
