@@ -411,10 +411,6 @@ class BodySelectionSilhouette extends Silhouette {
     constructor(silhouetteSvg, targetPlayer, scale, relevance, silhouetteSize, relatedSilhouette) {
         super(silhouetteSvg, targetPlayer, scale, relevance, silhouetteSize);
 
-        silhouetteSvg.addEventListener('mousedown', () => {
-            silhouetteSvg.dispatchEvent(onBodySelectedEvent);
-        });
-
         for(let i = 0; i < this.bodyParts.length; i++) {   
             this.bodyParts[i].addEventListener('mouseover', () => {
                 this.fillAllBodyParts();
@@ -422,6 +418,10 @@ class BodySelectionSilhouette extends Silhouette {
 
             this.bodyParts[i].addEventListener('mouseout', () => {
                 this.hollowAllBodyParts();
+            });
+                
+            this.bodyParts[i].addEventListener('mousedown', () => {
+                silhouetteSvg.dispatchEvent(onBodySelectedEvent);
             });
         }   
     }

@@ -85,7 +85,10 @@ function initOpponent() {
 
 const enemyBot = new EnemyBot(players.opponent);
 
-const playerBodySelection = new PlayerBodySelection(battleScreenSelectionPlayerHTML, playerSelectionSilhouetteSVG, enemySelectionSilhouetteSVG, battleScreenSelectionDefenseHTML, battleScreenSelectionAttackHTML, battleScreenFinishTurnButtonHTML);
+const playerSilhouetteSelection = new BodySelectionSilhouette(playerSelectionSilhouetteSVG, players.mainPlayer, UI_SCALE, 'main', Math.min(MINIMAL_SCREEN_SIZE / 2, SUMMARY_SILHOUETTE_SIZE / 2));
+const enemySilhouetteSelection = new BodySelectionSilhouette(enemySelectionSilhouetteSVG, players.opponent, UI_SCALE, 'side', Math.min(MINIMAL_SCREEN_SIZE / 2, SUMMARY_SILHOUETTE_SIZE / 2));
+        
+const playerBodySelection = new PlayerBodySelection(battleScreenSelectionPlayerHTML, playerSilhouetteSelection, enemySilhouetteSelection, battleScreenSelectionDefenseHTML, battleScreenSelectionAttackHTML, battleScreenFinishTurnButtonHTML);
 
 const enemySilhouette = new SelectableSilhouette(attackSvg, players.opponent, UI_SCALE, 'side', SILHOUETTE_SIZE * UI_SCALE);
 const playerSilhouette = new SelectableSilhouette(defenseSvg, players.mainPlayer, UI_SCALE, 'main', SILHOUETTE_SIZE * UI_SCALE);
