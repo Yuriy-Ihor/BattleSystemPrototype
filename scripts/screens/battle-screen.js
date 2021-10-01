@@ -26,6 +26,32 @@ const battleScreenErrorHTML = document.getElementById("battle-screen-error-messa
 
 const onTurnEnd = new Event('endturn');
 
+class PlayersDisplay {
+    constructor() {
+        this.playersBar = document.getElementById('players-bar');
+        this.mainPlayerDisplay = mainPlayerDisplay;
+        this.opponentDisplay = opponentDisplay;
+    }
+
+    hideMainPlayerDisplay() {
+        hideElement(mainPlayerDisplay);
+    }
+
+    hideOpponentDisplay() {
+        hideElement(opponentDisplay);
+    }
+
+    showMainPlayerDisplay() {
+        showElement(mainPlayerDisplay);
+    }
+
+    showOpponentDisplay() {
+        showElement(opponentDisplay);
+    }
+}
+
+const playersDisplay = new PlayersDisplay();
+
 class PlayerBodySelection {
     constructor(displayHTML, playerSilhouette, enemySilhouette, playerBodyPartSelection, enemyBodyPartSelection) {
         this.displayHTML = displayHTML;
@@ -34,7 +60,7 @@ class PlayerBodySelection {
         this.enemyBodyPartSelection = enemyBodyPartSelection;
 
         playerSilhouette.silhouetteSvg.addEventListener('bodyselected', () => {
-            //hideElement(opponentDisplay);
+            playersDisplay.hideOpponentDisplay();
 
             hideElement(this.displayHTML);
             showElement(this.playerBodyPartSelection);
@@ -44,7 +70,7 @@ class PlayerBodySelection {
         });
 
         enemySilhouette.silhouetteSvg.addEventListener('bodyselected', () => {
-            //hideElement(mainPlayerDisplay);
+            playersDisplay.hideMainPlayerDisplay();
 
             hideElement(this.displayHTML);
             showElement(this.enemyBodyPartSelection);
@@ -54,8 +80,8 @@ class PlayerBodySelection {
         });
 
         battleScreenBackButtonHTML.onclick = () => {
-            showElement(mainPlayerDisplay);
-            showElement(opponentDisplay);
+            playersDisplay.showMainPlayerDisplay();
+            playersDisplay.showOpponentDisplay();
 
             hideElement(battleScreenBackButtonHTML);
             hideElement(this.playerBodyPartSelection);
