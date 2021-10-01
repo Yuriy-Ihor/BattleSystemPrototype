@@ -265,7 +265,12 @@
     #battle-screen-selections {
         padding-top: 0;
     }
-    
+    #battle-screen-selection-switching {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+    }
 }
 
 @media (max-height: 600px) {
