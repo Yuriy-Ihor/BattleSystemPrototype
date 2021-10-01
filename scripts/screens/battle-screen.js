@@ -48,6 +48,11 @@ class PlayerBodySelection {
             hideElement(this.enemyBodyPartSelection);
             showElement(this.displayHTML);
         };
+
+        battleScreenFinishTurnButtonHTML.addEventListener('click', () => {
+            playerSilhouette.disselectBodyPart();
+            enemySilhouette.disselectBodyPart();
+        });
     }
 }
 
@@ -67,11 +72,8 @@ class BodyPartSelection {
         this.finishTurnButton.addEventListener(() => {
             hideElement(backButton);
             hideElement(displaySVG);
+            
         });
-    }
-
-    getSelected() {
-        return this.silhouette.selected;
     }
 }
 

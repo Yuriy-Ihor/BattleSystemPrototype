@@ -96,9 +96,7 @@ const playerBodySelection = new PlayerBodySelection(battleScreenSelectionPlayerH
 
 
 const attackSelection = new BattleSelection(battleScreenSelectionAttackHTML);
-attackSelection.getSelected = () => { 
-    return enemySilhouette.selected;
-};
+attackSelection.getSelected = () => { return enemySilhouette.selected; };
 
 const defenseSelection = new BattleSelection(battleScreenSelectionDefenseHTML);
 defenseSelection.getSelected = () => { return playerSilhouette.selected };

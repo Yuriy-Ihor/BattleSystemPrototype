@@ -460,8 +460,16 @@ class BodySelectionSilhouette extends Silhouette {
 
     hollowAllBodyParts() {
         for(let i = 0; i < this.bodyParts.length; i++) {   
+            if(this.selected == this.bodyParts[i]) {
+                continue;
+            }
             this.hollowImage(this.bodyParts[i]);
         }   
+    }
+    
+    disselectBodyPart() {
+        this.hollowImage(this.selected);
+        this.selected = null;
     }
 }
 

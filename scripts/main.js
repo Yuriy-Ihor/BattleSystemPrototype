@@ -156,10 +156,10 @@ function startGame() {
         startTurn();
     }
 
-    battleScreenFinishTurnButtonHTML.onclick = () => {     
+    battleScreenFinishTurnButtonHTML.addEventListener('click', () => {     
         battleScreenFinishTurnButtonHTML.dispatchEvent(onTurnEnd);
         finishTurn()
-    };
+    });
 
     battleScreenNextTurnButtonHTML.onclick = () => {
         hideElement(battleSummaryScreenHTML);
