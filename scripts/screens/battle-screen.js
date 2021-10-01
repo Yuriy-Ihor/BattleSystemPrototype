@@ -26,6 +26,27 @@ const battleScreenErrorHTML = document.getElementById("battle-screen-error-messa
 
 const onTurnEnd = new Event('endturn');
 
+class PlayerActionsValidator {
+    constructor(playerSilhouette, enemySilhouette) {
+        this.playerSilhouette = playerSilhouette;
+        this.enemySilhouette = enemySilhouette;
+        this.errorMessageHTML = battleScreenErrorHTML;
+    }
+
+    canFinishTurn() {
+        return playerSilhouette.isBodyPartSelected() && enemySilhouette.isBodyPartSelected();
+    }
+
+    showErrorMessage(message, time) {
+        this.errorMessageHTML.innerHTML = message;
+        showElementForTime(this.errorMessageHTML, time);
+    }
+    
+    clearErrorMessage() {
+        this.errorMessageHTML.innerHTML = '';
+    }    
+}
+
 class PlayersDisplay {
     constructor() {
         this.playersBar = document.getElementById('players-bar');
@@ -101,11 +122,6 @@ class PlayerBodySelection {
 
             showElement(battleScreenFinishTurnButtonHTML);
         };
-
-        battleScreenFinishTurnButtonHTML.addEventListener('click', () => {
-            playerSilhouette.disselectBodyPart();
-            enemySilhouette.disselectBodyPart();
-        });
     }
 }
 
@@ -128,15 +144,6 @@ class BodyPartSelection {
             
         });
     }
-}
-
-function showErrorMessage(message, time) {
-    battleScreenErrorHTML.innerHTML = message;
-    showElementForTime(battleScreenErrorHTML, time);
-}
-
-function clearErrorMessage() {
-    battleScreenErrorHTML.innerHTML = '';
 }
 
 /* CURRENTLY UNUSED */

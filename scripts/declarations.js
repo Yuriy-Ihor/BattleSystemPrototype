@@ -93,6 +93,7 @@ const enemySilhouetteSelection = new BodySelectionSilhouette(enemySelectionSilho
         
 const playerBodySelection = new PlayerBodySelection(battleScreenSelectionPlayerHTML, playerSilhouetteSelection, enemySilhouetteSelection, battleScreenSelectionDefenseHTML, battleScreenSelectionAttackHTML, battleScreenFinishTurnButtonHTML);
 
+const playerActionsValidator = new PlayerActionsValidator(playerSilhouette, enemySilhouette);
 
 
 const attackSelection = new BattleSelection(battleScreenSelectionAttackHTML);

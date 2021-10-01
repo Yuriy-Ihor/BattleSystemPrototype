@@ -49,14 +49,19 @@ function startTurn() {
 function finishTurn() {
     
     // if(getSelectedPlayerAbilities().length == 0 || !attackSilhouette.isBodyPartSelected() || !defenseSilhouette.isBodyPartSelected()) {
-    if(!playerSilhouette.isBodyPartSelected() || !enemySilhouette.isBodyPartSelected()) {
-        showErrorMessage("You dumb idiot did something wrong!", 5);
+    if(!playerActionsValidator.canFinishTurn()) {
+        playerActionsValidator.showErrorMessage("You dumb idiot did something wrong!", 5);
         return;
     }
+
+    battleScreenFinishTurnButtonHTML.dispatchEvent(onTurnEnd);
 
     //battleSelectionsPanel.hideAllSelections();
 
     proceedBattleRezults();
+    
+    playerSilhouetteSelection.disselectBodyPart();
+    enemySilhouetteSelection.disselectBodyPart();
     
     playerSilhouette.disselectBodyPart();
     enemySilhouette.disselectBodyPart();
@@ -66,7 +71,7 @@ function finishTurn() {
     showElement(battleSummaryScreenHTML);
 
     updatePlayersUI(players);
-    clearErrorMessage();
+    playerActionsValidator.clearErrorMessage();
 
     currentTurn++;
 }
@@ -157,7 +162,6 @@ function startGame() {
     }
 
     battleScreenFinishTurnButtonHTML.addEventListener('click', () => {     
-        battleScreenFinishTurnButtonHTML.dispatchEvent(onTurnEnd);
         finishTurn()
     });
 
