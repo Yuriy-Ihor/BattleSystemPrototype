@@ -154,7 +154,10 @@ function startGame() {
         startTurn();
     }
 
-    //battleSelectionsPanel.finishTurnButton.onclick = finishTurn;
+    battleScreenFinishTurnButtonHTML.onclick = () => {     
+        battleScreenFinishTurnButtonHTML.dispatchEvent(onTurnEnd);
+        finishTurn()
+    };
 
     battleScreenNextTurnButtonHTML.onclick = () => {
         hideElement(battleSummaryScreenHTML);

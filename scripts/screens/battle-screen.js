@@ -21,6 +21,8 @@ const battleScreenNextTurnButtonHTML = document.getElementById('battle-screen-ne
 
 const battleScreenErrorHTML = document.getElementById("battle-screen-error-message");
 
+const onTurnEnd = new Event('endturn');
+
 class PlayerBodySelection {
     constructor(displayHTML, playerSilhouetteSVG, enemySilhouetteSVG, playerBodyPartSelection, enemyBodyPartSelection, finishTurnButton) {
         this.displayHTML = displayHTML;
@@ -28,19 +30,25 @@ class PlayerBodySelection {
         this.enemySilhouette = new BodySelectionSilhouette(enemySilhouetteSVG, players.opponent, UI_SCALE, 'side', Math.min(MINIMAL_SCREEN_SIZE / 2, SUMMARY_SILHOUETTE_SIZE / 2));
         this.playerBodyPartSelection = playerBodyPartSelection;
         this.enemyBodyPartSelection = enemyBodyPartSelection;
-        this.finishTurnButton = finishTurnButton;
-
-        console.log(playerSilhouetteSVG);
 
         playerSilhouetteSVG.addEventListener('bodyselected', () => {
             hideElement(this.displayHTML);
             showElement(this.playerBodyPartSelection);
+            showElement(battleScreenBackButtonHTML);
         });
 
         enemySilhouetteSVG.addEventListener('bodyselected', () => {
             hideElement(this.displayHTML);
             showElement(this.enemyBodyPartSelection);
+            showElement(battleScreenBackButtonHTML);
         });
+
+        battleScreenBackButtonHTML.onclick = () => {
+            hideElement(battleScreenBackButtonHTML);
+            hideElement(this.playerBodyPartSelection);
+            hideElement(this.enemyBodyPartSelection);
+            showElement(this.displayHTML);
+        };
     }
 }
 
