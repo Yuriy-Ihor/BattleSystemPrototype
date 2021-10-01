@@ -406,6 +406,7 @@ class Silhouette{
 }
 
 const onBodySelectedEvent = new Event('bodyselected')
+const onBodyPartSelectedEvent = new Event('bodypartselected')
 
 class BodySelectionSilhouette extends Silhouette {
     constructor(silhouetteSvg, targetPlayer, scale, relevance, silhouetteSize, relatedSilhouette) {
@@ -424,6 +425,23 @@ class BodySelectionSilhouette extends Silhouette {
                 silhouetteSvg.dispatchEvent(onBodySelectedEvent);
             });
         }   
+
+        this.relatedSilhouette = relatedSilhouette;
+
+        for(let bodyPartId in this.relatedSilhouette.bodyPartsUI){
+            let bodyPartUI = this.relatedSilhouette.bodyPartsUI[bodyPartId];
+            
+            let image = bodyPartUI.getImage();
+
+            image.addEventListener('bodypartselected', () => {
+                if(this.selected != null) {
+                    this.hollowImage(this.selected);
+                }
+                
+                this.selected = this.bodyParts[this.relatedSilhouette.selected.id];
+                this.fillImage(this.selected);
+            });
+        }
     }
 
     createBodyPartsUI() {
@@ -462,6 +480,8 @@ class SelectableSilhouette extends Silhouette {
                 }
                 this.selected = image;
                 this.fillImage(this.selected);
+
+                this.selected.dispatchEvent(onBodyPartSelectedEvent);
             }));
         }
         this.selected = null;
