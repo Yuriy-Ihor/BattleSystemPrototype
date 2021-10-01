@@ -84,6 +84,7 @@ function initOpponent() {
 }
 
 const enemyBot = new EnemyBot(players.opponent);
+
 const playerBodySelection = new PlayerBodySelection(battleScreenSelectionPlayerHTML, playerSelectionSilhouetteSVG, enemySelectionSilhouetteSVG, battleScreenSelectionDefenseHTML, battleScreenSelectionAttackHTML, battleScreenFinishTurnButtonHTML);
 
 const enemySilhouette = new SelectableSilhouette(attackSvg, players.opponent, UI_SCALE, 'side', SILHOUETTE_SIZE * UI_SCALE);

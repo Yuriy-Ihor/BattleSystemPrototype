@@ -405,12 +405,14 @@ class Silhouette{
     }
 }
 
+const onBodySelectedEvent = new Event('bodyselected')
+
 class BodySelectionSilhouette extends Silhouette {
     constructor(silhouetteSvg, targetPlayer, scale, relevance, silhouetteSize, relatedSilhouette) {
         super(silhouetteSvg, targetPlayer, scale, relevance, silhouetteSize);
 
         silhouetteSvg.addEventListener('mousedown', () => {
-            console.log("Body selected!");
+            silhouetteSvg.dispatchEvent(onBodySelectedEvent);
         });
 
         for(let i = 0; i < this.bodyParts.length; i++) {   
