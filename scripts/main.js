@@ -50,7 +50,7 @@ function finishTurn() {
     
     // if(getSelectedPlayerAbilities().length == 0 || !attackSilhouette.isBodyPartSelected() || !defenseSilhouette.isBodyPartSelected()) {
     if(!playerActionsValidator.canFinishTurn()) {
-        playerActionsValidator.showErrorMessage("You dumb idiot did something wrong!", 5);
+        playerActionsValidator.showErrorMessage(5);
         return;
     }
 

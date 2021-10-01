@@ -37,8 +37,17 @@ class PlayerActionsValidator {
         return playerSilhouette.isBodyPartSelected() && enemySilhouette.isBodyPartSelected();
     }
 
-    showErrorMessage(message, time) {
-        this.errorMessageHTML.innerHTML = message;
+    getErrorMessage() {
+        if(!playerSilhouette.isBodyPartSelected()) {
+            return 'You forgot to defend bodypart!';
+        }
+        else if(!enemySilhouette.isBodyPartSelected()) {
+            return "You forgot to attack opponent's bodypart!";
+        }
+    }
+
+    showErrorMessage(time) {
+        this.errorMessageHTML.innerHTML = this.getErrorMessage();
         showElementForTime(this.errorMessageHTML, time);
     }
     
