@@ -4,6 +4,7 @@
     flex-direction: column;
     align-items: center;
     font-size: 40px;
+    margin-top: -5%;
 }
 
 .battle-screen-player-summary {

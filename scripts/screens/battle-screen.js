@@ -2,6 +2,9 @@
 const battleScreenHTML = document.getElementById("battle-screen");
 const battleScreenSelectionHTML = document.getElementById('battle-screen-selections');
 
+const mainPlayerDisplay = document.getElementById('player-left');
+const opponentDisplay = document.getElementById('player-right');
+
 const battleScreenSelectionPlayerHTML = document.getElementById('battle-screen-player-selection');
     const playerSelectionSilhouetteSVG = document.getElementById('battle-screen-selection-player-svg');
     const enemySelectionSilhouetteSVG = document.getElementById('battle-screen-selection-enemy-svg');
@@ -31,6 +34,8 @@ class PlayerBodySelection {
         this.enemyBodyPartSelection = enemyBodyPartSelection;
 
         playerSilhouette.silhouetteSvg.addEventListener('bodyselected', () => {
+            //hideElement(opponentDisplay);
+
             hideElement(this.displayHTML);
             showElement(this.playerBodyPartSelection);
             showElement(battleScreenBackButtonHTML);
@@ -39,6 +44,8 @@ class PlayerBodySelection {
         });
 
         enemySilhouette.silhouetteSvg.addEventListener('bodyselected', () => {
+            //hideElement(mainPlayerDisplay);
+
             hideElement(this.displayHTML);
             showElement(this.enemyBodyPartSelection);
             showElement(battleScreenBackButtonHTML);
@@ -47,6 +54,9 @@ class PlayerBodySelection {
         });
 
         battleScreenBackButtonHTML.onclick = () => {
+            showElement(mainPlayerDisplay);
+            showElement(opponentDisplay);
+
             hideElement(battleScreenBackButtonHTML);
             hideElement(this.playerBodyPartSelection);
             hideElement(this.enemyBodyPartSelection);

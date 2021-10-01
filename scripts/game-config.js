@@ -7,7 +7,7 @@ const DEFEND_BODY_PART_ID = 'torso';
 
 /*--- UI constants ---*/
 
-const SILHOUETTE_SIZE = 256; 
+const SILHOUETTE_SIZE = 300; 
 const SUMMARY_SILHOUETTE_SIZE = 1000; 
 
 const UI_SCALE_MULTIPLAYER = 0.45;
