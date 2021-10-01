@@ -1,4 +1,6 @@
 
+var currentTurn = 1;
+
 function isGameOver() {
     return checkIfAnyBodyPartIsDead(players.mainPlayer.bodyParts) || checkIfAnyBodyPartIsDead(players.opponent.bodyParts);
     //return players.mainPlayer.playerStats[playerStats.hitpoints] <= 0 || players.opponent.playerStats[playerStats.hitpoints] <= 0;
@@ -25,8 +27,6 @@ function getBattleWinner(players) {
     }
 }
 
-var currentTurn = 1;
-
 function startTurn() {
     /*
     if(currentTurn > 0) {
@@ -36,19 +36,11 @@ function startTurn() {
 
     updatePlayersUI(players);
     //fillPlayerAbilitiesList(players.mainPlayer);
-    battleSelectionsPanel.showFirstSelection();
-    showElement(battleScreenSelectionHTML);
+    //battleSelectionsPanel.showFirstSelection();
     // showElement(battleScreenSelectionAbilityHTML);
-}
 
-function restoreManaToPlayer(player, amount) {
-    let value = player.playerStats[playerStats.mana] + amount;
-
-    if(player.playerBaseStats[playerStats.mana] < value) {
-        value = player.playerBaseStats[playerStats.mana];
-    }
-
-    player.playerStats[playerStats.mana] = value;
+    showElement(battleScreenSelectionPlayerHTML);
+    showElement(battleScreenSelectionHTML);
 }
 
 function finishTurn() {
@@ -59,7 +51,7 @@ function finishTurn() {
         return;
     }
 
-    battleSelectionsPanel.hideAllSelections();
+    //battleSelectionsPanel.hideAllSelections();
 
     proceedBattleRezults();
     
@@ -133,30 +125,6 @@ function applyDamageToBodyPart(bodyPart, damage) {
     return false;
 }
 
-function calculateTotalMainPlayerDamage(attackBlocked) {
-    
-    let abilities = getSelectedPlayerAbilities();
-
-    let totalDamage = 0;
-    for(let i = 0; i < abilities.length; i++) {
-        totalDamage += players.mainPlayer.playerSkills[abilities[i]].effect;
-    }
-
-    return totalDamage;
-    //return attackBlocked ? totalDamage * 0.1 : totalDamage;
-}
-
-function calculateTotalMainPlayerMana() {
-    let abilities = getSelectedPlayerAbilities();
-
-    let totalMana = 0;
-    for(let i = 0; i < abilities.length; i++) {
-        totalMana += players.mainPlayer.playerSkills[abilities[i]].manaRequired;
-    }
-
-    return totalMana;
-}
-
 function hideAllScreens() {
     hideElement(startScreenHTML);
     hideElement(versusScreenHTML);
@@ -186,7 +154,7 @@ function startGame() {
         startTurn();
     }
 
-    battleSelectionsPanel.finishTurnButton.onclick = finishTurn;
+    //battleSelectionsPanel.finishTurnButton.onclick = finishTurn;
 
     battleScreenNextTurnButtonHTML.onclick = () => {
         hideElement(battleSummaryScreenHTML);
@@ -227,3 +195,40 @@ function startGame() {
 }
 
 startGame();
+
+
+/* CURRENTLY UNUSED */
+
+function restoreManaToPlayer(player, amount) {
+    let value = player.playerStats[playerStats.mana] + amount;
+
+    if(player.playerBaseStats[playerStats.mana] < value) {
+        value = player.playerBaseStats[playerStats.mana];
+    }
+
+    player.playerStats[playerStats.mana] = value;
+}
+
+function calculateTotalMainPlayerDamage(attackBlocked) {
+    
+    let abilities = getSelectedPlayerAbilities();
+
+    let totalDamage = 0;
+    for(let i = 0; i < abilities.length; i++) {
+        totalDamage += players.mainPlayer.playerSkills[abilities[i]].effect;
+    }
+
+    return totalDamage;
+    //return attackBlocked ? totalDamage * 0.1 : totalDamage;
+}
+
+function calculateTotalMainPlayerMana() {
+    let abilities = getSelectedPlayerAbilities();
+
+    let totalMana = 0;
+    for(let i = 0; i < abilities.length; i++) {
+        totalMana += players.mainPlayer.playerSkills[abilities[i]].manaRequired;
+    }
+
+    return totalMana;
+}

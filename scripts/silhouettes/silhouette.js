@@ -292,6 +292,8 @@ class SummaryBodyPartUI extends BodyPartUI {
 
         this.healthBar = this.createHealthBar(this.bodyPartBaseInfo.baseLife);
         this.uiGroup.appendChild(this.healthBar.group);
+
+        hideElement(this.uiGroup);
     }
 
     createHealthBar(baseValue) { 
@@ -403,6 +405,32 @@ class Silhouette{
     }
 }
 
+class BodySelectionSilhouette extends Silhouette {
+    constructor(silhouetteSvg, targetPlayer, scale, relevance, silhouetteSize, relatedSilhouette) {
+        super(silhouetteSvg, targetPlayer, scale, relevance, silhouetteSize);
+
+        silhouetteSvg.addEventListener('mousedown', () => {
+            console.log("Body selected!");
+        });
+
+        return;
+        for(let bodyPartId in this.bodyPartsUI){
+            let bodyPartUI = this.bodyPartsUI[bodyPartId];
+            let targetBodyPart = bodyPartUI.uiGroup;
+            let image = bodyPartUI.getImage();
+
+            [targetBodyPart, image].forEach(element => element.addEventListener('mousedown', () => {
+                if(this.selected != null) {
+                    this.hollowImage(this.selected);
+                }
+                this.selected = image;
+                this.fillImage(this.selected);
+            }));
+        }   
+    }
+    
+}
+
 class SelectableSilhouette extends Silhouette {
     constructor(silhouetteSvg, targetPlayer, scale, relevance, silhouetteSize) {
         super(silhouetteSvg, targetPlayer, scale, relevance, silhouetteSize);
@@ -453,6 +481,7 @@ class SummarySilhouette extends Silhouette {
             this.bodyPartsUI[bodyPartImage.id] = bodyPartUI;
         }
     }
+
 
     updateBodyPartUI(targetBodyPart, bodyPartInfo) {
         this.bodyPartsUI[targetBodyPart].updateUI(bodyPartInfo.currentLife);

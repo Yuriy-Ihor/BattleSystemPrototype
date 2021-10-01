@@ -2,8 +2,10 @@
 const battleScreenHTML = document.getElementById("battle-screen");
 const battleScreenSelectionHTML = document.getElementById('battle-screen-selections');
 
-const battleScreenSelectionAbilityHTML = document.getElementById('battle-screen-selection-ability');
-    const battleScreenAbilitiesListHTML = document.getElementById('battle-screen-selection-abilities-list');
+const battleScreenSelectionPlayerHTML = document.getElementById('battle-screen-player-selection');
+    const playerSelectionSilhouetteSVG = document.getElementById('battle-screen-selection-player-svg');
+    const enemySelectionSilhouetteSVG = document.getElementById('battle-screen-selection-enemy-svg');
+
 const battleScreenSelectionAttackHTML = document.getElementById('battle-screen-selection-body-attack');
     const attackSvg = document.getElementById('attack-selection-silhouette');
 const battleScreenSelectionDefenseHTML = document.getElementById('battle-screen-selection-body-defense');
@@ -18,6 +20,55 @@ const battleSummaryScreenHTML = document.getElementById('battle-screen-summary')
 const battleScreenNextTurnButtonHTML = document.getElementById('battle-screen-next-turn');
 
 const battleScreenErrorHTML = document.getElementById("battle-screen-error-message");
+
+class PlayerBodySelection {
+    constructor(displayHTML, playerSilhouetteSVG, opponentSilhouetteSVG, playerBodyPartSelection, enemyBodyPartSelection, finishTurnButton) {
+        this.displayHTML = displayHTML;
+        this.playerSilhouette = new BodySelectionSilhouette(playerSilhouetteSVG, players.mainPlayer, UI_SCALE, 'main', Math.min(MINIMAL_SCREEN_SIZE / 2, SUMMARY_SILHOUETTE_SIZE / 2));
+        this.opponentSilhouette = new BodySelectionSilhouette(opponentSilhouetteSVG, players.opponent, UI_SCALE, 'side', Math.min(MINIMAL_SCREEN_SIZE / 2, SUMMARY_SILHOUETTE_SIZE / 2));
+        this.playerBodyPartSelection = playerBodyPartSelection;
+        this.enemyBodyPartSelection = enemyBodyPartSelection;
+        this.finishTurnButton = finishTurnButton;
+    }
+}
+
+class BodyPartSelection {
+    constructor(mainScreen, displaySVG, silhouette, backButton, finishTurnButton) {
+        this.displaySVG = displaySVG;
+        this.silhouette = silhouette;
+        this.backButton = backButton;
+        this.mainScreen = mainScreen;
+
+        this.backButton.onclick = () => {
+            hideElement(displaySVG);
+            hideElement(backButton);
+            showElement(mainScreen);
+        };
+        this.finishTurnButton = finishTurnButton;
+        this.finishTurnButton.addEventListener(() => {
+            hideElement(backButton);
+            hideElement(displaySVG);
+        });
+    }
+
+    getSelected() {
+        return this.silhouette.selected;
+    }
+}
+
+function showErrorMessage(message, time) {
+    battleScreenErrorHTML.innerHTML = message;
+    showElementForTime(battleScreenErrorHTML, time);
+}
+
+function clearErrorMessage() {
+    battleScreenErrorHTML.innerHTML = '';
+}
+
+/* CURRENTLY UNUSED */
+
+const battleScreenSelectionAbilityHTML = document.getElementById('battle-screen-selection-ability');
+    const battleScreenAbilitiesListHTML = document.getElementById('battle-screen-selection-abilities-list');
 
 class BattleSelectionsPanel {
     constructor(selections, previousSelectionButton, nextSelectionButton, battleScreenFinishTurnButton) {
@@ -99,6 +150,7 @@ class BattleSelection {
     }
 }
 
+
 function getSelectedPlayerAbilities() {
     let selectedAbilitiesTags = battleScreenAbilitiesListHTML.getElementsByClassName('player-ability');
 
@@ -133,13 +185,4 @@ function createPlayerAbilitiesListElement(skillInfo) {
     };
     
     battleScreenAbilitiesListHTML.appendChild(newAbility);
-}
-
-function showErrorMessage(message, time) {
-    battleScreenErrorHTML.innerHTML = message;
-    showElementForTime(battleScreenErrorHTML, time);
-}
-
-function clearErrorMessage() {
-    battleScreenErrorHTML.innerHTML = '';
 }

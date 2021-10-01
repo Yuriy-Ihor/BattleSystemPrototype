@@ -91,6 +91,9 @@
     padding-top: 5%;
 }
 
+/* UNUSED 
+
+
 #battle-screen-selection-ability {
     display: flex;
     flex-direction: column;
@@ -119,6 +122,18 @@
 
 #battle-screen-selection-abilities-list .selected {
     background-color: gold !important;
+}*/
+
+#battle-screen-player-selection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#player-selection {
+    display: flex;
+    justify-content: center;
 }
 
 .battle-screen-selection-body {
