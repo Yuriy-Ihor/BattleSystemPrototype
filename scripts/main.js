@@ -39,6 +39,9 @@ function startTurn() {
     //battleSelectionsPanel.showFirstSelection();
     // showElement(battleScreenSelectionAbilityHTML);
 
+    hideElement(battleScreenSelectionDefenseHTML);
+    hideElement(battleScreenSelectionAttackHTML);
+    
     showElement(battleScreenSelectionPlayerHTML);
     showElement(battleScreenSelectionHTML);
 }
@@ -59,7 +62,6 @@ function finishTurn() {
     enemySilhouette.disselectBodyPart();
 
     // battleScreenAbilitiesListHTML.innerHTML = '';
-
     hideElement(battleScreenSelectionHTML);
     showElement(battleSummaryScreenHTML);
 
