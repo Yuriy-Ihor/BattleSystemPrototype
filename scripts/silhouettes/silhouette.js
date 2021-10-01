@@ -444,14 +444,6 @@ class BodySelectionSilhouette extends Silhouette {
         }
     }
 
-    createBodyPartsUI() {
-        return;
-    }
-
-    initBodyPartsUI() {
-        return;
-    }
-
     fillAllBodyParts() {
         for(let i = 0; i < this.bodyParts.length; i++) {   
             this.fillImage(this.bodyParts[i]);
