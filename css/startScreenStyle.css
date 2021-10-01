@@ -6,6 +6,11 @@
     min-height: 90vh; /* <--- FIX THIS LATER */
 }
 
+#start-turn-button {
+    position: absolute;
+    bottom: 20px;
+}
+
 #player-description {
     display: flex;
     flex-direction: column;

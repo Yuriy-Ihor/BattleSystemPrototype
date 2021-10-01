@@ -13,6 +13,12 @@
     margin-bottom: 10px;
 }
 
+#battle-screen-next-turn {
+    position: absolute;
+    bottom: 20px;
+    
+}
+
 @media (max-width: 600px) {
     #player-silhouettes {
         /* flex-direction: column; */
