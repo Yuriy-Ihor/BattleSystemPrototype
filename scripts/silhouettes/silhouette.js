@@ -413,34 +413,34 @@ class BodySelectionSilhouette extends Silhouette {
             console.log("Body selected!");
         });
 
-        for(let bodyPartId in this.bodyPartsUI){
-            let bodyPartUI = this.bodyPartsUI[bodyPartId];
-            let targetBodyPart = bodyPartUI.uiGroup;
-            let image = bodyPartUI.getImage();
-
-            [targetBodyPart, image].forEach(element => element.addEventListener('mouseover', () => {
+        for(let i = 0; i < this.bodyParts.length; i++) {   
+            this.bodyParts[i].addEventListener('mouseover', () => {
                 this.fillAllBodyParts();
-            }));
+            });
 
-            [targetBodyPart, image].forEach(element => element.addEventListener('mouseout', () => {
+            this.bodyParts[i].addEventListener('mouseout', () => {
                 this.hollowAllBodyParts();
-            }));
+            });
         }   
     }
 
+    createBodyPartsUI() {
+        return;
+    }
+
+    initBodyPartsUI() {
+        return;
+    }
+
     fillAllBodyParts() {
-        for(let bodyPartId in this.bodyPartsUI){
-            let bodyPartUI = this.bodyPartsUI[bodyPartId];
-            let image = bodyPartUI.getImage();
-            this.fillImage(image);
+        for(let i = 0; i < this.bodyParts.length; i++) {   
+            this.fillImage(this.bodyParts[i]);
         }   
     }
 
     hollowAllBodyParts() {
-        for(let bodyPartId in this.bodyPartsUI){
-            let bodyPartUI = this.bodyPartsUI[bodyPartId];
-            let image = bodyPartUI.getImage();
-            this.hollowImage(image);
+        for(let i = 0; i < this.bodyParts.length; i++) {   
+            this.hollowImage(this.bodyParts[i]);
         }   
     }
 }
