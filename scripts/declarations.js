@@ -90,7 +90,7 @@ const enemySilhouette = new SelectableSilhouette(attackSvg, players.opponent, UI
 
 const playerSilhouetteSelection = new BodySelectionSilhouette(playerSelectionSilhouetteSVG, players.mainPlayer, UI_SCALE, 'main', Math.min(MINIMAL_SCREEN_SIZE / 2, SUMMARY_SILHOUETTE_SIZE / 2), playerSilhouette);
 const enemySilhouetteSelection = new BodySelectionSilhouette(enemySelectionSilhouetteSVG, players.opponent, UI_SCALE, 'side', Math.min(MINIMAL_SCREEN_SIZE / 2, SUMMARY_SILHOUETTE_SIZE / 2), enemySilhouette);
-        
+
 const playerBodySelection = new PlayerBodySelection(battleScreenSelectionPlayerHTML, playerSilhouetteSelection, enemySilhouetteSelection, battleScreenSelectionDefenseHTML, battleScreenSelectionAttackHTML, battleScreenFinishTurnButtonHTML);
 
 const playerActionsValidator = new PlayerActionsValidator(playerSilhouette, enemySilhouette);
