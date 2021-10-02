@@ -80,7 +80,6 @@
 
 #battle-screen-selections {
     font-size: 25px;
-    margin-top: -5%;
 }
 
 /* UNUSED 
@@ -119,7 +118,9 @@
 #battle-screen-player-selection {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: center;   
+    position: relative;
+    top: -180px;
 }
 
 #player-selection {
@@ -183,12 +184,6 @@
     }
 }
 
-@media (max-width: 1050px) {
-    #battle-screen-selections {
-        margin-top: 0;
-    }
-}
-
 @media (max-width: 950px) {
     .player-image {
         width: 140px;
@@ -208,6 +203,9 @@
         margin-left: 0;
         margin-right: 10px;
     }    
+    #battle-screen-player-selection {
+        top: -120px;
+    }
 }
 
 @media(max-width: 650px) {
@@ -221,11 +219,18 @@
     .player-bar-text {
         top: -20px;
     }
+    .player-selection-title {
+        font-size: 20px;
+        margin: 3px 0;
+    }
+    #battle-screen-player-selection {
+        top: -50px;
+    }
 }
 
 @media(max-width: 525px) {
     #battle-screen-selections {
-        margin-top: 30px;
+        
     }
     .battle-screen-selection-body {
         font-size: 20px;
@@ -237,13 +242,19 @@
         /* display: flex; */
         width: 100%;
     }
+    #battle-screen-player-selection {
+        top: -10px;
+    }
 }
 
 @media(max-height: 700px) {
     .player-ability {
         margin: 8px 10px;
     }
-    #battle-screen-selections {
-        margin-top: 0;
+    #battle-screen-selections .switch-button {
+        height: 40px;
+        margin: 5px 10px;
+        width: 110px;
+        font-size: 0.8rem;
     }
 }
