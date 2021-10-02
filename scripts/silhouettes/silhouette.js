@@ -246,7 +246,7 @@ class Silhouette{
             );
 
             var bodyPart = this.silhouetteSvg.getElementById(`${bodyPartName}-stroke`);
-            bodyPart.setAttribute("stroke", "ffffff");
+            bodyPart.setAttribute("stroke", color);
 
             var gradient = document.getElementById(`${this.relevance}-${bodyPartName}-gradient`);
             gradient.children[1].setAttribute("stop-color", color);

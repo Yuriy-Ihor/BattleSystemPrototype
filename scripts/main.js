@@ -122,6 +122,14 @@ function proceedBattleRezults() {
 
     playerSilhouette.updateBodyPartUI(enemyAttackedPart.id, players.mainPlayer.bodyParts[enemyAttackedPart.id]);
     enemySilhouette.updateBodyPartUI(playerAttackedPart.id, players.opponent.bodyParts[playerAttackedPart.id]);
+
+
+    animate_all_icons(
+        playerAttackedPart.id,
+        playerDefendedPart.id,
+        enemyAttackedPart.id,
+        enemyDefendedPart.id
+    );
 }
 
 function applyDamageToBodyPart(bodyPart, damage) {
