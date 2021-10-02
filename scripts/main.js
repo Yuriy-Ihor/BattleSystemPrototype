@@ -124,7 +124,8 @@ function proceedBattleRezults() {
         enemyDefendedPart.id
     );
 
-    delay = 3;
+    // console.log(delay);
+    // delay = 3;
     
     setTimeout(
         () => {
@@ -133,7 +134,7 @@ function proceedBattleRezults() {
         
             playerSilhouette.updateBodyPartUI(enemyAttackedPart.id, players.mainPlayer.bodyParts[enemyAttackedPart.id]);
             enemySilhouette.updateBodyPartUI(playerAttackedPart.id, players.opponent.bodyParts[playerAttackedPart.id]);
-        }, delay * 1000
+        }, 3 * 1000 /* CHANGE THIS LATER!!! */
     );
 
 

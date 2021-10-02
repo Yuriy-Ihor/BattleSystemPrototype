@@ -78,6 +78,7 @@ async function animate_all_icons(playerAttackedPartId, playerDefendedPartId, ene
             );
         }, (delay * 2 + duration) * 1000
     );
+
     return delay * 3 + duration;
 }
 
