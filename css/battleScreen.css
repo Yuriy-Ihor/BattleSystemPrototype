@@ -242,7 +242,8 @@
 
 @media(max-width: 525px) {
     #battle-screen-selections {
-        
+        position: relative;
+        top: 50px;
     }
     .battle-screen-selection-body {
         font-size: 20px;
