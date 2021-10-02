@@ -13,13 +13,6 @@
     stroke: black;
 }
 
-#battle-screen-selections .silhouette-part:hover {
-    cursor: pointer;
-    fill: green;
-    cursor: pointer;
-    transition-duration: .3s;
-}
-
 #battle-screen-selections .filled-body-part {
     fill: green;
 }
@@ -77,4 +70,13 @@ path {
 .no-opacity {
     transition: 0.5s;
     opacity: 0;
+}
+
+@media (hover: hover){ 
+    #battle-screen-selections .silhouette-part:hover {
+        cursor: pointer;
+        fill: green;
+        cursor: pointer;
+        transition-duration: .3s;
+    }
 }
