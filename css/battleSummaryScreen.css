@@ -29,6 +29,13 @@
     .summary-silhouette {
         stroke-width: 4;
     }
+    .battle-screen-player-summary {
+        font-size: 18px;
+        margin-left: 10px;
+        margin-right: 10px;
+        margin-bottom: 0;
+        padding-top: 0;
+    }
 }
 
 @media(max-height: 700px) {

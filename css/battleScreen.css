@@ -222,8 +222,8 @@
 
 @media(max-width: 650px) {
     .player-image {
-        width: 100px;
-        height: 100px;
+        width: 80px;
+        height: 80px;
     }
     .player-bar-container, .player-hp-bar, .player-mana-bar, .player-hp-amount, .player-mana-amount {
         height: 20px;
