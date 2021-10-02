@@ -55,3 +55,11 @@
     }
 }
 
+@media (max-height: 550px) {
+    #start-screen .switch-button {
+        height: 40px;
+        margin: 5px 10px;
+        width: 110px;
+        font-size: 0.8rem;
+    }
+}

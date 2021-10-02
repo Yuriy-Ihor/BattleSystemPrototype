@@ -51,7 +51,7 @@
     margin-right: 0;
 }
 
-@media(max-height: 700px) {
+@media (max-height: 600px) {
     #versus-text {
         margin-top: 25px;
         margin-bottom: 25px;
@@ -70,5 +70,14 @@
         font-size: 35px;
         margin-top: 15px;
         margin-bottom: 15px;
+    }
+}
+
+@media (max-height: 700px) {
+    #versus-screen .switch-button {
+        height: 40px;
+        margin: 5px 10px;
+        width: 110px;
+        font-size: 0.8rem;
     }
 }
