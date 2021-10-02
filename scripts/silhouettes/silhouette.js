@@ -237,7 +237,7 @@ class Silhouette{
         this.bodyPartsUI[targetBodyPart].updateUI(bodyPartInfo.currentLife);
     }
 
-    updateHealthColors() {
+    updateHealthColors(animated=false) {
         for (var bodyPartName in this.bodyPartsUI) {
             var color = lerpColor(
                 this.bodyPartsUI[bodyPartName].sideColor,
@@ -253,7 +253,7 @@ class Silhouette{
         }
     }
 
-    updateHealthHeight() {
+    updateHealthHeight(animated=false) {
         for (var bodyPartName in this.bodyPartsUI) {
             var color = this.bodyParts[bodyPartName].setAttribute("fill", color);
             this.bodyParts[bodyPartName].setAttribute("fill", `url(#${this.relevance}-${bodyPartName}-gradient)`);
@@ -334,6 +334,9 @@ class SummarySilhouette extends Silhouette {
             hideElement(this.bodyPartsUI[bodyPart].healthBar.barBackground);
         }
 
+        this.updateHealthColors();
+        this.updateHealthHeight();
+
         this.activeHealthBar = null;
     }
 
@@ -343,7 +346,9 @@ class SummarySilhouette extends Silhouette {
         //    this.activeHealthBar = null;
         //}
 
+        // console.log(">>>", targetBodyPart, "<<<", bodyPartInfo)
         this.bodyPartsUI[targetBodyPart].updateUI(bodyPartInfo.currentLife);
+        // console.log("hi");
 
         //this.activeHealthBar = this.bodyPartsUI[targetBodyPart].healthBar;
         // console.log(this.activeHealthBar);

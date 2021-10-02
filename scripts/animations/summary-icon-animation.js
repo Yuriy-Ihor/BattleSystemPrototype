@@ -23,7 +23,6 @@ async function animate_summary_icon(iconReference, targetX, targetY, framerate, 
 
     var nextFrame = function(frameIndex) {
         var opacity = String(frameIndex / frameCount).slice(0, 4) * targetOpacity;
-        console.log(targetOpacity);
         iconReference.setAttribute("fill-opacity", opacity);
     }
 
@@ -79,7 +78,7 @@ async function animate_all_icons(playerAttackedPartId, playerDefendedPartId, ene
             );
         }, (delay * 2 + duration) * 1000
     );
-    
+    return delay * 3 + duration;
 }
 
 // animate_summary_icon(

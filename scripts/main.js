@@ -116,20 +116,28 @@ function proceedBattleRezults() {
 
     players.opponent.playerStats[playerStats.hitpoints] -= totalDamage;
     players.opponent.playerStats[playerStats.mana] -= 7;*/
-    
-    turnSummaryDisplay.updatePlayerSilhouetteUI(enemyAttackedPart, playerDefendedPart, players.mainPlayer.bodyParts[enemyAttackedPart.id]);
-    turnSummaryDisplay.updateEnemySilhouetteUI(playerAttackedPart, enemyDefendedPart, players.opponent.bodyParts[playerAttackedPart.id]);
 
-    playerSilhouette.updateBodyPartUI(enemyAttackedPart.id, players.mainPlayer.bodyParts[enemyAttackedPart.id]);
-    enemySilhouette.updateBodyPartUI(playerAttackedPart.id, players.opponent.bodyParts[playerAttackedPart.id]);
-
-
-    animate_all_icons(
+    var delay = animate_all_icons(
         playerAttackedPart.id,
         playerDefendedPart.id,
         enemyAttackedPart.id,
         enemyDefendedPart.id
     );
+
+    delay = 3;
+    
+    setTimeout(
+        () => {
+            turnSummaryDisplay.updatePlayerSilhouetteUI(enemyAttackedPart, playerDefendedPart, players.mainPlayer.bodyParts[enemyAttackedPart.id]);
+            turnSummaryDisplay.updateEnemySilhouetteUI(playerAttackedPart, enemyDefendedPart, players.opponent.bodyParts[playerAttackedPart.id]);
+        
+            playerSilhouette.updateBodyPartUI(enemyAttackedPart.id, players.mainPlayer.bodyParts[enemyAttackedPart.id]);
+            enemySilhouette.updateBodyPartUI(playerAttackedPart.id, players.opponent.bodyParts[playerAttackedPart.id]);
+        }, delay * 1000
+    );
+
+
+
 }
 
 function applyDamageToBodyPart(bodyPart, damage) {
