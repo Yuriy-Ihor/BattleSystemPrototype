@@ -1,8 +1,13 @@
+
 #battle-screen-summary {
     display: flex;
     flex-direction: column;
     align-items: center;
     font-size: 40px;
+    justify-self: center;
+    align-self: center;
+    min-height: 90vh;
+    justify-content: center;
 }
 
 .battle-screen-player-summary {
@@ -11,12 +16,25 @@
     margin-bottom: 10px;
 }
 
+#battle-screen-next-turn {
+    position: absolute;
+    bottom: 20px;
+    
+}
+
 @media (max-width: 600px) {
     #player-silhouettes {
         /* flex-direction: column; */
     }
     .summary-silhouette {
         stroke-width: 4;
+    }
+    .battle-screen-player-summary {
+        font-size: 18px;
+        margin-left: 10px;
+        margin-right: 10px;
+        margin-bottom: 0;
+        padding-top: 0;
     }
 }
 

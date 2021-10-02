@@ -2,8 +2,13 @@
 const battleScreenHTML = document.getElementById("battle-screen");
 const battleScreenSelectionHTML = document.getElementById('battle-screen-selections');
 
-const battleScreenSelectionAbilityHTML = document.getElementById('battle-screen-selection-ability');
-    const battleScreenAbilitiesListHTML = document.getElementById('battle-screen-selection-abilities-list');
+const mainPlayerDisplay = document.getElementById('player-left');
+const opponentDisplay = document.getElementById('player-right');
+
+const battleScreenSelectionPlayerHTML = document.getElementById('battle-screen-player-selection');
+    const playerSelectionSilhouetteSVG = document.getElementById('battle-screen-selection-player-svg');
+    const enemySelectionSilhouetteSVG = document.getElementById('battle-screen-selection-enemy-svg');
+
 const battleScreenSelectionAttackHTML = document.getElementById('battle-screen-selection-body-attack');
     const attackSvg = document.getElementById('attack-selection-silhouette');
 const battleScreenSelectionDefenseHTML = document.getElementById('battle-screen-selection-body-defense');
@@ -18,6 +23,142 @@ const battleSummaryScreenHTML = document.getElementById('battle-screen-summary')
 const battleScreenNextTurnButtonHTML = document.getElementById('battle-screen-next-turn');
 
 const battleScreenErrorHTML = document.getElementById("battle-screen-error-message");
+
+const onTurnEnd = new Event('endturn');
+
+class PlayerActionsValidator {
+    constructor(playerSilhouette, enemySilhouette) {
+        this.playerSilhouette = playerSilhouette;
+        this.enemySilhouette = enemySilhouette;
+        this.errorMessageHTML = battleScreenErrorHTML;
+    }
+
+    canFinishTurn() {
+        return playerSilhouette.isBodyPartSelected() && enemySilhouette.isBodyPartSelected();
+    }
+
+    getErrorMessage() {
+        if(!playerSilhouette.isBodyPartSelected()) {
+            return 'You forgot to defend bodypart!';
+        }
+        else if(!enemySilhouette.isBodyPartSelected()) {
+            return "You forgot to attack opponent's bodypart!";
+        }
+    }
+
+    showErrorMessage(time) {
+        this.errorMessageHTML.innerHTML = this.getErrorMessage();
+        showElementForTime(this.errorMessageHTML, time);
+    }
+    
+    clearErrorMessage() {
+        this.errorMessageHTML.innerHTML = '';
+    }    
+}
+
+class PlayersDisplay {
+    constructor() {
+        this.playersBar = document.getElementById('players-bar');
+        this.mainPlayerDisplay = mainPlayerDisplay;
+        this.opponentDisplay = opponentDisplay;
+
+        this.mainPlayerShownStyle = 'display: flex; justify-content: center; flex-direction: column;';
+    }
+
+    hideMainPlayerDisplay() {
+        hideElement(mainPlayerDisplay);
+
+        this.playersBar.setAttribute('style', 'justify-content: flex-end;');
+        //this.playersBar.setAttribute('style', 'justify-content: center;');
+    }
+
+    hideOpponentDisplay() {
+        hideElement(opponentDisplay);
+        mainPlayerDisplay.setAttribute('style', this.mainPlayerShownStyle);
+
+        //this.playersBar.setAttribute('style', 'justify-content: center;');
+    }
+
+    showMainPlayerDisplay() {
+        showElement(mainPlayerDisplay);
+
+        this.playersBar.setAttribute('style', '');
+    }
+
+    showOpponentDisplay() {
+        showElement(opponentDisplay);
+        mainPlayerDisplay.setAttribute('style', '');
+    }
+}
+
+const playersDisplay = new PlayersDisplay();
+
+class PlayerBodySelection {
+    constructor(displayHTML, playerSilhouette, enemySilhouette, playerBodyPartSelection, enemyBodyPartSelection) {
+        this.displayHTML = displayHTML;
+        
+        this.playerBodyPartSelection = playerBodyPartSelection;
+        this.enemyBodyPartSelection = enemyBodyPartSelection;
+
+        playerSilhouette.silhouetteSvg.addEventListener('bodyselected', () => {
+            playersDisplay.hideOpponentDisplay();
+
+            hideElement(this.displayHTML);
+            showElement(this.playerBodyPartSelection);
+            showElement(battleScreenBackButtonHTML);
+
+            hideElement(battleScreenFinishTurnButtonHTML);
+        });
+
+        enemySilhouette.silhouetteSvg.addEventListener('bodyselected', () => {
+            playersDisplay.hideMainPlayerDisplay();
+
+            hideElement(this.displayHTML);
+            showElement(this.enemyBodyPartSelection);
+            showElement(battleScreenBackButtonHTML);
+
+            hideElement(battleScreenFinishTurnButtonHTML);
+        });
+
+        battleScreenBackButtonHTML.onclick = () => {
+            playersDisplay.showMainPlayerDisplay();
+            playersDisplay.showOpponentDisplay();
+
+            hideElement(battleScreenBackButtonHTML);
+            hideElement(this.playerBodyPartSelection);
+            hideElement(this.enemyBodyPartSelection);
+            showElement(this.displayHTML);
+
+            showElement(battleScreenFinishTurnButtonHTML);
+        };
+    }
+}
+
+class BodyPartSelection {
+    constructor(mainScreen, displaySVG, silhouette, backButton, finishTurnButton) {
+        this.displaySVG = displaySVG;
+        this.silhouette = silhouette;
+        this.backButton = backButton;
+        this.mainScreen = mainScreen;
+
+        this.backButton.onclick = () => {
+            hideElement(displaySVG);
+            hideElement(backButton);
+            showElement(mainScreen);
+        };
+        this.finishTurnButton = finishTurnButton;
+        this.finishTurnButton.addEventListener(() => {
+            hideElement(backButton);
+            hideElement(displaySVG);
+            
+        });
+    }
+}
+
+/* CURRENTLY UNUSED */
+
+const battleScreenSelectionAbilityHTML = document.getElementById('battle-screen-selection-ability');
+    const battleScreenAbilitiesListHTML = document.getElementById('battle-screen-selection-abilities-list');
 
 class BattleSelectionsPanel {
     constructor(selections, previousSelectionButton, nextSelectionButton, battleScreenFinishTurnButton) {
@@ -99,6 +240,7 @@ class BattleSelection {
     }
 }
 
+
 function getSelectedPlayerAbilities() {
     let selectedAbilitiesTags = battleScreenAbilitiesListHTML.getElementsByClassName('player-ability');
 
@@ -133,13 +275,4 @@ function createPlayerAbilitiesListElement(skillInfo) {
     };
     
     battleScreenAbilitiesListHTML.appendChild(newAbility);
-}
-
-function showErrorMessage(message, time) {
-    battleScreenErrorHTML.innerHTML = message;
-    showElementForTime(battleScreenErrorHTML, time);
-}
-
-function clearErrorMessage() {
-    battleScreenErrorHTML.innerHTML = '';
 }

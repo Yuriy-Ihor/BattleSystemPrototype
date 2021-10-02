@@ -2,22 +2,35 @@
 const silhouetteImagePath = 'silhouette-parts';
 
 const healthBarPaddingY = 8;
-const bodyPartUIPaddingY = 15;
 const iconsPaddingY = 10;
 const bodyPartUIHealthBarWidth = 40;
 const bodyPartUIHealthBarHeight = 10;
+const bodyPartUIHealthBarRadius = 20;
 const barStrokePadding = 5;
 const fontRatio = 0.6;
 const fontSize = 20;
+const circleWidth = 12;
+const SummaryfontSize = 30;
 
 class Bar {
-    constructor(x, y, baseValue, width, height, mainColor, sideColor) {
+    constructor(x, y, baseValue, mainColor) {
         this.group = document.createElementNS("http://www.w3.org/2000/svg", 'g');
+        this.mainColor = mainColor;
+    }
+
+    updateFillAmount(value) {
+        return this.currentColor;
+    }
+}
+
+class RectangularBar extends Bar {
+    constructor(x, y, baseValue, width, height, mainColor, sideColor) {
+        super(x, y, baseValue, mainColor);
+        
         this.fillView = document.createElementNS("http://www.w3.org/2000/svg", 'rect');
         this.barBackground = document.createElementNS("http://www.w3.org/2000/svg", 'rect');
         this.wrapperRect = document.createElementNS("http://www.w3.org/2000/svg", 'rect');
 
-        this.mainColor = mainColor;
         this.currentColor = this.mainColor;
         this.sideColor = sideColor;
 
@@ -55,7 +68,6 @@ class Bar {
     }
 
     updateFillAmount(value) {
-
         this.currentValue = value;
 
         let fillAmount = value / this.baseValue;
@@ -75,6 +87,73 @@ class Bar {
             hideElement(this.barBackground);
             this.barBackground.classList.add('no-opacity');
         }
+
+        return this.currentColor;
+    }
+}
+
+class CircularBar extends Bar {
+    constructor(x, y, baseValue, radius, mainColor, sideColor) {
+        super(x, y, baseValue, mainColor);
+        
+        this.fillView = document.createElementNS("http://www.w3.org/2000/svg", 'circle');
+        this.percentText = document.createElementNS("http://www.w3.org/2000/svg", 'text');
+        this.barBackground = document.createElementNS("http://www.w3.org/2000/svg", 'circle');
+
+        this.currentColor = this.mainColor;
+        this.sideColor = sideColor;
+
+        //[this.fillView, this.barBackground].forEach(element => {
+        [this.fillView, this.barBackground].forEach(element => {
+            element.setAttribute('r', radius);
+            element.setAttribute('cx', x);
+            element.setAttribute('cy', y);
+            element.setAttribute('fill', mainColor);
+            element.setAttribute('stroke-dasharray', radius * 2 * Math.PI);
+        });
+        
+        this.percentText.setAttribute('x', x - (baseValue.toString()).length * SummaryfontSize * fontRatio / 2);
+        this.percentText.setAttribute('y', y + SummaryfontSize * fontRatio / 2);
+        this.percentText.setAttribute('class', 'circle-bar-amount');
+        this.percentText.setAttribute('font-size', SummaryfontSize + 'px');
+        this.percentText.textContent = baseValue;
+
+        this.fillView.setAttribute('class', 'circle-bar-fill-view');
+        this.barBackground.setAttribute('class', 'circle-bar-background');
+
+        this.currentValue = baseValue;
+        this.baseValue = baseValue;
+
+        this.group.appendChild(this.barBackground);
+        this.group.appendChild(this.fillView);
+        this.group.appendChild(this.percentText);
+    }
+
+    updateFillAmount(value) {
+        this.currentValue = value;
+
+        let currentPercentage = this.currentValue / this.baseValue;
+        this.currentColor = lerpColor(
+            this.sideColor,
+            this.mainColor,
+            currentPercentage
+        );
+        currentPercentage *= 100;
+
+        var val = currentPercentage;
+        var circle = this.fillView;
+
+        var r = circle.getAttribute('r');
+        var c = Math.PI*(r*2);
+        
+        if (val < 0) { val = 0;}
+        if (val > 100) { val = 100;}
+            
+        var pct = ((100-val)/100)*c;
+            
+        circle.setAttribute('stroke-dashoffset', pct);
+        
+        this.percentText.textContent = value;
 
         return this.currentColor;
     }
@@ -120,7 +199,7 @@ class BodyPartUI {
         let x = this.uiGroup.getAttribute('x');
         let y = this.uiGroup.getAttribute('y');
 
-        let newBar = new Bar(
+        let newBar = new RectangularBar(
             this.scale * (x - bodyPartUIHealthBarWidth * 0.5),
             this.scale * (parseFloat(y) + healthBarPaddingY),
             baseValue,
@@ -162,7 +241,7 @@ class BodyPartUI {
     
     drawShootChance(chance) {
         let shootChanceText = document.createElementNS("http://www.w3.org/2000/svg", 'text');
-        shootChanceText.innerText = chance;
+
         let textNode = document.createTextNode(chance * 100 + "%");
         shootChanceText.setAttribute('font-size', fontSize + 'px');
         shootChanceText.appendChild(textNode);
@@ -200,6 +279,63 @@ class BodyPartUI {
     }
 }
 
+class SummaryBodyPartUI extends BodyPartUI {
+    init() {
+        this.uiGroup.setAttribute('class', 'body-part-ui-group');
+        this.uiGroup.setAttribute('width', 30);
+
+        let x = this.relevance === "main" ? silhouette_bar_coordinate_map_main[this.bodyPartName]["left"] * this.scale : silhouette_bar_coordinate_map_side[this.bodyPartName]["left"] * this.scale;
+        let y = this.relevance === "main" ? silhouette_bar_coordinate_map_main[this.bodyPartName]["top"] * this.scale : silhouette_bar_coordinate_map_side[this.bodyPartName]["top"] * this.scale;
+
+        this.uiGroup.setAttribute('x', x);
+        this.uiGroup.setAttribute('y', y);
+
+        this.healthBar = this.createHealthBar(this.bodyPartBaseInfo.baseLife);
+        this.uiGroup.appendChild(this.healthBar.group);
+
+        hideElement(this.uiGroup);
+    }
+
+    createHealthBar(baseValue) { 
+        let x = this.uiGroup.getAttribute('x');
+        let y = this.uiGroup.getAttribute('y');
+
+        let newBar = new CircularBar(
+            this.scale * (x - bodyPartUIHealthBarWidth * 0.5),
+            this.scale * (parseFloat(y) + healthBarPaddingY),
+            baseValue,
+            this.scale * (bodyPartUIHealthBarRadius),
+            this.mainColor,
+            this.sideColor
+        );
+
+        return newBar;
+    }
+
+    updateUI(currentHealth) {
+        if(currentHealth <= 0) {
+            var that = this;
+            setTimeout(function () {
+                that.bodyPartImage.classList.add('killed');
+                if(hasClass(that.bodyPartImage, 'damaged')) {
+                    that.bodyPartImage.classList.remove('damaged');
+                }
+                that.currentColor = that.healthBar.updateFillAmount(currentHealth);
+            }, 100);
+            return;
+        }
+        if(currentHealth < this.bodyPartBaseInfo.baseLife) {
+            var that = this;
+            setTimeout(function () {
+                if(!hasClass(that.bodyPartImage, 'damaged')) {
+                    that.bodyPartImage.classList.add('damaged');
+                }
+                that.currentColor = that.healthBar.updateFillAmount(currentHealth);
+            }, 300);
+        }
+    }
+}
+
 class Silhouette{
     constructor(silhouetteSvg, targetPlayer, scale, relevance, silhouetteSize) {
         
@@ -211,6 +347,17 @@ class Silhouette{
 
         this.bodyParts = this.silhouetteSvg.getElementsByClassName('silhouette-part');
 
+
+        this.silhouetteSvg.setAttribute('width', silhouetteSize);
+        this.silhouetteSvg.setAttribute('height', silhouetteSize);
+        
+        this.targetPlayer = targetPlayer;
+
+        this.createBodyPartsUI(targetPlayer);
+        this.initBodyPartsUI();
+    }
+
+    createBodyPartsUI(targetPlayer) {    
         for(let i = 0; i < this.bodyParts.length; i++) {
             let bodyPartImage = this.bodyParts[i];
             let bodyPartInfo = targetPlayer.bodyParts[bodyPartImage.id];
@@ -218,19 +365,20 @@ class Silhouette{
             
             this.bodyPartsUI[bodyPartImage.id] = bodyPartUI;
         }
-        
+    }
+
+    initBodyPartsUI() {
         for(let bodyPartId in this.bodyPartsUI) {
             this.bodyPartsUI[bodyPartId].init();
-            silhouetteSvg.appendChild(this.bodyPartsUI[bodyPartId].uiGroup);
+            this.silhouetteSvg.appendChild(this.bodyPartsUI[bodyPartId].uiGroup);
         }
 
         this.silhouetteSvg.setAttribute('width', silhouetteSize);
         this.silhouetteSvg.setAttribute('height', silhouetteSize);
         
         this.targetPlayer = targetPlayer;
-        
-    }
 
+    }
 
     updateBodyPartUI(targetBodyPart, bodyPartInfo) {
         this.bodyPartsUI[targetBodyPart].bodyPartInfo = bodyPartInfo;
@@ -264,10 +412,6 @@ class Silhouette{
         }
     }
 
-    getImagesPath(type, id) {
-        return `${silhouetteImagePath}/${this.relevance}/${type}/${id}-${type}.png`;
-    }
-
     hollowImage(image) { 
         image.setAttribute('fill', 'none');
         image.classList.remove("filled-body-part")
@@ -284,6 +428,68 @@ class Silhouette{
     }
 }
 
+const onBodySelectedEvent = new Event('bodyselected')
+const onBodyPartSelectedEvent = new Event('bodypartselected')
+
+class BodySelectionSilhouette extends Silhouette {
+    constructor(silhouetteSvg, targetPlayer, scale, relevance, silhouetteSize, relatedSilhouette) {
+        super(silhouetteSvg, targetPlayer, scale, relevance, silhouetteSize);
+
+        for(let i = 0; i < this.bodyParts.length; i++) {   
+            this.bodyParts[i].addEventListener('mouseover', () => {
+                this.fillAllBodyParts();
+            });
+
+            this.bodyParts[i].addEventListener('mouseout', () => {
+                this.hollowAllBodyParts();
+            });
+                
+            this.bodyParts[i].addEventListener('mousedown', () => {
+                silhouetteSvg.dispatchEvent(onBodySelectedEvent);
+            });
+        }   
+
+        this.relatedSilhouette = relatedSilhouette;
+
+        for(let bodyPartId in this.relatedSilhouette.bodyPartsUI){
+            let bodyPartUI = this.relatedSilhouette.bodyPartsUI[bodyPartId];
+            
+            let image = bodyPartUI.getImage();
+
+            image.addEventListener('bodypartselected', () => {
+                if(this.selected != null) {
+                    this.hollowImage(this.selected);
+                }
+                
+                this.selected = this.bodyParts[this.relatedSilhouette.selected.id];
+                this.fillImage(this.selected);
+            });
+        }
+    }
+
+    fillAllBodyParts() {
+        for(let i = 0; i < this.bodyParts.length; i++) {   
+            this.fillImage(this.bodyParts[i]);
+        }   
+    }
+
+    hollowAllBodyParts() {
+        for(let i = 0; i < this.bodyParts.length; i++) {   
+            if(this.selected == this.bodyParts[i]) {
+                continue;
+            }
+            this.hollowImage(this.bodyParts[i]);
+        }   
+    }
+
+    disselectBodyPart() {
+        if(this.selected != null) {
+            this.hollowImage(this.selected);
+            this.selected = null;
+        }
+    }
+}
+
 class SelectableSilhouette extends Silhouette {
     constructor(silhouetteSvg, targetPlayer, scale, relevance, silhouetteSize) {
         super(silhouetteSvg, targetPlayer, scale, relevance, silhouetteSize);
@@ -292,15 +498,15 @@ class SelectableSilhouette extends Silhouette {
             let bodyPartUI = this.bodyPartsUI[bodyPartId];
             let targetBodyPart = bodyPartUI.uiGroup;
             let image = bodyPartUI.getImage();
-            
-            const elements = [targetBodyPart, image];
 
-            elements.forEach(element => element.addEventListener('mousedown', () => {
+            [targetBodyPart, image].forEach(element => element.addEventListener('mousedown', () => {
                 if(this.selected != null) {
                     this.hollowImage(this.selected);
                 }
                 this.selected = image;
                 this.fillImage(this.selected);
+
+                this.selected.dispatchEvent(onBodyPartSelectedEvent);
             }));
         }
         this.selected = null;
@@ -319,19 +525,21 @@ class SelectableSilhouette extends Silhouette {
 class SummarySilhouette extends Silhouette {
     constructor(silhouetteSvg, targetPlayer, scale, relevance, silhouetteSize) {
         super(silhouetteSvg, targetPlayer, scale, relevance, silhouetteSize);
-        
+               
         //this.attackedIcon = createImage('images/sight.png', 'attacked-icon', 50, 50, 0, 0, 'silhouette-icon');
         //this.defendedIcon = createImage('images/shield.png', 'defended-icon', 50, 50, 0, 0, 'silhouette-icon');
 
         //display.appendChild(this.attackedIcon);
         //display.appendChild(this.defendedIcon);
+    }
 
-        for(let bodyPart in this.bodyPartsUI) {
-            hideElement(this.bodyPartsUI[bodyPart].shootChanceText);
-            hideElement(this.bodyPartsUI[bodyPart].healthBar.wrapperRect);
-
-            hideElement(this.bodyPartsUI[bodyPart].healthBar.fillView);
-            hideElement(this.bodyPartsUI[bodyPart].healthBar.barBackground);
+    createBodyPartsUI(targetPlayer) {    
+        for(let i = 0; i < this.bodyParts.length; i++) {
+            let bodyPartImage = this.bodyParts[i];
+            let bodyPartInfo = targetPlayer.bodyParts[bodyPartImage.id];
+            let bodyPartUI = new SummaryBodyPartUI(bodyPartImage.id, bodyPartImage, bodyPartInfo, this.scale, this.relevance);
+            
+            this.bodyPartsUI[bodyPartImage.id] = bodyPartUI;
         }
 
         this.updateHealthColors();
@@ -353,6 +561,10 @@ class SummarySilhouette extends Silhouette {
         //this.activeHealthBar = this.bodyPartsUI[targetBodyPart].healthBar;
         // console.log(this.activeHealthBar);
         //showElement(this.activeHealthBar.group);
+    }
+
+    updateBodyPartUI(targetBodyPart, bodyPartInfo) {
+        this.bodyPartsUI[targetBodyPart].updateUI(bodyPartInfo.currentLife);
     }
 
     showAttackedIcon(bodyPart) {

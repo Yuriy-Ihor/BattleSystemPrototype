@@ -85,20 +85,31 @@ function initOpponent() {
 
 const enemyBot = new EnemyBot(players.opponent);
 
-const enemySilhouette = new SelectableSilhouette(attackSvg, players.opponent, UI_SCALE, 'side', SILHOUETTE_SIZE * UI_SCALE);
-const playerSilhouette = new SelectableSilhouette(defenseSvg, players.mainPlayer, UI_SCALE, 'main', SILHOUETTE_SIZE * UI_SCALE);
+const playerSilhouette = new SelectableSilhouette(defenseSvg, players.mainPlayer, UI_SCALE, 'main', Math.min(MINIMAL_SCREEN_SIZE, SILHOUETTE_SIZE * UI_SCALE));
+const enemySilhouette = new SelectableSilhouette(attackSvg, players.opponent, UI_SCALE, 'side', Math.min(MINIMAL_SCREEN_SIZE, SILHOUETTE_SIZE * UI_SCALE));
 
-const abilitySelection = new BattleSelection(battleScreenSelectionAbilityHTML);
-abilitySelection.getSelected = getSelectedPlayerAbilities;
+const playerSilhouetteSelection = new BodySelectionSilhouette(playerSelectionSilhouetteSVG, players.mainPlayer, UI_SCALE, 'main', Math.min(MINIMAL_SCREEN_SIZE / 2, SUMMARY_SILHOUETTE_SIZE / 2), playerSilhouette);
+const enemySilhouetteSelection = new BodySelectionSilhouette(enemySelectionSilhouetteSVG, players.opponent, UI_SCALE, 'side', Math.min(MINIMAL_SCREEN_SIZE / 2, SUMMARY_SILHOUETTE_SIZE / 2), enemySilhouette);
+
+const playerBodySelection = new PlayerBodySelection(battleScreenSelectionPlayerHTML, playerSilhouetteSelection, enemySilhouetteSelection, battleScreenSelectionDefenseHTML, battleScreenSelectionAttackHTML, battleScreenFinishTurnButtonHTML);
+
+const playerActionsValidator = new PlayerActionsValidator(playerSilhouette, enemySilhouette);
+
 
 const attackSelection = new BattleSelection(battleScreenSelectionAttackHTML);
-attackSelection.getSelected = () => { 
-    return enemySilhouette.selected;
-};
+attackSelection.getSelected = () => { return enemySilhouette.selected; };
 
 const defenseSelection = new BattleSelection(battleScreenSelectionDefenseHTML);
 defenseSelection.getSelected = () => { return playerSilhouette.selected };
 
+const turnSummaryDisplay = new TurnSummaryDisplay(turnSummaryPlayerDisplaySvg, turnSummaryEnemyDisplaySvg, players.mainPlayer, players.opponent);
+
+/* CURRENTLY UNUSED */
+
+const abilitySelection = new BattleSelection(battleScreenSelectionAbilityHTML);
+abilitySelection.getSelected = getSelectedPlayerAbilities;
+
+/*
 const battleSelectionsPanel = new BattleSelectionsPanel(
     //[abilitySelection, attackSelection, defenseSelection],
     [attackSelection, defenseSelection],
@@ -106,5 +117,4 @@ const battleSelectionsPanel = new BattleSelectionsPanel(
     battleScreenNextButtonHTML,
     battleScreenFinishTurnButtonHTML
 );
-
-const turnSummaryDisplay = new TurnSummaryDisplay(turnSummaryPlayerDisplaySvg, turnSummaryEnemyDisplaySvg, players.mainPlayer, players.opponent);
+*/

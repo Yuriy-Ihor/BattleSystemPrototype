@@ -1,4 +1,8 @@
 
+.player-selection .silhouette-part:hover {
+    
+}
+
 .silhouette-part {
     stroke-width: 3px;
     stroke: green;
@@ -13,13 +17,6 @@
 .silhouette-part-stroke {
     fill: none;
     stroke-width: 3px;
-}
-
-#battle-screen-selections .silhouette-part:hover {
-    cursor: pointer;
-    fill: green;
-    cursor: pointer;
-    transition-duration: .3s;
 }
 
 #battle-screen-selections .filled-body-part {
@@ -40,6 +37,24 @@ path {
 
 .killed {
     transition-duration: 1s; 
+}
+
+.circle-bar-background {
+    fill: transparent;
+    stroke: black;
+    stroke-width: 16px;
+}
+
+.circle-bar-amount {
+    fill: black;
+    stroke: green;
+}
+
+.circle-bar-fill-view {
+    transition: stroke-dashoffset 1s linear;
+    stroke: rgb(3, 187, 3);
+    stroke-width: 12px;
+    fill: none;
 }
 
 .bar-fill-view {
@@ -77,4 +92,11 @@ path {
 .target-icon-path {
     fill: red;
     transform: scale(0.2, 0.2);
+@media (hover: hover){ 
+    #battle-screen-selections .silhouette-part:hover {
+        cursor: pointer;
+        fill: green;
+        cursor: pointer;
+        transition-duration: .3s;
+    }
 }
