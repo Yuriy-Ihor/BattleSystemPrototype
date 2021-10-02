@@ -63,4 +63,12 @@
     .versus-screen-player-display {
         max-width: 250px;
     }
+    .versus-screen-player-display-name {
+        font-size: 30px;
+    }
+    #versus-text {
+        font-size: 35px;
+        margin-top: 15px;
+        margin-bottom: 15px;
+    }
 }

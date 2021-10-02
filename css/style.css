@@ -55,7 +55,7 @@ img {
     .switch-button {
         height: 40px;
         margin: 5px 10px;
-        font-size: 1.2rem;
         width: 110px;
+        font-size: 0.8rem;
     }
 }
