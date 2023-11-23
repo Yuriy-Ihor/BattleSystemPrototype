@@ -11,6 +11,12 @@
 
 #battle-screen-summary .silhouette-part {
     stroke: black;
+    stroke-width: 5px;
+}
+
+.silhouette-part-stroke {
+    fill: none;
+    stroke-width: 3px;
 }
 
 #battle-screen-selections .filled-body-part {
@@ -72,6 +78,20 @@ path {
     opacity: 0;
 }
 
+.attack-icon {
+    background: none;
+    transform-origin: center center;
+}
+
+.shield-icon-path {
+    fill: white;
+    /* fill-opacity: 0.75; */
+    transform: scale(2.5, 2.5);
+}
+
+.target-icon-path {
+    fill: red;
+    transform: scale(0.2, 0.2);
 @media (hover: hover){ 
     #battle-screen-selections .silhouette-part:hover {
         cursor: pointer;

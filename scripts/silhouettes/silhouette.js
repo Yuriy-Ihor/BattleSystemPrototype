@@ -347,6 +347,7 @@ class Silhouette{
 
         this.bodyParts = this.silhouetteSvg.getElementsByClassName('silhouette-part');
 
+
         this.silhouetteSvg.setAttribute('width', silhouetteSize);
         this.silhouetteSvg.setAttribute('height', silhouetteSize);
         
@@ -371,6 +372,12 @@ class Silhouette{
             this.bodyPartsUI[bodyPartId].init();
             this.silhouetteSvg.appendChild(this.bodyPartsUI[bodyPartId].uiGroup);
         }
+
+        this.silhouetteSvg.setAttribute('width', silhouetteSize);
+        this.silhouetteSvg.setAttribute('height', silhouetteSize);
+        
+        this.targetPlayer = targetPlayer;
+
     }
 
     updateBodyPartUI(targetBodyPart, bodyPartInfo) {
@@ -378,14 +385,30 @@ class Silhouette{
         this.bodyPartsUI[targetBodyPart].updateUI(bodyPartInfo.currentLife);
     }
 
-    updateHealthColors() {
+    updateHealthColors(animated=false) {
         for (var bodyPartName in this.bodyPartsUI) {
             var color = lerpColor(
                 this.bodyPartsUI[bodyPartName].sideColor,
                 this.bodyPartsUI[bodyPartName].mainColor,
                 this.bodyPartsUI[bodyPartName].bodyPartInfo.currentLife / this.bodyPartsUI[bodyPartName].bodyPartInfo.baseLife
             );
-            this.bodyParts[bodyPartName].setAttribute("fill", color);
+
+            var bodyPart = this.silhouetteSvg.getElementById(`${bodyPartName}-stroke`);
+            bodyPart.setAttribute("stroke", color);
+
+            var gradient = document.getElementById(`${this.relevance}-${bodyPartName}-gradient`);
+            gradient.children[1].setAttribute("stop-color", color);
+        }
+    }
+
+    updateHealthHeight(animated=false) {
+        for (var bodyPartName in this.bodyPartsUI) {
+            var color = this.bodyParts[bodyPartName].setAttribute("fill", color);
+            this.bodyParts[bodyPartName].setAttribute("fill", `url(#${this.relevance}-${bodyPartName}-gradient)`);
+            var gradient = document.getElementById(`${this.relevance}-${bodyPartName}-gradient`);
+            var part = Math.round(100 - 100 * this.bodyPartsUI[bodyPartName].bodyPartInfo.currentLife / this.bodyPartsUI[bodyPartName].bodyPartInfo.baseLife);
+            gradient.children[0].setAttribute("offset", `${part}%`);
+            gradient.children[1].setAttribute("offset", `${part}%`);
         }
     }
 
@@ -518,6 +541,26 @@ class SummarySilhouette extends Silhouette {
             
             this.bodyPartsUI[bodyPartImage.id] = bodyPartUI;
         }
+
+        this.updateHealthColors();
+        this.updateHealthHeight();
+
+        this.activeHealthBar = null;
+    }
+
+    updateBodyPartUI(targetBodyPart, bodyPartInfo) {
+        //if(this.activeHealthBar != null) {
+           // hideElement(this.activeHealthBar.group);
+        //    this.activeHealthBar = null;
+        //}
+
+        // console.log(">>>", targetBodyPart, "<<<", bodyPartInfo)
+        this.bodyPartsUI[targetBodyPart].updateUI(bodyPartInfo.currentLife);
+        // console.log("hi");
+
+        //this.activeHealthBar = this.bodyPartsUI[targetBodyPart].healthBar;
+        // console.log(this.activeHealthBar);
+        //showElement(this.activeHealthBar.group);
     }
 
     updateBodyPartUI(targetBodyPart, bodyPartInfo) {

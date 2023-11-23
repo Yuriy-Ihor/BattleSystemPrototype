@@ -115,9 +115,28 @@ function proceedBattleRezults() {
 
     players.opponent.playerStats[playerStats.hitpoints] -= totalDamage;
     players.opponent.playerStats[playerStats.mana] -= 7;*/
+
+    var delay = animate_all_icons(
+        playerAttackedPart.id,
+        playerDefendedPart.id,
+        enemyAttackedPart.id,
+        enemyDefendedPart.id
+    );
+
+    // console.log(delay);
+    // delay = 3;
     
-    turnSummaryDisplay.updatePlayerSilhouetteUI(enemyAttackedPart, playerDefendedPart, players.mainPlayer.bodyParts[enemyAttackedPart.id]);
-    turnSummaryDisplay.updateEnemySilhouetteUI(playerAttackedPart, enemyDefendedPart, players.opponent.bodyParts[playerAttackedPart.id]);
+    setTimeout(
+        () => {
+            turnSummaryDisplay.updatePlayerSilhouetteUI(enemyAttackedPart, playerDefendedPart, players.mainPlayer.bodyParts[enemyAttackedPart.id]);
+            turnSummaryDisplay.updateEnemySilhouetteUI(playerAttackedPart, enemyDefendedPart, players.opponent.bodyParts[playerAttackedPart.id]);
+        
+            playerSilhouette.updateBodyPartUI(enemyAttackedPart.id, players.mainPlayer.bodyParts[enemyAttackedPart.id]);
+            enemySilhouette.updateBodyPartUI(playerAttackedPart.id, players.opponent.bodyParts[playerAttackedPart.id]);
+        }, 3 * 1000 /* CHANGE THIS LATER!!! */
+    );
+
+
 
     playerSilhouette.updateBodyPartUI(enemyAttackedPart.id, players.mainPlayer.bodyParts[enemyAttackedPart.id]);
     enemySilhouette.updateBodyPartUI(playerAttackedPart.id, players.opponent.bodyParts[playerAttackedPart.id]);
